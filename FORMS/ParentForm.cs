@@ -31,11 +31,11 @@ namespace SampleRPT1
             {
                 x.MouseHover += (obj, arg) => ((ToolStripDropDownItem)obj).ShowDropDown();
             });
-            MenuItemHome_Click(null, null);
+            CreateOrShowMainForm();
             GlobalVariables.MAINFORM = mainForm;
         }
 
-        private void MenuItemHome_Click(object sender, EventArgs e)
+        private void CreateOrShowMainForm()
         {
             if (mainForm == null)
             {
@@ -45,6 +45,11 @@ namespace SampleRPT1
             }
             mainForm.Show();
             mainForm.WindowState = FormWindowState.Maximized;
+        }
+
+        private void MenuItemHome_Click(object sender, EventArgs e)
+        {
+            CreateOrShowMainForm();
         }
 
         private void MenuItemGcashPaymaya_Click(object sender, EventArgs e)

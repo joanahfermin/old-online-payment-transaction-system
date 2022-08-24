@@ -124,6 +124,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ParentForm";
             this.Text = "ParentForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParentForm_FormClosed);
             this.Load += new System.EventHandler(this.ParentForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

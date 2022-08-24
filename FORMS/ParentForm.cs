@@ -13,6 +13,7 @@ namespace SampleRPT1
 {
     public partial class ParentForm : Form
     {
+        RPTUserLoginForm loginForm;
         MainForm mainForm;
         public ParentForm()
         {
@@ -20,6 +21,10 @@ namespace SampleRPT1
             this.WindowState = FormWindowState.Maximized;
         }
 
+        public void SetLoginForm(RPTUserLoginForm _loginForm)
+        {
+            this.loginForm = _loginForm;
+        }
         private void ParentForm_Load(object sender, EventArgs e)
         {
             this.menuStrip1.Items.OfType<ToolStripMenuItem>().ToList().ForEach(x =>
@@ -66,8 +71,16 @@ namespace SampleRPT1
         private void MenuItemEmailTemplate_Click(object sender, EventArgs e)
         {
             EmailTemplateForm emailTemplateForm = new EmailTemplateForm();
-            //emailTemplateForm.setParent(this);
             emailTemplateForm.ShowDialog();
+        }
+
+        private void ParentForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // When parent form is closed, we should also close the invisible login form
+            if (loginForm!=null)
+            {
+                loginForm.Close();
+            }
         }
     }
 }

@@ -35,7 +35,9 @@ namespace SampleRPT1
                 return;
             }
             GlobalVariables.RPTUSER = rptUser;
-            new ParentForm().Show();
+            ParentForm parentForm = new ParentForm();
+            parentForm.SetLoginForm(this);
+            parentForm.Show();
             this.Hide();
         }
     }

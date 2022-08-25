@@ -10,6 +10,8 @@ using System.IO;
 using System.Net.Mime;
 using System.Drawing.Imaging;
 using System.Configuration;
+using SampleRPT1.MODEL;
+using SampleRPT1.DATABASE;
 
 namespace SampleRPT1
 {
@@ -25,12 +27,16 @@ namespace SampleRPT1
          */
 
         //EMAIL SENDER
+        /*
         private static string FROM_EMAIL_ADDRESS = ConfigurationManager.AppSettings["GmailUser"]; // email address gamit natin pang send ng email
 
         private static string FROM_EMAIL_PASSWORD = ConfigurationManager.AppSettings["GmailPwd"]; // password nung sending email address
+        */
 
         public static bool SendMail(string recipient, string subject, string body, Image atachImage)
         {
+            EmailAccount emailAccount = EmailAccountDatabase.GetEmailAccount();
+
             string finalyEmailBody = body;
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
@@ -44,13 +50,13 @@ namespace SampleRPT1
                     Host = ConfigurationManager.AppSettings["GmailHost"],
                     EnableSsl = true,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(FROM_EMAIL_ADDRESS, FROM_EMAIL_PASSWORD),
+                    Credentials = new NetworkCredential(emailAccount.UserName, emailAccount.PassWord),
                     DeliveryMethod = SmtpDeliveryMethod.Network
                 })
                 using (MailMessage message = new MailMessage() // Prepare the email message we wish to send
                 {
                     IsBodyHtml = true,
-                    From = new MailAddress(FROM_EMAIL_ADDRESS),
+                    From = new MailAddress(emailAccount.UserName),
                     Subject = subject,
                     Body = finalyEmailBody
                 })

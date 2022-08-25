@@ -68,3 +68,8 @@ CREATE TABLE Jo_Z4(
 	DocumentType nvarchar(100) NOT NULL,
 	FileData varbinary(max) NULL
 );
+
+CREATE TABLE Jo_Z5(
+	Username varchar(100) NOT NULL,
+	Password varchar(100) NOT NULL
+);

@@ -161,6 +161,11 @@ namespace SampleRPT1
             }
         }
 
+        public void SearchByTaxDec(String taxDec)
+        {
+            textTDN.Text = taxDec;
+        }
+
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
             SearchByTaxDec();

@@ -171,8 +171,7 @@ namespace SampleRPT1
 
         private void RefreshMainListviewTaxDec()
         {
-            parentForm.textTDN.Text = textTaxDec.Text;
-            //parentForm.btnSearch_Click(null, null);
+            parentForm.SearchByTaxDec(textTaxDec.Text);
         }
 
         private void RefreshMainListviewStatus()

@@ -19,6 +19,12 @@ namespace SampleRPT1.JOBS
 
         public void RunAutoEmail(object sender, EventArgs e)
         {
+            if (GlobalVariables.RPTUSER == null || !GlobalVariables.RPTUSER.isAutomatedEmailSender)
+            {
+                // If user is not yet logged in, or user does not have rights for automated email sending
+                // then do nothing.
+                return;
+            }
             Console.WriteLine("RunAutoEmail");
         }
     }

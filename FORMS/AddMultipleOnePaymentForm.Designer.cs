@@ -45,14 +45,12 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
-            this.checkTaxNameRetain = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textRequestingParty = new System.Windows.Forms.TextBox();
             this.textTPName = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.checkTaxDecRetain = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -62,6 +60,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.checkTaxDecRetain = new System.Windows.Forms.CheckBox();
+            this.checkTaxNameRetain = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -115,6 +115,7 @@
             this.textTDN.TabIndex = 1;
             this.textTDN.Click += new System.EventHandler(this.textTDN_Click);
             this.textTDN.Enter += new System.EventHandler(this.textTDN_Enter);
+            this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // textYearQuarter
             // 
@@ -122,9 +123,10 @@
             this.textYearQuarter.Location = new System.Drawing.Point(158, 174);
             this.textYearQuarter.Name = "textYearQuarter";
             this.textYearQuarter.Size = new System.Drawing.Size(126, 20);
-            this.textYearQuarter.TabIndex = 6;
+            this.textYearQuarter.TabIndex = 4;
             this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
             this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
+            this.textYearQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
             // 
             // textAmount2Pay
             // 
@@ -132,11 +134,12 @@
             this.textAmount2Pay.Location = new System.Drawing.Point(158, 136);
             this.textAmount2Pay.Name = "textAmount2Pay";
             this.textAmount2Pay.Size = new System.Drawing.Size(253, 20);
-            this.textAmount2Pay.TabIndex = 5;
+            this.textAmount2Pay.TabIndex = 3;
             this.textAmount2Pay.Text = "0.00";
             this.textAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmount2Pay.Click += new System.EventHandler(this.textAmount2Pay_Click);
             this.textAmount2Pay.Enter += new System.EventHandler(this.textAmount2Pay_Enter);
+            this.textAmount2Pay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmount2Pay_KeyDown);
             this.textAmount2Pay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmount2Pay_KeyPress);
             this.textAmount2Pay.Leave += new System.EventHandler(this.textAmount2Pay_Leave);
             // 
@@ -146,7 +149,7 @@
             this.label2.Location = new System.Drawing.Point(72, 181);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 200;
             this.label2.Text = "Year/Quarter: ";
             // 
             // textTotalAmountDeposited
@@ -155,11 +158,12 @@
             this.textTotalAmountDeposited.Location = new System.Drawing.Point(144, 139);
             this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
             this.textTotalAmountDeposited.Size = new System.Drawing.Size(253, 20);
-            this.textTotalAmountDeposited.TabIndex = 13;
+            this.textTotalAmountDeposited.TabIndex = 11;
             this.textTotalAmountDeposited.Text = "0.00";
             this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmountDeposited.Click += new System.EventHandler(this.textTotalAmountDeposited_Click);
             this.textTotalAmountDeposited.Enter += new System.EventHandler(this.textTotalAmountDeposited_Enter);
+            this.textTotalAmountDeposited.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTotalAmountDeposited_KeyDown);
             this.textTotalAmountDeposited.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textTotalAmountDeposited_KeyPress);
             this.textTotalAmountDeposited.Leave += new System.EventHandler(this.textTotalAmountDeposited_Leave);
             // 
@@ -169,7 +173,7 @@
             this.label4.Location = new System.Drawing.Point(6, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 13);
-            this.label4.TabIndex = 2;
+            this.label4.TabIndex = 201;
             this.label4.Text = "Total Amount Deposited: ";
             // 
             // btnSave
@@ -177,8 +181,8 @@
             this.btnSave.Location = new System.Drawing.Point(144, 209);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(127, 23);
-            this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Save to MainListview";
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "Save to Main List";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -187,8 +191,8 @@
             this.btnAdd.Location = new System.Drawing.Point(145, 165);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(126, 23);
-            this.btnAdd.TabIndex = 7;
-            this.btnAdd.Text = "Add To Listview";
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "Add To List";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -208,18 +212,8 @@
             this.dtDateOfPayment.Location = new System.Drawing.Point(144, 55);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.Size = new System.Drawing.Size(126, 20);
-            this.dtDateOfPayment.TabIndex = 10;
-            // 
-            // checkTaxNameRetain
-            // 
-            this.checkTaxNameRetain.AutoSize = true;
-            this.checkTaxNameRetain.Location = new System.Drawing.Point(431, 101);
-            this.checkTaxNameRetain.Name = "checkTaxNameRetain";
-            this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 4;
-            this.checkTaxNameRetain.Text = "Retain";
-            this.checkTaxNameRetain.UseVisualStyleBackColor = true;
-            this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
+            this.dtDateOfPayment.TabIndex = 9;
+            this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
             // label7
             // 
@@ -245,9 +239,10 @@
             this.textRequestingParty.Location = new System.Drawing.Point(144, 94);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
-            this.textRequestingParty.TabIndex = 11;
+            this.textRequestingParty.TabIndex = 10;
             this.textRequestingParty.Click += new System.EventHandler(this.textRequestingParty_Click);
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
+            this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
             // 
             // textTPName
             // 
@@ -255,9 +250,10 @@
             this.textTPName.Location = new System.Drawing.Point(158, 98);
             this.textTPName.Name = "textTPName";
             this.textTPName.Size = new System.Drawing.Size(253, 20);
-            this.textTPName.TabIndex = 3;
+            this.textTPName.TabIndex = 2;
             this.textTPName.Click += new System.EventHandler(this.textTPName_Click);
             this.textTPName.Enter += new System.EventHandler(this.textTPName_Enter);
+            this.textTPName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTPName_KeyDown);
             // 
             // label12
             // 
@@ -277,17 +273,6 @@
             this.label15.TabIndex = 18;
             this.label15.Text = "Amount To Pay: ";
             // 
-            // checkTaxDecRetain
-            // 
-            this.checkTaxDecRetain.AutoSize = true;
-            this.checkTaxDecRetain.Location = new System.Drawing.Point(431, 66);
-            this.checkTaxDecRetain.Name = "checkTaxDecRetain";
-            this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxDecRetain.TabIndex = 2;
-            this.checkTaxDecRetain.Text = "Retain";
-            this.checkTaxDecRetain.UseVisualStyleBackColor = true;
-            this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -305,6 +290,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.checkTaxNameRetain);
+            this.panel1.Controls.Add(this.checkTaxDecRetain);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Location = new System.Drawing.Point(12, 44);
             this.panel1.Name = "panel1";
@@ -346,7 +333,9 @@
             this.cboBankUsed.Location = new System.Drawing.Point(144, 16);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(253, 21);
-            this.cboBankUsed.TabIndex = 43;
+            this.cboBankUsed.TabIndex = 8;
+            this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
+            this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
             // 
             // label3
             // 
@@ -378,6 +367,28 @@
             this.label8.TabIndex = 23;
             this.label8.Text = "Total Amount To Pay: ";
             // 
+            // checkTaxDecRetain
+            // 
+            this.checkTaxDecRetain.AutoSize = true;
+            this.checkTaxDecRetain.Location = new System.Drawing.Point(414, 19);
+            this.checkTaxDecRetain.Name = "checkTaxDecRetain";
+            this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
+            this.checkTaxDecRetain.TabIndex = 6;
+            this.checkTaxDecRetain.Text = "Retain";
+            this.checkTaxDecRetain.UseVisualStyleBackColor = true;
+            this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
+            // 
+            // checkTaxNameRetain
+            // 
+            this.checkTaxNameRetain.AutoSize = true;
+            this.checkTaxNameRetain.Location = new System.Drawing.Point(414, 56);
+            this.checkTaxNameRetain.Name = "checkTaxNameRetain";
+            this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
+            this.checkTaxNameRetain.TabIndex = 7;
+            this.checkTaxNameRetain.Text = "Retain";
+            this.checkTaxNameRetain.UseVisualStyleBackColor = true;
+            this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
+            // 
             // AddMultipleOnePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -387,8 +398,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkTaxNameRetain);
-            this.Controls.Add(this.checkTaxDecRetain);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textTPName);
             this.Controls.Add(this.label12);
@@ -405,6 +414,7 @@
             this.Load += new System.EventHandler(this.AddMultipleOnePaymentForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -428,14 +438,12 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;
-        private System.Windows.Forms.CheckBox checkTaxNameRetain;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textRequestingParty;
         private System.Windows.Forms.TextBox textTPName;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.CheckBox checkTaxDecRetain;
         private System.Windows.Forms.ColumnHeader taxpayerName;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ErrorProvider errorProvider1;
@@ -446,5 +454,7 @@
         private System.Windows.Forms.TextBox textTotalAmountToPay;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cboBankUsed;
+        private System.Windows.Forms.CheckBox checkTaxNameRetain;
+        private System.Windows.Forms.CheckBox checkTaxDecRetain;
     }
 }

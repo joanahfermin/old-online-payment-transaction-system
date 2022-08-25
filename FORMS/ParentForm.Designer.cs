@@ -32,11 +32,12 @@
             this.MenuItemRPT = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemGcashPaymaya = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemExcessShort = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemAllocateExcess = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuItemAllocateBalance = new System.Windows.Forms.ToolStripMenuItem();
             this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSendEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemEmailTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReleasingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemAllocateExcess = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemAllocateBalance = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +47,8 @@
             this.MenuItemRPT,
             this.MenuItemGcashPaymaya,
             this.MenuItemExcessShort,
-            this.emailToolStripMenuItem});
+            this.emailToolStripMenuItem,
+            this.ReleasingMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -77,20 +79,6 @@
             this.MenuItemExcessShort.Size = new System.Drawing.Size(62, 20);
             this.MenuItemExcessShort.Text = "Allocate";
             // 
-            // MenuItemAllocateExcess
-            // 
-            this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
-            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(108, 22);
-            this.MenuItemAllocateExcess.Text = "Excess";
-            this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
-            // 
-            // MenuItemAllocateBalance
-            // 
-            this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
-            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(108, 22);
-            this.MenuItemAllocateBalance.Text = "Short";
-            this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
-            // 
             // emailToolStripMenuItem
             // 
             this.emailToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -103,16 +91,37 @@
             // MenuItemSendEmail
             // 
             this.MenuItemSendEmail.Name = "MenuItemSendEmail";
-            this.MenuItemSendEmail.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemSendEmail.Size = new System.Drawing.Size(180, 22);
             this.MenuItemSendEmail.Text = "Send Email";
             this.MenuItemSendEmail.Click += new System.EventHandler(this.MenuItemSendEmail_Click);
             // 
             // MenuItemEmailTemplate
             // 
             this.MenuItemEmailTemplate.Name = "MenuItemEmailTemplate";
-            this.MenuItemEmailTemplate.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemEmailTemplate.Size = new System.Drawing.Size(180, 22);
             this.MenuItemEmailTemplate.Text = "Email Template";
             this.MenuItemEmailTemplate.Click += new System.EventHandler(this.MenuItemEmailTemplate_Click);
+            // 
+            // ReleasingMenuItem
+            // 
+            this.ReleasingMenuItem.Name = "ReleasingMenuItem";
+            this.ReleasingMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.ReleasingMenuItem.Text = "Releasing";
+            this.ReleasingMenuItem.Click += new System.EventHandler(this.ReleasingMenuItem_Click);
+            // 
+            // MenuItemAllocateExcess
+            // 
+            this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
+            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateExcess.Text = "Excess";
+            this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
+            // 
+            // MenuItemAllocateBalance
+            // 
+            this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
+            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateBalance.Text = "Short";
+            this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
             // 
             // ParentForm
             // 
@@ -139,10 +148,11 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemRPT;
         private System.Windows.Forms.ToolStripMenuItem MenuItemGcashPaymaya;
         private System.Windows.Forms.ToolStripMenuItem MenuItemExcessShort;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateExcess;
-        private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateBalance;
         private System.Windows.Forms.ToolStripMenuItem emailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuItemSendEmail;
         private System.Windows.Forms.ToolStripMenuItem MenuItemEmailTemplate;
+        private System.Windows.Forms.ToolStripMenuItem ReleasingMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateExcess;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateBalance;
     }
 }

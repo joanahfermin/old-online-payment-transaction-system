@@ -90,11 +90,19 @@ namespace SampleRPT1
 
         public static List<RealPropertyTax> SelectBySameGroup(string TaxDec)
         {
-
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_Z where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_Z where RefNum in (select RefNum FROM Jo_Z where TaxDec = @TaxDec) and DeletedRecord != 1 " +
                     $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec }).ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectBySameGroupReleasing(string TaxDec, List<string> StatusList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_Z where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_Z where RefNum in (select RefNum FROM Jo_Z where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+                    $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
             }
         }
 

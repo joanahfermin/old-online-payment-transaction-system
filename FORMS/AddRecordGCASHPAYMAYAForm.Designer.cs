@@ -75,6 +75,7 @@
             this.columnHeader7,
             this.columnHeader8});
             this.FirstLVGcashPaymaya.FullRowSelect = true;
+            this.FirstLVGcashPaymaya.GridLines = true;
             this.FirstLVGcashPaymaya.HideSelection = false;
             this.FirstLVGcashPaymaya.Location = new System.Drawing.Point(12, 12);
             this.FirstLVGcashPaymaya.Name = "FirstLVGcashPaymaya";
@@ -127,6 +128,7 @@
             // 
             // textServiceProvider
             // 
+            this.textServiceProvider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textServiceProvider.Enabled = false;
             this.textServiceProvider.Location = new System.Drawing.Point(885, 499);
             this.textServiceProvider.Name = "textServiceProvider";
@@ -135,6 +137,7 @@
             // 
             // textTaxDec
             // 
+            this.textTaxDec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTaxDec.Enabled = false;
             this.textTaxDec.Location = new System.Drawing.Point(278, 499);
             this.textTaxDec.Name = "textTaxDec";
@@ -161,6 +164,7 @@
             // 
             // textEmailAddress
             // 
+            this.textEmailAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textEmailAddress.Enabled = false;
             this.textEmailAddress.Location = new System.Drawing.Point(521, 559);
             this.textEmailAddress.Name = "textEmailAddress";
@@ -178,6 +182,7 @@
             // 
             // textAmountDue
             // 
+            this.textAmountDue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAmountDue.Enabled = false;
             this.textAmountDue.Location = new System.Drawing.Point(278, 559);
             this.textAmountDue.Name = "textAmountDue";
@@ -195,6 +200,7 @@
             // 
             // textTransactionDate
             // 
+            this.textTransactionDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTransactionDate.Enabled = false;
             this.textTransactionDate.Location = new System.Drawing.Point(885, 559);
             this.textTransactionDate.Name = "textTransactionDate";
@@ -212,6 +218,7 @@
             // 
             // textPropertyName
             // 
+            this.textPropertyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textPropertyName.Location = new System.Drawing.Point(521, 499);
             this.textPropertyName.Name = "textPropertyName";
             this.textPropertyName.Size = new System.Drawing.Size(326, 20);
@@ -228,10 +235,12 @@
             // 
             // textYearQuarter
             // 
+            this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textYearQuarter.Location = new System.Drawing.Point(149, 559);
             this.textYearQuarter.Name = "textYearQuarter";
             this.textYearQuarter.Size = new System.Drawing.Size(83, 20);
             this.textYearQuarter.TabIndex = 1;
+            this.textYearQuarter.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textYearQuarter.TextChanged += new System.EventHandler(this.textYearQuarter_TextChanged);
             // 
             // label7
@@ -245,6 +254,7 @@
             // 
             // textRPTID
             // 
+            this.textRPTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRPTID.Enabled = false;
             this.textRPTID.Location = new System.Drawing.Point(31, 499);
             this.textRPTID.Name = "textRPTID";
@@ -273,6 +283,7 @@
             // 
             // textBillQuantity
             // 
+            this.textBillQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBillQuantity.Location = new System.Drawing.Point(31, 559);
             this.textBillQuantity.Name = "textBillQuantity";
             this.textBillQuantity.Size = new System.Drawing.Size(86, 20);

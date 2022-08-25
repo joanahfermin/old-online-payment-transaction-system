@@ -47,15 +47,16 @@ namespace SampleRPT1.UTILITIES
             }
         }
 
-        public static void ValidateRequiredBank(ErrorProvider ep, ComboBox tb, string propertyName)
+        public static void ValidateRequiredBank(ErrorProvider ep, ComboBox cb, string propertyName)
         {
-            if (hasExistingErrorForBank(ep, tb))
+            if (hasExistingErrorForBank(ep, cb))
             {
                 return;
             }
-            if (tb.Text.Trim() == "")
+            //if (tb.Text.Trim() == "")
+            if (cb.Text.Trim() == "Please select a bank...")
             {
-                ep.SetError(tb, $"{propertyName} is required.");
+                ep.SetError(cb, $"{propertyName} is required.");
             }
         }
 

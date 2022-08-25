@@ -242,6 +242,12 @@
     <Compile Include="FORMS\EmailTemplateForm.Designer.cs">
       <DependentUpon>EmailTemplateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\ReleasingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\ReleasingForm.Designer.cs">
+      <DependentUpon>ReleasingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\SendEmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\ReleasingForm.resx">
+      <DependentUpon>ReleasingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\SendEmailForm.resx">
       <DependentUpon>SendEmailForm.cs</DependentUpon>

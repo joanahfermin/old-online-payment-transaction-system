@@ -17,15 +17,13 @@ namespace SampleRPT1
         public AddRecordGCASHPAYMAYAForm()
         {
             InitializeComponent();
+            //This is essential to the FirstLVGcashPaymaya_KeyDown method.
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
+
             parentForm = GlobalVariables.MAINFORM;
         }
 
-        //public void setParent(MainForm mainForm)
-        //{
-        //    parentForm = mainForm;
-        //}
-
+        //Copy from GCASH and PAYMAYA excel to form's listview by keypress. 
         private void FirstLVGcashPaymaya_KeyDown(object sender, KeyEventArgs e)
         {
             List<int> IgnoredColumnList = new List<int>();
@@ -208,18 +206,18 @@ namespace SampleRPT1
 
                     RealPropertyTax RetrievedRpt = RPTDatabase.Get(RPTid);
 
-                    RetrievedRpt.TaxPayerName = textPropertyName.Text;
+                    RetrievedRpt.TaxPayerName = textPropertyName.Text.Trim();
                     RetrievedRpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
                     //RetrievedRpt.PaymentDate = DateTime.Parse(textTransactionDate.Text).Date;
                     RetrievedRpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
                     RetrievedRpt.Bank = textServiceProvider.Text;
-                    RetrievedRpt.BillCount = textBillQuantity.Text;
+                    RetrievedRpt.BillCount = textBillQuantity.Text.Trim();
                     RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
                     RetrievedRpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                     RetrievedRpt.BilledDate = DateTime.Now;
                     RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
-                    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("MM/dd/yyyy-HH:mm:ss") + ")";
+                    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("MM/dd/yyyy-HH:mm:ss") + ")".Trim();
 
                     RPTDatabase.Insert(RetrievedRpt);
                 }
@@ -228,13 +226,13 @@ namespace SampleRPT1
                     RealPropertyTax rpt = new RealPropertyTax();
 
                     rpt.TaxDec = textTaxDec.Text;
-                    rpt.TaxPayerName = textPropertyName.Text;
+                    rpt.TaxPayerName = textPropertyName.Text.Trim();
                     rpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
                     //rpt.PaymentDate = DateTime.Parse(textTransactionDate.Text).Date;
                     rpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
                     rpt.Bank = textServiceProvider.Text;
-                    rpt.YearQuarter = textYearQuarter.Text;
-                    rpt.BillCount = textBillQuantity.Text;
+                    rpt.YearQuarter = textYearQuarter.Text.Trim();
+                    rpt.BillCount = textBillQuantity.Text.Trim();
                     rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                     rpt.RequestingParty = textEmailAddress.Text;
 

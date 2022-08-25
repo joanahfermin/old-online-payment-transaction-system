@@ -85,12 +85,13 @@
             this.textTotalTransferredAmount.Location = new System.Drawing.Point(153, 128);
             this.textTotalTransferredAmount.Name = "textTotalTransferredAmount";
             this.textTotalTransferredAmount.Size = new System.Drawing.Size(253, 23);
-            this.textTotalTransferredAmount.TabIndex = 6;
+            this.textTotalTransferredAmount.TabIndex = 4;
             this.textTotalTransferredAmount.Text = "0.00";
             this.textTotalTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalTransferredAmount.Click += new System.EventHandler(this.textTotalTransferredAmount_Click);
             this.textTotalTransferredAmount.TextChanged += new System.EventHandler(this.textTransferredAmount_TextChanged);
             this.textTotalTransferredAmount.Enter += new System.EventHandler(this.textTotalTransferredAmount_Enter);
+            this.textTotalTransferredAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTotalTransferredAmount_KeyDown);
             this.textTotalTransferredAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textTotalTransferredAmount_KeyPress);
             this.textTotalTransferredAmount.Leave += new System.EventHandler(this.textTransferredAmount_Leave);
             // 
@@ -119,9 +120,10 @@
             this.textYearQuarter.Location = new System.Drawing.Point(153, 202);
             this.textYearQuarter.Name = "textYearQuarter";
             this.textYearQuarter.Size = new System.Drawing.Size(114, 23);
-            this.textYearQuarter.TabIndex = 9;
+            this.textYearQuarter.TabIndex = 6;
             this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
             this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
+            this.textYearQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
             // 
             // textAmountToBePaid
             // 
@@ -130,11 +132,12 @@
             this.textAmountToBePaid.Location = new System.Drawing.Point(153, 92);
             this.textAmountToBePaid.Name = "textAmountToBePaid";
             this.textAmountToBePaid.Size = new System.Drawing.Size(253, 23);
-            this.textAmountToBePaid.TabIndex = 5;
+            this.textAmountToBePaid.TabIndex = 3;
             this.textAmountToBePaid.Text = "0.00";
             this.textAmountToBePaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmountToBePaid.Click += new System.EventHandler(this.textAmountToBePaid_Click);
             this.textAmountToBePaid.Enter += new System.EventHandler(this.textAmountToBePaid_Enter);
+            this.textAmountToBePaid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountToBePaid_KeyDown);
             this.textAmountToBePaid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountToBePaid_KeyPress);
             this.textAmountToBePaid.Leave += new System.EventHandler(this.textAmountToBePaid_Leave);
             // 
@@ -172,9 +175,10 @@
             this.textTPName.Location = new System.Drawing.Point(153, 54);
             this.textTPName.Name = "textTPName";
             this.textTPName.Size = new System.Drawing.Size(253, 23);
-            this.textTPName.TabIndex = 3;
+            this.textTPName.TabIndex = 2;
             this.textTPName.Click += new System.EventHandler(this.textTPName_Click);
             this.textTPName.Enter += new System.EventHandler(this.textTPName_Enter);
+            this.textTPName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTPName_KeyDown);
             // 
             // textTaxDec
             // 
@@ -186,6 +190,7 @@
             this.textTaxDec.TabIndex = 1;
             this.textTaxDec.Click += new System.EventHandler(this.textTaxDec_Click);
             this.textTaxDec.Enter += new System.EventHandler(this.textTaxDec_Enter);
+            this.textTaxDec.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTaxDec_KeyDown);
             // 
             // textRequestingParty
             // 
@@ -194,9 +199,10 @@
             this.textRequestingParty.Location = new System.Drawing.Point(153, 314);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 23);
-            this.textRequestingParty.TabIndex = 10;
+            this.textRequestingParty.TabIndex = 9;
             this.textRequestingParty.Click += new System.EventHandler(this.textRequestingParty_Click);
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
+            this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
             // 
             // label8
             // 
@@ -223,9 +229,10 @@
             this.textRemarks.Location = new System.Drawing.Point(153, 352);
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 23);
-            this.textRemarks.TabIndex = 12;
+            this.textRemarks.TabIndex = 10;
             this.textRemarks.Click += new System.EventHandler(this.textRemarks_Click);
             this.textRemarks.Enter += new System.EventHandler(this.textRemarks_Enter);
+            this.textRemarks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRemarks_KeyDown);
             // 
             // label10
             // 
@@ -250,7 +257,7 @@
             this.btnSave.Location = new System.Drawing.Point(152, 399);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(253, 23);
-            this.btnSave.TabIndex = 13;
+            this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save Record";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -263,8 +270,9 @@
             this.textStatForAssessment.Location = new System.Drawing.Point(153, 280);
             this.textStatForAssessment.Name = "textStatForAssessment";
             this.textStatForAssessment.Size = new System.Drawing.Size(253, 23);
-            this.textStatForAssessment.TabIndex = 12;
+            this.textStatForAssessment.TabIndex = 8;
             this.textStatForAssessment.Text = "FOR ASSESSMENT";
+            this.textStatForAssessment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textStatForAssessment_KeyDown);
             // 
             // checkTaxDecRetain
             // 
@@ -272,7 +280,7 @@
             this.checkTaxDecRetain.Location = new System.Drawing.Point(426, 21);
             this.checkTaxDecRetain.Name = "checkTaxDecRetain";
             this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxDecRetain.TabIndex = 2;
+            this.checkTaxDecRetain.TabIndex = 13;
             this.checkTaxDecRetain.Text = "Retain";
             this.checkTaxDecRetain.UseVisualStyleBackColor = true;
             this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
@@ -283,7 +291,7 @@
             this.checkBankUsedRetain.Location = new System.Drawing.Point(427, 168);
             this.checkBankUsedRetain.Name = "checkBankUsedRetain";
             this.checkBankUsedRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkBankUsedRetain.TabIndex = 8;
+            this.checkBankUsedRetain.TabIndex = 15;
             this.checkBankUsedRetain.Text = "Retain";
             this.checkBankUsedRetain.UseVisualStyleBackColor = true;
             this.checkBankUsedRetain.CheckedChanged += new System.EventHandler(this.checkBankUsedRetain_CheckedChanged);
@@ -294,7 +302,7 @@
             this.checkTaxNameRetain.Location = new System.Drawing.Point(427, 57);
             this.checkTaxNameRetain.Name = "checkTaxNameRetain";
             this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 4;
+            this.checkTaxNameRetain.TabIndex = 14;
             this.checkTaxNameRetain.Text = "Retain";
             this.checkTaxNameRetain.UseVisualStyleBackColor = true;
             this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
@@ -305,7 +313,7 @@
             this.checkRequestingParty.Location = new System.Drawing.Point(427, 316);
             this.checkRequestingParty.Name = "checkRequestingParty";
             this.checkRequestingParty.Size = new System.Drawing.Size(57, 17);
-            this.checkRequestingParty.TabIndex = 11;
+            this.checkRequestingParty.TabIndex = 16;
             this.checkRequestingParty.Text = "Retain";
             this.checkRequestingParty.UseVisualStyleBackColor = true;
             this.checkRequestingParty.CheckedChanged += new System.EventHandler(this.checkRequestingParty_CheckedChanged);
@@ -315,7 +323,7 @@
             this.btnAddClearAll.Location = new System.Drawing.Point(152, 428);
             this.btnAddClearAll.Name = "btnAddClearAll";
             this.btnAddClearAll.Size = new System.Drawing.Size(253, 23);
-            this.btnAddClearAll.TabIndex = 14;
+            this.btnAddClearAll.TabIndex = 12;
             this.btnAddClearAll.Text = "Clear";
             this.btnAddClearAll.UseVisualStyleBackColor = true;
             this.btnAddClearAll.Click += new System.EventHandler(this.btnAddClearAll_Click);
@@ -329,7 +337,8 @@
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(114, 23);
-            this.dtDateOfPayment.TabIndex = 15;
+            this.dtDateOfPayment.TabIndex = 7;
+            this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
             // label2
             // 
@@ -394,7 +403,9 @@
             this.cboBankUsed.Location = new System.Drawing.Point(152, 166);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(253, 21);
-            this.cboBankUsed.TabIndex = 7;
+            this.cboBankUsed.TabIndex = 5;
+            this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
+            this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
             // 
             // AddRPTForm
             // 

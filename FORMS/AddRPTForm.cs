@@ -31,6 +31,22 @@ namespace SampleRPT1
             parentForm = mainForm;
         }
 
+        //Auto-suggests the word being typed in the bank combobox.
+        private void AddRPTForm_Load(object sender, EventArgs e)
+        {
+            CheckUncheckDateOfPayment();
+            cboBankUsed.SelectedIndex = 0;
+            cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+
+        //Auto-suggested word being displayed in the bank combobox.
+        private void cboBankUsed_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            cboBankUsed.DroppedDown = false;
+        }
+
+        //Saves the record. 
         private void btnSave_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -42,8 +58,8 @@ namespace SampleRPT1
 
             RealPropertyTax rpt = new RealPropertyTax();
 
-            rpt.TaxDec = textTaxDec.Text;
-            rpt.TaxPayerName = textTPName.Text;
+            rpt.TaxDec = textTaxDec.Text.Trim();
+            rpt.TaxPayerName = textTPName.Text.Trim();
             rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
 
             rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
@@ -66,22 +82,22 @@ namespace SampleRPT1
             {
                 rpt.PaymentDate = dtDateOfPayment.Value.Date;
             }
-            rpt.YearQuarter = textYearQuarter.Text;
+            rpt.YearQuarter = textYearQuarter.Text.Trim();
             rpt.Status = textStatForAssessment.Text;
-            rpt.RequestingParty = textRequestingParty.Text;
-            rpt.RPTremarks = textRemarks.Text;
+            rpt.RequestingParty = textRequestingParty.Text.Trim();
+            rpt.RPTremarks = textRemarks.Text.Trim();
 
             rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
             rpt.EncodedDate = DateTime.Now;
 
-            //EXCESS
+            //If payment is exceeds the amount to pay, generate a reference number. 
             if (rpt.AmountToPay < rpt.TotalAmountTransferred)
             {
                 string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 rpt.RefNum = refNo;
             }
 
-            //SHORT
+            //If payment is short, generate a reference number. 
             if (rpt.TotalAmountTransferred < rpt.AmountToPay && rpt.TotalAmountTransferred != 0)
             {
                 string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -117,27 +133,22 @@ namespace SampleRPT1
 
             MessageBox.Show("Record successfully saved.");
 
-            //dtDateOfPayment.Checked = true;
-            //dtDateOfPayment.Enabled = true;
-            //textBank.Enabled = true;
-            //checkBankUsedRetain.Enabled = true;
-            //dtDateOfPayment.CustomFormat = " ";
-            //dtDateOfPayment.Format = DateTimePickerFormat.Custom;
-
             CheckUncheckDateOfPayment();
 
             parentForm.SearchForAssessment();
         }
 
+        //Required textfields. 
         private void validateForm()
         {
-            // clear muna natin lahat ng error from previous validation
+            // clear muna natin lahat ng error from previous validation.
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTaxDec, "Tax Dec. Number");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
         }
 
+        //Thousand separator.
         private void textAmountToBePaid_Leave(object sender, EventArgs e)
         {
             double amounttobepaid;
@@ -145,6 +156,7 @@ namespace SampleRPT1
             textAmountToBePaid.Text = amounttobepaid.ToString("N2");
         }
 
+        //Date of Payment will be dependent if the user encodes the total transferred amount.
         private void CheckUncheckDateOfPayment()
         {
             if (textTotalTransferredAmount.Text != "0.00")
@@ -232,31 +244,11 @@ namespace SampleRPT1
             textRemarks.Text = string.Empty;
         }
 
-        private void AddRPTForm_Load(object sender, EventArgs e)
-        {
-            CheckUncheckDateOfPayment();
-            cboBankUsed.SelectedIndex = 0;
-        }
-
-        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END.  
+        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
         //PUT IN ONE CLASS OR VARIABLE.
-        private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //numeric value only
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-            (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
 
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textTotalTransferredAmount_KeyPress(object sender, KeyPressEventArgs e)
+        //One decimal only in textfields that only accepts numbers.
+        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
         {
             //numeric value only
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -270,6 +262,16 @@ namespace SampleRPT1
             {
                 e.Handled = true;
             }
+        }
+
+        private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
+        }
+
+        private void textTotalTransferredAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
         }
 
         private bool textTaxDecJustEntered = false;
@@ -390,6 +392,63 @@ namespace SampleRPT1
             textRemarksJustEntered = false;
         }
 
+        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
+        private void EnterKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
+            }
+        }
+        private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
 
+        private void textTPName_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textTotalTransferredAmount_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void dtDateOfPayment_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textStatForAssessment_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textRemarks_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
     }
 }

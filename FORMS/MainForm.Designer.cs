@@ -72,8 +72,6 @@
             this.textRemarks = new System.Windows.Forms.TextBox();
             this.textNumOfBills = new System.Windows.Forms.TextBox();
             this.LabelNumBills = new System.Windows.Forms.Label();
-            this.btnUploaded = new System.Windows.Forms.Button();
-            this.btnSendBill = new System.Windows.Forms.Button();
             this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
@@ -402,26 +400,6 @@
             this.LabelNumBills.TabIndex = 12;
             this.LabelNumBills.Text = "Bill Qty.:";
             // 
-            // btnUploaded
-            // 
-            this.btnUploaded.Location = new System.Drawing.Point(1841, 909);
-            this.btnUploaded.Name = "btnUploaded";
-            this.btnUploaded.Size = new System.Drawing.Size(61, 23);
-            this.btnUploaded.TabIndex = 13;
-            this.btnUploaded.Text = "Upload";
-            this.btnUploaded.UseVisualStyleBackColor = true;
-            this.btnUploaded.Click += new System.EventHandler(this.btnUploaded_Click);
-            // 
-            // btnSendBill
-            // 
-            this.btnSendBill.Location = new System.Drawing.Point(1775, 910);
-            this.btnSendBill.Name = "btnSendBill";
-            this.btnSendBill.Size = new System.Drawing.Size(60, 23);
-            this.btnSendBill.TabIndex = 18;
-            this.btnSendBill.Text = "Send Bill";
-            this.btnSendBill.UseVisualStyleBackColor = true;
-            this.btnSendBill.Click += new System.EventHandler(this.btnSendBill_Click);
-            // 
             // textTotalAmount2Pay
             // 
             this.textTotalAmount2Pay.Enabled = false;
@@ -616,7 +594,7 @@
             this.dtDate.ShowCheckBox = true;
             this.dtDate.Size = new System.Drawing.Size(95, 20);
             this.dtDate.TabIndex = 2;
-            this.dtDate.Value = new System.DateTime(2022, 8, 17, 0, 0, 0, 0);
+            this.dtDate.Value = new System.DateTime(2022, 8, 25, 0, 0, 0, 0);
             this.dtDate.ValueChanged += new System.EventHandler(this.btnSearchDateStatus_Click);
             // 
             // dtDateTo
@@ -746,11 +724,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
-            this.Controls.Add(this.btnUploaded);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnExecute);
-            this.Controls.Add(this.btnSendBill);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cboAction);
             this.Controls.Add(this.TabPicture);
@@ -822,7 +798,6 @@
         private System.Windows.Forms.ColumnHeader billedby;
         private System.Windows.Forms.TextBox textNumOfBills;
         private System.Windows.Forms.Label LabelNumBills;
-        private System.Windows.Forms.Button btnUploaded;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader reqParty;
         private System.Windows.Forms.ColumnHeader VerRema;
@@ -831,7 +806,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textTotalAmountTransferred;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button btnSendBill;
         private System.Windows.Forms.ColumnHeader DateOfPayment;
         private System.Windows.Forms.ColumnHeader totalamountdep;
         private System.Windows.Forms.ColumnHeader RefNum;

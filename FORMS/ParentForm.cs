@@ -15,6 +15,7 @@ namespace SampleRPT1
     {
         RPTUserLoginForm loginForm;
         MainForm mainForm;
+        ReleasingForm releasingForm;
         public ParentForm()
         {
             InitializeComponent();
@@ -79,6 +80,7 @@ namespace SampleRPT1
             emailTemplateForm.ShowDialog();
         }
 
+
         private void ParentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // When parent form is closed, we should also close the invisible login form
@@ -86,6 +88,21 @@ namespace SampleRPT1
             {
                 loginForm.Close();
             }
+		}
+        private void ReleasingMenuItem_Click(object sender, EventArgs e)
+        {
+            //ReleasingForm releasingForm = new ReleasingForm();
+            //releasingForm.ShowDialog();
+
+            if (releasingForm == null)
+            {
+                releasingForm = new ReleasingForm();
+                releasingForm.MdiParent = this;
+                releasingForm.ControlBox = false;
+            }
+            releasingForm.Show();
+            releasingForm.WindowState = FormWindowState.Maximized;
+
         }
     }
 }

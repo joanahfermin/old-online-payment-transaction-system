@@ -32,131 +32,22 @@ namespace SampleRPT1
             cboBankUsed.Items.Add(BankUtil.UNIONBANK);
         }
 
+        //Auto-suggests word encoded by the user in the bank combobox.
         private void AddMultipleOnePaymentForm_Load(object sender, EventArgs e)
         {
             cboBankUsed.SelectedIndex = 0;
+
+            cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        //Auto-suggested word will be diplayed in the bank combobox.
+        private void cboBankUsed_KeyPress(object sender, KeyPressEventArgs e)
         {
-            validateFormSaveToMainLV();
-
-            if (Validations.HaveErrors(errorProvider1))
-            {
-                return;
-            }
-
-            //Generate a unique reference number based on the current time. 
-            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            string Status = RPTStatus.FOR_ASSESSMENT;
-
-            bool FirstRecord = true;
-            decimal TotalAmountTransferred = Convert.ToDecimal(textTotalAmountDeposited.Text);
-
-            decimal TotalAmount2Pay = 0;
-            foreach (ListViewItem item in lvMultipleRecord.Items)
-            {
-                string Amount2Pay = item.SubItems[2].Text;
-                TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
-            }
-
-            foreach (ListViewItem item in lvMultipleRecord.Items)
-            {
-                string TaxDec = item.Text;
-                string TaxPayerName = item.SubItems[1].Text;
-                string YearQuarter = item.SubItems[3].Text;
-                string Amount2Pay = item.SubItems[2].Text;
-
-                RealPropertyTax rpt = new RealPropertyTax();
-
-                rpt.TaxDec = TaxDec;
-                rpt.TaxPayerName = TaxPayerName;
-                rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
-                if (FirstRecord)
-                {
-                    rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalAmountDeposited.Text);
-                    rpt.ExcessShortAmount = rpt.TotalAmountTransferred - TotalAmount2Pay;
-                }
-
-                if (TotalAmountTransferred >= rpt.AmountToPay)
-                {
-                    rpt.AmountTransferred = rpt.AmountToPay;
-                    TotalAmountTransferred = TotalAmountTransferred - rpt.AmountToPay;
-                }
-                else
-                {
-                    rpt.AmountTransferred = TotalAmountTransferred;
-                    TotalAmountTransferred = 0;
-                }
-                rpt.YearQuarter = YearQuarter;
-                rpt.Bank = cboBankUsed.Text;
-
-                rpt.PaymentDate = dtDateOfPayment.Value.Date;
-                
-                rpt.Status = Status;
-                rpt.RequestingParty = textRequestingParty.Text;
-
-                rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
-                rpt.EncodedDate = DateTime.Now;
-                rpt.RefNum = refNo;
-
-                RPTDatabase.Insert(rpt);
-
-                FirstRecord = false;
-
-            }
-
-            if (textTotalAmountToPay.Text != textTotalAmountDeposited.Text)
-            {
-                MessageBox.Show("Please be advised that the record/s have insufficient or excess payment.");
-            }
-
-            //if (checkBankUsedRetain.Checked == false)
-            //{
-            //    textBank.Clear();
-            //}
-
-            //if (checkRequestingParty.Checked == false)
-            //{
-            //    textRequestingParty.Clear();
-            //}
-
-            lvMultipleRecord.Clear();
-
-            cboBankUsed.Text = null;
-            textRequestingParty.Clear();
-            textTotalAmountDeposited.Clear();
-
-            parentForm.RefreshListView();
-
-            this.Close();
+            cboBankUsed.DroppedDown = false;
         }
 
-        private void validateForm()
-        {
-            errorProvider1.Clear();
-
-            Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
-            Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
-        }
-
-        private void validateFormSaveToMainLV()
-        {
-            errorProvider1.Clear();
-
-            //if (comboBox1.SelectedIndex == -1)//Nothing selected
-            //{
-            //    MessageBox.Show("You must select a conversion type", "Error");
-            //}
-            //else
-            //{
-            //    //Do Magic   
-            //}
-
-            //Validations.ValidateRequired(errorProvider1, textBank, "Payment channel");
-            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Total amount deposited");
-        }
-
+        //Insert record in the form's listview. 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -166,12 +57,12 @@ namespace SampleRPT1
                 return;
             }
 
-            ListViewItem item = new ListViewItem(textTDN.Text);
+            ListViewItem item = new ListViewItem(textTDN.Text.Trim());
 
-            item.SubItems.Add(textTPName.Text);
-            item.SubItems.Add(textAmount2Pay.Text);
-            item.SubItems.Add(textYearQuarter.Text);
-            item.SubItems.Add(textRequestingParty.Text);
+            item.SubItems.Add(textTPName.Text.Trim());
+            item.SubItems.Add(textAmount2Pay.Text.Trim());
+            item.SubItems.Add(textYearQuarter.Text.Trim());
+            item.SubItems.Add(textRequestingParty.Text.Trim());
 
             lvMultipleRecord.Items.Add(item);
 
@@ -197,12 +88,117 @@ namespace SampleRPT1
             decimal ConvertedTotalAmountToPay = decimal.Parse(textTotalAmountToPay.Text, System.Globalization.NumberStyles.Currency);
             textTotalAmountToPay.Text = ConvertedTotalAmountToPay.ToString("N2");
 
-            //textTDN.Clear();
-            //textTPName.Clear();
             textAmount2Pay.Clear();
             textYearQuarter.Clear();
             textRequestingParty.Clear();
             textTDN.Focus();
+        }
+
+        //Saves the whole list in the main listview. 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            validateFormSaveToMainLV();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
+            //Generate a unique reference number based on the current time. 
+            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string Status = RPTStatus.FOR_ASSESSMENT;
+
+            bool FirstRecord = true;
+            decimal TotalAmountDeposited = Convert.ToDecimal(textTotalAmountDeposited.Text);
+
+            decimal TotalAmount2Pay = 0;
+            foreach (ListViewItem item in lvMultipleRecord.Items)
+            {
+                string Amount2Pay = item.SubItems[2].Text;
+                TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
+            }
+
+            foreach (ListViewItem item in lvMultipleRecord.Items)
+            {
+                string TaxDec = item.Text;
+                string TaxPayerName = item.SubItems[1].Text;
+                string YearQuarter = item.SubItems[3].Text;
+                string Amount2Pay = item.SubItems[2].Text;
+
+                RealPropertyTax rpt = new RealPropertyTax();
+
+                rpt.TaxDec = TaxDec;
+                rpt.TaxPayerName = TaxPayerName;
+                rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
+
+                //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
+                if (FirstRecord)
+                {
+                    rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalAmountDeposited.Text);
+                    rpt.ExcessShortAmount = rpt.TotalAmountTransferred - TotalAmount2Pay;
+                }
+
+                //first record: amount to pay = 50.
+                // 150 > 50, so AmountTransferred = 50.
+                if (TotalAmountDeposited >= rpt.AmountToPay)
+                {
+                    rpt.AmountTransferred = rpt.AmountToPay;
+                    //150 - 50 = 100. Balik ulit hanggang meron pang excess.
+                    TotalAmountDeposited = TotalAmountDeposited - rpt.AmountToPay;
+                }
+                else
+                {
+                    rpt.AmountTransferred = TotalAmountDeposited;
+                    TotalAmountDeposited = 0;
+                }
+                rpt.YearQuarter = YearQuarter;
+                rpt.Bank = cboBankUsed.Text.Trim();
+
+                rpt.PaymentDate = dtDateOfPayment.Value.Date;
+                
+                rpt.Status = Status;
+                rpt.RequestingParty = textRequestingParty.Text.Trim();
+
+                rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+                rpt.EncodedDate = DateTime.Now;
+                rpt.RefNum = refNo;
+
+                RPTDatabase.Insert(rpt);
+
+                FirstRecord = false;
+            }
+
+            if (textTotalAmountToPay.Text != textTotalAmountDeposited.Text)
+            {
+                MessageBox.Show("Please be advised that the record/s have insufficient or excess payment.");
+            }
+
+            lvMultipleRecord.Clear();
+
+            cboBankUsed.Text = null;
+            textRequestingParty.Clear();
+            textTotalAmountDeposited.Clear();
+
+            parentForm.RefreshListView();
+            this.Close();
+        }
+
+        //Required fields.
+        private void validateForm()
+        {
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
+            Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
+        }
+
+        //Required fields.
+        private void validateFormSaveToMainLV()
+        {
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
+            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
         }
 
         private void checkTaxDecRetain_CheckedChanged(object sender, EventArgs e)
@@ -237,6 +233,7 @@ namespace SampleRPT1
             //}
         }
 
+        //Adding payments.
         private void lvMultipleRecord_SelectedIndexChanged(object sender, EventArgs e)
         {
             decimal TotalAmountToPay = 0;
@@ -250,12 +247,14 @@ namespace SampleRPT1
             textTotalAmountToPay.Text = TotalAmountToPay.ToString();
         }
 
+        //Thousand separator.
         private void textTotalAmountToPay_TextChanged(object sender, EventArgs e)
         {
             decimal ConvertedTotalAmountToPay = decimal.Parse(textTotalAmountToPay.Text, System.Globalization.NumberStyles.Currency);
             textTotalAmountToPay.Text = ConvertedTotalAmountToPay.ToString("N2");
         }
 
+        //Thousand separator.
         private void textTotalAmountDeposited_Leave(object sender, EventArgs e)
         {
             double TotalAmountDeposited;
@@ -272,7 +271,9 @@ namespace SampleRPT1
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END.  
         //PUT IN ONE CLASS OR VARIABLE.
-        private void textAmount2Pay_KeyPress(object sender, KeyPressEventArgs e)
+
+        //Numeric behavior of payment. Only one decimal point allowed.
+        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
         {
             //numeric value only
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -286,6 +287,18 @@ namespace SampleRPT1
             {
                 e.Handled = true;
             }
+        }
+
+        //Numeric behavior of payment. Only one decimal point allowed.
+        private void textAmount2Pay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
+        }
+
+        //Numeric behavior of payment. Only one decimal point allowed.
+        private void textTotalAmountDeposited_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
         }
 
         private bool textAmount2PayJustEntered = false;
@@ -380,26 +393,57 @@ namespace SampleRPT1
             {
                 textTotalAmountDeposited.SelectAll();
             }
-
             textTotalAmountDepositedJustEntered = false;
         }
 
-        private void textTotalAmountDeposited_KeyPress(object sender, KeyPressEventArgs e)
+        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
+        private void EnterKeyDown(object sender, KeyEventArgs e)
         {
-            //numeric value only
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        (e.KeyChar != '.'))
+            if (e.KeyData == Keys.Enter)
             {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
 
-        //END.
+        private void textTDN_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textTPName_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textAmount2Pay_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void dtDateOfPayment_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textTotalAmountDeposited_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
     }
 }

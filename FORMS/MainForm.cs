@@ -22,6 +22,7 @@ namespace SampleRPT1
         {
             InitializeComponent();
             dtDate.Value = DateTime.Now;
+            dtDateTo.Value = DateTime.Now;
 
             checkRoles();
             RefreshListView();
@@ -32,8 +33,8 @@ namespace SampleRPT1
 
             dtDate.Checked = false;
             dtDateTo.Enabled = false;
-            btnSendBill.Visible = false;
-            btnUploaded.Visible = false;
+            //btnSendBill.Visible = false;
+            //btnUploaded.Visible = false;
             textNumOfBills.Visible = false;
             LabelNumBills.Visible = false;
             textRemarks.Visible = false;
@@ -42,7 +43,6 @@ namespace SampleRPT1
 
             InitializeStatus();
             InitializeAction();
-
         }
 
         public void InitializeStatus()
@@ -65,6 +65,16 @@ namespace SampleRPT1
                 cboAction.Items.Add(RPTAction.BILL_WITH_POP);
             }
 
+            if (GlobalVariables.RPTUSER.isEncoder)
+            {
+                cboAction.Items.Add(RPTAction.MANUAL_SEND_BILL);
+            }
+
+            if (GlobalVariables.RPTUSER.isUploader)
+            {
+                cboAction.Items.Add(RPTAction.MANUAL_SEND_OR);
+            }
+
             if (GlobalVariables.RPTUSER.isVerifier)
             {
                 cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
@@ -75,7 +85,7 @@ namespace SampleRPT1
                 cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
             }
 
-            if (GlobalVariables.RPTUSER.isValidator)
+            if (GlobalVariables.RPTUSER.isReleaser)
             {
                 cboAction.Items.Add(RPTAction.RELEASE_OR);
             }
@@ -194,7 +204,7 @@ namespace SampleRPT1
 
         private void dtDateTo_ValueChanged(object sender, EventArgs e)
         {
-            //RefreshListView();
+            RefreshListView();
         }
 
         public void SearchForAssessment()
@@ -311,7 +321,55 @@ namespace SampleRPT1
             }
         }
 
-        private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        private void SetAction(string NewAction)
+        {
+            if (cboAction.Items.Contains(NewAction))
+            {
+                cboAction.Text = NewAction;
+            }
+        }
+
+        private void ChangeAction()
+        {
+            if (RPTInfoLV.SelectedItems.Count > 0)
+            {
+                string Status = RPTInfoLV.SelectedItems[0].SubItems[9].Text;
+
+                if (Status == RPTStatus.FOR_ASSESSMENT)
+                {
+                    SetAction(RPTAction.BILL_NO_POP);
+                }
+
+                if (Status == RPTStatus.ASSESSMENT_PRINTED)
+                {
+                    SetAction(RPTAction.MANUAL_SEND_BILL);
+                }
+
+                //SKIP RTPSTATUS.BILLSENT
+
+                if (Status == RPTStatus.PAYMENT_VERIFICATION)
+                {
+                    SetAction(RPTAction.VERIFY_PAYMENT);
+                }
+
+                if (Status == RPTStatus.PAYMENT_VALIDATION)
+                {
+                    SetAction(RPTAction.VALIDATE_PAYMENT);
+                }
+
+                if (Status == RPTStatus.OR_UPLOAD)
+                {
+                    SetAction(RPTAction.MANUAL_SEND_OR);
+                }
+
+                if (Status == RPTStatus.OR_PICKUP)
+                {
+                    SetAction(RPTAction.RELEASE_OR);
+                }
+            }
+        }
+
+        private void CalculateTotalAmount()
         {
             for (int i = 0; i < RPTInfoLV.Items.Count; i++)
             {
@@ -332,6 +390,13 @@ namespace SampleRPT1
 
             textTotalAmount2Pay.Text = TotalAmountToPay.ToString();
             textTotalAmountTransferred.Text = TotalAmountTransferred.ToString();
+        }
+
+        private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeAction();
+
+            CalculateTotalAmount();
 
             ShowPicture();  
         }
@@ -454,9 +519,74 @@ namespace SampleRPT1
                 }
 
                 cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
-                //PA-CHECK KAY JON
-                //btnSearchDateStatus_Click(sender, e);
+                RefreshListView();
                 textNumOfBills.Clear();
+            }
+
+            LabelNumBills.Visible = false;
+            textNumOfBills.Visible = false;
+        }
+
+        private void ManualSendBill()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.ASSESSMENT_PRINTED);
+
+                bool TransferredAmountHaveValue = true;
+
+                foreach (var rpt in SelectedRPTList)
+                {
+                    if (rpt.AmountTransferred == 0)
+                    {
+                        rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.BilledDate = DateTime.Now;
+                        rpt.Status = RPTStatus.BILL_SENT;
+
+                        RPTDatabase.Update(rpt);
+                    }
+                    else
+                    {
+                        TransferredAmountHaveValue = false;
+                    }
+                }
+                if (CheckSameStatus(RPTStatus.ASSESSMENT_PRINTED) == false || TransferredAmountHaveValue == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                }
+
+                cboStatus.Text = RPTStatus.BILL_SENT;
+
+                RefreshListView();
+                textNumOfBills.Clear();
+            }
+
+            LabelNumBills.Visible = false;
+            textNumOfBills.Visible = false;
+        }
+
+        private void ManualUploadReceipt() 
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD);
+
+                foreach (var rpt in SelectedRPTList)
+                {
+                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.UploadedDate = DateTime.Now;
+                    rpt.Status = RPTStatus.OR_PICKUP;
+
+                    RPTDatabase.Update(rpt);
+                }
+
+                if (CheckSameStatus(RPTStatus.OR_UPLOAD) == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                }
+
+                cboStatus.Text = RPTStatus.OR_PICKUP;
+                RefreshListView();
             }
 
             LabelNumBills.Visible = false;
@@ -507,7 +637,7 @@ namespace SampleRPT1
                 }
 
                 cboStatus.Text = RPTStatus.ASSESSMENT_PRINTED;
-                //btnSearchDateStatus_Click(sender, e);
+                RefreshListView();
                 textNumOfBills.Clear();
             }
             LabelNumBills.Visible = false;
@@ -545,7 +675,7 @@ namespace SampleRPT1
                 }
 
                 cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
-                //btnSearchDateStatus_Click(sender, e);
+                RefreshListView();
             }
             textRemarks.Visible = false;
         }
@@ -572,36 +702,10 @@ namespace SampleRPT1
                 }
 
                 cboStatus.Text = RPTStatus.OR_UPLOAD;
-                //btnSearchDateStatus_Click(sender, e);
+                RefreshListView();
             }
             textRemarks.Visible = false;
 
-        }
-
-        private void btnUploaded_Click(object sender, EventArgs e)
-        {
-            //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //{
-            //    List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD);
-
-            //    foreach (var rpt in SelectedRPTList)
-            //    {
-            //        rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
-            //        rpt.UploadedDate = DateTime.Now;
-            //        rpt.Status = RPTStatus.OR_PICKUP;
-            //        rpt.UploaderRemarks = textUploaderRemarks.Text;
-
-            //        RPTDatabase.Update(rpt);
-            //    }
-
-            //    if (CheckSameStatus(RPTStatus.OR_UPLOAD) == false)
-            //    {
-            //        MessageBox.Show("Some selected records has not been processed.");
-            //    }
-
-            //    rbORPickUp.Select();
-            //    btnSearchDateStatus_Click(sender, e);
-            //}
         }
 
         private void ReleaseReceipt()
@@ -628,57 +732,10 @@ namespace SampleRPT1
                 }
 
                 cboStatus.Text = RPTStatus.RELEASED;
-                //btnSearchDateStatus_Click(sender, e);
+                RefreshListView();
             }
             textRemarks.Visible = false;
 
-        }
-
-        private void btnReleasedBy_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnAddRecordGcashPaymaya_Click(object sender, EventArgs e)
-        {
-            AddRecordGCASHPAYMAYAForm addRecordGcashPaymaya = new AddRecordGCASHPAYMAYAForm();
-            //addRecordGcashPaymaya.setParent(this);
-            addRecordGcashPaymaya.ShowDialog();
-        }
-
-        private void btnSendBill_Click(object sender, EventArgs e)
-        {
-            //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //{
-            //    List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.ASSESSMENT_PRINTED);
-
-            //    bool TransferredAmountHaveValue = true;
-
-            //    foreach (var rpt in SelectedRPTList)
-            //    {
-            //        if (rpt.AmountTransferred == 0)
-            //        {
-            //            rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
-            //            rpt.BilledDate = DateTime.Now;
-            //            rpt.Status = RPTStatus.BILL_SENT;
-
-            //            RPTDatabase.Update(rpt);
-            //        }
-            //        else
-            //        {
-            //            TransferredAmountHaveValue = false;
-            //        }
-            //    }
-
-            //    if (CheckSameStatus(RPTStatus.ASSESSMENT_PRINTED) == false || TransferredAmountHaveValue == false)
-            //    {
-            //        MessageBox.Show("Some selected records has not been processed.");
-            //    }
-
-            //    rbAssessmentPrinted.Select();
-            //    btnSearchDateStatus_Click(sender, e);
-            //    textNumOfBills.Clear();
-            //}
         }
 
         private void textTotalAmount2Pay_TextChanged(object sender, EventArgs e)
@@ -842,11 +899,6 @@ namespace SampleRPT1
             textFileName.Visible = false;
         }
 
-        private void btnEmailTemplate_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public void SendEmail()
         {
             if (RPTInfoLV.SelectedItems.Count > 0)
@@ -903,6 +955,16 @@ namespace SampleRPT1
                 BillWithPayment();
             }
 
+            if (cboAction.Text == RPTAction.MANUAL_SEND_BILL)
+            {
+                ManualSendBill();
+            }
+
+            if (cboAction.Text == RPTAction.MANUAL_SEND_OR)
+            {
+                ManualUploadReceipt();
+            }
+
             if (cboAction.Text == RPTAction.VERIFY_PAYMENT)
             {
                 VerifyPayment();
@@ -917,11 +979,6 @@ namespace SampleRPT1
             {
                 ReleaseReceipt();
             }
-
-            //if (cboAction.Text == RPTAction.UPLOAD_OR)
-            //{
-            //    UploadReceipt();
-            //}
         }
     }
 }

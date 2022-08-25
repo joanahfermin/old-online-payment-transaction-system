@@ -266,6 +266,7 @@
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalConstants.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="MODEL\MessageTemplate.cs" />
     <Compile Include="MODEL\RPTAttachPicture.cs" />
@@ -369,6 +370,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DOCS\SQL\createUsers.sql" />
+    <Content Include="DOCS\SQL\createTables.sql" />
     <Content Include="Resources\no_img.png" />
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +386,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

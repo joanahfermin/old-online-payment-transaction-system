@@ -33,8 +33,6 @@ namespace SampleRPT1
 
             dtDate.Checked = false;
             dtDateTo.Enabled = false;
-            //btnSendBill.Visible = false;
-            //btnUploaded.Visible = false;
             textNumOfBills.Visible = false;
             LabelNumBills.Visible = false;
             textRemarks.Visible = false;
@@ -228,42 +226,7 @@ namespace SampleRPT1
         public void RefreshListView()
         {
             List<string> StatusList = new List<string>();
-
             StatusList.Add(cboStatus.Text);
-
-            //if (rbForAssessment.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.FOR_ASSESSMENT);
-            //}
-            //if (rbAssessmentPrinted.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.ASSESSMENT_PRINTED);
-            //}
-            //if (rbBillSent.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.BILL_SENT);
-            //}
-            //if (rbPaymentVerification.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.PAYMENT_VERIFICATION);
-            //}
-            //if (rbForPaymentValidation.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.PAYMENT_VALIDATION);
-            //}
-            //if (rbForORUpload.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.OR_UPLOAD);
-            //}
-            //if (rbORPickUp.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.OR_PICKUP);
-            //}
-            //if (rbReleased.Checked)
-            //{
-            //    StatusList.Add(RPTStatus.RELEASED);
-            //}
-
             List<RealPropertyTax> rptList;
 
             if (dtDate.Checked)

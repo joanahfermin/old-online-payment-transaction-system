@@ -11,9 +11,12 @@ namespace SampleRPT1
     {
         public static string DATABASE_CONNECTION_STRING = ConfigurationManager.AppSettings["ConnectionString"];
 
-        public static int LISTVIEW_MAX_ROWS = Convert.ToInt32(ConfigurationManager.AppSettings["ListViewMaxRows"]);
+        public static int GMAIL_PORT;
 
-        public static int AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS = Convert.ToInt32(ConfigurationManager.AppSettings["AutoRefreshListViewIntervalSeconds"]);
+        public static string GMAIL_HOST;
 
+        public static int LISTVIEW_MAX_ROWS;
+
+        public static int AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS;
     }
 }

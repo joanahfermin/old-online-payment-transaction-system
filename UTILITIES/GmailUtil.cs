@@ -27,11 +27,6 @@ namespace SampleRPT1
          */
 
         //EMAIL SENDER
-        /*
-        private static string FROM_EMAIL_ADDRESS = ConfigurationManager.AppSettings["GmailUser"]; // email address gamit natin pang send ng email
-
-        private static string FROM_EMAIL_PASSWORD = ConfigurationManager.AppSettings["GmailPwd"]; // password nung sending email address
-        */
 
         public static bool SendMail(string recipient, string subject, string body, Image atachImage)
         {
@@ -46,8 +41,8 @@ namespace SampleRPT1
                 {
                     //Port = 587,
                     //Host = "smtp.gmail.com",
-                    Port = Convert.ToInt32(ConfigurationManager.AppSettings["GmailPort"]),
-                    Host = ConfigurationManager.AppSettings["GmailHost"],
+                    Port = GlobalConstants.GMAIL_PORT,
+                    Host = GlobalConstants.GMAIL_HOST,
                     EnableSsl = true,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(emailAccount.UserName, emailAccount.PassWord),

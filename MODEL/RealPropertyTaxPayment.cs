@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
-
+/// <summary>
+/// JO: pwede na ata idelete ito
+/// </summary>
 namespace SampleRPT1
 {
     [Table("Jo_Z3")]

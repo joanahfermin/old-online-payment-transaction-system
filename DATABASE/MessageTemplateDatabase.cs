@@ -16,7 +16,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 //Returns the list of records from the database. 
-                return conn.Query<MessageTemplate>($"SELECT TOP 100 * FROM JO_Z3 where Deleted != 1 order by TemplateID DESC").ToList();
+                return conn.Query<MessageTemplate>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_Z3 where Deleted != 1 order by TemplateID DESC").ToList();
             }
         }
 
@@ -40,7 +40,20 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                BeforeInsertOrUpdate(conn, modelInstance);
                 return conn.Insert<MessageTemplate>(modelInstance);
+            }
+        }
+
+        private static void BeforeInsertOrUpdate(SqlConnection conn, MessageTemplate modelInstance)
+        {
+            if (modelInstance.isAssessment)
+            {
+                conn.Execute("Update JO_Z3 set isAssessment = 0");
+            }
+            if (modelInstance.isReceipt)
+            {
+                conn.Execute("Update JO_Z3 set isReceipt = 0");
             }
         }
 
@@ -48,6 +61,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                BeforeInsertOrUpdate(conn, modelInstance);
                 return conn.Update<MessageTemplate>(modelInstance);
             }
         }

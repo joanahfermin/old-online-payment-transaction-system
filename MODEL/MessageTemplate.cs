@@ -16,5 +16,7 @@ namespace SampleRPT1
         public string Subject { get; set; }
         public string Body { get; set; }
         public int Deleted { get; set; } = 0;
+        public bool isAssessment { get; set; }
+        public bool isReceipt { get; set; }
     }
 }

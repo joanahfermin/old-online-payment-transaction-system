@@ -34,7 +34,7 @@ namespace SampleRPT1.FORMS
         private void PopulateListView(List<MessageTemplate> TemplateList)
         {
             ListViewUtil.copyFromListToListview<MessageTemplate>(TemplateList, LVEmail, new List<string>
-            { "TemplateID", "Name", "Subject", "Body", });
+            { "TemplateID", "Name", "Subject", "isAssessment", "isReceipt"});
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -44,6 +44,8 @@ namespace SampleRPT1.FORMS
             mgTemplate.Name = textName.Text;
             mgTemplate.Subject = textSubject.Text;
             mgTemplate.Body = richTextBox1.Text;
+            mgTemplate.isAssessment = cbAssessment.Checked;
+            mgTemplate.isReceipt = cbReceipt.Checked;
 
             MessageTemplateDatabase.Insert(mgTemplate);
 
@@ -68,6 +70,9 @@ namespace SampleRPT1.FORMS
                 textName.Text = mgTemplate.Name;
                 textSubject.Text = mgTemplate.Subject;
                 richTextBox1.Text = mgTemplate.Body;
+
+                cbAssessment.Checked = mgTemplate.isAssessment;
+                cbReceipt.Checked = mgTemplate.isReceipt;
             }
         }
         private void btnEdit_Click(object sender, EventArgs e)
@@ -77,6 +82,8 @@ namespace SampleRPT1.FORMS
             mgTemplate.Name = textName.Text;
             mgTemplate.Subject = textSubject.Text;
             mgTemplate.Body = richTextBox1.Text;
+            mgTemplate.isAssessment = cbAssessment.Checked;
+            mgTemplate.isReceipt = cbReceipt.Checked;
 
             MessageTemplateDatabase.Update(mgTemplate);
 

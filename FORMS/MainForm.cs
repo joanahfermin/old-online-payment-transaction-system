@@ -16,7 +16,12 @@ namespace SampleRPT1
 {
     public partial class MainForm : Form
     {
-        long RptID;
+        private const String SEARCH_BY_TAXDEC = "SEARCH_BY_TAXDEC";
+        private const String SEARCH_BY_DATE_STATUS = "SEARCH_BY_DATE_STATUS";
+        private String lastSearchAction = "";
+
+        private long RptID;
+        private Timer AutoRefreshListViewTimer;
 
         public MainForm()
         {
@@ -41,6 +46,15 @@ namespace SampleRPT1
 
             InitializeStatus();
             InitializeAction();
+            InitializeAutoRefreshListViewTimer();
+        }
+
+        private void InitializeAutoRefreshListViewTimer()
+        {
+            AutoRefreshListViewTimer = new Timer();
+            AutoRefreshListViewTimer.Tick += new EventHandler(AutoRefreshListViewTimerEvent);
+            AutoRefreshListViewTimer.Interval = GlobalConstants.AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS * 1000; // convert seconds to milliseconds
+            AutoRefreshListViewTimer.Start();
         }
 
         public void InitializeStatus()
@@ -149,6 +163,30 @@ namespace SampleRPT1
 
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
+            SearchByTaxDec();
+        }
+
+        private void AutoRefreshListViewTimerEvent(object sender, EventArgs e)
+        {
+            if (cbAutoRefresh.Checked)
+            {
+                if (lastSearchAction == SEARCH_BY_TAXDEC)
+                {
+                    SearchByTaxDec();
+                } else if (lastSearchAction == SEARCH_BY_DATE_STATUS)
+                {
+                    RefreshListView();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Populate List View based on Text entered in TaxDec textbox.
+        /// </summary>
+        public void SearchByTaxDec()
+        {
+            lastSearchAction = SEARCH_BY_TAXDEC;
+
             string taxdec = textTDN.Text;
 
             //List<RealPropertyTax> rptList = RPTDatabase.SelectByTaxDec(taxdec);
@@ -158,13 +196,45 @@ namespace SampleRPT1
             ShowPicture();
         }
 
-        public void btnSearch_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Populate List View based on Date Range and Status.
+        /// </summary>
+        public void RefreshListView()
         {
+            lastSearchAction = SEARCH_BY_DATE_STATUS;
 
+            List<string> StatusList = new List<string>();
+            StatusList.Add(cboStatus.Text);
+            List<RealPropertyTax> rptList;
+
+            if (dtDate.Checked)
+            {
+                dtDateTo.Enabled = true;
+                DateTime encodedDateFrom = dtDate.Value;
+                DateTime encodedDateTo = dtDateTo.Value;
+
+                //rptList = RPTDatabase.SelectByDateAndStatus(dtDate.Value, StatusList);
+                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
+
+            }
+            else
+            {
+                dtDateTo.Enabled = false;
+                rptList = RPTDatabase.SelectByStatus(StatusList);
+            }
+            PopulateListView(rptList);
+            ShowPicture();
         }
+
+        //public void btnSearch_Click(object sender, EventArgs e)
+        //{
+
+        //}
 
         private void btnSeachDate_Click(object sender, EventArgs e)
         {
+            //JO: Pwede na natin alisin method na ito????
+
             DateTime encodedDateFrom = dtDate.Value;
             DateTime encodedDateTo = dtDateTo.Value;
 
@@ -174,10 +244,10 @@ namespace SampleRPT1
             PopulateListView(rptList);
         }
 
-        private void btnShowLatest_Click(object sender, EventArgs e)
-        {
-            //InitializeData();
-        }
+        //private void btnShowLatest_Click(object sender, EventArgs e)
+        //{
+        //    //InitializeData();
+        //}
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
@@ -223,30 +293,6 @@ namespace SampleRPT1
             RefreshListView();
         }
 
-        public void RefreshListView()
-        {
-            List<string> StatusList = new List<string>();
-            StatusList.Add(cboStatus.Text);
-            List<RealPropertyTax> rptList;
-
-            if (dtDate.Checked)
-            {
-                dtDateTo.Enabled = true;
-                DateTime encodedDateFrom = dtDate.Value;
-                DateTime encodedDateTo = dtDateTo.Value;
-
-                //rptList = RPTDatabase.SelectByDateAndStatus(dtDate.Value, StatusList);
-                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
-
-            }
-            else
-            {
-                dtDateTo.Enabled = false;
-                rptList = RPTDatabase.SelectByStatus(StatusList);
-            }
-            PopulateListView(rptList);
-            ShowPicture();
-        }
 
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {

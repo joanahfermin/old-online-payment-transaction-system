@@ -1,4 +1,5 @@
 ﻿using SampleRPT1.DATABASE;
+using SampleRPT1.JOBS;
 using SampleRPT1.MODEL;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace SampleRPT1
 {
     class Bootstrap
     {
+        private static AutoEmailJob autoEmailJob;
         /// <summary>
         /// Initialize the system when program is RUN.
         /// </summary>
@@ -22,6 +24,11 @@ namespace SampleRPT1
             GlobalConstants.LISTVIEW_MAX_ROWS = getSystemSettingAsInt("LIST_VIEW_MAX_ROWS");
 
             GlobalConstants.AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS = getSystemSettingAsInt("AUTO_REFRESH_LIST_VIEW_INTERVAL");
+
+            GlobalConstants.AUTO_EMAIL_INTERVAL_SECONDS = getSystemSettingAsInt("AUTO_EMAIL_INTERVAL");
+
+            autoEmailJob = new AutoEmailJob();
+            autoEmailJob.Initialize();
         }
 
         public static int getSystemSettingAsInt(String SettingName)

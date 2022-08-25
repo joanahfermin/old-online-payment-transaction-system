@@ -18,5 +18,7 @@ namespace SampleRPT1
         public static int LISTVIEW_MAX_ROWS;
 
         public static int AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS;
+
+        public static int AUTO_EMAIL_INTERVAL_SECONDS;
     }
 }

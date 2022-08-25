@@ -271,6 +271,7 @@
     </Compile>
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="JOBS\AutoEmailJob.cs" />
     <Compile Include="MODEL\EmailAccount.cs" />
     <Compile Include="MODEL\MessageTemplate.cs" />
     <Compile Include="MODEL\RPTAttachPicture.cs" />

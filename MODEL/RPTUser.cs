@@ -21,6 +21,7 @@ namespace SampleRPT1
         public bool isValidator { get; set; }
         public bool isUploader { get; set; }
         public bool isReleaser { get; set; }
+        public bool isAutomatedEmailSender { get; set; }
         public bool isActive { get; set; }
     }
 }

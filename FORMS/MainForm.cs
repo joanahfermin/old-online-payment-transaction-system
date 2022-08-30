@@ -125,11 +125,7 @@ namespace SampleRPT1
 
         private void checkRoles()
         {
-            //textNumOfBills.Enabled = GlobalVariables.RPTUSER.isBiller;
-            //textRemarks.Enabled = GlobalVariables.RPTUSER.isVerifier;
-            //textRemarks.Enabled = GlobalVariables.RPTUSER.isValidator;
-            //textRemarks.Enabled = GlobalVariables.RPTUSER.isUploader;
-            //textRemarks.Enabled = GlobalVariables.RPTUSER.isReleaser;
+
         }
 
         private void PopulateListView(List<RealPropertyTax> rptList)
@@ -231,11 +227,6 @@ namespace SampleRPT1
             ShowPicture();
         }
 
-        //public void btnSearch_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
         private void btnSeachDate_Click(object sender, EventArgs e)
         {
             //JO: Pwede na natin alisin method na ito????
@@ -249,21 +240,8 @@ namespace SampleRPT1
             PopulateListView(rptList);
         }
 
-        //private void btnShowLatest_Click(object sender, EventArgs e)
-        //{
-        //    //InitializeData();
-        //}
-
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            //string RefNum = string.Empty;
-
-            //if (RPTInfoLV.SelectedItems.Count > 0)
-            //{
-            //    RefNum = RPTInfoLV.SelectedItems[0].SubItems[12].Text;
-            //    MessageBox.Show(RefNum);
-            //}
-
             AddRPTForm addRPTForm = new AddRPTForm();
             addRPTForm.setParent(this);
 

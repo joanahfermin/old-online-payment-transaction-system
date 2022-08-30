@@ -380,6 +380,7 @@
             // 
             // textRemarks
             // 
+            this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRemarks.Location = new System.Drawing.Point(1409, 36);
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(187, 20);
@@ -387,6 +388,7 @@
             // 
             // textNumOfBills
             // 
+            this.textNumOfBills.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textNumOfBills.Location = new System.Drawing.Point(1184, 62);
             this.textNumOfBills.Name = "textNumOfBills";
             this.textNumOfBills.Size = new System.Drawing.Size(78, 20);
@@ -403,6 +405,7 @@
             // 
             // textTotalAmount2Pay
             // 
+            this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmount2Pay.Enabled = false;
             this.textTotalAmount2Pay.Location = new System.Drawing.Point(1636, 34);
             this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
@@ -422,6 +425,7 @@
             // 
             // textTotalAmountTransferred
             // 
+            this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
             this.textTotalAmountTransferred.Location = new System.Drawing.Point(1764, 34);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
@@ -723,11 +727,11 @@
             // cbAutoRefresh
             // 
             this.cbAutoRefresh.AutoSize = true;
-            this.cbAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAutoRefresh.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbAutoRefresh.Location = new System.Drawing.Point(1518, 70);
+            this.cbAutoRefresh.Location = new System.Drawing.Point(1636, 64);
             this.cbAutoRefresh.Name = "cbAutoRefresh";
-            this.cbAutoRefresh.Size = new System.Drawing.Size(253, 44);
+            this.cbAutoRefresh.Size = new System.Drawing.Size(108, 19);
             this.cbAutoRefresh.TabIndex = 34;
             this.cbAutoRefresh.Text = "Auto Refresh";
             this.cbAutoRefresh.UseVisualStyleBackColor = true;

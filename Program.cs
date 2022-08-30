@@ -16,7 +16,7 @@ namespace SampleRPT1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Bootstrap.Initializa();
+            Bootstrap.Initialize();
             Application.Run(new RPTUserLoginForm());
         }
     }

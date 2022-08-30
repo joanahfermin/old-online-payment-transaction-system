@@ -50,6 +50,7 @@
             // 
             // textSubject
             // 
+            this.textSubject.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textSubject.Enabled = false;
             this.textSubject.Location = new System.Drawing.Point(315, 36);
             this.textSubject.Name = "textSubject";
@@ -131,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 756);
+            this.ClientSize = new System.Drawing.Size(706, 756);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

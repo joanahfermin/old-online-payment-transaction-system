@@ -19,7 +19,7 @@ namespace SampleRPT1.DATABASE
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<EmailAccount>($"select TOP 1 * from JO_Z5 order by NEWID()");
+                return conn.QuerySingleOrDefault<EmailAccount>($"select TOP 1 * from JO_RPT_EmailAccount order by NEWID()");
             }
         }
     }

@@ -15,7 +15,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<RPTUser>($"SELECT * FROM JO_Z2 where UserName = @UserName", new { UserName = UserName });
+                return conn.QuerySingleOrDefault<RPTUser>($"SELECT * FROM JO_RPT_Users where UserName = @UserName", new { UserName = UserName });
             }
         }
     }

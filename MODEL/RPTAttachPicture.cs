@@ -7,7 +7,7 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_Z4")]
+    [Table("Jo_RPT_Pictures")]
     internal class RPTAttachPicture
     {
         [Key]

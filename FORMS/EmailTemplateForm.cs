@@ -28,18 +28,18 @@ namespace SampleRPT1.FORMS
 
         public void InitializeData()
         {
-            List<MessageTemplate> TemplateList = MessageTemplateDatabase.SelectLatest();
+            List<EmailTemplate> TemplateList = EmailTemplateDatabase.SelectLatest();
             PopulateListView(TemplateList);
         }
-        private void PopulateListView(List<MessageTemplate> TemplateList)
+        private void PopulateListView(List<EmailTemplate> TemplateList)
         {
-            ListViewUtil.copyFromListToListview<MessageTemplate>(TemplateList, LVEmail, new List<string>
+            ListViewUtil.copyFromListToListview<EmailTemplate>(TemplateList, LVEmail, new List<string>
             { "TemplateID", "Name", "Subject", "isAssessment", "isReceipt"});
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MessageTemplate mgTemplate = new MessageTemplate();
+            EmailTemplate mgTemplate = new EmailTemplate();
 
             mgTemplate.Name = textName.Text;
             mgTemplate.Subject = textSubject.Text;
@@ -47,7 +47,7 @@ namespace SampleRPT1.FORMS
             mgTemplate.isAssessment = cbAssessment.Checked;
             mgTemplate.isReceipt = cbReceipt.Checked;
 
-            MessageTemplateDatabase.Insert(mgTemplate);
+            EmailTemplateDatabase.Insert(mgTemplate);
 
             MessageBox.Show("Successfully saved.");
 
@@ -65,7 +65,7 @@ namespace SampleRPT1.FORMS
                 string templateID = LVEmail.SelectedItems[0].Text;
                 TemplateID = Convert.ToInt32(templateID);
 
-                MessageTemplate mgTemplate = MessageTemplateDatabase.Get(TemplateID);
+                EmailTemplate mgTemplate = EmailTemplateDatabase.Get(TemplateID);
 
                 textName.Text = mgTemplate.Name;
                 textSubject.Text = mgTemplate.Subject;
@@ -77,7 +77,7 @@ namespace SampleRPT1.FORMS
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            MessageTemplate mgTemplate = MessageTemplateDatabase.Get(TemplateID);
+            EmailTemplate mgTemplate = EmailTemplateDatabase.Get(TemplateID);
 
             mgTemplate.Name = textName.Text;
             mgTemplate.Subject = textSubject.Text;
@@ -85,7 +85,7 @@ namespace SampleRPT1.FORMS
             mgTemplate.isAssessment = cbAssessment.Checked;
             mgTemplate.isReceipt = cbReceipt.Checked;
 
-            MessageTemplateDatabase.Update(mgTemplate);
+            EmailTemplateDatabase.Update(mgTemplate);
 
             MessageBox.Show("Successfully saved.");
 
@@ -108,8 +108,8 @@ namespace SampleRPT1.FORMS
                         LVEmail.Items.RemoveAt(LVEmail.SelectedIndices[i]);
                     }
 
-                    MessageTemplate mgTemplate = MessageTemplateDatabase.Get(TemplateID);
-                    MessageTemplateDatabase.Delete(mgTemplate);
+                    EmailTemplate mgTemplate = EmailTemplateDatabase.Get(TemplateID);
+                    EmailTemplateDatabase.Delete(mgTemplate);
                 }
             }
 

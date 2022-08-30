@@ -16,7 +16,7 @@ namespace SampleRPT1.DATABASE
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<SystemSetting>($"SELECT * FROM Jo_Z6 where SettingName = @SettingName", new { SettingName = SettingName });
+                return conn.QuerySingleOrDefault<SystemSetting>($"SELECT * FROM Jo_RPT_SystemSetting where SettingName = @SettingName", new { SettingName = SettingName });
             }
         }
     }

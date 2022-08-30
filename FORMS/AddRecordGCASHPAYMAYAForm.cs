@@ -18,12 +18,15 @@ namespace SampleRPT1
         {
             InitializeComponent();
             //This is essential to the FirstLVGcashPaymaya_KeyDown method.
+            //Dagdag ng event Keyup.
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
 
             parentForm = GlobalVariables.MAINFORM;
         }
 
-        //Copy from GCASH and PAYMAYA excel to form's listview by keypress. 
+        /// <summary>
+        /// Copy from GCASH and PAYMAYA excel to form's listview by keypress (CTRL + C THEN CTRL + V)
+        /// </summary>
         private void FirstLVGcashPaymaya_KeyDown(object sender, KeyEventArgs e)
         {
             List<int> IgnoredColumnList = new List<int>();
@@ -32,16 +35,23 @@ namespace SampleRPT1
             IgnoredColumnList.Add(7);
             IgnoredColumnList.Add(8);
 
+            //If user presses CTRL + V, papasok sya sa if condition.
             if (e.KeyData == (Keys.V | Keys.Control))
             {
+                //Yung data na nasa clipboard, ilalagay lahat sa dataAsString.
                 string dataAsString = Clipboard.GetText();
+                //For every record copied, .split splits strings into several lines.
+                //r and n = new line,
+                //RemoveEmptyEnries, kapag walang laman ang row, iignore lang nya.
                 string[] rowArray = dataAsString.Split(new Char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
                 if (rowArray.Length > 0)
                 {
                     FirstLVGcashPaymaya.Items.Clear();
 
                     foreach (string row in rowArray)
                     {
+                        //Splits the records through TAB. \t = tab.
                         string[] columnArray = row.Split(new char[] { '\t' });
                         
                             ListViewItem item = new ListViewItem();
@@ -49,10 +59,11 @@ namespace SampleRPT1
                             int ColumnIndex = 0;
 
                             foreach (string column in columnArray)
-                            {
+                            {   //kung pang-ilang column ka na.
                                 ColumnIndex++;
                                 if (firstColumn)
                                 {
+                                    //ListViewItem item = new ListViewItem(p.firstName);
                                     item.Text = column;
                                     firstColumn = false;
                                 }
@@ -71,6 +82,9 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Determines if a record is existing in the database or has a duplicate in the listview.
+        /// </summary>
         private void PopulateExistingColumn()
         {
             List<string> ProcessedList = new List<string>();
@@ -83,6 +97,7 @@ namespace SampleRPT1
 
                 RealPropertyTax rpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
 
+                //if selected record is existing in the database with same Tax Dec and same Year/quarter.
                 if (rpt != null)
                 {
                     item.SubItems.Add("YES");
@@ -94,6 +109,7 @@ namespace SampleRPT1
 
                 string TaxDecAndYearQuarter = TaxDec + YearQuarter;
 
+                //if selected record has duplicate in the form's listview with same Tax Dec and same Year/quarter.
                 if (ProcessedList.Contains(TaxDecAndYearQuarter))
                 {
                     item.SubItems.Add("YES");
@@ -107,6 +123,9 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Returns the taxpayer's name if selected record is existing in the database. 
+        /// </summary>
         private string SearchExistingTaxpayerName(string TaxDec)
         {
             string TaxPayerName = "";
@@ -123,6 +142,9 @@ namespace SampleRPT1
             return TaxPayerName;
         }
 
+        /// <summary>
+        /// Populates RptId and Taxpayer's name if selected record is existing in the database.
+        /// </summary>
         private void PopulateRPTID()
         {
             RealPropertyTax rpt = RPTDatabase.SelectByTaxDecAndYear(textTaxDec.Text, textYearQuarter.Text);
@@ -140,6 +162,7 @@ namespace SampleRPT1
             }
         }
 
+        //Populates textfields upong selection of record.
         private void FirstLVGcashPaymaya_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
@@ -156,6 +179,7 @@ namespace SampleRPT1
                 PopulateRPTID();
 
                 RefreshMainListviewTaxDec();
+                Clipboard.SetText(textTaxDec.Text);
             }
         }
 
@@ -179,6 +203,7 @@ namespace SampleRPT1
             parentForm.SearchPaymentVerification();
         }
 
+        //Required fields. 
         private void validateForm()
         {
             errorProvider1.Clear();
@@ -187,6 +212,9 @@ namespace SampleRPT1
             Validations.ValidateRequired(errorProvider1, textBillQuantity, "Bill quantity");
         }
 
+        /// <summary>
+        /// Saves a selected record from the listview.
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -198,6 +226,7 @@ namespace SampleRPT1
 
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                //Saves a duplicate record with a remarks of DUPLICATE RECORD. Else, inserts a new record. 
                 if (textRPTID.Text.Length > 0)
                 {
                     long RPTid = Convert.ToInt64(textRPTID.Text);
@@ -207,7 +236,6 @@ namespace SampleRPT1
 
                     RetrievedRpt.TaxPayerName = textPropertyName.Text.Trim();
                     RetrievedRpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
-                    //RetrievedRpt.PaymentDate = DateTime.Parse(textTransactionDate.Text).Date;
                     RetrievedRpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
                     RetrievedRpt.Bank = textServiceProvider.Text;
                     RetrievedRpt.BillCount = textBillQuantity.Text.Trim();
@@ -227,7 +255,6 @@ namespace SampleRPT1
                     rpt.TaxDec = textTaxDec.Text;
                     rpt.TaxPayerName = textPropertyName.Text.Trim();
                     rpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
-                    //rpt.PaymentDate = DateTime.Parse(textTransactionDate.Text).Date;
                     rpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
                     rpt.Bank = textServiceProvider.Text;
                     rpt.YearQuarter = textYearQuarter.Text.Trim();
@@ -246,6 +273,7 @@ namespace SampleRPT1
 
                 RefreshMainListviewTaxDec();
 
+                //Removes processed record from the listview.
                 if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
                 {
                     int Index = FirstLVGcashPaymaya.SelectedIndices[0];
@@ -254,6 +282,9 @@ namespace SampleRPT1
             } 
         }
 
+        /// <summary>
+        /// Saves all the records in the listview.
+        /// </summary>
         private void btnSaveAll_Click(object sender, EventArgs e)
         {
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
@@ -267,6 +298,7 @@ namespace SampleRPT1
 
             if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
             {
+                //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
                 for (int i = 0; i < FirstLVGcashPaymaya.SelectedItems.Count; i++)
                 {
                     string ServiceProvider = FirstLVGcashPaymaya.SelectedItems[i].Text;
@@ -278,10 +310,10 @@ namespace SampleRPT1
 
                     RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
 
+                    //Existing record, year/quarter will have a suffix of date and time. 
                     if (RetrievedRpt != null)
                     {
                         RetrievedRpt.AmountToPay = AmountDue;
-                        //RetrievedRpt.PaymentDate = DateTime.Parse(TransactionDate).Date;
                         RetrievedRpt.AmountTransferred = AmountDue;
                         RetrievedRpt.Bank = ServiceProvider;
                         RetrievedRpt.BillCount = textBillQuantity.Text;
@@ -294,6 +326,7 @@ namespace SampleRPT1
 
                         RPTDatabase.Insert(RetrievedRpt);
                     }
+                    //Saves the records with Taxpayer's Name regardless of what year.
                     else
                     {
                         RealPropertyTax rpt = new RealPropertyTax();
@@ -302,7 +335,6 @@ namespace SampleRPT1
                         rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
                         rpt.AmountToPay = AmountDue;
                         rpt.AmountTransferred = AmountDue;
-                        //rpt.PaymentDate = DateTime.Parse(TransactionDate).Date;
                         rpt.Bank = ServiceProvider;
                         rpt.YearQuarter = YearQuarter;
                         rpt.BillCount = textBillQuantity.Text;
@@ -319,6 +351,7 @@ namespace SampleRPT1
                     }
                 }
 
+                //Removes multiple processed records.
                 for (int i = FirstLVGcashPaymaya.SelectedItems.Count - 1; i >= 0; i--)
                 {
                     int Index = FirstLVGcashPaymaya.SelectedIndices[i];

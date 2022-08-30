@@ -133,7 +133,7 @@
             this.textServiceProvider.Location = new System.Drawing.Point(885, 499);
             this.textServiceProvider.Name = "textServiceProvider";
             this.textServiceProvider.Size = new System.Drawing.Size(203, 20);
-            this.textServiceProvider.TabIndex = 1;
+            this.textServiceProvider.TabIndex = 10;
             // 
             // textTaxDec
             // 
@@ -142,7 +142,7 @@
             this.textTaxDec.Location = new System.Drawing.Point(278, 499);
             this.textTaxDec.Name = "textTaxDec";
             this.textTaxDec.Size = new System.Drawing.Size(203, 20);
-            this.textTaxDec.TabIndex = 1;
+            this.textTaxDec.TabIndex = 7;
             // 
             // label1
             // 
@@ -169,7 +169,7 @@
             this.textEmailAddress.Location = new System.Drawing.Point(521, 559);
             this.textEmailAddress.Name = "textEmailAddress";
             this.textEmailAddress.Size = new System.Drawing.Size(326, 20);
-            this.textEmailAddress.TabIndex = 1;
+            this.textEmailAddress.TabIndex = 9;
             // 
             // label3
             // 
@@ -187,7 +187,7 @@
             this.textAmountDue.Location = new System.Drawing.Point(278, 559);
             this.textAmountDue.Name = "textAmountDue";
             this.textAmountDue.Size = new System.Drawing.Size(203, 20);
-            this.textAmountDue.TabIndex = 1;
+            this.textAmountDue.TabIndex = 8;
             // 
             // label4
             // 
@@ -205,7 +205,7 @@
             this.textTransactionDate.Location = new System.Drawing.Point(885, 559);
             this.textTransactionDate.Name = "textTransactionDate";
             this.textTransactionDate.Size = new System.Drawing.Size(203, 20);
-            this.textTransactionDate.TabIndex = 1;
+            this.textTransactionDate.TabIndex = 11;
             // 
             // label5
             // 
@@ -222,7 +222,7 @@
             this.textPropertyName.Location = new System.Drawing.Point(521, 499);
             this.textPropertyName.Name = "textPropertyName";
             this.textPropertyName.Size = new System.Drawing.Size(326, 20);
-            this.textPropertyName.TabIndex = 2;
+            this.textPropertyName.TabIndex = 3;
             // 
             // label6
             // 
@@ -259,7 +259,7 @@
             this.textRPTID.Location = new System.Drawing.Point(31, 499);
             this.textRPTID.Name = "textRPTID";
             this.textRPTID.Size = new System.Drawing.Size(203, 20);
-            this.textRPTID.TabIndex = 1;
+            this.textRPTID.TabIndex = 6;
             // 
             // label8
             // 
@@ -276,7 +276,7 @@
             this.btnSave.Location = new System.Drawing.Point(1123, 499);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 23);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -287,7 +287,7 @@
             this.textBillQuantity.Location = new System.Drawing.Point(31, 559);
             this.textBillQuantity.Name = "textBillQuantity";
             this.textBillQuantity.Size = new System.Drawing.Size(86, 20);
-            this.textBillQuantity.TabIndex = 1;
+            this.textBillQuantity.TabIndex = 2;
             this.textBillQuantity.Text = "1";
             this.textBillQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -305,7 +305,7 @@
             this.btnSaveAll.Location = new System.Drawing.Point(1123, 559);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(83, 23);
-            this.btnSaveAll.TabIndex = 4;
+            this.btnSaveAll.TabIndex = 5;
             this.btnSaveAll.Text = "Save All";
             this.btnSaveAll.UseVisualStyleBackColor = true;
             this.btnSaveAll.Click += new System.EventHandler(this.btnSaveAll_Click);

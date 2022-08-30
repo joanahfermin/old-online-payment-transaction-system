@@ -7,8 +7,8 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_Z3")]
-    internal class MessageTemplate
+    [Table("Jo_RPT_EmailTemplate")]
+    internal class EmailTemplate
     {
         [Key]
         public long TemplateID { get; set; }

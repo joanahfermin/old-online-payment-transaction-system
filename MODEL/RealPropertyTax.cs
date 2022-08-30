@@ -7,7 +7,7 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_Z")]
+    [Table("Jo_RPT")]
     internal class RealPropertyTax
     {
         [Key]

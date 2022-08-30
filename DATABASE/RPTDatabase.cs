@@ -17,7 +17,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 //Returns the list of records from the database. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_z where DeletedRecord != 1 order by RptID ASC").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where DeletedRecord != 1 order by RptID ASC").ToList();
             }
         }
 
@@ -26,7 +26,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 //Returns the list of records from the database. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_z where TaxDec = @TaxDec and DeletedRecord != 1 order by EncodedDate", new { TaxDec = taxdec }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 order by EncodedDate", new { TaxDec = taxdec }).ToList();
             }
         }
 
@@ -35,7 +35,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 //Returns the list of records from the database.         //removing time in date format. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_z WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) and DeletedRecord != 1 order by RptID ASC", new { EncodedDate = encodedDate }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) and DeletedRecord != 1 order by RptID ASC", new { EncodedDate = encodedDate }).ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 //Returns the list of records from the database.         //removing time in date format. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_z WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
                     $"AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) and DeletedRecord != 1 order by RptID ASC", 
                     new { EncodedDateFrom = encodedDateFrom, EncodedDateTo = encodedDateTo }).ToList();
             }
@@ -54,7 +54,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_Z WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
                     "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList and DeletedRecord != 1 " +
                     "ORDER BY RptID ASC";
                 return conn.Query<RealPropertyTax>(query, new { EncodedDateFrom = encodedDateFrom, EncodedDateTo = encodedDateTo, 
@@ -66,7 +66,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_Z WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) AND Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) AND Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
                 return conn.Query<RealPropertyTax>(query, new { EncodedDate = EncodedDate, StatusList = StatusList }).ToList();
             }
         }
@@ -75,7 +75,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM JO_z WHERE Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
                 return conn.Query<RealPropertyTax>(query, new { StatusList = StatusList }).ToList();
             }
         }
@@ -84,7 +84,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_Z where TaxDec = @TaxDec and YearQuarter = @YearQtr and DeletedRecord != 1", new { TaxDec = TaxDec, YearQtr = YearQtr });
+                return conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and DeletedRecord != 1", new { TaxDec = TaxDec, YearQtr = YearQtr });
             }
         }
 
@@ -92,7 +92,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_Z where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_Z where RefNum in (select RefNum FROM Jo_Z where TaxDec = @TaxDec) and DeletedRecord != 1 " +
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
                     $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec }).ToList();
             }
         }
@@ -101,7 +101,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_Z where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_Z where RefNum in (select RefNum FROM Jo_Z where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
                     $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
             }
         }
@@ -110,7 +110,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_Z where RefNum= @RefNum and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum }).ToList();
             }
         }
 
@@ -118,7 +118,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_Z where LocCode is not null and DeletedRecord != 1");
+                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT where LocCode is not null and DeletedRecord != 1");
             }
         }
 
@@ -141,17 +141,17 @@ namespace SampleRPT1
             }
         }
 
-        public static long Insert(RealPropertyTaxPayment modelInstance)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                //if (modelInstance.Bank != null)
-                //{
-                //    modelInstance.Bank = modelInstance.Bank.ToUpper();
-                //}
-                return conn.Insert<RealPropertyTaxPayment>(modelInstance);
-            }
-        }
+        //public static long Insert(RealPropertyTaxPayment modelInstance)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnection())
+        //    {
+        //        //if (modelInstance.Bank != null)
+        //        //{
+        //        //    modelInstance.Bank = modelInstance.Bank.ToUpper();
+        //        //}
+        //        return conn.Insert<RealPropertyTaxPayment>(modelInstance);
+        //    }
+        //}
 
         public static bool Update(RealPropertyTax modelInstance)
         {

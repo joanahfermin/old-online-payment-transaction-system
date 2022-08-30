@@ -32,7 +32,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<RPTAttachPicture>($"SELECT * FROM Jo_Z4 where RPTId= @RPTId and DocumentType = @DocumentType", new { RPTId = RPTid, DocumentType = DocumentType });
+                return conn.QuerySingleOrDefault<RPTAttachPicture>($"SELECT * FROM Jo_RPT_Pictures where RPTId= @RPTId and DocumentType = @DocumentType", new { RPTId = RPTid, DocumentType = DocumentType });
             }
         }
 
@@ -40,7 +40,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RPTAttachPicture>($"SELECT * FROM Jo_Z4 where RPTId= @RPTId order by PictureId ASC", new { RPTId = RPTId }).ToList();
+                return conn.Query<RPTAttachPicture>($"SELECT * FROM Jo_RPT_Pictures where RPTId= @RPTId order by PictureId ASC", new { RPTId = RPTId }).ToList();
             }
         }
     }

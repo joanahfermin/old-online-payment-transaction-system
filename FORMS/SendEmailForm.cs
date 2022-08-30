@@ -33,9 +33,9 @@ namespace SampleRPT1.FORMS
         private void InitializeTemplates()
         {
 
-            List<MessageTemplate> templates = MessageTemplateDatabase.SelectLatest();
+            List<EmailTemplate> templates = EmailTemplateDatabase.SelectLatest();
 
-            foreach (MessageTemplate item in templates)
+            foreach (EmailTemplate item in templates)
             {
                 cboTemplates.Items.Add(item.Name);
             }
@@ -46,13 +46,13 @@ namespace SampleRPT1.FORMS
 
                 if (rpt.Status == RPTStatus.OR_UPLOAD)
                 {
-                    MessageTemplate template = MessageTemplateDatabase.SelectByName(Name);
+                    EmailTemplate template = EmailTemplateDatabase.SelectByName(Name);
 
                     cboTemplates.Text = EmailTemplateUtil.RECEIPT;
                 }
                 if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED)
                 {
-                    MessageTemplate template = MessageTemplateDatabase.SelectByName(Name);
+                    EmailTemplate template = EmailTemplateDatabase.SelectByName(Name);
 
                     cboTemplates.Text = EmailTemplateUtil.ASSESSMENT;
                 }
@@ -63,7 +63,7 @@ namespace SampleRPT1.FORMS
 
         private void cboTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageTemplate template = MessageTemplateDatabase.SelectByName(cboTemplates.Text);
+            EmailTemplate template = EmailTemplateDatabase.SelectByName(cboTemplates.Text);
 
             if (template != null)
             {

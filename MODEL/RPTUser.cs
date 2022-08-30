@@ -7,7 +7,7 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_Z2")]
+    [Table("Jo_RPT_Users")]
     internal class RPTUser
     {
         [Key]

@@ -7,7 +7,7 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1.MODEL
 {
-    [Table("Jo_Z5")]
+    [Table("Jo_RPT_EmailAccount")]
     class EmailAccount
     {
         public string UserName { get; set; }

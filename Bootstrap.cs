@@ -15,7 +15,7 @@ namespace SampleRPT1
         /// <summary>
         /// Initialize the system when program is RUN.
         /// </summary>
-        public static void Initializa()
+        public static void Initialize()
         {
             GlobalConstants.GMAIL_PORT = getSystemSettingAsInt("GMAIL_PORT");
 

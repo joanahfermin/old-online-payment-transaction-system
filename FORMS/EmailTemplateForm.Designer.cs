@@ -33,6 +33,7 @@
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Subject = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Assessment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Receipt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.richTextBox1 = new DG.MiniHTMLTextBox.MiniHTMLTextBox();
             this.cbAssessment = new System.Windows.Forms.CheckBox();
             this.cbReceipt = new System.Windows.Forms.CheckBox();
-            this.Receipt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // LVEmail
@@ -58,10 +58,9 @@
             this.LVEmail.FullRowSelect = true;
             this.LVEmail.GridLines = true;
             this.LVEmail.HideSelection = false;
-            this.LVEmail.Location = new System.Drawing.Point(18, 18);
-            this.LVEmail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LVEmail.Location = new System.Drawing.Point(12, 12);
             this.LVEmail.Name = "LVEmail";
-            this.LVEmail.Size = new System.Drawing.Size(1489, 515);
+            this.LVEmail.Size = new System.Drawing.Size(994, 336);
             this.LVEmail.TabIndex = 0;
             this.LVEmail.UseCompatibleStateImageBehavior = false;
             this.LVEmail.View = System.Windows.Forms.View.Details;
@@ -87,12 +86,16 @@
             this.Assessment.Text = "Assessment";
             this.Assessment.Width = 120;
             // 
+            // Receipt
+            // 
+            this.Receipt.Text = "Receipt";
+            this.Receipt.Width = 120;
+            // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(1118, 586);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd.Location = new System.Drawing.Point(745, 381);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(124, 35);
+            this.btnAdd.Size = new System.Drawing.Size(83, 23);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add Template";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -100,10 +103,9 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(1251, 586);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnEdit.Location = new System.Drawing.Point(834, 381);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(124, 35);
+            this.btnEdit.Size = new System.Drawing.Size(83, 23);
             this.btnEdit.TabIndex = 2;
             this.btnEdit.Text = "Edit/Update";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -111,10 +113,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(1384, 588);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDelete.Location = new System.Drawing.Point(923, 382);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(124, 35);
+            this.btnDelete.Size = new System.Drawing.Size(83, 23);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -122,47 +123,42 @@
             // 
             // textName
             // 
-            this.textName.Location = new System.Drawing.Point(22, 588);
-            this.textName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textName.Location = new System.Drawing.Point(15, 382);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(336, 26);
+            this.textName.Size = new System.Drawing.Size(225, 20);
             this.textName.TabIndex = 5;
             // 
             // textSubject
             // 
-            this.textSubject.Location = new System.Drawing.Point(404, 588);
-            this.textSubject.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textSubject.Location = new System.Drawing.Point(269, 382);
             this.textSubject.Name = "textSubject";
-            this.textSubject.Size = new System.Drawing.Size(336, 26);
+            this.textSubject.Size = new System.Drawing.Size(225, 20);
             this.textSubject.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 563);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 366);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 20);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Name:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(399, 563);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(266, 366);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 20);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Subject:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 637);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 414);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 20);
+            this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Message Template: ";
             // 
@@ -173,20 +169,21 @@
         "<\\w+\\s+.*?(j|java|vb|ecma)script:.*?>",
         "<\\w+(\\s+|\\s+.*?\\s+)on\\w+\\s*=.+?>",
         "</?input.*?>"};
-            this.richTextBox1.Location = new System.Drawing.Point(18, 662);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 430);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.richTextBox1.Size = new System.Drawing.Size(1491, 580);
+            this.richTextBox1.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.richTextBox1.Size = new System.Drawing.Size(994, 377);
             this.richTextBox1.TabIndex = 8;
             this.richTextBox1.Text = null;
             // 
             // cbAssessment
             // 
             this.cbAssessment.AutoSize = true;
-            this.cbAssessment.Location = new System.Drawing.Point(789, 563);
+            this.cbAssessment.Location = new System.Drawing.Point(512, 386);
+            this.cbAssessment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbAssessment.Name = "cbAssessment";
-            this.cbAssessment.Size = new System.Drawing.Size(123, 24);
+            this.cbAssessment.Size = new System.Drawing.Size(82, 17);
             this.cbAssessment.TabIndex = 9;
             this.cbAssessment.Text = "Assessment";
             this.cbAssessment.UseVisualStyleBackColor = true;
@@ -194,23 +191,19 @@
             // cbReceipt
             // 
             this.cbReceipt.AutoSize = true;
-            this.cbReceipt.Location = new System.Drawing.Point(789, 612);
+            this.cbReceipt.Location = new System.Drawing.Point(598, 386);
+            this.cbReceipt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbReceipt.Name = "cbReceipt";
-            this.cbReceipt.Size = new System.Drawing.Size(90, 24);
+            this.cbReceipt.Size = new System.Drawing.Size(63, 17);
             this.cbReceipt.TabIndex = 10;
             this.cbReceipt.Text = "Receipt";
             this.cbReceipt.UseVisualStyleBackColor = true;
             // 
-            // Receipt
-            // 
-            this.Receipt.Text = "Receipt";
-            this.Receipt.Width = 120;
-            // 
             // EmailTemplateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1532, 1260);
+            this.ClientSize = new System.Drawing.Size(1021, 819);
             this.Controls.Add(this.cbReceipt);
             this.Controls.Add(this.cbAssessment);
             this.Controls.Add(this.richTextBox1);
@@ -223,7 +216,6 @@
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.LVEmail);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EmailTemplateForm";
             this.Text = "EmailTemplate";
             this.ResumeLayout(false);

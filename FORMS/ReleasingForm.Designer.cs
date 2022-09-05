@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReleasingForm));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textTDN = new System.Windows.Forms.TextBox();
@@ -85,9 +87,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textRepContactNum = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkAutLetter = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -149,14 +153,14 @@
             this.panel2.Controls.Add(this.label13);
             this.panel2.Location = new System.Drawing.Point(418, 17);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(702, 75);
+            this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 36;
             // 
             // dtDate
             // 
             this.dtDate.CustomFormat = "MM/dd/yyyy";
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDate.Location = new System.Drawing.Point(47, 21);
+            this.dtDate.Location = new System.Drawing.Point(50, 13);
             this.dtDate.Name = "dtDate";
             this.dtDate.ShowCheckBox = true;
             this.dtDate.Size = new System.Drawing.Size(95, 20);
@@ -167,7 +171,7 @@
             // cboStatus
             // 
             this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(371, 20);
+            this.cboStatus.Location = new System.Drawing.Point(383, 13);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
             this.cboStatus.TabIndex = 30;
@@ -177,7 +181,7 @@
             // 
             this.dtDateTo.CustomFormat = "MM/dd/yyyy";
             this.dtDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateTo.Location = new System.Drawing.Point(177, 22);
+            this.dtDateTo.Location = new System.Drawing.Point(183, 13);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 2;
@@ -185,7 +189,7 @@
             // 
             // btnSearchDateStatus
             // 
-            this.btnSearchDateStatus.Location = new System.Drawing.Point(608, 19);
+            this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
             this.btnSearchDateStatus.TabIndex = 9;
@@ -196,7 +200,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 26);
+            this.label2.Location = new System.Drawing.Point(8, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 4;
@@ -205,7 +209,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(285, 28);
+            this.label14.Location = new System.Drawing.Point(297, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 13);
             this.label14.TabIndex = 4;
@@ -214,7 +218,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(151, 27);
+            this.label13.Location = new System.Drawing.Point(151, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 4;
@@ -222,17 +226,18 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1804, 61);
+            this.btnExecute.Location = new System.Drawing.Point(1804, 66);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 39;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
+            this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
             // 
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1720, 22);
+            this.cboAction.Location = new System.Drawing.Point(1720, 30);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
             this.cboAction.TabIndex = 38;
@@ -240,7 +245,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1671, 29);
+            this.label15.Location = new System.Drawing.Point(1671, 37);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(43, 13);
             this.label15.TabIndex = 37;
@@ -392,7 +397,7 @@
             this.VerAndValLV.Location = new System.Drawing.Point(18, 549);
             this.VerAndValLV.Name = "VerAndValLV";
             this.VerAndValLV.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.VerAndValLV.Size = new System.Drawing.Size(1875, 383);
+            this.VerAndValLV.Size = new System.Drawing.Size(1377, 383);
             this.VerAndValLV.TabIndex = 41;
             this.VerAndValLV.UseCompatibleStateImageBehavior = false;
             this.VerAndValLV.View = System.Windows.Forms.View.Details;
@@ -488,7 +493,7 @@
             // textRepName
             // 
             this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRepName.Location = new System.Drawing.Point(1275, 22);
+            this.textRepName.Location = new System.Drawing.Point(1196, 27);
             this.textRepName.Name = "textRepName";
             this.textRepName.Size = new System.Drawing.Size(223, 20);
             this.textRepName.TabIndex = 42;
@@ -496,16 +501,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1147, 29);
+            this.label5.Location = new System.Drawing.Point(1062, 34);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 13);
+            this.label5.Size = new System.Drawing.Size(128, 13);
             this.label5.TabIndex = 37;
-            this.label5.Text = "Name of Represetative: ";
+            this.label5.Text = "Name of Representative: ";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1179, 66);
+            this.label6.Location = new System.Drawing.Point(1100, 71);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 37;
@@ -514,29 +519,34 @@
             // textRepContactNum
             // 
             this.textRepContactNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRepContactNum.Location = new System.Drawing.Point(1275, 59);
+            this.textRepContactNum.Location = new System.Drawing.Point(1196, 64);
             this.textRepContactNum.Name = "textRepContactNum";
             this.textRepContactNum.Size = new System.Drawing.Size(223, 20);
             this.textRepContactNum.TabIndex = 42;
             // 
-            // checkBox1
+            // checkAutLetter
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.checkBox1.Location = new System.Drawing.Point(1507, 62);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(137, 17);
-            this.checkBox1.TabIndex = 43;
-            this.checkBox1.Text = "with authorization letter.";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkAutLetter.AutoSize = true;
+            this.checkAutLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkAutLetter.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.checkAutLetter.Location = new System.Drawing.Point(1440, 67);
+            this.checkAutLetter.Name = "checkAutLetter";
+            this.checkAutLetter.Size = new System.Drawing.Size(137, 17);
+            this.checkAutLetter.TabIndex = 43;
+            this.checkAutLetter.Text = "with authorization letter.";
+            this.checkAutLetter.UseVisualStyleBackColor = true;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
             // ReleasingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1904, 805);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(1904, 948);
+            this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);
             this.Controls.Add(this.textRepName);
             this.Controls.Add(this.VerAndValLV);
@@ -557,6 +567,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -621,6 +632,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textRepContactNum;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkAutLetter;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

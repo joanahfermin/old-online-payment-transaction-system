@@ -25,11 +25,6 @@ namespace SampleRPT1.FORMS
             InitializeTemplates();
         }
 
-        //public void setParent(MainForm mainForm)
-        //{
-        //    parentForm = mainForm;
-        //}
-
         private void InitializeTemplates()
         {
 
@@ -70,22 +65,29 @@ namespace SampleRPT1.FORMS
                 textSubject.Text = template.Subject;
                 richTextBox1.Text = template.Body + "\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
 
-                if (cboTemplates.Text == EmailTemplateUtil.ASSESSMENT)
+                btnSendAssessment.Enabled = false;
+                btnSendReceipt.Enabled = false;
+                btnSendEmail.Enabled = false;
+
+                if (template.isAssessment)
                 {
-                    btnSendReceipt.Enabled = false;
-                    btnSendEmail.Enabled = false;
+                    if (RPTAttachPictureDatabase.HasDocumentType(RptiDList, DocumentType.ASSESSMENT))
+                    {
+                        btnSendAssessment.Enabled = true;
+                    }
                 }
 
-                if (cboTemplates.Text == EmailTemplateUtil.RECEIPT)
+                if (template.isReceipt)
                 {
-                    btnSendAssessment.Enabled = false;
-                    btnSendEmail.Enabled = false;
+                    if (RPTAttachPictureDatabase.HasDocumentType(RptiDList, DocumentType.RECEIPT))
+                    {
+                        btnSendReceipt.Enabled = true;
+                    }
                 }
-                else
+
+                if (!template.isAssessment && !template.isReceipt)
                 {
                     btnSendEmail.Enabled = true;
-                    btnSendReceipt.Enabled = false;
-                    btnSendAssessment.Enabled = false;
                 }
             }
         }
@@ -280,11 +282,6 @@ namespace SampleRPT1.FORMS
             }
 
             this.Close();
-        }
-
-        private void SendEmailForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

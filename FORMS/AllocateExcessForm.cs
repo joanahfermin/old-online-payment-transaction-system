@@ -22,11 +22,6 @@ namespace SampleRPT1.FORMS
             parentForm = GlobalVariables.MAINFORM;
         }
 
-        //public void setParent(MainForm mainForm)
-        //{
-        //    parentForm = mainForm;
-        //}
-
         public void setRptId(long RptId)
         {
             this.RptId = RptId;

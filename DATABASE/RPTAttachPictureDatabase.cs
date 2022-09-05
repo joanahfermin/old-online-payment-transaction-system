@@ -43,5 +43,15 @@ namespace SampleRPT1
                 return conn.Query<RPTAttachPicture>($"SELECT * FROM Jo_RPT_Pictures where RPTId= @RPTId order by PictureId ASC", new { RPTId = RPTId }).ToList();
             }
         }
+
+        public static bool HasDocumentType(List<long> RptiDList, string DocumentType)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                int count = conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT_Pictures where RPTId in @RptiDList and DocumentType = @DocumentType", new { RptiDList = RptiDList, DocumentType = DocumentType });
+
+                return count > 0;
+            }
+        }
     }
 }

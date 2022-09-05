@@ -32,7 +32,9 @@ namespace SampleRPT1
             cboBankUsed.Items.Add(BankUtil.UNIONBANK);
         }
 
-        //Auto-suggests word encoded by the user in the bank combobox.
+        /// <summary>
+        /// Auto-suggests word encoded by the user in the bank combobox.
+        /// </summary>
         private void AddMultipleOnePaymentForm_Load(object sender, EventArgs e)
         {
             cboBankUsed.SelectedIndex = 0;
@@ -41,13 +43,18 @@ namespace SampleRPT1
             cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
-        //Auto-suggested word will be diplayed in the bank combobox.
+        /// <summary>
+        /// Auto-suggested word will be diplayed in the bank combobox.
+        /// </summary>
         private void cboBankUsed_KeyPress(object sender, KeyPressEventArgs e)
         {
             cboBankUsed.DroppedDown = false;
         }
 
-        //Insert record in the form's listview. 
+
+        /// <summary>
+        /// Insert record in the form's listview. 
+        /// </summary>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -94,7 +101,9 @@ namespace SampleRPT1
             textTDN.Focus();
         }
 
-        //Saves the whole list in the main listview. 
+        /// <summary>
+        /// Saves the whole list in the main listview. 
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
             validateFormSaveToMainLV();
@@ -183,7 +192,9 @@ namespace SampleRPT1
             this.Close();
         }
 
-        //Required fields.
+        /// <summary>
+        /// Required fields.
+        /// </summary>
         private void validateForm()
         {
             errorProvider1.Clear();
@@ -192,7 +203,9 @@ namespace SampleRPT1
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
         }
 
-        //Required fields.
+        /// <summary>
+        /// Required fields.
+        /// </summary>
         private void validateFormSaveToMainLV()
         {
             errorProvider1.Clear();
@@ -233,7 +246,9 @@ namespace SampleRPT1
             //}
         }
 
-        //Adding payments.
+        /// <summary>
+        /// Adding payments.
+        /// </summary>
         private void lvMultipleRecord_SelectedIndexChanged(object sender, EventArgs e)
         {
             decimal TotalAmountToPay = 0;
@@ -269,10 +284,11 @@ namespace SampleRPT1
             textAmount2Pay.Text = amounttobepaid.ToString("N2");
         }
 
-        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END.  
-        //PUT IN ONE CLASS OR VARIABLE.
-
-        //Numeric behavior of payment. Only one decimal point allowed.
+        /// <summary>
+        /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END.  
+        /// PUT IN ONE CLASS OR VARIABLE.
+        /// Numeric behavior of payment. Only one decimal point allowed.
+        /// </summary>
         private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
         {
             //numeric value only

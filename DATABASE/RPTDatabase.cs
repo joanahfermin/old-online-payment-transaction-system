@@ -62,12 +62,29 @@ namespace SampleRPT1
             }
         }
 
-        public static List<RealPropertyTax> SelectByDateAndStatus(DateTime EncodedDate, List<string> StatusList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndPaymentChannel(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList, List<string> PaymentChannelList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) AND Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
-                return conn.Query<RealPropertyTax>(query, new { EncodedDate = EncodedDate, StatusList = StatusList }).ToList();
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND Bank in @PaymentChannelList AND DeletedRecord != 1 " +
+                    "ORDER BY RptID ASC";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    StatusList = StatusList,
+                    PaymentChannelList = PaymentChannelList
+                }).ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectByStatusAndPaymentChannel(List<string> StatusList, List<string> PaymentChannelList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status in @StatusList and Bank in @PaymentChannelList and DeletedRecord != 1 ORDER BY RptID ASC";
+                return conn.Query<RealPropertyTax>(query, new { StatusList = StatusList, PaymentChannelList = PaymentChannelList }).ToList();
             }
         }
 

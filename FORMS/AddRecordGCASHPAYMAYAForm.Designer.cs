@@ -47,7 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textAmountDue = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textTransactionDate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textPropertyName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -60,6 +59,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.btnSaveAll = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dtTransactionPayment = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,15 +198,6 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Amount Due: ";
             // 
-            // textTransactionDate
-            // 
-            this.textTransactionDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTransactionDate.Enabled = false;
-            this.textTransactionDate.Location = new System.Drawing.Point(885, 559);
-            this.textTransactionDate.Name = "textTransactionDate";
-            this.textTransactionDate.Size = new System.Drawing.Size(203, 20);
-            this.textTransactionDate.TabIndex = 11;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -290,6 +281,7 @@
             this.textBillQuantity.TabIndex = 2;
             this.textBillQuantity.Text = "1";
             this.textBillQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBillQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBillQuantity_KeyPress);
             // 
             // label9
             // 
@@ -315,11 +307,22 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // dtTransactionPayment
+            // 
+            this.dtTransactionPayment.CustomFormat = "MM/dd/yyyy HH:mm:ss ";
+            this.dtTransactionPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtTransactionPayment.Location = new System.Drawing.Point(885, 562);
+            this.dtTransactionPayment.Name = "dtTransactionPayment";
+            this.dtTransactionPayment.Size = new System.Drawing.Size(203, 20);
+            this.dtTransactionPayment.TabIndex = 12;
+            this.dtTransactionPayment.Value = new System.DateTime(2022, 9, 5, 14, 56, 11, 0);
+            // 
             // AddRecordGCASHPAYMAYAForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 611);
+            this.Controls.Add(this.dtTransactionPayment);
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
@@ -331,7 +334,6 @@
             this.Controls.Add(this.textRPTID);
             this.Controls.Add(this.textBillQuantity);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textTransactionDate);
             this.Controls.Add(this.textPropertyName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textAmountDue);
@@ -360,7 +362,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textAmountDue;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textTransactionDate;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textPropertyName;
         private System.Windows.Forms.Label label6;
@@ -381,5 +382,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.DateTimePicker dtTransactionPayment;
     }
 }

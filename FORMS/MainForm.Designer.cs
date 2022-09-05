@@ -67,7 +67,6 @@
             this.VerRema = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ValRema = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnSeachDate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.textRemarks = new System.Windows.Forms.TextBox();
             this.textNumOfBills = new System.Windows.Forms.TextBox();
@@ -83,9 +82,10 @@
             this.btnUpload = new System.Windows.Forms.Button();
             this.TabPicture = new System.Windows.Forms.TabControl();
             this.Assessment = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxAssessment = new System.Windows.Forms.PictureBox();
             this.Receipt = new System.Windows.Forms.TabPage();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
@@ -106,12 +106,18 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.cbAutoRefresh = new System.Windows.Forms.CheckBox();
+            this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
+            this.labelPaymentChannel = new System.Windows.Forms.Label();
+            this.labelRepName = new System.Windows.Forms.Label();
+            this.textRepName = new System.Windows.Forms.TextBox();
+            this.labelContactNumber = new System.Windows.Forms.Label();
+            this.textContactNum = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).BeginInit();
             this.Receipt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -358,19 +364,9 @@
             this.rr.Text = "Released Remarks";
             this.rr.Width = 250;
             // 
-            // btnSeachDate
-            // 
-            this.btnSeachDate.Location = new System.Drawing.Point(608, 47);
-            this.btnSeachDate.Name = "btnSeachDate";
-            this.btnSeachDate.Size = new System.Drawing.Size(75, 23);
-            this.btnSeachDate.TabIndex = 5;
-            this.btnSeachDate.Text = "Search";
-            this.btnSeachDate.UseVisualStyleBackColor = true;
-            this.btnSeachDate.Click += new System.EventHandler(this.btnSeachDate_Click);
-            // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(1764, 60);
+            this.btnDelete.Location = new System.Drawing.Point(1766, 90);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(127, 23);
             this.btnDelete.TabIndex = 29;
@@ -381,23 +377,23 @@
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(1409, 36);
+            this.textRemarks.Location = new System.Drawing.Point(1400, 60);
             this.textRemarks.Name = "textRemarks";
-            this.textRemarks.Size = new System.Drawing.Size(187, 20);
+            this.textRemarks.Size = new System.Drawing.Size(202, 20);
             this.textRemarks.TabIndex = 11;
             // 
             // textNumOfBills
             // 
             this.textNumOfBills.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textNumOfBills.Location = new System.Drawing.Point(1184, 62);
+            this.textNumOfBills.Location = new System.Drawing.Point(1124, 60);
             this.textNumOfBills.Name = "textNumOfBills";
-            this.textNumOfBills.Size = new System.Drawing.Size(78, 20);
+            this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
             this.textNumOfBills.TabIndex = 11;
             // 
             // LabelNumBills
             // 
             this.LabelNumBills.AutoSize = true;
-            this.LabelNumBills.Location = new System.Drawing.Point(1133, 69);
+            this.LabelNumBills.Location = new System.Drawing.Point(1075, 67);
             this.LabelNumBills.Name = "LabelNumBills";
             this.LabelNumBills.Size = new System.Drawing.Size(45, 13);
             this.LabelNumBills.TabIndex = 12;
@@ -407,7 +403,7 @@
             // 
             this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmount2Pay.Enabled = false;
-            this.textTotalAmount2Pay.Location = new System.Drawing.Point(1636, 34);
+            this.textTotalAmount2Pay.Location = new System.Drawing.Point(1634, 30);
             this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
             this.textTotalAmount2Pay.Size = new System.Drawing.Size(115, 20);
             this.textTotalAmount2Pay.TabIndex = 16;
@@ -417,7 +413,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1633, 16);
+            this.label10.Location = new System.Drawing.Point(1631, 9);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(113, 13);
             this.label10.TabIndex = 17;
@@ -427,7 +423,7 @@
             // 
             this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
-            this.textTotalAmountTransferred.Location = new System.Drawing.Point(1764, 34);
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(1762, 30);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
             this.textTotalAmountTransferred.Size = new System.Drawing.Size(127, 20);
             this.textTotalAmountTransferred.TabIndex = 16;
@@ -437,7 +433,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1761, 17);
+            this.label11.Location = new System.Drawing.Point(1759, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
             this.label11.TabIndex = 17;
@@ -450,13 +446,13 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1428, 909);
+            this.btnSearch.Location = new System.Drawing.Point(1432, 908);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(110, 23);
             this.btnSearch.TabIndex = 22;
             this.btnSearch.Text = "Browse";
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnUploadAssessment_Click);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // openFileDialog1
             // 
@@ -466,7 +462,7 @@
             // 
             this.textFileName.Location = new System.Drawing.Point(1675, 912);
             this.textFileName.Name = "textFileName";
-            this.textFileName.Size = new System.Drawing.Size(91, 20);
+            this.textFileName.Size = new System.Drawing.Size(212, 20);
             this.textFileName.TabIndex = 24;
             // 
             // btnUpload
@@ -483,6 +479,7 @@
             // 
             this.TabPicture.Controls.Add(this.Assessment);
             this.TabPicture.Controls.Add(this.Receipt);
+            this.TabPicture.Controls.Add(this.tabPage1);
             this.TabPicture.Location = new System.Drawing.Point(1428, 549);
             this.TabPicture.Name = "TabPicture";
             this.TabPicture.SelectedIndex = 0;
@@ -491,7 +488,7 @@
             // 
             // Assessment
             // 
-            this.Assessment.Controls.Add(this.pictureBox1);
+            this.Assessment.Controls.Add(this.pictureBoxAssessment);
             this.Assessment.Location = new System.Drawing.Point(4, 22);
             this.Assessment.Name = "Assessment";
             this.Assessment.Padding = new System.Windows.Forms.Padding(3);
@@ -500,20 +497,20 @@
             this.Assessment.Text = "Assessment";
             this.Assessment.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
+            // pictureBoxAssessment
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(-2, -2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(459, 333);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBoxAssessment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxAssessment.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxAssessment.Name = "pictureBoxAssessment";
+            this.pictureBoxAssessment.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxAssessment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxAssessment.TabIndex = 21;
+            this.pictureBoxAssessment.TabStop = false;
+            this.pictureBoxAssessment.Click += new System.EventHandler(this.pictureBoxAssessment_Click);
             // 
             // Receipt
             // 
-            this.Receipt.Controls.Add(this.pictureBox2);
+            this.Receipt.Controls.Add(this.pictureBoxReceipt);
             this.Receipt.Location = new System.Drawing.Point(4, 22);
             this.Receipt.Name = "Receipt";
             this.Receipt.Padding = new System.Windows.Forms.Padding(3);
@@ -522,30 +519,41 @@
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;
             // 
-            // pictureBox2
+            // pictureBoxReceipt
             // 
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox2.Location = new System.Drawing.Point(-2, -2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(459, 333);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 21;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureBoxReceipt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxReceipt.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxReceipt.Name = "pictureBoxReceipt";
+            this.pictureBoxReceipt.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxReceipt.TabIndex = 21;
+            this.pictureBoxReceipt.TabStop = false;
+            this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(455, 328);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Released Signature";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1184, 35);
+            this.cboAction.Location = new System.Drawing.Point(1124, 30);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
             this.cboAction.TabIndex = 30;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
+            this.cboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboAction_KeyPress);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1135, 42);
+            this.label15.Location = new System.Drawing.Point(1075, 34);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(43, 13);
             this.label15.TabIndex = 4;
@@ -553,7 +561,7 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1268, 60);
+            this.btnExecute.Location = new System.Drawing.Point(1208, 60);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 31;
@@ -564,7 +572,7 @@
             // LabelRemarks
             // 
             this.LabelRemarks.AutoSize = true;
-            this.LabelRemarks.Location = new System.Drawing.Point(1348, 42);
+            this.LabelRemarks.Location = new System.Drawing.Point(1330, 67);
             this.LabelRemarks.Name = "LabelRemarks";
             this.LabelRemarks.Size = new System.Drawing.Size(55, 13);
             this.LabelRemarks.TabIndex = 4;
@@ -594,7 +602,7 @@
             // 
             this.dtDate.CustomFormat = "MM/dd/yyyy";
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDate.Location = new System.Drawing.Point(47, 21);
+            this.dtDate.Location = new System.Drawing.Point(50, 13);
             this.dtDate.Name = "dtDate";
             this.dtDate.ShowCheckBox = true;
             this.dtDate.Size = new System.Drawing.Size(95, 20);
@@ -606,7 +614,7 @@
             // 
             this.dtDateTo.CustomFormat = "MM/dd/yyyy";
             this.dtDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateTo.Location = new System.Drawing.Point(177, 22);
+            this.dtDateTo.Location = new System.Drawing.Point(183, 13);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 2;
@@ -626,7 +634,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 26);
+            this.label2.Location = new System.Drawing.Point(8, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 4;
@@ -644,7 +652,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(285, 28);
+            this.label14.Location = new System.Drawing.Point(297, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 13);
             this.label14.TabIndex = 4;
@@ -653,7 +661,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(151, 27);
+            this.label13.Location = new System.Drawing.Point(151, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 4;
@@ -661,7 +669,7 @@
             // 
             // btnSearchDateStatus
             // 
-            this.btnSearchDateStatus.Location = new System.Drawing.Point(608, 19);
+            this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
             this.btnSearchDateStatus.TabIndex = 9;
@@ -672,11 +680,12 @@
             // cboStatus
             // 
             this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(371, 20);
+            this.cboStatus.Location = new System.Drawing.Point(383, 13);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
             this.cboStatus.TabIndex = 30;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
+            this.cboStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboStatus_KeyPress);
             // 
             // panel1
             // 
@@ -704,7 +713,6 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
-            this.panel2.Controls.Add(this.btnSeachDate);
             this.panel2.Controls.Add(this.dtDateTo);
             this.panel2.Controls.Add(this.btnSearchDateStatus);
             this.panel2.Controls.Add(this.label2);
@@ -712,7 +720,7 @@
             this.panel2.Controls.Add(this.label13);
             this.panel2.Location = new System.Drawing.Point(418, 17);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(702, 75);
+            this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 33;
             // 
             // label4
@@ -729,18 +737,79 @@
             this.cbAutoRefresh.AutoSize = true;
             this.cbAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAutoRefresh.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbAutoRefresh.Location = new System.Drawing.Point(1636, 64);
+            this.cbAutoRefresh.Location = new System.Drawing.Point(1641, 60);
             this.cbAutoRefresh.Name = "cbAutoRefresh";
             this.cbAutoRefresh.Size = new System.Drawing.Size(108, 19);
             this.cbAutoRefresh.TabIndex = 34;
             this.cbAutoRefresh.Text = "Auto Refresh";
             this.cbAutoRefresh.UseVisualStyleBackColor = true;
             // 
+            // cboPaymentChannel
+            // 
+            this.cboPaymentChannel.FormattingEnabled = true;
+            this.cboPaymentChannel.Location = new System.Drawing.Point(1400, 30);
+            this.cboPaymentChannel.Name = "cboPaymentChannel";
+            this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
+            this.cboPaymentChannel.TabIndex = 35;
+            this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
+            this.cboPaymentChannel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboPaymentChannel_KeyPress);
+            // 
+            // labelPaymentChannel
+            // 
+            this.labelPaymentChannel.AutoSize = true;
+            this.labelPaymentChannel.Location = new System.Drawing.Point(1301, 34);
+            this.labelPaymentChannel.Name = "labelPaymentChannel";
+            this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
+            this.labelPaymentChannel.TabIndex = 36;
+            this.labelPaymentChannel.Text = "Payment Channel:";
+            // 
+            // labelRepName
+            // 
+            this.labelRepName.AutoSize = true;
+            this.labelRepName.Location = new System.Drawing.Point(616, 953);
+            this.labelRepName.Name = "labelRepName";
+            this.labelRepName.Size = new System.Drawing.Size(116, 13);
+            this.labelRepName.TabIndex = 37;
+            this.labelRepName.Text = "Representative Name: ";
+            // 
+            // textRepName
+            // 
+            this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRepName.Enabled = false;
+            this.textRepName.Location = new System.Drawing.Point(738, 946);
+            this.textRepName.Name = "textRepName";
+            this.textRepName.Size = new System.Drawing.Size(272, 20);
+            this.textRepName.TabIndex = 38;
+            // 
+            // labelContactNumber
+            // 
+            this.labelContactNumber.AutoSize = true;
+            this.labelContactNumber.Location = new System.Drawing.Point(1054, 953);
+            this.labelContactNumber.Name = "labelContactNumber";
+            this.labelContactNumber.Size = new System.Drawing.Size(90, 13);
+            this.labelContactNumber.TabIndex = 37;
+            this.labelContactNumber.Text = "Contact Number: ";
+            // 
+            // textContactNum
+            // 
+            this.textContactNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textContactNum.Enabled = false;
+            this.textContactNum.Location = new System.Drawing.Point(1150, 946);
+            this.textContactNum.Name = "textContactNum";
+            this.textContactNum.Size = new System.Drawing.Size(272, 20);
+            this.textContactNum.TabIndex = 38;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.textContactNum);
+            this.Controls.Add(this.textRepName);
+            this.Controls.Add(this.labelContactNumber);
+            this.Controls.Add(this.labelRepName);
+            this.Controls.Add(this.labelPaymentChannel);
+            this.Controls.Add(this.cboPaymentChannel);
             this.Controls.Add(this.cbAutoRefresh);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -770,9 +839,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.TabPicture.ResumeLayout(false);
             this.Assessment.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).EndInit();
             this.Receipt.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -810,7 +879,6 @@
         private System.Windows.Forms.ColumnHeader RelesedBy;
         private System.Windows.Forms.ColumnHeader relesedDate;
         private System.Windows.Forms.ColumnHeader rr;
-        private System.Windows.Forms.Button btnSeachDate;
         private System.Windows.Forms.TextBox textRemarks;
         private System.Windows.Forms.ColumnHeader billed;
         private System.Windows.Forms.ColumnHeader billedby;
@@ -830,14 +898,14 @@
         private System.Windows.Forms.ColumnHeader excessShortAmount;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxAssessment;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textFileName;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.TabControl TabPicture;
         private System.Windows.Forms.TabPage Assessment;
         private System.Windows.Forms.TabPage Receipt;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBoxReceipt;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ComboBox cboAction;
@@ -860,6 +928,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox cbAutoRefresh;
+        private System.Windows.Forms.Label labelPaymentChannel;
+        private System.Windows.Forms.ComboBox cboPaymentChannel;
+        private System.Windows.Forms.TextBox textRepName;
+        private System.Windows.Forms.Label labelRepName;
+        private System.Windows.Forms.TextBox textContactNum;
+        private System.Windows.Forms.Label labelContactNumber;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 

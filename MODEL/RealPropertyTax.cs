@@ -45,7 +45,10 @@ namespace SampleRPT1
         public string UploaderRemarks { get; set; }
         public string ReleasedRemarks { get; set; }
         public string LocCode { get; set; }
-
+        public string RepName { get; set; }
+        public string ContactNumber { get; set; }
+        public bool WithAuthorizationLetter { get; set; } = false;
+        public bool is_Released { get; set; } = false;
         public int DeletedRecord { get; set; } = 0;
 
     }

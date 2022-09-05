@@ -45,6 +45,7 @@
             // 
             // textTDN
             // 
+            this.textTDN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTDN.Location = new System.Drawing.Point(144, 86);
             this.textTDN.Name = "textTDN";
             this.textTDN.Size = new System.Drawing.Size(264, 20);
@@ -52,6 +53,7 @@
             // 
             // textYearQuarter
             // 
+            this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textYearQuarter.Location = new System.Drawing.Point(144, 152);
             this.textYearQuarter.Name = "textYearQuarter";
             this.textYearQuarter.Size = new System.Drawing.Size(264, 20);
@@ -59,6 +61,7 @@
             // 
             // textAmount2Pay
             // 
+            this.textAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAmount2Pay.Location = new System.Drawing.Point(144, 222);
             this.textAmount2Pay.Name = "textAmount2Pay";
             this.textAmount2Pay.Size = new System.Drawing.Size(264, 20);
@@ -75,8 +78,9 @@
             // 
             // textRefNum
             // 
+            this.textRefNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRefNum.Enabled = false;
-            this.textRefNum.Location = new System.Drawing.Point(144, 283);
+            this.textRefNum.Location = new System.Drawing.Point(144, 295);
             this.textRefNum.Name = "textRefNum";
             this.textRefNum.Size = new System.Drawing.Size(264, 20);
             this.textRefNum.TabIndex = 0;
@@ -102,7 +106,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(68, 290);
+            this.label4.Location = new System.Drawing.Point(68, 302);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 1;
@@ -110,7 +114,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(333, 357);
+            this.btnSave.Location = new System.Drawing.Point(231, 370);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 2;

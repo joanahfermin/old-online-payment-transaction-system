@@ -21,6 +21,8 @@ namespace SampleRPT1
             //Dagdag ng event Keyup.
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
 
+            dtTransactionPayment.Value = DateTime.Now;
+
             parentForm = GlobalVariables.MAINFORM;
         }
 
@@ -79,6 +81,16 @@ namespace SampleRPT1
                     }
                 }
                 PopulateExistingColumn();
+            }
+
+            //CTRL + A to select all the rows.
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                FirstLVGcashPaymaya.MultiSelect = true;
+                foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
+                {
+                    item.Selected = true;
+                }
             }
         }
 
@@ -172,7 +184,10 @@ namespace SampleRPT1
                 textYearQuarter.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[2].Text;
                 textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
                 textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
-                textTransactionDate.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text;
+
+                //textTransactionDate.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text;
+
+                dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text);
 
                 textYearQuarter.SelectAll();
 
@@ -219,6 +234,8 @@ namespace SampleRPT1
         {
             validateForm();
 
+            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             if (Validations.HaveErrors(errorProvider1))
             {
                 return;
@@ -241,10 +258,14 @@ namespace SampleRPT1
                     RetrievedRpt.BillCount = textBillQuantity.Text.Trim();
                     RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
+                    RetrievedRpt.PaymentDate = dtTransactionPayment.Value;
+
                     RetrievedRpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                     RetrievedRpt.BilledDate = DateTime.Now;
                     RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
-                    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("MM/dd/yyyy-HH:mm:ss") + ")".Trim();
+                    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")".Trim();
+
+                    RetrievedRpt.RefNum = refNo;
 
                     RPTDatabase.Insert(RetrievedRpt);
                 }
@@ -262,16 +283,17 @@ namespace SampleRPT1
                     rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                     rpt.RequestingParty = textEmailAddress.Text;
 
+                    rpt.PaymentDate = dtTransactionPayment.Value;
+
                     rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.EncodedDate = DateTime.Now;
 
                     rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.BilledDate = DateTime.Now;
+                    rpt.RefNum = refNo;
 
                     RPTDatabase.Insert(rpt);
                 }
-
-                RefreshMainListviewTaxDec();
 
                 //Removes processed record from the listview.
                 if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
@@ -279,6 +301,8 @@ namespace SampleRPT1
                     int Index = FirstLVGcashPaymaya.SelectedIndices[0];
                     FirstLVGcashPaymaya.Items.RemoveAt(Index);
                 }
+
+                RefreshMainListviewTaxDec();
             } 
         }
 
@@ -290,6 +314,8 @@ namespace SampleRPT1
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
 
             validateForm();
+
+            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
             if (Validations.HaveErrors(errorProvider1))
             {
@@ -319,10 +345,13 @@ namespace SampleRPT1
                         RetrievedRpt.BillCount = textBillQuantity.Text;
                         RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
+                        RetrievedRpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+
                         RetrievedRpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                         RetrievedRpt.BilledDate = DateTime.Now;
                         RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
-                        RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("MM/dd/yyyy-HH:mm:ss") + ")";
+                        RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+                        RetrievedRpt.RefNum = refNo;
 
                         RPTDatabase.Insert(RetrievedRpt);
                     }
@@ -341,11 +370,14 @@ namespace SampleRPT1
                         rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                         rpt.RequestingParty = textEmailAddress.Text;
 
+                        rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+
                         rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
                         rpt.EncodedDate = DateTime.Now;
 
                         rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                         rpt.BilledDate = DateTime.Now;
+                        rpt.RefNum = refNo;
 
                         RPTDatabase.Insert(rpt);
                     }
@@ -358,6 +390,15 @@ namespace SampleRPT1
                     FirstLVGcashPaymaya.Items.RemoveAt(Index);
                 }
                 RefreshMainListviewStatus();
+            }
+        }
+
+        //Integer only.
+        private void textBillQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

@@ -13,16 +13,10 @@ namespace SampleRPT1.FORMS
 {
     public partial class BalanceShort : Form
     {
-        MainForm parentForm;
         long RptId;
         public BalanceShort()
         {
             InitializeComponent();
-        }
-
-        public void setParent(MainForm mainForm)
-        {
-            parentForm = mainForm;
         }
 
         public void setRptId(long RptId)
@@ -30,8 +24,6 @@ namespace SampleRPT1.FORMS
             this.RptId = RptId;
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
-            //textAmountTransferred.Text = Convert.ToDecimal(RetrieveRpt.ExcessShortAmount).ToString();
-            //textAmountTransferred.Focus();
         }
 
         private void validateForm()
@@ -105,9 +97,9 @@ namespace SampleRPT1.FORMS
                     RPTDatabase.Update(rpt);
                     break;
                 }
-
             }
-            parentForm.RefreshListView();
+
+            GlobalVariables.MAINFORM.RefreshListView();
 
             this.Close();
         }

@@ -31,7 +31,9 @@ namespace SampleRPT1
             parentForm = mainForm;
         }
 
-        //Auto-suggests the word being typed in the bank combobox.
+        /// <summary>
+        /// Auto-suggests the word being typed in the bank combobox.
+        /// </summary>
         private void AddRPTForm_Load(object sender, EventArgs e)
         {
             CheckUncheckDateOfPayment();
@@ -40,13 +42,17 @@ namespace SampleRPT1
             cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
-        //Auto-suggested word being displayed in the bank combobox.
+        /// <summary>
+        /// Auto-suggested word being displayed in the bank combobox.
+        /// </summary>
         private void cboBankUsed_KeyPress(object sender, KeyPressEventArgs e)
         {
             cboBankUsed.DroppedDown = false;
         }
 
-        //Saves the record. 
+        /// <summary>
+        /// Saves the record.
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -138,7 +144,9 @@ namespace SampleRPT1
             parentForm.SearchForAssessment();
         }
 
-        //Required textfields. 
+        /// <summary>
+        /// Required textfields. 
+        /// </summary>
         private void validateForm()
         {
             // clear muna natin lahat ng error from previous validation.
@@ -156,7 +164,9 @@ namespace SampleRPT1
             textAmountToBePaid.Text = amounttobepaid.ToString("N2");
         }
 
-        //Date of Payment will be dependent if the user encodes the total transferred amount.
+        /// <summary>
+        /// Date of Payment will be dependent if the user encodes the total transferred amount.
+        /// </summary>
         private void CheckUncheckDateOfPayment()
         {
             if (textTotalTransferredAmount.Text != "0.00")
@@ -244,10 +254,11 @@ namespace SampleRPT1
             textRemarks.Text = string.Empty;
         }
 
-        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
-        //PUT IN ONE CLASS OR VARIABLE.
-
-        //One decimal only in textfields that only accepts numbers.
+        /// <summary>
+        /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
+        /// PUT IN ONE CLASS OR VARIABLE.
+        /// One decimal only in textfields that only accepts numbers.
+        /// </summary>
         private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
         {
             //numeric value only

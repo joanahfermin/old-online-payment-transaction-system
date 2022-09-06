@@ -1083,5 +1083,6 @@ namespace SampleRPT1
             ViewImageForm form = new ViewImageForm(pictureBoxReceipt.Image);
             form.ShowDialog();
         }
+        //COMMENT.
     }
 }

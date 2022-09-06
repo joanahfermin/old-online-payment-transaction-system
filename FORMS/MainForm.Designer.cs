@@ -380,7 +380,7 @@
             this.textRemarks.Location = new System.Drawing.Point(1400, 60);
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(202, 20);
-            this.textRemarks.TabIndex = 11;
+            this.textRemarks.TabIndex = 12;
             // 
             // textNumOfBills
             // 
@@ -388,7 +388,7 @@
             this.textNumOfBills.Location = new System.Drawing.Point(1124, 60);
             this.textNumOfBills.Name = "textNumOfBills";
             this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
-            this.textNumOfBills.TabIndex = 11;
+            this.textNumOfBills.TabIndex = 9;
             // 
             // LabelNumBills
             // 
@@ -546,7 +546,7 @@
             this.cboAction.Location = new System.Drawing.Point(1124, 30);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
-            this.cboAction.TabIndex = 30;
+            this.cboAction.TabIndex = 8;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
             this.cboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboAction_KeyPress);
             // 
@@ -564,7 +564,7 @@
             this.btnExecute.Location = new System.Drawing.Point(1208, 60);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
-            this.btnExecute.TabIndex = 31;
+            this.btnExecute.TabIndex = 10;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
@@ -583,7 +583,7 @@
             this.btnMultipleRecordOnePayment.Location = new System.Drawing.Point(213, 37);
             this.btnMultipleRecordOnePayment.Name = "btnMultipleRecordOnePayment";
             this.btnMultipleRecordOnePayment.Size = new System.Drawing.Size(145, 23);
-            this.btnMultipleRecordOnePayment.TabIndex = 6;
+            this.btnMultipleRecordOnePayment.TabIndex = 3;
             this.btnMultipleRecordOnePayment.Text = "Multiple Record 1 Payment";
             this.btnMultipleRecordOnePayment.UseVisualStyleBackColor = true;
             this.btnMultipleRecordOnePayment.Click += new System.EventHandler(this.btnMultipleRecordOnePayment_Click);
@@ -593,7 +593,7 @@
             this.btnAddRecord.Location = new System.Drawing.Point(82, 37);
             this.btnAddRecord.Name = "btnAddRecord";
             this.btnAddRecord.Size = new System.Drawing.Size(125, 23);
-            this.btnAddRecord.TabIndex = 6;
+            this.btnAddRecord.TabIndex = 2;
             this.btnAddRecord.Text = "Add New Record";
             this.btnAddRecord.UseVisualStyleBackColor = true;
             this.btnAddRecord.Click += new System.EventHandler(this.btnAddRecord_Click);
@@ -606,7 +606,7 @@
             this.dtDate.Name = "dtDate";
             this.dtDate.ShowCheckBox = true;
             this.dtDate.Size = new System.Drawing.Size(95, 20);
-            this.dtDate.TabIndex = 2;
+            this.dtDate.TabIndex = 4;
             this.dtDate.Value = new System.DateTime(2022, 8, 25, 0, 0, 0, 0);
             this.dtDate.ValueChanged += new System.EventHandler(this.btnSearchDateStatus_Click);
             // 
@@ -617,7 +617,7 @@
             this.dtDateTo.Location = new System.Drawing.Point(183, 13);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
-            this.dtDateTo.TabIndex = 2;
+            this.dtDateTo.TabIndex = 5;
             this.dtDateTo.Value = new System.DateTime(2022, 8, 17, 0, 0, 0, 0);
             this.dtDateTo.ValueChanged += new System.EventHandler(this.dtDateTo_ValueChanged);
             // 
@@ -627,7 +627,7 @@
             this.textTDN.Location = new System.Drawing.Point(82, 13);
             this.textTDN.Name = "textTDN";
             this.textTDN.Size = new System.Drawing.Size(276, 20);
-            this.textTDN.TabIndex = 3;
+            this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             // 
@@ -672,7 +672,7 @@
             this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchDateStatus.TabIndex = 9;
+            this.btnSearchDateStatus.TabIndex = 7;
             this.btnSearchDateStatus.Text = "Search";
             this.btnSearchDateStatus.UseVisualStyleBackColor = true;
             this.btnSearchDateStatus.Click += new System.EventHandler(this.btnSearchDateStatus_Click);
@@ -683,7 +683,7 @@
             this.cboStatus.Location = new System.Drawing.Point(383, 13);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
-            this.cboStatus.TabIndex = 30;
+            this.cboStatus.TabIndex = 6;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             this.cboStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboStatus_KeyPress);
             // 
@@ -750,7 +750,7 @@
             this.cboPaymentChannel.Location = new System.Drawing.Point(1400, 30);
             this.cboPaymentChannel.Name = "cboPaymentChannel";
             this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
-            this.cboPaymentChannel.TabIndex = 35;
+            this.cboPaymentChannel.TabIndex = 11;
             this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
             this.cboPaymentChannel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboPaymentChannel_KeyPress);
             // 

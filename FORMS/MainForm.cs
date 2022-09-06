@@ -16,6 +16,7 @@ namespace SampleRPT1
 {
     public partial class MainForm : Form
     {
+        private const String BANK_TRANSFER = "BANK TRANSFER";
         private const String SEARCH_BY_TAXDEC = "SEARCH_BY_TAXDEC";
         private const String SEARCH_BY_DATE_STATUS = "SEARCH_BY_DATE_STATUS";
         private String lastSearchAction = "";
@@ -222,7 +223,17 @@ namespace SampleRPT1
             StatusList.Add(cboStatus.Text);
 
             List<string> PaymentChannelList = new List<string>();
-            PaymentChannelList.Add(cboPaymentChannel.Text);
+
+            if (cboPaymentChannel.Text == BANK_TRANSFER)
+            {
+                PaymentChannelList.Add(BankUtil.LBP);
+                PaymentChannelList.Add(BankUtil.METROBANK);
+                PaymentChannelList.Add(BankUtil.UNIONBANK);
+            }
+            else
+            {
+                PaymentChannelList.Add(cboPaymentChannel.Text);
+            }
 
             List<RealPropertyTax> rptList;
 

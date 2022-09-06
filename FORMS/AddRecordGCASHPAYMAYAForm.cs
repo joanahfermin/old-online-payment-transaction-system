@@ -32,10 +32,11 @@ namespace SampleRPT1
         private void FirstLVGcashPaymaya_KeyDown(object sender, KeyEventArgs e)
         {
             List<int> IgnoredColumnList = new List<int>();
-            IgnoredColumnList.Add(4);
+            //IgnoredColumnList.Add(4);
             IgnoredColumnList.Add(6);
-            IgnoredColumnList.Add(7);
+            //IgnoredColumnList.Add(7);
             IgnoredColumnList.Add(8);
+            IgnoredColumnList.Add(9);
 
             //If user presses CTRL + V, papasok sya sa if condition.
             if (e.KeyData == (Keys.V | Keys.Control))
@@ -168,9 +169,9 @@ namespace SampleRPT1
             else
             {
                 textRPTID.Text = "";
-                textPropertyName.Text = "";
+                //textPropertyName.Text = "";
 
-                textPropertyName.Text = SearchExistingTaxpayerName(textTaxDec.Text);
+                //textPropertyName.Text = SearchExistingTaxpayerName(textTaxDec.Text);
             }
         }
 
@@ -182,12 +183,11 @@ namespace SampleRPT1
                 textServiceProvider.Text = FirstLVGcashPaymaya.SelectedItems[0].Text;
                 textTaxDec.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[1].Text;
                 textYearQuarter.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[2].Text;
-                textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
-                textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
+                textPropertyName.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
+                textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
+                textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text;
 
-                //textTransactionDate.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text;
-
-                dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text);
+                dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text);
 
                 textYearQuarter.SelectAll();
 
@@ -330,15 +330,17 @@ namespace SampleRPT1
                     string ServiceProvider = FirstLVGcashPaymaya.SelectedItems[i].Text;
                     string TaxDec = FirstLVGcashPaymaya.SelectedItems[i].SubItems[1].Text;
                     string YearQuarter = FirstLVGcashPaymaya.SelectedItems[i].SubItems[2].Text;
-                    string RequestingParty = FirstLVGcashPaymaya.SelectedItems[i].SubItems[3].Text;
-                    decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.SelectedItems[i].SubItems[4].Text);
-                    string TransactionDate = FirstLVGcashPaymaya.SelectedItems[i].SubItems[5].Text;
+                    string TaxpayersName = FirstLVGcashPaymaya.SelectedItems[i].SubItems[3].Text;
+                    string RequestingParty = FirstLVGcashPaymaya.SelectedItems[i].SubItems[4].Text;
+                    decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.SelectedItems[i].SubItems[5].Text);
+                    string TransactionDate = FirstLVGcashPaymaya.SelectedItems[i].SubItems[6].Text;
 
                     RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
 
                     //Existing record, year/quarter will have a suffix of date and time. 
                     if (RetrievedRpt != null)
                     {
+                        RetrievedRpt.TaxPayerName = TaxpayersName;
                         RetrievedRpt.AmountToPay = AmountDue;
                         RetrievedRpt.AmountTransferred = AmountDue;
                         RetrievedRpt.Bank = ServiceProvider;
@@ -361,7 +363,8 @@ namespace SampleRPT1
                         RealPropertyTax rpt = new RealPropertyTax();
 
                         rpt.TaxDec = TaxDec;
-                        rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
+                        //rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
+                        rpt.TaxPayerName = TaxpayersName;
                         rpt.AmountToPay = AmountDue;
                         rpt.AmountTransferred = AmountDue;
                         rpt.Bank = ServiceProvider;
@@ -375,6 +378,7 @@ namespace SampleRPT1
                         rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
                         rpt.EncodedDate = DateTime.Now;
 
+                        rpt.RequestingParty = RequestingParty;
                         rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
                         rpt.BilledDate = DateTime.Now;
                         rpt.RefNum = refNo;
@@ -390,6 +394,16 @@ namespace SampleRPT1
                     FirstLVGcashPaymaya.Items.RemoveAt(Index);
                 }
                 RefreshMainListviewStatus();
+
+                textRPTID.Clear();
+                textTaxDec.Clear();
+                textPropertyName.Clear();
+                textBillQuantity.Clear();
+                textYearQuarter.Clear();
+                textAmountDue.Clear();
+                textServiceProvider.Clear();
+                textEmailAddress.Clear();
+                dtTransactionPayment.Value = DateTime.Now;
             }
         }
 

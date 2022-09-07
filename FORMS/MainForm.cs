@@ -148,12 +148,6 @@ namespace SampleRPT1
 
             foreach (ListViewItem item in RPTInfoLV.Items)
             {
-                //if (item.SubItems[12].Text.Length > 0 && Convert.ToDecimal(item.SubItems[4].Text) != 0)
-                //{
-                //    item.BackColor = Color.LightYellow;
-                //    VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
-                //}
-
                 //displaying of same reference number that colors the entire row, except for e-tranfer payments.
                 if (item.SubItems[12].Text.Length > 0 && Convert.ToDecimal(item.SubItems[4].Text) != 0 
                     && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD

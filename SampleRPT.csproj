@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -269,8 +269,8 @@
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalConstants.cs" />
-    <Compile Include="GlobalVariables.cs" />
+    <Compile Include="UTILITIES\GlobalConstants.cs" />
+    <Compile Include="UTILITIES\GlobalVariables.cs" />
     <Compile Include="JOBS\AutoEmailJob.cs" />
     <Compile Include="MODEL\EmailAccount.cs" />
     <Compile Include="MODEL\EmailTemplate.cs" />
@@ -288,10 +288,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RPTUserLoginForm.cs">
+    <Compile Include="UTILITIES\RPTUserLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RPTUserLoginForm.Designer.cs">
+    <Compile Include="UTILITIES\RPTUserLoginForm.Designer.cs">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UTILITIES\BankUtil.cs" />
@@ -357,7 +357,7 @@
     <EmbeddedResource Include="FORMS\UpdateRPTForm.resx">
       <DependentUpon>UpdateRPTForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RPTUserLoginForm.resx">
+    <EmbeddedResource Include="UTILITIES\RPTUserLoginForm.resx">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

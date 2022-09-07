@@ -31,11 +31,22 @@ namespace SampleRPT1
             autoEmailJob.Initialize();
         }
 
+        /// <summary>
+        /// Returns a value that is already converted into int.
+        /// </summary>
+        /// <param name="SettingName"></param>
+        /// <returns></returns>
         public static int getSystemSettingAsInt(String SettingName)
         {
             return Int32.Parse(getSystemSettingAsString(SettingName));
         }
 
+        /// <summary>
+        /// Returns a value that is already converted into string.
+        /// </summary>
+        /// <param name="SettingName"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string getSystemSettingAsString(String SettingName)
         {
             SystemSetting setting = SystemSettingDatabase.SelectBySettingName(SettingName);

@@ -11,6 +11,11 @@ namespace SampleRPT1
 {
     internal class RPTUserDatabase
     {
+        /// <summary>
+        /// Returns a user from the database.
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <returns></returns>
         public static RPTUser FindByUserName(string UserName)
         {
             using (SqlConnection conn = DbUtils.getConnection())

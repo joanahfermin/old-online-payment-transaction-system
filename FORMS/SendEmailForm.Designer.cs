@@ -55,14 +55,14 @@
             this.textSubject.Location = new System.Drawing.Point(315, 36);
             this.textSubject.Name = "textSubject";
             this.textSubject.Size = new System.Drawing.Size(375, 20);
-            this.textSubject.TabIndex = 1;
+            this.textSubject.TabIndex = 2;
             // 
             // btnSendEmail
             // 
             this.btnSendEmail.Location = new System.Drawing.Point(589, 721);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(101, 23);
-            this.btnSendEmail.TabIndex = 3;
+            this.btnSendEmail.TabIndex = 6;
             this.btnSendEmail.Text = "Send Email";
             this.btnSendEmail.UseVisualStyleBackColor = true;
             this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);
@@ -72,7 +72,7 @@
             this.btnSendAssessment.Location = new System.Drawing.Point(335, 721);
             this.btnSendAssessment.Name = "btnSendAssessment";
             this.btnSendAssessment.Size = new System.Drawing.Size(101, 23);
-            this.btnSendAssessment.TabIndex = 6;
+            this.btnSendAssessment.TabIndex = 4;
             this.btnSendAssessment.Text = "Send Assessment";
             this.btnSendAssessment.UseVisualStyleBackColor = true;
             this.btnSendAssessment.Click += new System.EventHandler(this.btnSendAssessment_Click);
@@ -82,7 +82,7 @@
             this.btnSendReceipt.Location = new System.Drawing.Point(464, 721);
             this.btnSendReceipt.Name = "btnSendReceipt";
             this.btnSendReceipt.Size = new System.Drawing.Size(101, 23);
-            this.btnSendReceipt.TabIndex = 6;
+            this.btnSendReceipt.TabIndex = 5;
             this.btnSendReceipt.Text = "Send Receipt";
             this.btnSendReceipt.UseVisualStyleBackColor = true;
             this.btnSendReceipt.Click += new System.EventHandler(this.btnSendReceipt_Click);
@@ -125,7 +125,7 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Padding = new System.Windows.Forms.Padding(1);
             this.richTextBox1.Size = new System.Drawing.Size(675, 617);
-            this.richTextBox1.TabIndex = 2;
+            this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = null;
             // 
             // SendEmailForm

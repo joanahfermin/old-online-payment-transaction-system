@@ -34,6 +34,7 @@
             this.serviceProv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxdec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.taxpayername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.emailadd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.amountdue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.paymentdate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,7 +61,6 @@
             this.btnSaveAll = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dtTransactionPayment = new System.Windows.Forms.DateTimePicker();
-            this.taxpayername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,6 +102,11 @@
             // 
             this.year.Text = "YearQuarter";
             this.year.Width = 100;
+            // 
+            // taxpayername
+            // 
+            this.taxpayername.Text = "Taxpayer Name";
+            this.taxpayername.Width = 300;
             // 
             // emailadd
             // 
@@ -191,6 +196,7 @@
             this.textAmountDue.Name = "textAmountDue";
             this.textAmountDue.Size = new System.Drawing.Size(203, 20);
             this.textAmountDue.TabIndex = 8;
+            this.textAmountDue.Text = "0.00";
             this.textAmountDue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
@@ -320,11 +326,6 @@
             this.dtTransactionPayment.Size = new System.Drawing.Size(203, 20);
             this.dtTransactionPayment.TabIndex = 12;
             this.dtTransactionPayment.Value = new System.DateTime(2022, 9, 5, 14, 56, 11, 0);
-            // 
-            // taxpayername
-            // 
-            this.taxpayername.Text = "Taxpayer Name";
-            this.taxpayername.Width = 300;
             // 
             // AddRecordGCASHPAYMAYAForm
             // 

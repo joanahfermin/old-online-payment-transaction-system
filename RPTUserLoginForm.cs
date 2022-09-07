@@ -17,6 +17,11 @@ namespace SampleRPT1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Passess the retrieved user to the GlobalVariables.RPTUSER.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRptLogin_Click(object sender, EventArgs e)
         {
             string userName = textUserName.Text.Trim();
@@ -42,7 +47,7 @@ namespace SampleRPT1
         }
 
         /// <summary>
-        /// TEXTFIELD BEHAVIOR USING CLIK AND ENTER.
+        /// Selects all word using click and enter keypress.
         /// </summary>
         private bool textUserNameJustEntered = false;
         private void textUserName_Enter(object sender, EventArgs e)
@@ -78,6 +83,7 @@ namespace SampleRPT1
             textPassWordJustEntered = false;
         }
 
+        //TEXTFIELD BEHAVIOR USING CLIK AND ENTER.
         private void EnterKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)

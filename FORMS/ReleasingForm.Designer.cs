@@ -119,7 +119,7 @@
             this.textTDN.Location = new System.Drawing.Point(82, 13);
             this.textTDN.Name = "textTDN";
             this.textTDN.Size = new System.Drawing.Size(276, 20);
-            this.textTDN.TabIndex = 3;
+            this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             // 
@@ -129,7 +129,7 @@
             this.label1.Location = new System.Drawing.Point(7, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 44;
             this.label1.Text = "Enter TDN: ";
             // 
             // label4
@@ -174,7 +174,7 @@
             this.cboStatus.Location = new System.Drawing.Point(383, 13);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
-            this.cboStatus.TabIndex = 30;
+            this.cboStatus.TabIndex = 4;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             // 
             // dtDateTo
@@ -184,7 +184,7 @@
             this.dtDateTo.Location = new System.Drawing.Point(183, 13);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
-            this.dtDateTo.TabIndex = 2;
+            this.dtDateTo.TabIndex = 3;
             this.dtDateTo.Value = new System.DateTime(2022, 8, 23, 0, 0, 0, 0);
             // 
             // btnSearchDateStatus
@@ -192,7 +192,7 @@
             this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchDateStatus.TabIndex = 9;
+            this.btnSearchDateStatus.TabIndex = 5;
             this.btnSearchDateStatus.Text = "Search";
             this.btnSearchDateStatus.UseVisualStyleBackColor = true;
             this.btnSearchDateStatus.Click += new System.EventHandler(this.btnSearchDateStatus_Click);
@@ -203,7 +203,7 @@
             this.label2.Location = new System.Drawing.Point(8, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 44;
             this.label2.Text = "From: ";
             // 
             // label14
@@ -212,7 +212,7 @@
             this.label14.Location = new System.Drawing.Point(297, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 13);
-            this.label14.TabIndex = 4;
+            this.label14.TabIndex = 44;
             this.label14.Text = "Filter By Status:";
             // 
             // label13
@@ -221,7 +221,7 @@
             this.label13.Location = new System.Drawing.Point(151, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
-            this.label13.TabIndex = 4;
+            this.label13.TabIndex = 47;
             this.label13.Text = "To: ";
             // 
             // btnExecute
@@ -229,7 +229,7 @@
             this.btnExecute.Location = new System.Drawing.Point(1804, 66);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
-            this.btnExecute.TabIndex = 39;
+            this.btnExecute.TabIndex = 9;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
@@ -496,7 +496,7 @@
             this.textRepName.Location = new System.Drawing.Point(1196, 27);
             this.textRepName.Name = "textRepName";
             this.textRepName.Size = new System.Drawing.Size(223, 20);
-            this.textRepName.TabIndex = 42;
+            this.textRepName.TabIndex = 6;
             // 
             // label5
             // 
@@ -522,7 +522,7 @@
             this.textRepContactNum.Location = new System.Drawing.Point(1196, 64);
             this.textRepContactNum.Name = "textRepContactNum";
             this.textRepContactNum.Size = new System.Drawing.Size(223, 20);
-            this.textRepContactNum.TabIndex = 42;
+            this.textRepContactNum.TabIndex = 7;
             // 
             // checkAutLetter
             // 
@@ -532,7 +532,7 @@
             this.checkAutLetter.Location = new System.Drawing.Point(1440, 67);
             this.checkAutLetter.Name = "checkAutLetter";
             this.checkAutLetter.Size = new System.Drawing.Size(137, 17);
-            this.checkAutLetter.TabIndex = 43;
+            this.checkAutLetter.TabIndex = 8;
             this.checkAutLetter.Text = "with authorization letter.";
             this.checkAutLetter.UseVisualStyleBackColor = true;
             // 

@@ -76,6 +76,8 @@ namespace SampleRPT1.FORMS
 
         private void ReleasingForm_Load(object sender, EventArgs e)
         {
+            textTDN.Select();
+
             cboStatus.SelectedIndex = 0;
             cboAction.SelectedIndex = 0;
         }

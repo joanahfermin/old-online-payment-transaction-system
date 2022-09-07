@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the Email template.
+    /// </summary>
     internal class EmailTemplateUtil
     {
         public const string ASSESSMENT = "ASSESSMENT";

@@ -27,6 +27,7 @@ namespace SampleRPT1
         public MainForm()
         {
             InitializeComponent();
+
             dtDate.Value = DateTime.Now;
             dtDateTo.Value = DateTime.Now;
 
@@ -954,6 +955,8 @@ namespace SampleRPT1
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            textTDN.Select();
+
             textFileName.Visible = false;
 
             cboStatus.AutoCompleteMode = AutoCompleteMode.Suggest;

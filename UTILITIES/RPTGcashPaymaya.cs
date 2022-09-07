@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the Payment channel filter.
+    /// </summary>
     internal class RPTGcashPaymaya
     {
         public const string BANK_TRANSFER = "BANK TRANSFER";

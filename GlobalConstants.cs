@@ -7,6 +7,9 @@ using System.Configuration;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// These are all global variable which contains value in the database.
+    /// </summary>
     class GlobalConstants
     {
         public static string DATABASE_CONNECTION_STRING = ConfigurationManager.AppSettings["ConnectionString"];

@@ -8,6 +8,8 @@ using Dapper.Contrib.Extensions;
 namespace SampleRPT1
 {
     [Table("Jo_RPT_Users")]
+
+    //These are all objects of the table Jo_RPT_Users.
     internal class RPTUser
     {
         [Key]

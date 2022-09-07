@@ -12,6 +12,11 @@ namespace SampleRPT1.DATABASE
 {
     class SystemSettingDatabase
     {
+        /// <summary>
+        /// Returns a setting value from the database.
+        /// </summary>
+        /// <param name="SettingName"></param>
+        /// <returns></returns>
         public static SystemSetting SelectBySettingName(string SettingName)
         {
             using (SqlConnection conn = DbUtils.getConnection())

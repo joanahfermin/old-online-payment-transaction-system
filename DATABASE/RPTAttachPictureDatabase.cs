@@ -12,6 +12,11 @@ namespace SampleRPT1
 {
     internal class RPTAttachPictureDatabase
     {
+        /// <summary>
+        /// Inserts attachment to the database.
+        /// </summary>
+        /// <param name="rptAttachPicture"></param>
+        /// <returns></returns>
         public static long InsertPicture(RPTAttachPicture rptAttachPicture)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -20,6 +25,11 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Updates entire row in the database.
+        /// </summary>
+        /// <param name="RptPicture"></param>
+        /// <returns></returns>
         public static bool Update(RPTAttachPicture RptPicture)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -28,6 +38,12 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Returns a list of records based on Rptid and Document type. 
+        /// </summary>
+        /// <param name="RPTid"></param>
+        /// <param name="DocumentType"></param>
+        /// <returns></returns>
         public static RPTAttachPicture SelectByRPTAndDocumentType(long RPTid, string DocumentType)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -36,6 +52,11 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Returns a list of records based on Rptid. 
+        /// </summary>
+        /// <param name="RPTId"></param>
+        /// <returns></returns>
         public static List<RPTAttachPicture> SelectByRPT(long RPTId)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -44,6 +65,12 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Confirms if the selected record has document: Assessment or Receipt.
+        /// </summary>
+        /// <param name="RptiDList"></param>
+        /// <param name="DocumentType"></param>
+        /// <returns></returns>
         public static bool HasDocumentType(List<long> RptiDList, string DocumentType)
         {
             using (SqlConnection conn = DbUtils.getConnection())

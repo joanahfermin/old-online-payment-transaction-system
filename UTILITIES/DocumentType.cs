@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the Document type of the attachment.
+    /// </summary>
     internal class DocumentType
     {
         public const string ASSESSMENT = "Assessment";

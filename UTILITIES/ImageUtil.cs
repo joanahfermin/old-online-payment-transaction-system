@@ -14,6 +14,11 @@ namespace SampleRPT1
         public const int MAX_IMAGE_WIDTH = 1000;
         public const int JPG_QUALITY = 50;
 
+        /// <summary>
+        /// This is to reduce the size of the attached picture.
+        /// </summary>
+        /// <param name="sourceData"></param>
+        /// <returns></returns>
         public static byte[] resizeJpg(byte[] sourceData)
         {
             using (Image sourceImage = imageFromByteArray(sourceData))
@@ -45,6 +50,11 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Conversion of the picture to byte array.
+        /// </summary>
+        /// <param name="sourceData"></param>
+        /// <returns></returns>
         public static Image imageFromByteArray(byte[] sourceData)
         {
             using (var ms = new MemoryStream(sourceData))

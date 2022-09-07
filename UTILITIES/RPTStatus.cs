@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the status filter.
+    /// </summary>
     internal class RPTStatus
     {
         public const string FOR_ASSESSMENT = "FOR ASSESSMENT";

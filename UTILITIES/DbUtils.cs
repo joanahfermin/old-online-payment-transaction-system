@@ -11,6 +11,10 @@ namespace SampleRPT1
 
     internal class DbUtils
     {
+        /// <summary>
+        /// Establishing sql connection.
+        /// </summary>
+        /// <returns></returns>
         public static SqlConnection getConnection()
         {
             SqlConnection cnn = new SqlConnection(GlobalConstants.DATABASE_CONNECTION_STRING);

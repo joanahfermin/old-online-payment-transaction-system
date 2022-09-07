@@ -53,7 +53,6 @@ namespace SampleRPT1
             if (obj == null)
             {
                 return "";
-
             }
             else
             {

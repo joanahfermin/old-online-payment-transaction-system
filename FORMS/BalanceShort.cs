@@ -19,6 +19,9 @@ namespace SampleRPT1.FORMS
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Retrieves the selected data based on passed RptId from the main form.
+        /// </summary>
         public void setRptId(long RptId)
         {
             this.RptId = RptId;
@@ -26,6 +29,9 @@ namespace SampleRPT1.FORMS
             textRefNum.Text = RetrieveRpt.RefNum;
         }
 
+        /// <summary>
+        /// Required fields.
+        /// </summary>
         private void validateForm()
         {
             errorProvider1.Clear();
@@ -34,6 +40,9 @@ namespace SampleRPT1.FORMS
             Validations.ValidateRequired(errorProvider1, textRefNum, "Reference Num.");
         }
 
+        /// <summary>
+        /// Updates the insufficient payment of record. 
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
             validateForm();
@@ -47,6 +56,7 @@ namespace SampleRPT1.FORMS
 
             decimal AmountTransferred = Convert.ToDecimal(textAmountTransferred.Text);
 
+            //If user inputs short payment, system will not accept. 
             if (RetrieveRpt.ExcessShortAmount + AmountTransferred < 0)
             {
                 MessageBox.Show("Amount transferred does not cover the short/excess amount.");
@@ -102,6 +112,63 @@ namespace SampleRPT1.FORMS
             GlobalVariables.MAINFORM.RefreshListView();
 
             this.Close();
+        }
+
+        /// <summary>
+        /// Numeric value and one decimal point only.
+        /// </summary>
+        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
+        {
+            //numeric value only
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        // TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
+        private void textAmountTransferred_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
+        }
+
+        private bool textAmountTransferredJustEntered = false;
+        private void textAmountTransferred_Enter(object sender, EventArgs e)
+        {
+            textAmountTransferred.SelectAll();
+            textAmountTransferredJustEntered = true;
+        }
+
+        private void textAmountTransferred_Click(object sender, EventArgs e)
+        {
+            if (textAmountTransferredJustEntered)
+            {
+                textAmountTransferred.SelectAll();
+            }
+
+            textAmountTransferredJustEntered = false;
+        }
+
+        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
+        private void EnterKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
+            }
+        }
+
+        private void textAmountTransferred_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
         }
     }
 }

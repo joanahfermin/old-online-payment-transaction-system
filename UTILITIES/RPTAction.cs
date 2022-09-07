@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the RPTAction filter.
+    /// </summary>
     internal class RPTAction
     {
         public const string BILL_NO_POP = "BILL NO PAYMENT";

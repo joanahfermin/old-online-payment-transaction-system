@@ -380,7 +380,7 @@
             this.textRemarks.Location = new System.Drawing.Point(1400, 60);
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(202, 20);
-            this.textRemarks.TabIndex = 12;
+            this.textRemarks.TabIndex = 11;
             // 
             // textNumOfBills
             // 
@@ -388,7 +388,7 @@
             this.textNumOfBills.Location = new System.Drawing.Point(1124, 60);
             this.textNumOfBills.Name = "textNumOfBills";
             this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
-            this.textNumOfBills.TabIndex = 9;
+            this.textNumOfBills.TabIndex = 8;
             // 
             // LabelNumBills
             // 
@@ -396,7 +396,7 @@
             this.LabelNumBills.Location = new System.Drawing.Point(1075, 67);
             this.LabelNumBills.Name = "LabelNumBills";
             this.LabelNumBills.Size = new System.Drawing.Size(45, 13);
-            this.LabelNumBills.TabIndex = 12;
+            this.LabelNumBills.TabIndex = 22;
             this.LabelNumBills.Text = "Bill Qty.:";
             // 
             // textTotalAmount2Pay
@@ -436,7 +436,7 @@
             this.label11.Location = new System.Drawing.Point(1759, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
-            this.label11.TabIndex = 17;
+            this.label11.TabIndex = 18;
             this.label11.Text = "Total Amount Transferred:";
             // 
             // errorProvider1
@@ -546,7 +546,7 @@
             this.cboAction.Location = new System.Drawing.Point(1124, 30);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
-            this.cboAction.TabIndex = 8;
+            this.cboAction.TabIndex = 7;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
             this.cboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboAction_KeyPress);
             // 
@@ -556,7 +556,7 @@
             this.label15.Location = new System.Drawing.Point(1075, 34);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(43, 13);
-            this.label15.TabIndex = 4;
+            this.label15.TabIndex = 50;
             this.label15.Text = "Action: ";
             // 
             // btnExecute
@@ -564,7 +564,7 @@
             this.btnExecute.Location = new System.Drawing.Point(1208, 60);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
-            this.btnExecute.TabIndex = 10;
+            this.btnExecute.TabIndex = 9;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
@@ -575,7 +575,7 @@
             this.LabelRemarks.Location = new System.Drawing.Point(1330, 67);
             this.LabelRemarks.Name = "LabelRemarks";
             this.LabelRemarks.Size = new System.Drawing.Size(55, 13);
-            this.LabelRemarks.TabIndex = 4;
+            this.LabelRemarks.TabIndex = 37;
             this.LabelRemarks.Text = "Remarks: ";
             // 
             // btnMultipleRecordOnePayment
@@ -583,7 +583,7 @@
             this.btnMultipleRecordOnePayment.Location = new System.Drawing.Point(213, 37);
             this.btnMultipleRecordOnePayment.Name = "btnMultipleRecordOnePayment";
             this.btnMultipleRecordOnePayment.Size = new System.Drawing.Size(145, 23);
-            this.btnMultipleRecordOnePayment.TabIndex = 3;
+            this.btnMultipleRecordOnePayment.TabIndex = 2;
             this.btnMultipleRecordOnePayment.Text = "Multiple Record 1 Payment";
             this.btnMultipleRecordOnePayment.UseVisualStyleBackColor = true;
             this.btnMultipleRecordOnePayment.Click += new System.EventHandler(this.btnMultipleRecordOnePayment_Click);
@@ -593,7 +593,7 @@
             this.btnAddRecord.Location = new System.Drawing.Point(82, 37);
             this.btnAddRecord.Name = "btnAddRecord";
             this.btnAddRecord.Size = new System.Drawing.Size(125, 23);
-            this.btnAddRecord.TabIndex = 2;
+            this.btnAddRecord.TabIndex = 1;
             this.btnAddRecord.Text = "Add New Record";
             this.btnAddRecord.UseVisualStyleBackColor = true;
             this.btnAddRecord.Click += new System.EventHandler(this.btnAddRecord_Click);
@@ -606,7 +606,7 @@
             this.dtDate.Name = "dtDate";
             this.dtDate.ShowCheckBox = true;
             this.dtDate.Size = new System.Drawing.Size(95, 20);
-            this.dtDate.TabIndex = 4;
+            this.dtDate.TabIndex = 3;
             this.dtDate.Value = new System.DateTime(2022, 8, 25, 0, 0, 0, 0);
             this.dtDate.ValueChanged += new System.EventHandler(this.btnSearchDateStatus_Click);
             // 
@@ -617,7 +617,7 @@
             this.dtDateTo.Location = new System.Drawing.Point(183, 13);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
-            this.dtDateTo.TabIndex = 5;
+            this.dtDateTo.TabIndex = 4;
             this.dtDateTo.Value = new System.DateTime(2022, 8, 17, 0, 0, 0, 0);
             this.dtDateTo.ValueChanged += new System.EventHandler(this.dtDateTo_ValueChanged);
             // 
@@ -627,7 +627,7 @@
             this.textTDN.Location = new System.Drawing.Point(82, 13);
             this.textTDN.Name = "textTDN";
             this.textTDN.Size = new System.Drawing.Size(276, 20);
-            this.textTDN.TabIndex = 1;
+            this.textTDN.TabIndex = 0;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             // 
@@ -637,7 +637,7 @@
             this.label2.Location = new System.Drawing.Point(8, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 44;
             this.label2.Text = "From: ";
             // 
             // label1
@@ -646,7 +646,7 @@
             this.label1.Location = new System.Drawing.Point(7, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 42;
             this.label1.Text = "Enter TDN: ";
             // 
             // label14
@@ -655,7 +655,7 @@
             this.label14.Location = new System.Drawing.Point(297, 20);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(80, 13);
-            this.label14.TabIndex = 4;
+            this.label14.TabIndex = 46;
             this.label14.Text = "Filter By Status:";
             // 
             // label13
@@ -664,7 +664,7 @@
             this.label13.Location = new System.Drawing.Point(151, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
-            this.label13.TabIndex = 4;
+            this.label13.TabIndex = 45;
             this.label13.Text = "To: ";
             // 
             // btnSearchDateStatus
@@ -672,7 +672,7 @@
             this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchDateStatus.TabIndex = 7;
+            this.btnSearchDateStatus.TabIndex = 6;
             this.btnSearchDateStatus.Text = "Search";
             this.btnSearchDateStatus.UseVisualStyleBackColor = true;
             this.btnSearchDateStatus.Click += new System.EventHandler(this.btnSearchDateStatus_Click);
@@ -683,7 +683,7 @@
             this.cboStatus.Location = new System.Drawing.Point(383, 13);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
-            this.cboStatus.TabIndex = 6;
+            this.cboStatus.TabIndex = 5;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             this.cboStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboStatus_KeyPress);
             // 
@@ -705,7 +705,7 @@
             this.label3.Location = new System.Drawing.Point(28, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(173, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 41;
             this.label3.Text = "Search by Tax Declaration Number";
             // 
             // panel2
@@ -729,7 +729,7 @@
             this.label4.Location = new System.Drawing.Point(428, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 13);
-            this.label4.TabIndex = 4;
+            this.label4.TabIndex = 53;
             this.label4.Text = "Search by Date And Status";
             // 
             // cbAutoRefresh
@@ -750,7 +750,7 @@
             this.cboPaymentChannel.Location = new System.Drawing.Point(1400, 30);
             this.cboPaymentChannel.Name = "cboPaymentChannel";
             this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
-            this.cboPaymentChannel.TabIndex = 11;
+            this.cboPaymentChannel.TabIndex = 10;
             this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
             this.cboPaymentChannel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboPaymentChannel_KeyPress);
             // 

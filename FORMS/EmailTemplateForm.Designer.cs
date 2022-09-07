@@ -61,7 +61,7 @@
             this.LVEmail.Location = new System.Drawing.Point(12, 12);
             this.LVEmail.Name = "LVEmail";
             this.LVEmail.Size = new System.Drawing.Size(994, 336);
-            this.LVEmail.TabIndex = 0;
+            this.LVEmail.TabIndex = 10;
             this.LVEmail.UseCompatibleStateImageBehavior = false;
             this.LVEmail.View = System.Windows.Forms.View.Details;
             this.LVEmail.SelectedIndexChanged += new System.EventHandler(this.LVEmail_SelectedIndexChanged);
@@ -96,7 +96,7 @@
             this.btnAdd.Location = new System.Drawing.Point(745, 381);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(83, 23);
-            this.btnAdd.TabIndex = 1;
+            this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Add Template";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -106,7 +106,7 @@
             this.btnEdit.Location = new System.Drawing.Point(834, 381);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(83, 23);
-            this.btnEdit.TabIndex = 2;
+            this.btnEdit.TabIndex = 6;
             this.btnEdit.Text = "Edit/Update";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -116,24 +116,26 @@
             this.btnDelete.Location = new System.Drawing.Point(923, 382);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(83, 23);
-            this.btnDelete.TabIndex = 3;
+            this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // textName
             // 
+            this.textName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textName.Location = new System.Drawing.Point(15, 382);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(225, 20);
-            this.textName.TabIndex = 5;
+            this.textName.TabIndex = 1;
             // 
             // textSubject
             // 
+            this.textSubject.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textSubject.Location = new System.Drawing.Point(269, 382);
             this.textSubject.Name = "textSubject";
             this.textSubject.Size = new System.Drawing.Size(225, 20);
-            this.textSubject.TabIndex = 5;
+            this.textSubject.TabIndex = 2;
             // 
             // label1
             // 
@@ -172,7 +174,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(12, 430);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Padding = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.richTextBox1.Padding = new System.Windows.Forms.Padding(1);
             this.richTextBox1.Size = new System.Drawing.Size(994, 377);
             this.richTextBox1.TabIndex = 8;
             this.richTextBox1.Text = null;
@@ -181,10 +183,10 @@
             // 
             this.cbAssessment.AutoSize = true;
             this.cbAssessment.Location = new System.Drawing.Point(512, 386);
-            this.cbAssessment.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAssessment.Margin = new System.Windows.Forms.Padding(2);
             this.cbAssessment.Name = "cbAssessment";
             this.cbAssessment.Size = new System.Drawing.Size(82, 17);
-            this.cbAssessment.TabIndex = 9;
+            this.cbAssessment.TabIndex = 3;
             this.cbAssessment.Text = "Assessment";
             this.cbAssessment.UseVisualStyleBackColor = true;
             // 
@@ -192,10 +194,10 @@
             // 
             this.cbReceipt.AutoSize = true;
             this.cbReceipt.Location = new System.Drawing.Point(598, 386);
-            this.cbReceipt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbReceipt.Margin = new System.Windows.Forms.Padding(2);
             this.cbReceipt.Name = "cbReceipt";
             this.cbReceipt.Size = new System.Drawing.Size(63, 17);
-            this.cbReceipt.TabIndex = 10;
+            this.cbReceipt.TabIndex = 4;
             this.cbReceipt.Text = "Receipt";
             this.cbReceipt.UseVisualStyleBackColor = true;
             // 

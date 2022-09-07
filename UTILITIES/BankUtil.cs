@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Contents of the Bank filter.
+    /// </summary>
     internal class BankUtil
     {
         public const string LBP = "LBP";

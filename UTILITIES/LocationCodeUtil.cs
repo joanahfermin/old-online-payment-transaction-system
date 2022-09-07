@@ -10,6 +10,10 @@ namespace SampleRPT1
     {
         public const int FOLDERSIZE = 5;
 
+        /// <summary>
+        /// Generates a Location code for the uploaded receipts.
+        /// </summary>
+        /// <returns></returns>
         public static string GetNextLocationCode()
         {
             int Count = RPTDatabase.CountLocation();

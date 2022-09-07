@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
+    /// <summary>
+    /// Global variable objects.
+    /// </summary>
     internal class GlobalVariables
     {
         public static RPTUser RPTUSER;

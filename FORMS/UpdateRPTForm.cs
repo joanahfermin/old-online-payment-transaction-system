@@ -18,6 +18,7 @@ namespace SampleRPT1
         private static string MULTIPLE_MARKER = "***";
         private static DateTime MULTIPLE_MARKERDATE = DateTime.Parse ("01/01/1900");
 
+        //Initializes the passed list of rptid records from the main form. 
         public UpdateRPTForm(List<long> RptIDList)
         {
             InitializeComponent();
@@ -34,6 +35,10 @@ namespace SampleRPT1
             parentForm = mainForm;
         }
 
+        /// <summary>
+        /// Populates the textfields from the retrieved records in the main form using the passed RptList. 
+        /// If, multiple records are selected and has different payment dates, MULTIPLE_MARKERDATE will auto-populate the datetime picker. 
+        /// </summary>
         public void InitializeUpdateRecord()
         {
             Boolean FirstRecord = true;
@@ -109,6 +114,7 @@ namespace SampleRPT1
             }
         }
 
+        //Date of Payment and bank used will be enabled depending on the value of TransferredAmount textfield.
         private void CheckUncheckDateOfPayment()
         {
             if (textTransferredAmount.Text != "0.00")
@@ -132,6 +138,7 @@ namespace SampleRPT1
             }
         }
 
+        //Updates the record.
         private void btnUpdateRecord_Click(object sender, EventArgs e)
         {
             foreach (var rpt in RptList)
@@ -148,10 +155,6 @@ namespace SampleRPT1
                 {
                     rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
                 }
-                //if (textTransferredAmount.Text != MULTIPLE_MARKER)
-                //{
-                //    rpt.AmountTransferred = Convert.ToDecimal(textTransferredAmount.Text);
-                //}
 
                 if (textTransferredAmount.Text != MULTIPLE_MARKER)
                 {
@@ -221,6 +224,7 @@ namespace SampleRPT1
             Close();
         }
 
+        //Record will have the status of "FOR ASSESSSMENT" once it has an update in AmountTransferred.
         private void UpdateRecordToForAssessment()
         {
             foreach (var rpt in RptList)
@@ -233,6 +237,7 @@ namespace SampleRPT1
             }
         }
 
+        //Thousand separator.
         private void textAmountToBePaid_Leave(object sender, EventArgs e)
         {
             if (textAmountToBePaid.Text != MULTIPLE_MARKER)
@@ -243,6 +248,7 @@ namespace SampleRPT1
             }         
         }
 
+        //Thousand separator.
         private void textTransferredAmount_Leave(object sender, EventArgs e)
         {
             if (textTransferredAmount.Text != MULTIPLE_MARKER)
@@ -264,6 +270,254 @@ namespace SampleRPT1
         private void UpdateRPTForm_Load(object sender, EventArgs e)
         {
             CheckUncheckDateOfPayment();
+        }
+
+        /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE. <summary>
+        private bool textTaxDecJustEntered = false;
+        private void textTaxDec_Enter(object sender, EventArgs e)
+        {
+            textTaxDec.SelectAll();
+            textTaxDecJustEntered = true;
+        }
+
+        private void textTaxDec_Click(object sender, EventArgs e)
+        {
+            if (textTaxDecJustEntered)
+            {
+                textTaxDec.SelectAll();
+            }
+
+            textTaxDecJustEntered = false;
+        }
+
+        private bool textTPNameJustEntered = false;
+        private void textTPName_Enter(object sender, EventArgs e)
+        {
+            textTPName.SelectAll();
+            textTPNameJustEntered = true;
+        }
+
+        private void textTPName_Click(object sender, EventArgs e)
+        {
+            if (textTPNameJustEntered)
+            {
+                textTPName.SelectAll();
+            }
+
+            textTPNameJustEntered = false;
+        }
+
+        private bool textAmountToBePaidJustEntered = false;
+        private void textAmountToBePaid_Enter(object sender, EventArgs e)
+        {
+            textAmountToBePaid.SelectAll();
+            textAmountToBePaidJustEntered = true;
+        }
+
+        private void textAmountToBePaid_Click(object sender, EventArgs e)
+        {
+            if (textAmountToBePaidJustEntered)
+            {
+                textAmountToBePaid.SelectAll();
+            }
+
+            textAmountToBePaidJustEntered = false;
+        }
+
+        private bool textTransferredAmountJustEntered = false;
+        private void textTransferredAmount_Enter(object sender, EventArgs e)
+        {
+            textTransferredAmount.SelectAll();
+            textTransferredAmountJustEntered = true;
+        }
+
+        private void textTransferredAmount_Click(object sender, EventArgs e)
+        {
+            if (textTransferredAmountJustEntered)
+            {
+                textTransferredAmount.SelectAll();
+            }
+
+            textTransferredAmountJustEntered = false;
+        }
+
+        private bool cboBankUsedJustEntered = false;
+        private void cboBankUsed_Enter(object sender, EventArgs e)
+        {
+            cboBankUsed.SelectAll();
+            cboBankUsedJustEntered = true;
+        }
+
+        private void cboBankUsed_Click(object sender, EventArgs e)
+        {
+            if (cboBankUsedJustEntered)
+            {
+                cboBankUsed.SelectAll();
+            }
+
+            cboBankUsedJustEntered = false;
+        }
+
+        private bool textYearQuarterJustEntered = false;
+        private void textYearQuarter_Enter(object sender, EventArgs e)
+        {
+            textYearQuarter.SelectAll();
+            textYearQuarterJustEntered = true;
+        }
+
+        private void textYearQuarter_Click(object sender, EventArgs e)
+        {
+            if (textYearQuarterJustEntered)
+            {
+                textYearQuarter.SelectAll();
+            }
+
+            textYearQuarterJustEntered = false;
+        }
+
+        private bool dtDateOfPaymentJustEntered = false;
+        private void dtDateOfPayment_Enter(object sender, EventArgs e)
+        {
+            dtDateOfPayment.Select();
+            dtDateOfPaymentJustEntered = true;
+        }
+
+        private bool cbStatusJustEntered = false;
+        private void cbStatus_Enter(object sender, EventArgs e)
+        {
+            cbStatus.SelectAll();
+            cbStatusJustEntered = true;
+        }
+
+        private void cbStatus_Click(object sender, EventArgs e)
+        {
+            if (cbStatusJustEntered)
+            {
+                cbStatus.SelectAll();
+            }
+
+            cbStatusJustEntered = false;
+        }
+
+        private bool textRequestingPartyJustEntered = false;
+        private void textRequestingParty_Enter(object sender, EventArgs e)
+        {
+            textRequestingParty.SelectAll();
+            textRequestingPartyJustEntered = true;
+        }
+
+        private void textRequestingParty_Click(object sender, EventArgs e)
+        {
+            if (textRequestingPartyJustEntered)
+            {
+                textRequestingParty.SelectAll();
+            }
+
+            textRequestingPartyJustEntered = false;
+        }
+
+        private bool textRemarksJustEntered = false;
+        private void textRemarks_Enter(object sender, EventArgs e)
+        {
+            textRemarks.SelectAll();
+            textRemarksJustEntered = true;
+        }
+
+        private void textRemarks_Click(object sender, EventArgs e)
+        {
+            if (textRemarksJustEntered)
+            {
+                textRemarks.SelectAll();
+            }
+
+            textRemarksJustEntered = false;
+        }
+
+        //Numeric value and one decimal only.
+        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
+        {
+            //numeric value only
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
+        }
+
+        private void textTransferredAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            OneDecimalPointOnly(sender, e);
+        }
+
+        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
+        private void EnterKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SelectNextControl(ActiveControl, true, true, true, true);
+            }
+        }
+
+        private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textTPName_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textTransferredAmount_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void dtDateOfPayment_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void cbStatus_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
+        }
+
+        private void textRemarks_KeyDown(object sender, KeyEventArgs e)
+        {
+            EnterKeyDown(sender, e);
         }
     }
 }

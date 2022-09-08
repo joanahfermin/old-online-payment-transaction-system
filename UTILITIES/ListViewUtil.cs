@@ -9,6 +9,13 @@ namespace SampleRPT1
 {
     internal class ListViewUtil
     {
+        /// <summary>
+        /// Returns a list of records form the database to the listview.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="listOfDataClass">list from the database</param>
+        /// <param name="listView">kung anong pupuntahan na listview sa system</param>
+        /// <param name="propertyNames">data class model</param>
         public static void copyFromListToListview<T>(List<T> listOfDataClass, ListView listView, List<String> propertyNames)
         {
             listView.Items.Clear();

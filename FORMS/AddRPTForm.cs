@@ -162,6 +162,7 @@ namespace SampleRPT1
             double amounttobepaid;
             double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
             textAmountToBePaid.Text = amounttobepaid.ToString("N2");
+            textTotalTransferredAmount.Text = textAmountToBePaid.Text;
         }
 
         /// <summary>

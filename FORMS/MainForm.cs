@@ -45,6 +45,7 @@ namespace SampleRPT1
             LabelNumBills.Visible = false;
             textRemarks.Visible = false;
             LabelRemarks.Visible = false;
+            btnDelete.Visible = false;
 
             labelRepName.Visible = false;
             textRepName.Visible = false;
@@ -96,7 +97,6 @@ namespace SampleRPT1
 
             if (GlobalVariables.RPTUSER.isVerifier)
             {
-                //cboStatus.SelectedIndex = 3;
                 cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
                 cboAction.SelectedIndex = 0;
             }
@@ -106,10 +106,10 @@ namespace SampleRPT1
                 cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
             }
 
-            //if (GlobalVariables.RPTUSER.isReleaser)
-            //{
-            //    cboAction.Items.Add(RPTAction.RELEASE_OR);
-            //}
+            if (GlobalVariables.RPTUSER.canDelete)
+            {
+                btnDelete.Visible = true;
+            }
         }
 
         public void InitializeData()
@@ -297,6 +297,11 @@ namespace SampleRPT1
             RefreshListView();
         }
 
+        public void SearchReleased()
+        {
+            cboStatus.Text = RPTStatus.RELEASED;
+            RefreshListView();
+        }
 
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -135,7 +135,7 @@ namespace SampleRPT1.FORMS
                 if (RPTInfoLV.SelectedItems[i].SubItems[9].Text == ExpectedStatus)
                 {
                     string RptId = RPTInfoLV.SelectedItems[i].Text;
-                    RptID = Convert.ToInt32(RptId);
+                    RptID = Convert.ToInt64(RptId);
 
                     RealPropertyTax rpt = RPTDatabase.Get(RptID);
                     SelectedRPTByStatus.Add(rpt);
@@ -179,10 +179,6 @@ namespace SampleRPT1.FORMS
                     {
                         rpt.WithAuthorizationLetter = true;
                     }
-                    else
-                    {
-                        continue;
-                    }
 
                     RPTDatabase.Update(rpt);
 
@@ -198,7 +194,7 @@ namespace SampleRPT1.FORMS
             textRepContactNum.Clear();
             checkAutLetter.Checked = false;
 
-            //cboStatus.Text = RPTStatus.RELEASED;
+            GlobalVariables.MAINFORM.SearchReleased();
             RefreshListView();
         }
 

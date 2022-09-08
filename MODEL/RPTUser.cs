@@ -25,5 +25,6 @@ namespace SampleRPT1
         public bool isReleaser { get; set; }
         public bool isAutomatedEmailSender { get; set; }
         public bool isActive { get; set; }
+        public bool canDelete { get; set; }
     }
 }

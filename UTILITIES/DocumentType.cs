@@ -13,7 +13,6 @@ namespace SampleRPT1
     {
         public const string ASSESSMENT = "Assessment";
         public const string RECEIPT = "Receipt";
-        public const string RELEASED_SIGNATURE = "Release Signature";
-
+        public const string OR_RELEASING = "O.R Release";
     }
 }

@@ -85,7 +85,7 @@
             this.pictureBoxAssessment = new System.Windows.Forms.PictureBox();
             this.Receipt = new System.Windows.Forms.TabPage();
             this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.OR_Release = new System.Windows.Forms.TabPage();
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
@@ -112,14 +112,18 @@
             this.textRepName = new System.Windows.Forms.TextBox();
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
+            this.pictureBoxORrelease = new System.Windows.Forms.PictureBox();
+            this.checkAutLetter = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).BeginInit();
             this.Receipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
+            this.OR_Release.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).BeginInit();
             this.SuspendLayout();
             // 
             // RPTInfoLV
@@ -479,7 +483,7 @@
             // 
             this.TabPicture.Controls.Add(this.Assessment);
             this.TabPicture.Controls.Add(this.Receipt);
-            this.TabPicture.Controls.Add(this.tabPage1);
+            this.TabPicture.Controls.Add(this.OR_Release);
             this.TabPicture.Location = new System.Drawing.Point(1428, 549);
             this.TabPicture.Name = "TabPicture";
             this.TabPicture.SelectedIndex = 0;
@@ -530,15 +534,16 @@
             this.pictureBoxReceipt.TabStop = false;
             this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
             // 
-            // tabPage1
+            // OR_Release
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(455, 328);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Released Signature";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.OR_Release.Controls.Add(this.pictureBoxORrelease);
+            this.OR_Release.Location = new System.Drawing.Point(4, 22);
+            this.OR_Release.Name = "OR_Release";
+            this.OR_Release.Padding = new System.Windows.Forms.Padding(3);
+            this.OR_Release.Size = new System.Drawing.Size(455, 328);
+            this.OR_Release.TabIndex = 2;
+            this.OR_Release.Text = "O.R Release";
+            this.OR_Release.UseVisualStyleBackColor = true;
             // 
             // cboAction
             // 
@@ -766,7 +771,7 @@
             // labelRepName
             // 
             this.labelRepName.AutoSize = true;
-            this.labelRepName.Location = new System.Drawing.Point(616, 953);
+            this.labelRepName.Location = new System.Drawing.Point(469, 957);
             this.labelRepName.Name = "labelRepName";
             this.labelRepName.Size = new System.Drawing.Size(116, 13);
             this.labelRepName.TabIndex = 37;
@@ -776,7 +781,7 @@
             // 
             this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRepName.Enabled = false;
-            this.textRepName.Location = new System.Drawing.Point(738, 946);
+            this.textRepName.Location = new System.Drawing.Point(591, 950);
             this.textRepName.Name = "textRepName";
             this.textRepName.Size = new System.Drawing.Size(272, 20);
             this.textRepName.TabIndex = 38;
@@ -784,7 +789,7 @@
             // labelContactNumber
             // 
             this.labelContactNumber.AutoSize = true;
-            this.labelContactNumber.Location = new System.Drawing.Point(1054, 953);
+            this.labelContactNumber.Location = new System.Drawing.Point(907, 957);
             this.labelContactNumber.Name = "labelContactNumber";
             this.labelContactNumber.Size = new System.Drawing.Size(90, 13);
             this.labelContactNumber.TabIndex = 37;
@@ -794,16 +799,37 @@
             // 
             this.textContactNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textContactNum.Enabled = false;
-            this.textContactNum.Location = new System.Drawing.Point(1150, 946);
+            this.textContactNum.Location = new System.Drawing.Point(1003, 950);
             this.textContactNum.Name = "textContactNum";
             this.textContactNum.Size = new System.Drawing.Size(272, 20);
             this.textContactNum.TabIndex = 38;
+            // 
+            // pictureBoxORrelease
+            // 
+            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -1);
+            this.pictureBoxORrelease.Name = "pictureBoxORrelease";
+            this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxORrelease.TabIndex = 54;
+            this.pictureBoxORrelease.TabStop = false;
+            // 
+            // checkAutLetter
+            // 
+            this.checkAutLetter.AutoSize = true;
+            this.checkAutLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkAutLetter.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.checkAutLetter.Location = new System.Drawing.Point(1285, 953);
+            this.checkAutLetter.Name = "checkAutLetter";
+            this.checkAutLetter.Size = new System.Drawing.Size(137, 17);
+            this.checkAutLetter.TabIndex = 54;
+            this.checkAutLetter.Text = "with authorization letter.";
+            this.checkAutLetter.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textContactNum);
             this.Controls.Add(this.textRepName);
             this.Controls.Add(this.labelContactNumber);
@@ -842,10 +868,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).EndInit();
             this.Receipt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
+            this.OR_Release.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -934,7 +962,9 @@
         private System.Windows.Forms.Label labelRepName;
         private System.Windows.Forms.TextBox textContactNum;
         private System.Windows.Forms.Label labelContactNumber;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage OR_Release;
+        private System.Windows.Forms.PictureBox pictureBoxORrelease;
+        private System.Windows.Forms.CheckBox checkAutLetter;
     }
 }
 

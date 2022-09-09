@@ -62,5 +62,11 @@ namespace SampleRPT1
                 return (Bitmap)((new ImageConverter()).ConvertFrom(sourceData));
             }
         }
+
+        public static byte[] ImageToByteArray(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
     }
 }

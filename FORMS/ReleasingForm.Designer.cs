@@ -89,9 +89,15 @@
             this.textRepContactNum = new System.Windows.Forms.TextBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pictureCam = new System.Windows.Forms.PictureBox();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStopStart = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.checkEnableCam = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureCam)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -397,7 +403,7 @@
             this.VerAndValLV.Location = new System.Drawing.Point(18, 549);
             this.VerAndValLV.Name = "VerAndValLV";
             this.VerAndValLV.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.VerAndValLV.Size = new System.Drawing.Size(1377, 383);
+            this.VerAndValLV.Size = new System.Drawing.Size(1404, 383);
             this.VerAndValLV.TabIndex = 41;
             this.VerAndValLV.UseCompatibleStateImageBehavior = false;
             this.VerAndValLV.View = System.Windows.Forms.View.Details;
@@ -541,11 +547,63 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // pictureCam
+            // 
+            this.pictureCam.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.pictureCam.Location = new System.Drawing.Point(1428, 549);
+            this.pictureCam.Name = "pictureCam";
+            this.pictureCam.Size = new System.Drawing.Size(463, 354);
+            this.pictureCam.TabIndex = 42;
+            this.pictureCam.TabStop = false;
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(1656, 909);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 43;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            // 
+            // btnStopStart
+            // 
+            this.btnStopStart.Location = new System.Drawing.Point(1737, 909);
+            this.btnStopStart.Name = "btnStopStart";
+            this.btnStopStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStopStart.TabIndex = 44;
+            this.btnStopStart.Text = "a";
+            this.btnStopStart.UseVisualStyleBackColor = true;
+            this.btnStopStart.Click += new System.EventHandler(this.btnStopStart_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(1818, 909);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 45;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // checkEnableCam
+            // 
+            this.checkEnableCam.AutoSize = true;
+            this.checkEnableCam.Location = new System.Drawing.Point(1440, 913);
+            this.checkEnableCam.Name = "checkEnableCam";
+            this.checkEnableCam.Size = new System.Drawing.Size(101, 17);
+            this.checkEnableCam.TabIndex = 46;
+            this.checkEnableCam.Text = "Launch Camera";
+            this.checkEnableCam.UseVisualStyleBackColor = true;
+            // 
             // ReleasingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 948);
+            this.Controls.Add(this.checkEnableCam);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnStopStart);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.pictureCam);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);
             this.Controls.Add(this.textRepName);
@@ -562,12 +620,16 @@
             this.Controls.Add(this.panel1);
             this.Name = "ReleasingForm";
             this.Text = "ReleasingForm";
+            this.Activated += new System.EventHandler(this.ReleasingForm_Activated);
+            this.Deactivate += new System.EventHandler(this.ReleasingForm_Deactivate);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReleasingForm_FormClosing);
             this.Load += new System.EventHandler(this.ReleasingForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureCam)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -634,5 +696,10 @@
         private System.Windows.Forms.TextBox textRepContactNum;
         private System.Windows.Forms.CheckBox checkAutLetter;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.PictureBox pictureCam;
+        private System.Windows.Forms.CheckBox checkEnableCam;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnStopStart;
+        private System.Windows.Forms.Button btnStart;
     }
 }

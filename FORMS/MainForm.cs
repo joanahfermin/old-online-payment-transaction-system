@@ -439,6 +439,8 @@ namespace SampleRPT1
 
                         textRepName.Text = retrievedRepsInfo.RepName;
                         textContactNum.Text = retrievedRepsInfo.ContactNumber;
+
+                        checkAutLetter.Checked = retrievedRepsInfo.WithAuthorizationLetter;
                     }
                     FirstRecord = false;
                 }
@@ -446,6 +448,7 @@ namespace SampleRPT1
                 { 
                     textRepName.Text = "***";
                     textContactNum.Text = "***";
+                    checkAutLetter.Visible = false;
                 }
             }
         }
@@ -480,9 +483,14 @@ namespace SampleRPT1
                         pictureBoxAssessment.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
 
                     }
-                    else
+                    if (RetrievePicture.DocumentType == DocumentType.RECEIPT)
                     {
                         pictureBoxReceipt.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+
+                    }
+                    else
+                    {
+                        pictureBoxORrelease.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
 
                     }
                 }

@@ -1,4 +1,6 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +17,12 @@ namespace SampleRPT1.FORMS
     public partial class ReleasingForm : Form
     {
         private long RptID;
+
+        VideoCapture videoCapture;
+        private Thread cameraThread;
+
+        bool isCameraRunning = false;
+        bool isCapturing = true;
 
         public ReleasingForm()
         {
@@ -25,7 +34,6 @@ namespace SampleRPT1.FORMS
             InitializeAction();
             cboStatus.Enabled = false;
             cboAction.Enabled = false;
-
         }
         public void InitializeStatus()
         {
@@ -112,19 +120,19 @@ namespace SampleRPT1.FORMS
             RefreshListView();
         }
 
-        private bool CheckSameStatus(string ExpectedStatus)
-        {
-            bool SameStatus = true;
+        //private bool CheckSameStatus(string ExpectedStatus)
+        //{
+        //    bool SameStatus = true;
 
-            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-            {
-                if (RPTInfoLV.SelectedItems[i].SubItems[9].Text != ExpectedStatus)
-                {
-                    SameStatus = false;
-                }
-            }
-            return SameStatus;
-        }
+        //    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+        //    {
+        //        if (RPTInfoLV.SelectedItems[i].SubItems[9].Text != ExpectedStatus)
+        //        {
+        //            SameStatus = false;
+        //        }
+        //    }
+        //    return SameStatus;
+        //}
 
         private List<RealPropertyTax> GetSelectedRPTByStatus(string ExpectedStatus)
         {
@@ -185,10 +193,10 @@ namespace SampleRPT1.FORMS
                     MessageBox.Show("Receipt successfully released.");
                 }
 
-                if (CheckSameStatus(RPTStatus.OR_PICKUP) == false)
-                {
-                    MessageBox.Show("Some selected records has not been processed.");
-                }
+                //if (CheckSameStatus(RPTStatus.OR_PICKUP) == false)
+                //{
+                //    MessageBox.Show("Some selected records has not been processed.");
+                //}
             }
             textRepName.Clear();
             textRepContactNum.Clear();
@@ -201,6 +209,127 @@ namespace SampleRPT1.FORMS
         private void btnExecute_Click(object sender, EventArgs e)
         {
             ReleaseReceipt();
+        }
+
+        private void CaptureCameraCallback()
+        {
+            Mat frame = new Mat();
+            if (videoCapture.IsOpened())
+            {
+                // While we are not told to stop the thread, just continue with webcam device
+                while (isCameraRunning)
+                {
+                    if (checkEnableCam.Checked)
+                    {
+                        // while we are not told to pause, just update the picture box with what we capture from webcam
+                        if (isCapturing)
+                        {
+                            videoCapture.Read(frame);
+                            Bitmap image = BitmapConverter.ToBitmap(frame);
+                            if (pictureCam.Image != null)
+                            {
+                                pictureCam.Image.Dispose();
+                            }
+                            pictureCam.Image = image;
+                        }
+                    }
+                    
+                    else
+                    {
+                        // Camera is paused, let's rest for a 1/10 of a second so we don't consume much CPU.
+                        Thread.Sleep(100);
+                        pictureCam.Image = null;
+                    }
+                }
+                videoCapture.Release();
+            }
+        }
+
+        //public void setRptID(long _rptID)
+        //{
+        //    RptID = _rptID;
+        //}
+
+        private void ReleasingForm_Activated(object sender, EventArgs e)
+        {
+            // Set the flag that we want the camera to run
+            isCameraRunning = true;
+
+            // Set the pause flag to pause -> meaning camera keeps on updating the picture box
+            btnStopStart.Text = "Pause";
+            isCapturing = true;
+
+            // Save button is disabled until webcam is paused.
+            btnSave.Enabled = false;
+
+            // Prepare the webcam device
+            videoCapture = new VideoCapture(0);
+            videoCapture.Open(0);
+
+            // Start the thread that will keep on updating the picture box
+            cameraThread = new Thread(new ThreadStart(CaptureCameraCallback));
+            cameraThread.Start();
+        }
+
+        /// <summary>
+        /// Signal the camera thread to stop and release the camera device.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReleasingForm_Deactivate(object sender, EventArgs e)
+        {
+            isCameraRunning = false;
+        }
+
+        /// <summary>
+        /// Release the video capture device when the program is stopped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReleasingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            isCameraRunning = false;
+        }
+
+        private void btnStopStart_Click(object sender, EventArgs e)
+        {
+            RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, DocumentType.OR_RELEASING);
+
+            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+            {
+                if (checkAutLetter.Checked)
+                {
+                    string RptId = RPTInfoLV.SelectedItems[i].Text;
+                    RptID = Convert.ToInt64(RptId);
+
+                    //RealPropertyTax rpt = RPTDatabase.Get(RptID);
+
+                    if (RetrievePicture == null)
+                    {
+                        RPTAttachPicture rptAttachPicture = new RPTAttachPicture();
+                        rptAttachPicture.RptId = RptID;
+                        rptAttachPicture.FileName = "ReleaseTaxpayerPicture.jpg";
+
+                        byte[] FileData = ImageUtil.ImageToByteArray(pictureCam.Image);
+                        byte[] resizeFileData = ImageUtil.resizeJpg(FileData);
+                        rptAttachPicture.FileData = resizeFileData;
+                        rptAttachPicture.DocumentType = DocumentType.OR_RELEASING;
+
+                        RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
+
+                        MessageBox.Show("Saved");
+                    }
+                    else
+                    {
+                        byte[] FileData = ImageUtil.ImageToByteArray(pictureCam.Image);
+                        byte[] resizeFileData = ImageUtil.resizeJpg(FileData);
+                        RetrievePicture.FileData = resizeFileData;
+
+                        RPTAttachPictureDatabase.Update(RetrievePicture);
+                        MessageBox.Show("Saved");
+                    }
+                }
+            }
         }
     }
 }

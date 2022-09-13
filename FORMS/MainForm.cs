@@ -484,20 +484,32 @@ namespace SampleRPT1
                 {
                     if (RetrievePicture.DocumentType == DocumentType.ASSESSMENT)
                     {
-                        pictureBoxAssessment.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        pictureBoxAssessment.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Assessment);
                     }
                     if (RetrievePicture.DocumentType == DocumentType.RECEIPT)
                     {
-                        pictureBoxReceipt.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Receipt);
                     }
                     if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
-                        pictureBoxORrelease.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        pictureBoxORrelease.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(OR_Release);
                     }
                 }
+            }
+        }
+
+        private Image getImageFromAttachePicture(RPTAttachPicture AttachPicture)
+        {
+            if (AttachPicture.FileName.ToLower().EndsWith("pdf"))
+            {
+                return Properties.Resources.pdf_img;
+            }
+            else
+            {
+                return Image.FromStream(new MemoryStream(AttachPicture.FileData));
             }
         }
 
@@ -874,7 +886,14 @@ namespace SampleRPT1
                             byte[] FileData = File.ReadAllBytes(textFileName.Text);
 
                             //This creates an image from the specified byte array and converts the byte array into a picture and displays in the imagebox.
-                            pictureBoxAssessment.Image = Image.FromStream(new MemoryStream(FileData));
+                            if (textFileName.Text.ToLower().EndsWith("pdf"))
+                            {
+                                pictureBoxAssessment.Image = Properties.Resources.pdf_img;
+                            }
+                            else
+                            {
+                                pictureBoxAssessment.Image = Image.FromStream(new MemoryStream(FileData));
+                            }
                         }
                     }
                 }
@@ -890,7 +909,14 @@ namespace SampleRPT1
                             byte[] FileData = File.ReadAllBytes(textFileName.Text);
 
                             //This creates an image from the specified byte array and converts the byte array into a picture and displays in the imagebox.
-                            pictureBoxReceipt.Image = Image.FromStream(new MemoryStream(FileData));
+                            if (textFileName.Text.ToLower().EndsWith("pdf"))
+                            {
+                                pictureBoxReceipt.Image = Properties.Resources.pdf_img;
+                            }
+                            else
+                            {
+                                pictureBoxReceipt.Image = Image.FromStream(new MemoryStream(FileData));
+                            }
                         }
                     }
                 }
@@ -933,8 +959,17 @@ namespace SampleRPT1
                         rptAttachPicture.FileName = Path.GetFileName(textFileName.Text);
 
                         byte[] FileData = File.ReadAllBytes(textFileName.Text);
-                        byte[] resizeFileData = ImageUtil.resizeJpg(FileData);
-                        rptAttachPicture.FileData = resizeFileData;
+                        if (rptAttachPicture.FileName.ToLower().EndsWith("pdf"))
+                        {
+                            // If PDF, store the file content as is
+                            rptAttachPicture.FileData = FileData;
+                        }
+                        else
+                        {
+                            // If JPG, then compress the image
+                            byte[] resizeFileData = ImageUtil.resizeJpg(FileData);
+                            rptAttachPicture.FileData = resizeFileData;
+                        }
                         rptAttachPicture.DocumentType = documentType;
 
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
@@ -946,7 +981,17 @@ namespace SampleRPT1
                         RetrievePicture.FileName = Path.GetFileName(textFileName.Text);
 
                         byte[] FileData = File.ReadAllBytes(textFileName.Text);
-                        RetrievePicture.FileData = FileData;
+                        if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+                        {
+                            // If PDF, store the file content as is
+                            RetrievePicture.FileData = FileData;
+                        }
+                        else
+                        {
+                            // If JPG, then compress the image
+                            byte[] resizeFileData = ImageUtil.resizeJpg(FileData);
+                            RetrievePicture.FileData = resizeFileData;
+                        }
 
                         RPTAttachPictureDatabase.Update(RetrievePicture);
                     }
@@ -1086,20 +1131,67 @@ namespace SampleRPT1
 
         private void pictureBoxAssessment_Click(object sender, EventArgs e)
         {
-            ViewImageForm form = new ViewImageForm(pictureBoxAssessment.Image);
-            form.ShowDialog();
+            ViewAttachedPicture(DocumentType.ASSESSMENT);
+            //ViewImageForm form = new ViewImageForm(pictureBoxAssessment.Image);
+            //form.ShowDialog();
         }
+
 
         private void pictureBoxReceipt_Click(object sender, EventArgs e)
         {
-            ViewImageForm form = new ViewImageForm(pictureBoxReceipt.Image);
-            form.ShowDialog();
+            ViewAttachedPicture(DocumentType.RECEIPT);
+            //ViewImageForm form = new ViewImageForm(pictureBoxReceipt.Image);
+            //form.ShowDialog();
         }
 
         private void pictureBoxORrelease_Click(object sender, EventArgs e)
         {
-            ViewImageForm form = new ViewImageForm(pictureBoxORrelease.Image);
-            form.ShowDialog();
+            ViewAttachedPicture(DocumentType.OR_RELEASING);
+            //ViewImageForm form = new ViewImageForm(pictureBoxORrelease.Image);
+            //form.ShowDialog();
         }
+
+        private void ViewAttachedPicture(string documentType)
+        {
+            if (RPTInfoLV.SelectedItems.Count > 0)
+            {
+                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, documentType);
+                if (RetrievePicture != null)
+                {
+                    if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+                    {
+                        // Download PDF and display
+
+                        // generate random pdf filename
+                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf"; 
+
+                        // Save the file
+                        String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
+                        //MessageBox.Show(savedFileFullPath);
+
+                        // Open the file
+                        System.Diagnostics.Process.Start(savedFileFullPath);
+                    }
+                    else
+                    {
+                        // Display the picture retrieved from DB
+                        Image image =  Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        ViewImageForm form = new ViewImageForm(image);
+                        form.ShowDialog();
+                    }
+                }
+                else
+                {
+                    // No image was uploaded to DB, we show Empty image.
+                    ViewImageForm form = new ViewImageForm(Properties.Resources.no_img);
+                    form.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a record from the list view.");
+            }
+        }
+
     }
 }

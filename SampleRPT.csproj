@@ -279,6 +279,7 @@
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UTILITIES\FileUtils.cs" />
     <Compile Include="UTILITIES\GlobalConstants.cs" />
     <Compile Include="UTILITIES\GlobalVariables.cs" />
     <Compile Include="JOBS\AutoEmailJob.cs" />
@@ -390,6 +391,7 @@
     <Content Include="DOCS\SQL\createUsers.sql" />
     <Content Include="DOCS\SQL\createTables.sql" />
     <Content Include="Resources\no_img.png" />
+    <Content Include="Resources\pdf_img.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

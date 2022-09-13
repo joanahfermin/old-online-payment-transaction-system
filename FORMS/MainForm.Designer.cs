@@ -86,6 +86,7 @@
             this.Receipt = new System.Windows.Forms.TabPage();
             this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
             this.OR_Release = new System.Windows.Forms.TabPage();
+            this.pictureBoxORrelease = new System.Windows.Forms.PictureBox();
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
@@ -112,7 +113,6 @@
             this.textRepName = new System.Windows.Forms.TextBox();
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
-            this.pictureBoxORrelease = new System.Windows.Forms.PictureBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
@@ -121,9 +121,9 @@
             this.Receipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
             this.OR_Release.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).BeginInit();
             this.SuspendLayout();
             // 
             // RPTInfoLV
@@ -545,6 +545,15 @@
             this.OR_Release.Text = "O.R Release";
             this.OR_Release.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxORrelease
+            // 
+            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -1);
+            this.pictureBoxORrelease.Name = "pictureBoxORrelease";
+            this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxORrelease.TabIndex = 54;
+            this.pictureBoxORrelease.TabStop = false;
+            this.pictureBoxORrelease.Click += new System.EventHandler(this.pictureBoxORrelease_Click);
+            // 
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
@@ -804,14 +813,6 @@
             this.textContactNum.Size = new System.Drawing.Size(272, 20);
             this.textContactNum.TabIndex = 38;
             // 
-            // pictureBoxORrelease
-            // 
-            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -1);
-            this.pictureBoxORrelease.Name = "pictureBoxORrelease";
-            this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxORrelease.TabIndex = 54;
-            this.pictureBoxORrelease.TabStop = false;
-            // 
             // checkAutLetter
             // 
             this.checkAutLetter.AutoSize = true;
@@ -869,11 +870,11 @@
             this.Receipt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.OR_Release.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

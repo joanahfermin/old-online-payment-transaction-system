@@ -34,6 +34,8 @@ namespace SampleRPT1.FORMS
             InitializeAction();
             cboStatus.Enabled = false;
             cboAction.Enabled = false;
+            //btnStart.Visible = false;
+            //btnSave.Visible = false;
         }
         public void InitializeStatus()
         {
@@ -242,6 +244,12 @@ namespace SampleRPT1.FORMS
                     }
                 }
                 videoCapture.Release();
+
+                if (pictureCam.Image != null)
+                {
+                    pictureCam.Image.Dispose();
+                }
+                pictureCam.Image = null;
             }
         }
 
@@ -249,27 +257,6 @@ namespace SampleRPT1.FORMS
         //{
         //    RptID = _rptID;
         //}
-
-        private void ReleasingForm_Activated(object sender, EventArgs e)
-        {
-            // Set the flag that we want the camera to run
-            isCameraRunning = true;
-
-            // Set the pause flag to pause -> meaning camera keeps on updating the picture box
-            btnStopStart.Text = "Pause";
-            isCapturing = true;
-
-            // Save button is disabled until webcam is paused.
-            btnSave.Enabled = false;
-
-            // Prepare the webcam device
-            videoCapture = new VideoCapture(0);
-            videoCapture.Open(0);
-
-            // Start the thread that will keep on updating the picture box
-            cameraThread = new Thread(new ThreadStart(CaptureCameraCallback));
-            cameraThread.Start();
-        }
 
         /// <summary>
         /// Signal the camera thread to stop and release the camera device.
@@ -279,6 +266,7 @@ namespace SampleRPT1.FORMS
         private void ReleasingForm_Deactivate(object sender, EventArgs e)
         {
             isCameraRunning = false;
+            checkEnableCam.Checked = false;
         }
 
         /// <summary>
@@ -292,6 +280,52 @@ namespace SampleRPT1.FORMS
         }
 
         private void btnStopStart_Click(object sender, EventArgs e)
+        {
+            if (isCapturing)
+            {
+                // we are told to stop the camera here
+                btnStopStart.Text = "Start";
+                isCapturing = false;
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                // we are told to start the camera here
+                btnStopStart.Text = "Stop";
+                isCapturing = true;
+                btnSave.Enabled = false;
+            }
+        }
+
+        private void checkEnableCam_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEnableCam.Checked)
+            {
+                // Set the flag that we want the camera to run
+                isCameraRunning = true;
+
+                // Set the pause flag to pause -> meaning camera keeps on updating the picture box
+                btnStopStart.Text = "Pause";
+                isCapturing = true;
+
+                // Save button is disabled until webcam is paused.
+                btnSave.Enabled = false;
+
+                // Prepare the webcam device
+                videoCapture = new VideoCapture(0);
+                videoCapture.Open(0);
+
+                // Start the thread that will keep on updating the picture box
+                cameraThread = new Thread(new ThreadStart(CaptureCameraCallback));
+                cameraThread.Start();
+            }
+            else
+            {
+                isCameraRunning = false;
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
         {
             RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, DocumentType.OR_RELEASING);
 
@@ -327,9 +361,11 @@ namespace SampleRPT1.FORMS
 
                         RPTAttachPictureDatabase.Update(RetrievePicture);
                         MessageBox.Show("Saved");
-
-                        //COMMENT.
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Kindly check if the claimant has an authorization letter.");
                 }
             }
         }

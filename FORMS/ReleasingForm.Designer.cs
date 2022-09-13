@@ -90,7 +90,6 @@
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pictureCam = new System.Windows.Forms.PictureBox();
-            this.btnStart = new System.Windows.Forms.Button();
             this.btnStopStart = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.checkEnableCam = new System.Windows.Forms.CheckBox();
@@ -556,22 +555,13 @@
             this.pictureCam.TabIndex = 42;
             this.pictureCam.TabStop = false;
             // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(1656, 909);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 43;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            // 
             // btnStopStart
             // 
             this.btnStopStart.Location = new System.Drawing.Point(1737, 909);
             this.btnStopStart.Name = "btnStopStart";
             this.btnStopStart.Size = new System.Drawing.Size(75, 23);
             this.btnStopStart.TabIndex = 44;
-            this.btnStopStart.Text = "a";
+            this.btnStopStart.Text = "Capture";
             this.btnStopStart.UseVisualStyleBackColor = true;
             this.btnStopStart.Click += new System.EventHandler(this.btnStopStart_Click);
             // 
@@ -583,6 +573,7 @@
             this.btnSave.TabIndex = 45;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // checkEnableCam
             // 
@@ -593,6 +584,7 @@
             this.checkEnableCam.TabIndex = 46;
             this.checkEnableCam.Text = "Launch Camera";
             this.checkEnableCam.UseVisualStyleBackColor = true;
+            this.checkEnableCam.CheckedChanged += new System.EventHandler(this.checkEnableCam_CheckedChanged);
             // 
             // ReleasingForm
             // 
@@ -602,7 +594,6 @@
             this.Controls.Add(this.checkEnableCam);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnStopStart);
-            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.pictureCam);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);
@@ -620,7 +611,6 @@
             this.Controls.Add(this.panel1);
             this.Name = "ReleasingForm";
             this.Text = "ReleasingForm";
-            this.Activated += new System.EventHandler(this.ReleasingForm_Activated);
             this.Deactivate += new System.EventHandler(this.ReleasingForm_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReleasingForm_FormClosing);
             this.Load += new System.EventHandler(this.ReleasingForm_Load);
@@ -700,6 +690,5 @@
         private System.Windows.Forms.CheckBox checkEnableCam;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnStopStart;
-        private System.Windows.Forms.Button btnStart;
     }
 }

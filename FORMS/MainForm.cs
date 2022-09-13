@@ -51,6 +51,7 @@ namespace SampleRPT1
             textRepName.Visible = false;
             labelContactNumber.Visible = false;
             textContactNum.Visible = false;
+            checkAutLetter.Visible = false;
 
             InitializeStatus();
             InitializeAction();
@@ -311,6 +312,7 @@ namespace SampleRPT1
             {
                 labelRepName.Visible = false;
                 textRepName.Visible = false;
+                checkAutLetter.Visible = false;
 
                 labelContactNumber.Visible = false;
                 textContactNum.Visible = false;
@@ -433,6 +435,7 @@ namespace SampleRPT1
                     {
                         labelRepName.Visible = true;
                         textRepName.Visible = true;
+                        checkAutLetter.Visible = true;
 
                         labelContactNumber.Visible = true;
                         textContactNum.Visible = true;
@@ -468,6 +471,7 @@ namespace SampleRPT1
         {
             pictureBoxAssessment.Image = Properties.Resources.no_img;
             pictureBoxReceipt.Image = Properties.Resources.no_img;
+            pictureBoxORrelease.Image = Properties.Resources.no_img;
 
             if (RPTInfoLV.SelectedItems.Count > 0)
             {
@@ -481,21 +485,20 @@ namespace SampleRPT1
                     if (RetrievePicture.DocumentType == DocumentType.ASSESSMENT)
                     {
                         pictureBoxAssessment.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
-
+                        TabPicture.SelectTab(Assessment);
                     }
                     if (RetrievePicture.DocumentType == DocumentType.RECEIPT)
                     {
                         pictureBoxReceipt.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
-
+                        TabPicture.SelectTab(Receipt);
                     }
-                    else
+                    if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
                         pictureBoxORrelease.Image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
-
+                        TabPicture.SelectTab(OR_Release);
                     }
                 }
             }
-
         }
 
         private bool CheckSameStatus(string ExpectedStatus)
@@ -855,7 +858,6 @@ namespace SampleRPT1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
             if (RPTInfoLV.SelectedItems.Count > 0)
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
@@ -1093,6 +1095,11 @@ namespace SampleRPT1
             ViewImageForm form = new ViewImageForm(pictureBoxReceipt.Image);
             form.ShowDialog();
         }
-        //COMMENT.
+
+        private void pictureBoxORrelease_Click(object sender, EventArgs e)
+        {
+            ViewImageForm form = new ViewImageForm(pictureBoxORrelease.Image);
+            form.ShowDialog();
+        }
     }
 }

@@ -372,6 +372,7 @@ namespace SampleRPT1
                 if (Status == RPTStatus.ASSESSMENT_PRINTED)
                 {
                     SetAction(RPTAction.MANUAL_SEND_BILL);
+                    TabPicture.SelectTab(Assessment);
                 }
 
                 //SKIP RTPSTATUS.BILLSENT
@@ -389,11 +390,17 @@ namespace SampleRPT1
                 if (Status == RPTStatus.OR_UPLOAD)
                 {
                     SetAction(RPTAction.MANUAL_SEND_OR);
+                    TabPicture.SelectTab(Receipt);
                 }
 
                 if (Status == RPTStatus.OR_PICKUP)
                 {
                     SetAction(RPTAction.RELEASE_OR);
+                }
+
+                if (Status == RPTStatus.RELEASED)
+                {
+                    TabPicture.SelectTab(OR_Release);
                 }
             }
         }
@@ -486,18 +493,27 @@ namespace SampleRPT1
                     {
                         pictureBoxAssessment.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Assessment);
+                        pictureBoxAssessment.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
                     if (RetrievePicture.DocumentType == DocumentType.RECEIPT)
                     {
                         pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Receipt);
+                        pictureBoxReceipt.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
                     if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
                         pictureBoxORrelease.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(OR_Release);
+                        pictureBoxORrelease.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
                 }
+            }
+            else
+            {
+                pictureBoxAssessment.SizeMode = PictureBoxSizeMode.CenterImage;
+                pictureBoxReceipt.SizeMode = PictureBoxSizeMode.CenterImage;
+                pictureBoxORrelease.SizeMode = PictureBoxSizeMode.CenterImage;
             }
         }
 
@@ -897,6 +913,7 @@ namespace SampleRPT1
                         }
                     }
                 }
+
                 if (rpt.Status == RPTStatus.OR_UPLOAD && TabPicture.SelectedTab.Text == DocumentType.RECEIPT)
                 {
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)

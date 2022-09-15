@@ -23,7 +23,13 @@ namespace SampleRPT1.UTILITIES
                 )
             );
         }
-
+        
+        /// <summary>
+        /// Save to the download folder.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string SaveFileToDownloadFolder(String filename, byte[] data)
         {
             String folder = GetDownloadFolderPath();
@@ -31,6 +37,5 @@ namespace SampleRPT1.UTILITIES
             File.WriteAllBytes(fullpath, data);
             return fullpath;
         }
-
     }
 }

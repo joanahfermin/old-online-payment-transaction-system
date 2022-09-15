@@ -24,6 +24,22 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectForORUpload()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and DeletedRecord != 1").ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectAssessmentSendEmail()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'ASSESSMENT PRINTED' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Assessment') and DeletedRecord != 1").ToList();
+            }
+        }
+
         /// <summary>
         /// Returns a list of records based on taxdec.
         /// </summary>
@@ -34,33 +50,6 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             { 
                 return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 order by EncodedDate", new { TaxDec = taxdec }).ToList();
-            }
-        }
-
-        //HINDI GINAGAMIT?
-        /// <summary>
-        /// Returns a list of records based on date.
-        /// </summary>
-        /// <param name="encodedDate"></param>
-        /// <returns></returns>
-        public static List<RealPropertyTax> SelectByDate(DateTime encodedDate)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                //Returns the list of records from the database.         //removing time in date format. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate AS DATE) = CAST(@EncodedDate AS DATE) and DeletedRecord != 1 order by RptID ASC", new { EncodedDate = encodedDate }).ToList();
-            }
-        }
-
-        /// Returns a list of records based on date range.
-        public static List<RealPropertyTax> SelectByDateFromTo(DateTime encodedDateFrom, DateTime encodedDateTo)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                //Returns the list of records from the database.         //removing time in date format. 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    $"AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) and DeletedRecord != 1 order by RptID ASC", 
-                    new { EncodedDateFrom = encodedDateFrom, EncodedDateTo = encodedDateTo }).ToList();
             }
         }
 

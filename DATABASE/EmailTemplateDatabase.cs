@@ -107,5 +107,21 @@ namespace SampleRPT1
                 return conn.Update<EmailTemplate>(modelInstance);
             }
         }
+
+        public static EmailTemplate SelectORUploadTemplate()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.QuerySingleOrDefault<EmailTemplate>($"select top 1 * from Jo_RPT_EmailTemplate where isReceipt = 1 AND Deleted != 1");
+            }
+        }
+
+        public static EmailTemplate SelectAssessmentTemplate()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.QuerySingleOrDefault<EmailTemplate>($"select top 1 * from Jo_RPT_EmailTemplate where isAssessment = 1 AND Deleted != 1");
+            }
+        }
     }
 }

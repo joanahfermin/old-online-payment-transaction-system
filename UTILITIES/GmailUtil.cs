@@ -28,11 +28,11 @@ namespace SampleRPT1
 
         //EMAIL SENDER
 
-        public static bool SendMail(string recipient, string subject, string body, Image atachImage)
+        public static bool SendMail(string recipient, string subject, string body, RPTAttachPicture attachPicture)
         {
             EmailAccount emailAccount = EmailAccountDatabase.GetEmailAccount();
 
-            string finalyEmailBody = body;
+            string finalEmailBody = body;
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
             try
@@ -53,26 +53,27 @@ namespace SampleRPT1
                     IsBodyHtml = true,
                     From = new MailAddress(emailAccount.UserName),
                     Subject = subject,
-                    Body = finalyEmailBody
+                    Body = finalEmailBody
                 })
                 {
                     message.To.Add(new MailAddress(recipient));  // add recipient of the email message
 
-                    if (atachImage != null)  // May attachment na picture
+                    if (attachPicture != null)  // May attachment na picture
                     {
-                        using (var altViewHtml = AlternateView.CreateAlternateViewFromString(finalyEmailBody, null, MediaTypeNames.Text.Html))
-                        using (var pictureMemoryStream = new MemoryStream())
+                        using (var altViewHtml = AlternateView.CreateAlternateViewFromString(finalEmailBody, null, MediaTypeNames.Text.Html))
+                        using (var pictureMemoryStream = new MemoryStream(attachPicture.FileData))
                         {
-                            atachImage.Save(pictureMemoryStream, ImageFormat.Jpeg); // prepare picture
+                            //attachImage.Save(pictureMemoryStream, ImageFormat.Jpeg); // prepare picture
 
                             pictureMemoryStream.Position = 0;
 
                             message.AlternateViews.Add(altViewHtml);
-                            Attachment att = new Attachment(pictureMemoryStream, "Attachment.jpg");
+                            Attachment att = new Attachment(pictureMemoryStream, attachPicture.FileName);
                             message.Attachments.Add(att);
                             smtpClient.Send(message); // padala na kasi naka attach na ang pix
                         }
                     }
+
                     else
                     {
                         smtpClient.Send(message); // wala attachment, send lang derecho ang email
@@ -85,7 +86,6 @@ namespace SampleRPT1
             {
                 return false; // may error sa pag send ng email, return natin false -> which means failed.
             }
-
         }
     }
 }

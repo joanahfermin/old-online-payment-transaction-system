@@ -507,7 +507,7 @@
             this.pictureBoxAssessment.Location = new System.Drawing.Point(-2, -2);
             this.pictureBoxAssessment.Name = "pictureBoxAssessment";
             this.pictureBoxAssessment.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxAssessment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxAssessment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxAssessment.TabIndex = 21;
             this.pictureBoxAssessment.TabStop = false;
             this.pictureBoxAssessment.Click += new System.EventHandler(this.pictureBoxAssessment_Click);
@@ -529,7 +529,7 @@
             this.pictureBoxReceipt.Location = new System.Drawing.Point(-2, -2);
             this.pictureBoxReceipt.Name = "pictureBoxReceipt";
             this.pictureBoxReceipt.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxReceipt.TabIndex = 21;
             this.pictureBoxReceipt.TabStop = false;
             this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
@@ -547,9 +547,10 @@
             // 
             // pictureBoxORrelease
             // 
-            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -1);
+            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -2);
             this.pictureBoxORrelease.Name = "pictureBoxORrelease";
             this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxORrelease.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxORrelease.TabIndex = 54;
             this.pictureBoxORrelease.TabStop = false;
             this.pictureBoxORrelease.Click += new System.EventHandler(this.pictureBoxORrelease_Click);

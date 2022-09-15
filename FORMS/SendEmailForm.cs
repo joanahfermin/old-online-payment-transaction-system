@@ -130,14 +130,14 @@ namespace SampleRPT1.FORMS
             this.Close();
         }
 
-        public Image byteArrayToImage(byte[] byteArrayIn)
-        {
-            using (var ms = new MemoryStream(byteArrayIn))
-            {
-                //return Image.FromStream(ms);
-                return (Bitmap)((new ImageConverter()).ConvertFrom(byteArrayIn));
-            }
-        }
+        //public Image byteArrayToImage(byte[] byteArrayIn)
+        //{
+        //    using (var ms = new MemoryStream(byteArrayIn))
+        //    {
+        //        //return Image.FromStream(ms);
+        //        return (Bitmap)((new ImageConverter()).ConvertFrom(byteArrayIn));
+        //    }
+        //}
 
         private void btnSendAssessment_Click(object sender, EventArgs e)
         {
@@ -163,9 +163,9 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
+                //Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, img);
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
 
                 if (result == true)
                 {
@@ -220,19 +220,14 @@ namespace SampleRPT1.FORMS
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
 
-                //if (rpt.Status == RPTStatus.OR_UPLOAD)
-                //{
-                //    MessageTemplate template = MessageTemplateDatabase.SelectByName(Name);
-
-                //    template.Name = EmailTemplateUtil.RECEIPT;
-                //}
-
+                //checking if the record is for upload status.
                 if (rpt.Status != RPTStatus.OR_UPLOAD)
                 {
                     SkipEmailToTaxdec = SkipEmailToTaxdec + rpt.TaxDec;
                     continue;
                 }
 
+                //checking if the record with for upload status has attachment.
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptId, DocumentType.RECEIPT);
 
                 if (RetrieveIdAndImage == null)
@@ -241,9 +236,9 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
+                //Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, img);
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
 
                 if (result == true)
                 {

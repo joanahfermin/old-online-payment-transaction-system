@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SampleRPT1.JOBS
@@ -18,6 +19,11 @@ namespace SampleRPT1.JOBS
         }
 
         public void RunAutoEmail(object sender, EventArgs e)
+        {
+            Task.Run(() => RunAutoEmailLogic());
+        }
+
+        private async void RunAutoEmailLogic()
         {
             if (GlobalVariables.RPTUSER == null || !GlobalVariables.RPTUSER.isAutomatedEmailSender)
             {

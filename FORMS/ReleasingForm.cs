@@ -34,9 +34,8 @@ namespace SampleRPT1.FORMS
             InitializeAction();
             cboStatus.Enabled = false;
             cboAction.Enabled = false;
-            //btnStart.Visible = false;
-            //btnSave.Visible = false;
         }
+
         public void InitializeStatus()
         {
             cboStatus.Items.Add(RPTStatus.OR_PICKUP);
@@ -58,6 +57,9 @@ namespace SampleRPT1.FORMS
                "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks"});
         }
 
+        /// <summary>
+        /// Filter records based on date and status: FOR OR RELEASE, else, based on status only. 
+        /// </summary>
         public void RefreshListView()
         {
             List<string> StatusList = new List<string>();
@@ -72,9 +74,7 @@ namespace SampleRPT1.FORMS
                 DateTime encodedDateFrom = dtDate.Value;
                 DateTime encodedDateTo = dtDateTo.Value;
 
-                //rptList = RPTDatabase.SelectByDateAndStatus(dtDate.Value, StatusList);
                 rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
-
             }
             else
             {
@@ -97,6 +97,9 @@ namespace SampleRPT1.FORMS
             RefreshListView();
         }
 
+        /// <summary>
+        /// Filter records based on taxdec number, it will display if taxdec has other related taxdec with same reference number.
+        /// </summary>
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
             List<string> StatusList = new List<string>();
@@ -104,9 +107,7 @@ namespace SampleRPT1.FORMS
             StatusList.Add(cboStatus.Text);
 
             string taxdec = textTDN.Text;
-            //string status = cboStatus.Text;
 
-            //List<RealPropertyTax> rptList = RPTDatabase.SelectByTaxDec(taxdec);
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
 
             PopulateListView(rptList);
@@ -120,22 +121,23 @@ namespace SampleRPT1.FORMS
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshListView();
+        } 
+
+        /// <summary>
+        /// Required fields: Representative name and contact number.
+        /// </summary>
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textRepName, "Representative name");
+            Validations.ValidateRequired(errorProvider1, textRepContactNum, "Contact number");
         }
 
-        //private bool CheckSameStatus(string ExpectedStatus)
-        //{
-        //    bool SameStatus = true;
-
-        //    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-        //    {
-        //        if (RPTInfoLV.SelectedItems[i].SubItems[9].Text != ExpectedStatus)
-        //        {
-        //            SameStatus = false;
-        //        }
-        //    }
-        //    return SameStatus;
-        //}
-
+        /// <summary>
+        /// Returns expected status of the multiple selected records. 
+        /// </summary>
         private List<RealPropertyTax> GetSelectedRPTByStatus(string ExpectedStatus)
         {
             List<RealPropertyTax> SelectedRPTByStatus = new List<RealPropertyTax>();
@@ -154,15 +156,9 @@ namespace SampleRPT1.FORMS
             return SelectedRPTByStatus;
         }
 
-        private void validateForm()
-        {
-            // clear muna natin lahat ng error from previous validation.
-            errorProvider1.Clear();
-
-            Validations.ValidateRequired(errorProvider1, textRepName, "Representative name");
-            Validations.ValidateRequired(errorProvider1, textRepContactNum, "Contact number");
-        }
-
+        /// <summary>
+        /// Updates a record to RELEASED status.
+        /// </summary>
         private void ReleaseReceipt()
         {
             validateForm();
@@ -195,10 +191,6 @@ namespace SampleRPT1.FORMS
                     MessageBox.Show("Receipt successfully released.");
                 }
 
-                //if (CheckSameStatus(RPTStatus.OR_PICKUP) == false)
-                //{
-                //    MessageBox.Show("Some selected records has not been processed.");
-                //}
             }
             textRepName.Clear();
             textRepContactNum.Clear();
@@ -213,6 +205,9 @@ namespace SampleRPT1.FORMS
             ReleaseReceipt();
         }
 
+        /// <summary>
+        /// Camera behavior in the background.
+        /// </summary>
         private void CaptureCameraCallback()
         {
             Mat frame = new Mat();
@@ -223,11 +218,12 @@ namespace SampleRPT1.FORMS
                 {
                     if (checkEnableCam.Checked)
                     {
-                        // while we are not told to pause, just update the picture box with what we capture from webcam
+                        // While we are not told to pause, just update the picture box with what we capture from webcam
                         if (isCapturing)
                         {
                             videoCapture.Read(frame);
                             Bitmap image = BitmapConverter.ToBitmap(frame);
+
                             if (pictureCam.Image != null)
                             {
                                 pictureCam.Image.Dispose();
@@ -253,16 +249,9 @@ namespace SampleRPT1.FORMS
             }
         }
 
-        //public void setRptID(long _rptID)
-        //{
-        //    RptID = _rptID;
-        //}
-
         /// <summary>
         /// Signal the camera thread to stop and release the camera device.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ReleasingForm_Deactivate(object sender, EventArgs e)
         {
             isCameraRunning = false;
@@ -270,31 +259,11 @@ namespace SampleRPT1.FORMS
         }
 
         /// <summary>
-        /// Release the video capture device when the program is stopped.
+        /// Release the video capture device when the program is stopped. Basically, closes the camera thread when form is closed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ReleasingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             isCameraRunning = false;
-        }
-
-        private void btnStopStart_Click(object sender, EventArgs e)
-        {
-            if (isCapturing)
-            {
-                // we are told to stop the camera here
-                btnStopStart.Text = "Start";
-                isCapturing = false;
-                btnSave.Enabled = true;
-            }
-            else
-            {
-                // we are told to start the camera here
-                btnStopStart.Text = "Stop";
-                isCapturing = true;
-                btnSave.Enabled = false;
-            }
         }
 
         private void checkEnableCam_CheckedChanged(object sender, EventArgs e)
@@ -325,6 +294,27 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        private void btnStopStart_Click(object sender, EventArgs e)
+        {
+            if (isCapturing)
+            {
+                // we are told to stop the camera here
+                btnStopStart.Text = "Start";
+                isCapturing = false;
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                // we are told to start the camera here
+                btnStopStart.Text = "Stop";
+                isCapturing = true;
+                btnSave.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// User will have the option to save the freezed frame from the pictureCam box.
+        /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
             RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, DocumentType.OR_RELEASING);
@@ -335,8 +325,6 @@ namespace SampleRPT1.FORMS
                 {
                     string RptId = RPTInfoLV.SelectedItems[i].Text;
                     RptID = Convert.ToInt64(RptId);
-
-                    //RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
                     if (RetrievePicture == null)
                     {
@@ -351,7 +339,7 @@ namespace SampleRPT1.FORMS
 
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
 
-                        MessageBox.Show("Saved");
+                        MessageBox.Show("Picture successfully saved.");
                     }
                     else
                     {
@@ -360,7 +348,7 @@ namespace SampleRPT1.FORMS
                         RetrievePicture.FileData = resizeFileData;
 
                         RPTAttachPictureDatabase.Update(RetrievePicture);
-                        MessageBox.Show("Saved");
+                        MessageBox.Show("Picture successfully saved.");
                     }
                 }
                 else

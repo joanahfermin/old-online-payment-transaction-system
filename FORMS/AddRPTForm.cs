@@ -182,7 +182,7 @@ namespace SampleRPT1
             }
             else if (textTotalTransferredAmount.Text == "0.00")
             {
-
+                cboBankUsed.SelectedIndex = 0;
                 dtDateOfPayment.Format = DateTimePickerFormat.Custom;
                 dtDateOfPayment.CustomFormat = " ";
                 dtDateOfPayment.Checked = false;

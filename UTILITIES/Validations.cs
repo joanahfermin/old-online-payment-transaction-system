@@ -50,16 +50,14 @@ namespace SampleRPT1.UTILITIES
         /// <summary>
         /// Validate if bank is empty.
         /// </summary>
-        /// <param name="ep"></param>
-        /// <param name="cb"></param>
-        /// <param name="propertyName"></param>
         public static void ValidateRequiredBank(ErrorProvider ep, ComboBox cb, string propertyName)
         {
             if (hasExistingErrorForBank(ep, cb))
             {
                 return;
             }
-            if (cb.Text.Trim() == "")
+
+            if (cb.Text.Trim().ToLower().StartsWith("please"))
             {
                 ep.SetError(cb, $"{propertyName} is required.");
             }

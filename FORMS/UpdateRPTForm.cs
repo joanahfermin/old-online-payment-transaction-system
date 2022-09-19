@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.UTILITIES;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,17 +23,39 @@ namespace SampleRPT1
         public UpdateRPTForm(List<long> RptIDList)
         {
             InitializeComponent();
+
+            //cboBankUsed.SelectedIndex = 0;
+
             foreach (var RptId in RptIDList)
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
                 RptList.Add(rpt);
             }
             InitializeUpdateRecord();
+
+            InitializeBank();
+        }
+
+        public void InitializeBank()
+        {
+            cboBankUsed.Items.Add(BankUtil.LBP);
+            cboBankUsed.Items.Add(BankUtil.METROBANK);
+            cboBankUsed.Items.Add(BankUtil.UNIONBANK);
         }
 
         public void setParent(MainForm mainForm)
         {
             parentForm = mainForm;
+        }
+
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textTransferredAmount, "Transferred amount");
+
+            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }
 
         /// <summary>
@@ -128,7 +151,7 @@ namespace SampleRPT1
             }
             else if (textTransferredAmount.Text == "0.00")
             {
-
+                cboBankUsed.SelectedIndex = 0;
                 dtDateOfPayment.Format = DateTimePickerFormat.Custom;
                 dtDateOfPayment.CustomFormat = " ";
                 dtDateOfPayment.Checked = false;
@@ -161,7 +184,6 @@ namespace SampleRPT1
                     rpt.AmountTransferred = Convert.ToDecimal(textTransferredAmount.Text);
                     rpt.ExcessShortAmount = rpt.AmountToPay - rpt.AmountTransferred;
                 }
-
 
                 //IF USER ENTERED SPECIFIC DATE AND THERE IS AMOUNTOPAY AND AMOUNTTRANSFERRED,
                 //THEN ASSIGN NEW VALUE TO THE DATE. OTHERWISE, RETAIN OLD DATE VALUE.
@@ -199,6 +221,13 @@ namespace SampleRPT1
 
                 if (rpt.Status == RPTStatus.BILL_SENT && rpt.AmountTransferred != 0)
                 {
+                    validateForm();
+
+                    if (Validations.HaveErrors(errorProvider1))
+                    {
+                        return;
+                    }
+
                     rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                 }
 
@@ -263,13 +292,14 @@ namespace SampleRPT1
 
         private void textTransferredAmount_TextChanged(object sender, EventArgs e)
         {
+            //cboBankUsed.SelectedIndex = 0;
             CheckUncheckDateOfPayment();
-
         }
 
         private void UpdateRPTForm_Load(object sender, EventArgs e)
         {
             CheckUncheckDateOfPayment();
+            cboBankUsed.SelectedIndex = 0;
         }
 
         /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE. <summary>

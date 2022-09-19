@@ -17,6 +17,8 @@ namespace SampleRPT1.FORMS
 
         List<long> RptiDList = new List<long>();
 
+        /// <summary>
+        /// Accepts all Rptid from MainForm and transfer it to the RptIDList.
         public SendEmailForm(List<long> RptIDList)
         {
             InitializeComponent();
@@ -25,9 +27,11 @@ namespace SampleRPT1.FORMS
             InitializeTemplates();
         }
 
+        /// <summary>
+        /// Initialize email templates based on the status. If OR_UPLOAD, email template is set to Receipt already. If ASSESSMENT, email template is set to Assessment.
+        /// </summary>
         private void InitializeTemplates()
         {
-
             List<EmailTemplate> templates = EmailTemplateDatabase.SelectLatest();
 
             foreach (EmailTemplate item in templates)
@@ -45,6 +49,7 @@ namespace SampleRPT1.FORMS
 
                     cboTemplates.Text = EmailTemplateUtil.RECEIPT;
                 }
+
                 if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED)
                 {
                     EmailTemplate template = EmailTemplateDatabase.SelectByName(Name);
@@ -52,10 +57,15 @@ namespace SampleRPT1.FORMS
                     cboTemplates.Text = EmailTemplateUtil.ASSESSMENT;
                 }
             }
-
             cboTemplates.Focus();
         }
 
+        /// <summary>
+        /// Enabling the button function depending on the email template if Assessment or Receipt.
+        /// If record has an attachment of assessment, button assessment is enabled.
+        /// If record has an attachment of receipt, button receipt is enabled.
+        /// If record has no attachments either assessment or receipt, send email button is enabled.
+        /// </summary>
         private void cboTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
             EmailTemplate template = EmailTemplateDatabase.SelectByName(cboTemplates.Text);
@@ -63,7 +73,7 @@ namespace SampleRPT1.FORMS
             if (template != null)
             {
                 textSubject.Text = template.Subject;
-                richTextBox1.Text = template.Body + "\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
+                richTextBox1.Text = template.Body + "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
 
                 btnSendAssessment.Enabled = false;
                 btnSendReceipt.Enabled = false;
@@ -92,6 +102,9 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        /// <summary>
+        /// Send email function.
+        /// </summary>
         private void btnSendEmail_Click(object sender, EventArgs e)
         {
             string SentTo = "";
@@ -130,15 +143,9 @@ namespace SampleRPT1.FORMS
             this.Close();
         }
 
-        //public Image byteArrayToImage(byte[] byteArrayIn)
-        //{
-        //    using (var ms = new MemoryStream(byteArrayIn))
-        //    {
-        //        //return Image.FromStream(ms);
-        //        return (Bitmap)((new ImageConverter()).ConvertFrom(byteArrayIn));
-        //    }
-        //}
-
+        /// <summary>
+        /// Send assessment function.
+        /// </summary>
         private void btnSendAssessment_Click(object sender, EventArgs e)
         {
             string SentTo = "";
@@ -163,8 +170,6 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                //Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
-
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
 
                 if (result == true)
@@ -175,7 +180,7 @@ namespace SampleRPT1.FORMS
                     SentTo = SentTo + rpt.RequestingParty + " ";
 
                     RPTDatabase.Update(rpt);
-                    RefreshMainListviewStatus();
+                    RefreshMainListviewStatusBillSent();
                 }
                 else
                 {
@@ -205,11 +210,19 @@ namespace SampleRPT1.FORMS
             this.Close();
         }
 
-        private void RefreshMainListviewStatus()
+        private void RefreshMainListviewStatusBillSent()
+        {
+            parentForm.SearchBillSent();
+        }
+
+        private void RefreshMainListviewStatusORPickup()
         {
             parentForm.SearchORPickup();
         }
 
+        /// <summary>
+        /// Send email receipt function.
+        /// </summary>
         private void btnSendReceipt_Click(object sender, EventArgs e)
         {
             string SentTo = "";
@@ -236,8 +249,6 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                //Image img = byteArrayToImage(RetrieveIdAndImage.FileData);
-
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
 
                 if (result == true)
@@ -249,7 +260,7 @@ namespace SampleRPT1.FORMS
                     rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
 
                     RPTDatabase.Update(rpt);
-                    RefreshMainListviewStatus();
+                    RefreshMainListviewStatusORPickup();
                 }
                 else
                 {

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateRPTForm));
             this.label12 = new System.Windows.Forms.Label();
             this.btnUpdateRecord = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,7 +54,9 @@
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label12
@@ -303,9 +307,7 @@
             // 
             this.cboBankUsed.FormattingEnabled = true;
             this.cboBankUsed.Items.AddRange(new object[] {
-            "LBP",
-            "METROBANK",
-            "UNIONBANK"});
+            "Please select a bank..."});
             this.cboBankUsed.Location = new System.Drawing.Point(152, 204);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(253, 21);
@@ -335,6 +337,11 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Date Of Payment: ";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            // 
             // UpdateRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,6 +354,7 @@
             this.Load += new System.EventHandler(this.UpdateRPTForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,5 +386,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;
         private System.Windows.Forms.ComboBox cboBankUsed;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

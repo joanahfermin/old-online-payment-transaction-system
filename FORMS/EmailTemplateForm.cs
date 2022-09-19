@@ -21,22 +21,27 @@ namespace SampleRPT1.FORMS
             parentForm = GlobalVariables.MAINFORM;
         }
 
-        //public void setParent(MainForm mainForm)
-        //{
-        //    parentForm = mainForm;
-        //}
-
+        /// <summary>
+        /// Initialize the email template from database.
+        /// </summary>
         public void InitializeData()
         {
             List<EmailTemplate> TemplateList = EmailTemplateDatabase.SelectLatest();
             PopulateListView(TemplateList);
         }
+        
+        /// <summary>
+        /// Loads the templates in the listview.
+        /// </summary>
         private void PopulateListView(List<EmailTemplate> TemplateList)
         {
             ListViewUtil.copyFromListToListview<EmailTemplate>(TemplateList, LVEmail, new List<string>
             { "TemplateID", "Name", "Subject", "isAssessment", "isReceipt"});
         }
 
+        /// <summary>
+        /// Inserts a email template record in the database.
+        /// </summary>
         private void btnAdd_Click(object sender, EventArgs e)
         {
             EmailTemplate mgTemplate = new EmailTemplate();
@@ -58,6 +63,9 @@ namespace SampleRPT1.FORMS
             richTextBox1.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Retreive the email template record from the database.
+        /// </summary>
         private void LVEmail_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LVEmail.SelectedItems.Count > 0)
@@ -75,6 +83,10 @@ namespace SampleRPT1.FORMS
                 cbReceipt.Checked = mgTemplate.isReceipt;
             }
         }
+
+        /// <summary>
+        /// Updates an email template record.
+        /// </summary>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             EmailTemplate mgTemplate = EmailTemplateDatabase.Get(TemplateID);
@@ -96,6 +108,9 @@ namespace SampleRPT1.FORMS
             richTextBox1.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Deletes an email template record.
+        /// </summary>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (LVEmail.SelectedIndices.Count > 0)

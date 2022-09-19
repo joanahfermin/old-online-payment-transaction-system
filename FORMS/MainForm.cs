@@ -286,6 +286,12 @@ namespace SampleRPT1
             RefreshListView();
         }
 
+        public void SearchBillSent()
+        {
+            cboStatus.Text = RPTStatus.BILL_SENT;
+            RefreshListView();
+        }
+
         public void SearchPaymentVerification()
         {
             cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;

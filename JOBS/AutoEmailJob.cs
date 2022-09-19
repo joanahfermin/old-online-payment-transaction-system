@@ -18,6 +18,7 @@ namespace SampleRPT1.JOBS
             AutoEmailJobTimer.Start();
         }
 
+
         public void RunAutoEmail(object sender, EventArgs e)
         {
             Task.Run(() => RunAutoEmailLogic());
@@ -37,6 +38,7 @@ namespace SampleRPT1.JOBS
             SendAssessment();
         }
 
+        //Send email of status: FOR OR UPLOAD in the background. 
         public void SendORReceipt()
         {
             List<RealPropertyTax> ListOfretrieveORSsendEmail = RPTDatabase.SelectForORUpload();
@@ -61,6 +63,7 @@ namespace SampleRPT1.JOBS
             }
         }
 
+        //Send email of status: ASSESSMENT PRINTED in the background. 
         public void SendAssessment()
         {
             List<RealPropertyTax> ListOfretrieveAssessmentSendEmail = RPTDatabase.SelectAssessmentSendEmail();

@@ -14,7 +14,6 @@ namespace SampleRPT1.DATABASE
         /// <summary>
         /// Find any email account randomly from pool of email accounts.
         /// </summary>
-        /// <returns></returns>
         public static EmailAccount GetEmailAccount()
         {
             using (SqlConnection conn = DbUtils.getConnection())

@@ -52,6 +52,7 @@ namespace SampleRPT1
         public bool WithAuthorizationLetter { get; set; } = false;
         public bool is_Released { get; set; } = false;
         public int DeletedRecord { get; set; } = 0;
-
+        public bool SendAssessmentReady { get; set; } = false;
+        public bool SendReceiptReady { get; set; } = false;
     }
 }

@@ -16,6 +16,8 @@ namespace SampleRPT1
         RPTUserLoginForm loginForm;
         MainForm mainForm;
         ReleasingForm releasingForm;
+        ReviewEmailForm reviewEmailForm;
+
         public ParentForm()
         {
             InitializeComponent();
@@ -103,6 +105,19 @@ namespace SampleRPT1
             releasingForm.Show();
             releasingForm.WindowState = FormWindowState.Maximized;
 
+        }
+
+        private void MenuItemReviewEmail_Click(object sender, EventArgs e)
+        {
+            //MenuItemReviewEmail
+            if (reviewEmailForm == null)
+            {
+                reviewEmailForm = new ReviewEmailForm();
+                reviewEmailForm.MdiParent = this;
+                reviewEmailForm.ControlBox = false;
+            }
+            reviewEmailForm.Show();
+            reviewEmailForm.WindowState = FormWindowState.Maximized;
         }
     }
 }

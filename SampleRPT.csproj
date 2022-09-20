@@ -261,6 +261,12 @@
     <Compile Include="FORMS\ReleasingForm.Designer.cs">
       <DependentUpon>ReleasingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\ReviewEmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\ReviewEmailForm.Designer.cs">
+      <DependentUpon>ReviewEmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\SendEmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -350,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReleasingForm.resx">
       <DependentUpon>ReleasingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\ReviewEmailForm.resx">
+      <DependentUpon>ReviewEmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\SendEmailForm.resx">
       <DependentUpon>SendEmailForm.cs</DependentUpon>

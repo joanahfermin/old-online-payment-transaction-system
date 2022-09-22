@@ -53,8 +53,12 @@ namespace SampleRPT1
             textContactNum.Visible = false;
             checkAutLetter.Visible = false;
 
+            //labelEncodedBy.Visible = true;
+            //cboEncodedBy.Visible = true;
+
             InitializeStatus();
             InitializeAction();
+            InitializeEncodedBy();
             InitializeAutoRefreshListViewTimer();
         }
 
@@ -76,6 +80,24 @@ namespace SampleRPT1
             cboStatus.Items.Add(RPTStatus.OR_UPLOAD);
             cboStatus.Items.Add(RPTStatus.OR_PICKUP);
             cboStatus.Items.Add(RPTStatus.RELEASED);
+        }
+
+        /// <summary>
+        /// THIS IS ONLY TEMPORARY - Get the Encodedby in the Jo_RPT_Users
+        /// </summary>
+        public void InitializeEncodedBy()
+        {
+            cboEncodedBy.Items.Add(EncodedByUtil.ARIS);
+            cboEncodedBy.Items.Add(EncodedByUtil.BON);
+            cboEncodedBy.Items.Add(EncodedByUtil.DAN);
+            cboEncodedBy.Items.Add(EncodedByUtil.EMERSON);
+            cboEncodedBy.Items.Add(EncodedByUtil.ERIK);
+            cboEncodedBy.Items.Add(EncodedByUtil.JASTIN);
+            cboEncodedBy.Items.Add(EncodedByUtil.JOANAH);
+            cboEncodedBy.Items.Add(EncodedByUtil.LOVELYN);
+            cboEncodedBy.Items.Add(EncodedByUtil.MAC);
+            cboEncodedBy.Items.Add(EncodedByUtil.NOEL);
+            cboEncodedBy.Items.Add(EncodedByUtil.OGIE);
         }
 
         public void InitializeAction()
@@ -229,6 +251,9 @@ namespace SampleRPT1
 
             List<string> PaymentChannelList = new List<string>();
 
+            List<string> EncodedByList = new List<string>();
+            EncodedByList.Add(cboEncodedBy.Text);
+
             if (cboPaymentChannel.Text == BANK_TRANSFER)
             {
                 List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
@@ -254,6 +279,10 @@ namespace SampleRPT1
                 if (cboStatus.Text == RPTStatus.PAYMENT_VERIFICATION && cboAction.Text == RPTAction.VERIFY_PAYMENT)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
+                }
+                if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
+                {
+                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
                 }
                 else
                 {
@@ -284,6 +313,17 @@ namespace SampleRPT1
         private void btnSearchDateStatus_Click(object sender, EventArgs e)
         {
             RefreshListView();
+
+            if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT && dtDate.Checked == true)
+            {
+                labelEncodedBy.Visible = true;
+                cboEncodedBy.Visible = true;
+            }
+            else
+            {
+                labelEncodedBy.Visible = false;
+                cboEncodedBy.Visible = false;
+            }
 
         }
 
@@ -322,6 +362,11 @@ namespace SampleRPT1
             RefreshListView();
         }
 
+        private void cboEncodedBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshListView();
+        }
+
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshListView();
@@ -334,6 +379,17 @@ namespace SampleRPT1
 
                 labelContactNumber.Visible = false;
                 textContactNum.Visible = false;
+            }
+
+            if (cboStatus.Text != RPTStatus.FOR_ASSESSMENT)
+            {
+                labelEncodedBy.Visible = false;
+                cboEncodedBy.Visible = false;
+            }
+            else
+            {
+                labelEncodedBy.Visible = true;
+                cboEncodedBy.Visible = true;
             }
         }
 
@@ -1145,14 +1201,18 @@ namespace SampleRPT1
         }
 
         //Auto-suggest in a dialog box.
-        private void cboStatus_KeyPress(object sender, KeyPressEventArgs e)
+        private void cboEncodedBy_KeyPress(object sender, KeyPressEventArgs e)
         {
-            cboStatus.DroppedDown = false;
-
+            cboEncodedBy.DroppedDown = false;
         }
 
         //Auto-suggest in a dialog box.
+        private void cboStatus_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            cboStatus.DroppedDown = false;
+        }
 
+        //Auto-suggest in a dialog box.
         private void cboAction_KeyPress(object sender, KeyPressEventArgs e)
         {
             cboAction.DroppedDown = false;
@@ -1227,6 +1287,5 @@ namespace SampleRPT1
                 MessageBox.Show("Select a record from the list view.");
             }
         }
-
     }
 }

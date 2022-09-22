@@ -114,6 +114,8 @@
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
+            this.cboEncodedBy = new System.Windows.Forms.ComboBox();
+            this.labelEncodedBy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -392,7 +394,7 @@
             this.textNumOfBills.Location = new System.Drawing.Point(1124, 60);
             this.textNumOfBills.Name = "textNumOfBills";
             this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
-            this.textNumOfBills.TabIndex = 8;
+            this.textNumOfBills.TabIndex = 9;
             this.textNumOfBills.Text = "1";
             this.textNumOfBills.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -563,7 +565,7 @@
             this.cboAction.Location = new System.Drawing.Point(1124, 30);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
-            this.cboAction.TabIndex = 7;
+            this.cboAction.TabIndex = 8;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
             this.cboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboAction_KeyPress);
             // 
@@ -581,7 +583,7 @@
             this.btnExecute.Location = new System.Drawing.Point(1208, 60);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
-            this.btnExecute.TabIndex = 9;
+            this.btnExecute.TabIndex = 10;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
@@ -631,7 +633,7 @@
             // 
             this.dtDateTo.CustomFormat = "MM/dd/yyyy";
             this.dtDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateTo.Location = new System.Drawing.Point(183, 13);
+            this.dtDateTo.Location = new System.Drawing.Point(191, 12);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 4;
@@ -669,16 +671,16 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(297, 20);
+            this.label14.Location = new System.Drawing.Point(329, 19);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(80, 13);
+            this.label14.Size = new System.Drawing.Size(40, 13);
             this.label14.TabIndex = 46;
-            this.label14.Text = "Filter By Status:";
+            this.label14.Text = "Status:";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(151, 20);
+            this.label13.Location = new System.Drawing.Point(159, 19);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 45;
@@ -686,7 +688,7 @@
             // 
             // btnSearchDateStatus
             // 
-            this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
+            this.btnSearchDateStatus.Location = new System.Drawing.Point(546, 12);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
             this.btnSearchDateStatus.TabIndex = 6;
@@ -697,9 +699,9 @@
             // cboStatus
             // 
             this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(383, 13);
+            this.cboStatus.Location = new System.Drawing.Point(375, 12);
             this.cboStatus.Name = "cboStatus";
-            this.cboStatus.Size = new System.Drawing.Size(231, 21);
+            this.cboStatus.Size = new System.Drawing.Size(165, 21);
             this.cboStatus.TabIndex = 5;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             this.cboStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboStatus_KeyPress);
@@ -728,8 +730,10 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.labelEncodedBy);
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
+            this.panel2.Controls.Add(this.cboEncodedBy);
             this.panel2.Controls.Add(this.dtDateTo);
             this.panel2.Controls.Add(this.btnSearchDateStatus);
             this.panel2.Controls.Add(this.label2);
@@ -827,6 +831,25 @@
             this.checkAutLetter.TabIndex = 54;
             this.checkAutLetter.Text = "with authorization letter.";
             this.checkAutLetter.UseVisualStyleBackColor = true;
+            // 
+            // cboEncodedBy
+            // 
+            this.cboEncodedBy.FormattingEnabled = true;
+            this.cboEncodedBy.Location = new System.Drawing.Point(375, 42);
+            this.cboEncodedBy.Name = "cboEncodedBy";
+            this.cboEncodedBy.Size = new System.Drawing.Size(165, 21);
+            this.cboEncodedBy.TabIndex = 7;
+            this.cboEncodedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
+            this.cboEncodedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
+            // 
+            // labelEncodedBy
+            // 
+            this.labelEncodedBy.AutoSize = true;
+            this.labelEncodedBy.Location = new System.Drawing.Point(301, 50);
+            this.labelEncodedBy.Name = "labelEncodedBy";
+            this.labelEncodedBy.Size = new System.Drawing.Size(70, 13);
+            this.labelEncodedBy.TabIndex = 48;
+            this.labelEncodedBy.Text = "Encoded by: ";
             // 
             // MainForm
             // 
@@ -969,6 +992,8 @@
         private System.Windows.Forms.TabPage OR_Release;
         private System.Windows.Forms.PictureBox pictureBoxORrelease;
         private System.Windows.Forms.CheckBox checkAutLetter;
+        private System.Windows.Forms.ComboBox cboEncodedBy;
+        private System.Windows.Forms.Label labelEncodedBy;
     }
 }
 

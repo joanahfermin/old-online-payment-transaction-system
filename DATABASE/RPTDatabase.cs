@@ -113,11 +113,31 @@ namespace SampleRPT1
             }
         }
 
-        //HINDI GINAGAMIT?
         /// <summary>
-        /// Returns a list of records based on date range and paymentchannel.
+        /// Returns a list of records based on date range, status and encodedby.
         /// </summary>
-        public static List<RealPropertyTax> SelectByStatusAndPaymentChannel(List<string> StatusList, List<string> PaymentChannelList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndEncodedBy(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList, List<string> EncodedBy)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND EncodedBy in @EncodedBy AND DeletedRecord != 1 " +
+                    "ORDER BY RptID ASC";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    StatusList = StatusList,
+                    EncodedBy = EncodedBy
+                }).ToList();
+            }
+        }
+
+        //THIS MIGHT BE USEFUL LATER.
+        /// <summary>
+        /// Returns a list of records based on status and encodedby.
+        /// </summary>
+        public static List<RealPropertyTax> SelectByStatusAndEncodedBy(List<string> StatusList, List<string> PaymentChannelList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {

@@ -287,6 +287,7 @@
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MODEL\RPTBank.cs" />
+    <Compile Include="UTILITIES\EncodedByUtil.cs" />
     <Compile Include="UTILITIES\FileUtils.cs" />
     <Compile Include="UTILITIES\GlobalConstants.cs" />
     <Compile Include="UTILITIES\GlobalVariables.cs" />
@@ -313,7 +314,6 @@
     <Compile Include="UTILITIES\RPTUserLoginForm.Designer.cs">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UTILITIES\BankUtil.cs" />
     <Compile Include="UTILITIES\DbUtils.cs" />
     <Compile Include="UTILITIES\DocumentType.cs" />
     <Compile Include="UTILITIES\EmailTemplateUtil.cs" />

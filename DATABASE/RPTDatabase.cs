@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using Dapper;
 using Microsoft.Data.SqlClient;
-
+using SampleRPT1.MODEL;
 
 namespace SampleRPT1
 {
@@ -230,6 +230,19 @@ namespace SampleRPT1
                     modelInstance.Bank = "";
                 }
                 modelInstance.Bank = modelInstance.Bank.ToUpper();
+
+                if (modelInstance.Bank != string.Empty)
+                {
+                   RPTBank newBank = RPTBankDatabase.SelectByBankName(modelInstance.Bank);
+
+                    if (newBank == null)
+                    {
+                        newBank = new RPTBank();
+
+                        newBank.BankName = modelInstance.Bank;
+                        RPTBankDatabase.Insert(newBank);
+                    }
+                }
             }
         }
 

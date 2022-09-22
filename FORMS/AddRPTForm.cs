@@ -1,4 +1,5 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using SampleRPT1.MODEL;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +20,15 @@ namespace SampleRPT1
             InitializeComponent();
             InitializeBank();
         }
+
         public void InitializeBank()
         {
-            cboBankUsed.Items.Add(BankUtil.LBP);
-            cboBankUsed.Items.Add(BankUtil.METROBANK);
-            cboBankUsed.Items.Add(BankUtil.UNIONBANK);
+            List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+
+            foreach (RPTBank bank in bankList)
+            {
+                cboBankUsed.Items.Add(bank.BankName);
+            }
         }
 
         public void setParent(MainForm mainForm)

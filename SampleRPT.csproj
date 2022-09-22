@@ -217,6 +217,7 @@
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
     <Compile Include="DATABASE\RPTAttachPictureDatabase.cs" />
+    <Compile Include="DATABASE\RPTBankDatabase.cs" />
     <Compile Include="DATABASE\SystemSettingDatabase.cs" />
     <Compile Include="FORMS\AddMultipleOnePaymentForm.cs">
       <SubType>Form</SubType>
@@ -285,6 +286,7 @@
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\RPTBank.cs" />
     <Compile Include="UTILITIES\FileUtils.cs" />
     <Compile Include="UTILITIES\GlobalConstants.cs" />
     <Compile Include="UTILITIES\GlobalVariables.cs" />

@@ -14,5 +14,6 @@ namespace SampleRPT1
         public const string LBP = "LBP";
         public const string METROBANK = "METROBANK";
         public const string UNIONBANK = "UNIONBANK";
+        public const string CITI_BANK = "CITIBANK";
     }
 }

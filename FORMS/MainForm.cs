@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using SampleRPT1.FORMS;
 using SampleRPT1.UTILITIES;
 using System.IO;
-
+using SampleRPT1.MODEL;
 
 namespace SampleRPT1
 {
@@ -121,6 +121,15 @@ namespace SampleRPT1
             ShowPicture();
         }
 
+        private void InitializeAllBanksToBankTransfer()
+        {
+            List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+
+            foreach (RPTBank bank in bankList)
+            {
+                //cboBankUsed.Items.Add(bank.BankName);
+            }
+        }
         private void InitializePaymentChannel()
         {
             cboPaymentChannel.Items.Clear();
@@ -222,9 +231,12 @@ namespace SampleRPT1
 
             if (cboPaymentChannel.Text == BANK_TRANSFER)
             {
-                PaymentChannelList.Add(BankUtil.LBP);
-                PaymentChannelList.Add(BankUtil.METROBANK);
-                PaymentChannelList.Add(BankUtil.UNIONBANK);
+                List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+
+                foreach (RPTBank bank in bankList)
+                {
+                    PaymentChannelList.Add(bank.BankName);
+                }
             }
             else
             {

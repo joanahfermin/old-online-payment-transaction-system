@@ -393,6 +393,8 @@
             this.textNumOfBills.Name = "textNumOfBills";
             this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
             this.textNumOfBills.TabIndex = 8;
+            this.textNumOfBills.Text = "1";
+            this.textNumOfBills.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // LabelNumBills
             // 

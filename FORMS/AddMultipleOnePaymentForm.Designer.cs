@@ -54,14 +54,14 @@
             this.label13 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkTaxNameRetain = new System.Windows.Forms.CheckBox();
+            this.checkTaxDecRetain = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkTaxDecRetain = new System.Windows.Forms.CheckBox();
-            this.checkTaxNameRetain = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -133,7 +133,7 @@
             this.textAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textAmount2Pay.Location = new System.Drawing.Point(158, 136);
             this.textAmount2Pay.Name = "textAmount2Pay";
-            this.textAmount2Pay.Size = new System.Drawing.Size(253, 20);
+            this.textAmount2Pay.Size = new System.Drawing.Size(126, 20);
             this.textAmount2Pay.TabIndex = 3;
             this.textAmount2Pay.Text = "0.00";
             this.textAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -157,7 +157,7 @@
             this.textTotalAmountDeposited.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountDeposited.Location = new System.Drawing.Point(144, 139);
             this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
-            this.textTotalAmountDeposited.Size = new System.Drawing.Size(253, 20);
+            this.textTotalAmountDeposited.Size = new System.Drawing.Size(126, 20);
             this.textTotalAmountDeposited.TabIndex = 11;
             this.textTotalAmountDeposited.Text = "0.00";
             this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -298,6 +298,28 @@
             this.panel1.Size = new System.Drawing.Size(487, 208);
             this.panel1.TabIndex = 43;
             // 
+            // checkTaxNameRetain
+            // 
+            this.checkTaxNameRetain.AutoSize = true;
+            this.checkTaxNameRetain.Location = new System.Drawing.Point(414, 56);
+            this.checkTaxNameRetain.Name = "checkTaxNameRetain";
+            this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
+            this.checkTaxNameRetain.TabIndex = 7;
+            this.checkTaxNameRetain.Text = "Retain";
+            this.checkTaxNameRetain.UseVisualStyleBackColor = true;
+            this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
+            // 
+            // checkTaxDecRetain
+            // 
+            this.checkTaxDecRetain.AutoSize = true;
+            this.checkTaxDecRetain.Location = new System.Drawing.Point(414, 19);
+            this.checkTaxDecRetain.Name = "checkTaxDecRetain";
+            this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
+            this.checkTaxDecRetain.TabIndex = 6;
+            this.checkTaxDecRetain.Text = "Retain";
+            this.checkTaxDecRetain.UseVisualStyleBackColor = true;
+            this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -366,28 +388,6 @@
             this.label8.Size = new System.Drawing.Size(113, 13);
             this.label8.TabIndex = 23;
             this.label8.Text = "Total Amount To Pay: ";
-            // 
-            // checkTaxDecRetain
-            // 
-            this.checkTaxDecRetain.AutoSize = true;
-            this.checkTaxDecRetain.Location = new System.Drawing.Point(414, 19);
-            this.checkTaxDecRetain.Name = "checkTaxDecRetain";
-            this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxDecRetain.TabIndex = 6;
-            this.checkTaxDecRetain.Text = "Retain";
-            this.checkTaxDecRetain.UseVisualStyleBackColor = true;
-            this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
-            // 
-            // checkTaxNameRetain
-            // 
-            this.checkTaxNameRetain.AutoSize = true;
-            this.checkTaxNameRetain.Location = new System.Drawing.Point(414, 56);
-            this.checkTaxNameRetain.Name = "checkTaxNameRetain";
-            this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 7;
-            this.checkTaxNameRetain.Text = "Retain";
-            this.checkTaxNameRetain.UseVisualStyleBackColor = true;
-            this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
             // 
             // AddMultipleOnePaymentForm
             // 

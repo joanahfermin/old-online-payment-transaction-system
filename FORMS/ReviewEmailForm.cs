@@ -14,40 +14,69 @@ namespace SampleRPT1.FORMS
 {
     public partial class ReviewEmailForm : Form
     {
+        private Timer AutoRefreshListViewTimer;
+
         public ReviewEmailForm()
         {
             InitializeComponent();
+
             cbType.Items.Add(DocumentType.ASSESSMENT);
             cbType.Items.Add(DocumentType.RECEIPT);
             cbType.Text = DocumentType.ASSESSMENT;
+            InitializeAutoRefreshListViewTimer();
+
+        }
+
+        private void InitializeAutoRefreshListViewTimer()
+        {
+            AutoRefreshListViewTimer = new Timer();
+            AutoRefreshListViewTimer.Tick += new EventHandler(AutoRefreshListViewTimerEvent);
+            AutoRefreshListViewTimer.Interval = GlobalConstants.AUTO_REFRESH_CONFIRM_SENDEMAIL * 1000; // convert seconds to milliseconds
+            AutoRefreshListViewTimer.Start();
+        }
+
+        private void AutoRefreshListViewTimerEvent(object sender, EventArgs e)
+        {
+            if (checkRefreshAll.Checked)
+            {
+                RefreshReviewListView();
+            }
         }
 
         private void cbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshReviewListView();
+            //RefreshReviewListView();
         }
 
         private void RefreshReviewListView()
         {
-            if (cbType.Text == DocumentType.ASSESSMENT)
+            if (rdAssessment.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyAssessmentSendEmail();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "TaxDec", "RequestingParty" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty" });
             }
-            else if (cbType.Text == DocumentType.RECEIPT)
+            else if (rdReceipt.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyForORUpload();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "TaxDec", "RequestingParty" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty" });
             }
             else
             {
                 lvReview.Items.Clear();
             }
-        }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            RefreshReviewListView();
+            foreach (ListViewItem item in lvReview.Items)
+            {
+                if (rdAssessment.Checked)
+                {
+                    item.SubItems[1].Text = "ASSESSMENT";
+
+                }
+                else if (rdReceipt.Checked)
+                {
+                    item.SubItems[1].Text = "RECEIPT";
+                }
+            }
         }
 
         private void lvReview_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,7 +141,6 @@ namespace SampleRPT1.FORMS
 
                 }
             }
-
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -144,6 +172,24 @@ namespace SampleRPT1.FORMS
                     RPTDatabase.Update(rpt);
                 }
             }
+        }
+
+        private void checkRefreshAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkRefreshAll.Checked)
+            {
+                RefreshReviewListView();
+            }
+        }
+
+        private void rdAssessment_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshReviewListView();
+        }
+
+        private void rdReceipt_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshReviewListView();
         }
     }
 }

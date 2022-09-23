@@ -23,5 +23,7 @@ namespace SampleRPT1
         public static int AUTO_REFRESH_LISTVIEW_INTERVAL_SECONDS;
 
         public static int AUTO_EMAIL_INTERVAL_SECONDS;
+
+        public static int AUTO_REFRESH_CONFIRM_SENDEMAIL;
     }
 }

@@ -27,6 +27,8 @@ namespace SampleRPT1
 
             GlobalConstants.AUTO_EMAIL_INTERVAL_SECONDS = getSystemSettingAsInt("AUTO_EMAIL_INTERVAL");
 
+            GlobalConstants.AUTO_REFRESH_CONFIRM_SENDEMAIL = getSystemSettingAsInt("AUTO_REFRESH_CONFIRM_SENDEMAIL");
+
             autoEmailJob = new AutoEmailJob();
             autoEmailJob.Initialize();
         }

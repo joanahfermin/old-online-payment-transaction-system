@@ -20,11 +20,7 @@ namespace SampleRPT1.FORMS
         {
             InitializeComponent();
 
-            cbType.Items.Add(DocumentType.ASSESSMENT);
-            cbType.Items.Add(DocumentType.RECEIPT);
-            cbType.Text = DocumentType.ASSESSMENT;
             InitializeAutoRefreshListViewTimer();
-
         }
 
         private void InitializeAutoRefreshListViewTimer()
@@ -41,11 +37,6 @@ namespace SampleRPT1.FORMS
             {
                 RefreshReviewListView();
             }
-        }
-
-        private void cbType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //RefreshReviewListView();
         }
 
         private void RefreshReviewListView()
@@ -81,19 +72,40 @@ namespace SampleRPT1.FORMS
 
         private void lvReview_SelectedIndexChanged(object sender, EventArgs e)
         {
+            getImageAccordingToDocType();
+        }
+
+        private void getImageAccordingToDocType()
+        {
             long rptID = getSelectedItemRptID();
             if (rptID > 0)
             {
-                String documentType = cbType.Text;
-                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, documentType);
-                if (RetrievePicture != null)
+                foreach (ListViewItem item in lvReview.Items)
                 {
-                    pbAttachedPicture.Image = getImageFromAttachePicture(RetrievePicture);
+                    if (rdAssessment.Checked)
+                    {
+                        RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "ASSESSMENT");
+
+                        if (RetrievePicture != null)
+                        {
+                            pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
+                        }
+                    }
+
+                    else if (rdReceipt.Checked)
+                    {
+                        RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "RECEIPT");
+
+                        if (RetrievePicture != null)
+                        {
+                            pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
+                        }
+                    }
                 }
             }
         }
 
-        private Image getImageFromAttachePicture(RPTAttachPicture AttachPicture)
+        private Image getImageFromAttachedPicture(RPTAttachPicture AttachPicture)
         {
             if (AttachPicture.FileName.ToLower().EndsWith("pdf"))
             {
@@ -102,6 +114,53 @@ namespace SampleRPT1.FORMS
             else
             {
                 return Image.FromStream(new MemoryStream(AttachPicture.FileData));
+            }
+        } 
+
+        private void pbAttachedPicture_Click(object sender, EventArgs e)
+        {
+            long rptID = getSelectedItemRptID();
+
+            if (rptID > 0)
+            {
+                if (rdAssessment.Checked)
+                {
+                    DownloadPDF();
+                }
+
+                if (rdReceipt.Checked)
+                {
+                    DownloadPDF();
+                }
+            }
+        }
+
+        private void DownloadPDF()
+        {
+
+            for (int i = 0; i < lvReview.SelectedItems.Count; i++)
+            {
+                long rptID = getSelectedItemRptID();
+
+                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, lvReview.SelectedItems[i].SubItems[1].Text);
+
+                if (RetrievePicture != null)
+                {
+                    if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+                    {
+                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf";
+                        String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
+                        System.Diagnostics.Process.Start(savedFileFullPath);
+
+                        MessageBox.Show("PDF successfully saved.");
+                    }
+                    else
+                    {
+                        Image image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        ViewImageForm form = new ViewImageForm(image);
+                        form.ShowDialog();
+                    }
+                }
             }
         }
 
@@ -114,32 +173,6 @@ namespace SampleRPT1.FORMS
             else
             {
                 return 0;
-            }
-        }
-
-        private void pbAttachedPicture_Click(object sender, EventArgs e)
-        {
-            long rptID = getSelectedItemRptID();
-            if (rptID > 0)
-            {
-                String documentType = cbType.Text;
-                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, documentType);
-                if (RetrievePicture != null)
-                {
-                    if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
-                    {
-                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf";
-                        String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
-                        System.Diagnostics.Process.Start(savedFileFullPath);
-                    }
-                    else
-                    {
-                        Image image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
-                        ViewImageForm form = new ViewImageForm(image);
-                        form.ShowDialog();
-                    }
-
-                }
             }
         }
 
@@ -160,13 +193,15 @@ namespace SampleRPT1.FORMS
             for (int i = 0; i < lvReview.SelectedItems.Count; i++)
             {
                 long rptID = Convert.ToInt64(lvReview.SelectedItems[i].Text);
+
                 RealPropertyTax rpt = RPTDatabase.Get(rptID);
-                if (cbType.Text == DocumentType.ASSESSMENT)
+
+                if (lvReview.SelectedItems[i].SubItems[1].Text == DocumentType.ASSESSMENT)
                 {
                     rpt.SendAssessmentReady = true;
                     RPTDatabase.Update(rpt);
                 }
-                else if (cbType.Text == DocumentType.RECEIPT)
+                else if (rdReceipt.Text == DocumentType.RECEIPT)
                 {
                     rpt.SendReceiptReady = true;
                     RPTDatabase.Update(rpt);

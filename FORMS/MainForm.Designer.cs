@@ -105,6 +105,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelEncodedBy = new System.Windows.Forms.Label();
+            this.cboEncodedBy = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbAutoRefresh = new System.Windows.Forms.CheckBox();
             this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
@@ -114,8 +116,6 @@
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
-            this.cboEncodedBy = new System.Windows.Forms.ComboBox();
-            this.labelEncodedBy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -671,7 +671,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(329, 19);
+            this.label14.Location = new System.Drawing.Point(313, 19);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(40, 13);
             this.label14.TabIndex = 46;
@@ -699,9 +699,9 @@
             // cboStatus
             // 
             this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(375, 12);
+            this.cboStatus.Location = new System.Drawing.Point(359, 12);
             this.cboStatus.Name = "cboStatus";
-            this.cboStatus.Size = new System.Drawing.Size(165, 21);
+            this.cboStatus.Size = new System.Drawing.Size(181, 21);
             this.cboStatus.TabIndex = 5;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             this.cboStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboStatus_KeyPress);
@@ -743,6 +743,25 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 33;
+            // 
+            // labelEncodedBy
+            // 
+            this.labelEncodedBy.AutoSize = true;
+            this.labelEncodedBy.Location = new System.Drawing.Point(283, 49);
+            this.labelEncodedBy.Name = "labelEncodedBy";
+            this.labelEncodedBy.Size = new System.Drawing.Size(70, 13);
+            this.labelEncodedBy.TabIndex = 48;
+            this.labelEncodedBy.Text = "Encoded by: ";
+            // 
+            // cboEncodedBy
+            // 
+            this.cboEncodedBy.FormattingEnabled = true;
+            this.cboEncodedBy.Location = new System.Drawing.Point(359, 42);
+            this.cboEncodedBy.Name = "cboEncodedBy";
+            this.cboEncodedBy.Size = new System.Drawing.Size(181, 21);
+            this.cboEncodedBy.TabIndex = 7;
+            this.cboEncodedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
+            this.cboEncodedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
             // 
             // label4
             // 
@@ -831,25 +850,6 @@
             this.checkAutLetter.TabIndex = 54;
             this.checkAutLetter.Text = "with authorization letter.";
             this.checkAutLetter.UseVisualStyleBackColor = true;
-            // 
-            // cboEncodedBy
-            // 
-            this.cboEncodedBy.FormattingEnabled = true;
-            this.cboEncodedBy.Location = new System.Drawing.Point(375, 42);
-            this.cboEncodedBy.Name = "cboEncodedBy";
-            this.cboEncodedBy.Size = new System.Drawing.Size(165, 21);
-            this.cboEncodedBy.TabIndex = 7;
-            this.cboEncodedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
-            this.cboEncodedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
-            // 
-            // labelEncodedBy
-            // 
-            this.labelEncodedBy.AutoSize = true;
-            this.labelEncodedBy.Location = new System.Drawing.Point(301, 50);
-            this.labelEncodedBy.Name = "labelEncodedBy";
-            this.labelEncodedBy.Size = new System.Drawing.Size(70, 13);
-            this.labelEncodedBy.TabIndex = 48;
-            this.labelEncodedBy.Text = "Encoded by: ";
             // 
             // MainForm
             // 

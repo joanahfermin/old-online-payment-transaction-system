@@ -137,7 +137,6 @@ namespace SampleRPT1.FORMS
 
         private void DownloadPDF()
         {
-
             for (int i = 0; i < lvReview.SelectedItems.Count; i++)
             {
                 long rptID = getSelectedItemRptID();
@@ -196,12 +195,12 @@ namespace SampleRPT1.FORMS
 
                 RealPropertyTax rpt = RPTDatabase.Get(rptID);
 
-                if (lvReview.SelectedItems[i].SubItems[1].Text == DocumentType.ASSESSMENT)
+                if (rdAssessment.Checked)
                 {
                     rpt.SendAssessmentReady = true;
                     RPTDatabase.Update(rpt);
                 }
-                else if (rdReceipt.Text == DocumentType.RECEIPT)
+                else if (rdReceipt.Checked)
                 {
                     rpt.SendReceiptReady = true;
                     RPTDatabase.Update(rpt);

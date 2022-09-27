@@ -1304,5 +1304,17 @@ namespace SampleRPT1
                 MessageBox.Show("Select a record from the list view.");
             }
         }
+
+        public long getSelectedRptID()
+        {
+            if (RPTInfoLV.SelectedItems.Count>0)
+            {
+                return Convert.ToInt64(RPTInfoLV.SelectedItems[0].Text);
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

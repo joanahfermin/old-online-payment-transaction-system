@@ -39,6 +39,7 @@
             this.MenuItemEmailTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemReviewEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.ReleasingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,8 @@
             this.MenuItemGcashPaymaya,
             this.MenuItemExcessShort,
             this.emailToolStripMenuItem,
-            this.ReleasingMenuItem});
+            this.ReleasingMenuItem,
+            this.historyMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -134,6 +136,13 @@
             this.ReleasingMenuItem.Text = "Releasing";
             this.ReleasingMenuItem.Click += new System.EventHandler(this.ReleasingMenuItem_Click);
             // 
+            // historyMenuItem
+            // 
+            this.historyMenuItem.Name = "historyMenuItem";
+            this.historyMenuItem.Size = new System.Drawing.Size(85, 29);
+            this.historyMenuItem.Text = "History";
+            this.historyMenuItem.Click += new System.EventHandler(this.historyMenuItem_Click);
+            // 
             // ParentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -167,5 +176,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateExcess;
         private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateBalance;
         private System.Windows.Forms.ToolStripMenuItem MenuItemReviewEmail;
+        private System.Windows.Forms.ToolStripMenuItem historyMenuItem;
     }
 }

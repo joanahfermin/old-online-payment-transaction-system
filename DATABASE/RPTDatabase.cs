@@ -242,8 +242,14 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                modelInstance.CreatedBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.CreatedDate = DateTime.Now;
+                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
                 BeforeInsertOrUpdate(modelInstance);
-                return conn.Insert<RealPropertyTax>(modelInstance);
+                long result = conn.Insert<RealPropertyTax>(modelInstance);
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
+                return result;
             }
         }
 
@@ -282,8 +288,12 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
                 BeforeInsertOrUpdate(modelInstance);
-                return conn.Update<RealPropertyTax>(modelInstance);
+                bool result = conn.Update<RealPropertyTax>(modelInstance);
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
+                return result;
             }
         }
 
@@ -295,7 +305,75 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 modelInstance.DeletedRecord = 1;
-                return conn.Update<RealPropertyTax>(modelInstance);
+                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
+                bool result = conn.Update<RealPropertyTax>(modelInstance);
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "DELETE");
+                return result;
+            }
+        }
+
+        private static void AfterInsertOrUpdateOrDelete(SqlConnection conn, RealPropertyTax rpt, String action)
+        {
+            RealPropertyTaxAudit audit = new RealPropertyTaxAudit();
+            copyRptToAudit(rpt, audit);
+            audit.Action = action;
+            conn.Insert<RealPropertyTaxAudit>(audit);
+        }
+
+        public static List<RealPropertyTaxAudit> SelectAudits(long RptID)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTaxAudit>($"SELECT * FROM Jo_RPT_Audit where RptID = @RptID order by LastUpdateDate DESC", new { RptID = RptID }).ToList();
+            }
+        }
+
+        public static void Revert(RealPropertyTaxAudit audit)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                RealPropertyTax rpt = Get(audit.RptID);
+                copyAuditToRpt(audit, rpt);
+
+                rpt.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                rpt.LastUpdateDate = DateTime.Now;
+                conn.Update<RealPropertyTax>(rpt);
+                AfterInsertOrUpdateOrDelete(conn, rpt, "REVERT");
+            }
+        }
+
+        private static void copyRptToAudit(RealPropertyTax rpt, RealPropertyTaxAudit audit)
+        {
+            var rptProperties = typeof(RealPropertyTax).GetProperties();
+            var auditProperties = typeof(RealPropertyTaxAudit).GetProperties();
+            foreach (var rptProperty in rptProperties)
+            {
+                foreach (var auditProperty in auditProperties)
+                {
+                    if (rptProperty.Name == auditProperty.Name)
+                    {
+                        auditProperty.SetValue(audit, rptProperty.GetValue(rpt));
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static void copyAuditToRpt(RealPropertyTaxAudit audit, RealPropertyTax rpt)
+        {
+            var rptProperties = typeof(RealPropertyTax).GetProperties();
+            var auditProperties = typeof(RealPropertyTaxAudit).GetProperties();
+            foreach (var rptProperty in rptProperties)
+            {
+                foreach (var auditProperty in auditProperties)
+                {
+                    if (rptProperty.Name == auditProperty.Name)
+                    {
+                        rptProperty.SetValue(rpt, auditProperty.GetValue(audit));
+                        break;
+                    }
+                }
             }
         }
     }

@@ -280,12 +280,19 @@
     <Compile Include="FORMS\UpdateRPTForm.Designer.cs">
       <DependentUpon>UpdateRPTForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\ViewHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\ViewHistoryForm.Designer.cs">
+      <DependentUpon>ViewHistoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\ViewImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
     <Compile Include="MODEL\RPTBank.cs" />
     <Compile Include="FORMS\UpdateMultipleRPTForm.cs">
       <SubType>Form</SubType>
@@ -370,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\SendEmailForm.resx">
       <DependentUpon>SendEmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\ViewHistoryForm.resx">
+      <DependentUpon>ViewHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ViewImageForm.resx">
       <DependentUpon>ViewImageForm.cs</DependentUpon>

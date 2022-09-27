@@ -17,6 +17,7 @@ namespace SampleRPT1
         MainForm mainForm;
         ReleasingForm releasingForm;
         ReviewEmailForm reviewEmailForm;
+        ViewHistoryForm viewHistoryForm;
 
         public ParentForm()
         {
@@ -118,6 +119,27 @@ namespace SampleRPT1
             }
             reviewEmailForm.Show();
             reviewEmailForm.WindowState = FormWindowState.Maximized;
+        }
+
+        private void historyMenuItem_Click(object sender, EventArgs e)
+        {
+            long RptID = GlobalVariables.MAINFORM.getSelectedRptID();
+            if (RptID == 0)
+            {
+                MessageBox.Show("Please select a record");
+            }
+            else
+            {
+                if (viewHistoryForm == null)
+                {
+                    viewHistoryForm = new ViewHistoryForm();
+                    viewHistoryForm.MdiParent = this;
+                    viewHistoryForm.ControlBox = false;
+                }
+                viewHistoryForm.Show();
+                viewHistoryForm.setRpdID(RptID);
+                viewHistoryForm.WindowState = FormWindowState.Maximized;
+            }
         }
     }
 }

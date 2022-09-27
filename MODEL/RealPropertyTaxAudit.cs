@@ -7,12 +7,12 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_RPT")]
+    [Table("Jo_RPT_Audit")]
 
     ///These are all objects of the table Jo_RPT.
-    internal class RealPropertyTax
+    internal class RealPropertyTaxAudit
     {
-        [Key]
+        public string Action { get; set; }
         public long RptID { get; set; }
         public string TaxDec { get; set; }
         public string TaxPayerName { get; set; }

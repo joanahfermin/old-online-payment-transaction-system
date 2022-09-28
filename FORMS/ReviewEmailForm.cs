@@ -80,26 +80,23 @@ namespace SampleRPT1.FORMS
             long rptID = getSelectedItemRptID();
             if (rptID > 0)
             {
-                foreach (ListViewItem item in lvReview.Items)
+                if (rdAssessment.Checked)
                 {
-                    if (rdAssessment.Checked)
-                    {
-                        RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "ASSESSMENT");
+                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "ASSESSMENT");
 
-                        if (RetrievePicture != null)
-                        {
-                            pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
-                        }
+                    if (RetrievePicture != null)
+                    {
+                        pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
                     }
+                }
 
-                    else if (rdReceipt.Checked)
+                else if (rdReceipt.Checked)
+                {
+                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "RECEIPT");
+
+                    if (RetrievePicture != null)
                     {
-                        RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "RECEIPT");
-
-                        if (RetrievePicture != null)
-                        {
-                            pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
-                        }
+                        pbAttachedPicture.Image = getImageFromAttachedPicture(RetrievePicture);
                     }
                 }
             }
@@ -125,40 +122,40 @@ namespace SampleRPT1.FORMS
             {
                 if (rdAssessment.Checked)
                 {
-                    DownloadPDF();
+                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "ASSESSMENT");
+
+                    if (RetrievePicture != null)
+                    {
+                        DownloadPDF(RetrievePicture);
+                    }
                 }
 
                 if (rdReceipt.Checked)
                 {
-                    DownloadPDF();
+                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, "RECEIPT");
+
+                    DownloadPDF(RetrievePicture);
                 }
             }
         }
 
-        private void DownloadPDF()
+        private void DownloadPDF(RPTAttachPicture RetrievePicture)
         {
-            for (int i = 0; i < lvReview.SelectedItems.Count; i++)
+            if (RetrievePicture != null)
             {
-                long rptID = getSelectedItemRptID();
-
-                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rptID, lvReview.SelectedItems[i].SubItems[1].Text);
-
-                if (RetrievePicture != null)
+                if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
                 {
-                    if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
-                    {
-                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf";
-                        String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
-                        System.Diagnostics.Process.Start(savedFileFullPath);
+                    String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf";
+                    String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
+                    System.Diagnostics.Process.Start(savedFileFullPath);
 
-                        MessageBox.Show("PDF successfully saved.");
-                    }
-                    else
-                    {
-                        Image image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
-                        ViewImageForm form = new ViewImageForm(image);
-                        form.ShowDialog();
-                    }
+                    MessageBox.Show("PDF successfully saved.");
+                }
+                else
+                {
+                    Image image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                    ViewImageForm form = new ViewImageForm(image);
+                    form.ShowDialog();
                 }
             }
         }

@@ -218,7 +218,6 @@ namespace SampleRPT1
 
             string taxdec = textTDN.Text;
 
-            //List<RealPropertyTax> rptList = RPTDatabase.SelectByTaxDec(taxdec);
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
 
             PopulateListView(rptList);
@@ -266,7 +265,8 @@ namespace SampleRPT1
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
                 }
-                if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
+
+                else if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
                 }
@@ -394,18 +394,31 @@ namespace SampleRPT1
                 RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.BILL_SENT ||
                 RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.PAYMENT_VERIFICATION)
             {
-                List<long> RptIDList = new List<long>();
-
-                for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+                if (RPTInfoLV.SelectedItems[0].SubItems[12].Text.Length > 0)
                 {
-                    string RptId = RPTInfoLV.SelectedItems[i].Text;
-                    RptID = Convert.ToInt32(RptId);
+                    string taxDecList = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
 
-                    RptIDList.Add(Convert.ToInt32(RptID));
+                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(taxDecList);
+                    updateMultipleRPTForm.setParent(this);
+                    updateMultipleRPTForm.ShowDialog();
                 }
-                UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptIDList);
-                updateRPTForm.setParent(this);
-                updateRPTForm.ShowDialog();
+
+                else
+                {
+                    List<long> RptIDList = new List<long>();
+
+                    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+                    {
+                        string RptId = RPTInfoLV.SelectedItems[i].Text;
+                        RptID = Convert.ToInt32(RptId);
+
+                        RptIDList.Add(Convert.ToInt32(RptID));
+                    }
+
+                    UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptIDList);
+                    updateRPTForm.setParent(this);
+                    updateRPTForm.ShowDialog();
+                }
             }
         }
 

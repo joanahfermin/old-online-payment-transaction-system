@@ -287,6 +287,12 @@
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MODEL\RPTBank.cs" />
+    <Compile Include="FORMS\UpdateMultipleRPTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\UpdateMultipleRPTForm.Designer.cs">
+      <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UTILITIES\EncodedByUtil.cs" />
     <Compile Include="UTILITIES\FileUtils.cs" />
     <Compile Include="UTILITIES\GlobalConstants.cs" />
@@ -378,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\UpdateRPTForm.resx">
       <DependentUpon>UpdateRPTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\UpdateMultipleRPTForm.resx">
+      <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UTILITIES\RPTUserLoginForm.resx">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>

@@ -25,8 +25,6 @@ namespace SampleRPT1
         {
             InitializeComponent();
 
-            //cboBankUsed.SelectedIndex = 0;
-
             foreach (var RptId in RptIDList)
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
@@ -290,13 +288,11 @@ namespace SampleRPT1
                 double.TryParse(textTransferredAmount.Text, out TransferredAmount);
                 textTransferredAmount.Text = TransferredAmount.ToString("N2");
             }
-
             CheckUncheckDateOfPayment();
         }
 
         private void textTransferredAmount_TextChanged(object sender, EventArgs e)
         {
-            //cboBankUsed.SelectedIndex = 0;
             CheckUncheckDateOfPayment();
         }
 

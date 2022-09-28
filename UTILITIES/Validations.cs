@@ -48,6 +48,24 @@ namespace SampleRPT1.UTILITIES
         }
 
         /// <summary>
+        /// Validate if total amount deposited is 0.
+        /// </summary>
+        /// <param name="ep"></param>
+        /// <param name="tb"></param>
+        /// <param name="propertyName"></param>
+        public static void ValidateRequiredTotalAmountDeposited(ErrorProvider ep, TextBox tb, string propertyName)
+        {
+            if (hasExistingError(ep, tb))
+            {
+                return;
+            }
+            if (tb.Text.Trim() == "0.00")
+            {
+                ep.SetError(tb, $"{propertyName} is required.");
+            }
+        }
+
+        /// <summary>
         /// Validate if bank is empty.
         /// </summary>
         public static void ValidateRequiredBank(ErrorProvider ep, ComboBox cb, string propertyName)

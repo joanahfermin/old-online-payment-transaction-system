@@ -62,6 +62,7 @@ namespace SampleRPT1.FORMS
                 MessageBox.Show("Amount transferred does not cover the short/excess amount.");
                 return;
             }
+
             RetrieveRpt.ExcessShortAmount = 0;
 
             RPTDatabase.Update(RetrieveRpt);

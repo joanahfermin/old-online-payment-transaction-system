@@ -181,6 +181,15 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectBySameGroup2(string TaxDec)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
+                    $"order by YearQuarter asc, taxdec asc", new { TaxDec = TaxDec }).ToList();
+            }
+        }
+
         /// <summary>
         /// Returns a list of records based on taxdec and status: FOR OR RELEASE.
         /// </summary>

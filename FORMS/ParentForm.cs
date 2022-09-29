@@ -137,9 +137,9 @@ namespace SampleRPT1
                     viewHistoryForm.ControlBox = false;
                 }
                 viewHistoryForm.Show();
-                viewHistoryForm.setRpdID(RptID);
-                viewHistoryForm.WindowState = FormWindowState.Maximized;
-            }
+            viewHistoryForm.setRpdID(RptID);
+            viewHistoryForm.WindowState = FormWindowState.Maximized;
         }
+    }
     }
 }

@@ -15,6 +15,9 @@ namespace SampleRPT1.FORMS
         private long RptID;
         private List<RealPropertyTaxAudit> auditList;
 
+        private String lastSearchAction = "";
+        private const String SEARCH_BY_TAXDEC = "SEARCH_BY_TAXDEC";
+
         public ViewHistoryForm()
         {
             InitializeComponent();
@@ -23,6 +26,22 @@ namespace SampleRPT1.FORMS
         public void setRpdID(long RptID)
         {
             this.RptID = RptID;
+
+            //auditList = RPTDatabase.SelectAudits(RptID);
+
+            //ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, RPTInfoLV, new List<string>
+            //{ "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
+            //    "Bank", "YearQuarter", "Status",
+            //"EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
+
+            //ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, VerAndValLV, new List<string>
+            //{ "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
+            //   "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks", "LastUpdateBy", "LastUpdateDate", "Action"});
+
+        }
+
+        private void PopulateHistoryListview(List<RealPropertyTax> rptList)
+        {
             auditList = RPTDatabase.SelectAudits(RptID);
 
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, RPTInfoLV, new List<string>
@@ -33,7 +52,6 @@ namespace SampleRPT1.FORMS
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, VerAndValLV, new List<string>
             { "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
                "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks", "LastUpdateBy", "LastUpdateDate", "Action"});
-
         }
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,6 +70,17 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        public void SearchByTaxDec()
+        {
+            lastSearchAction = SEARCH_BY_TAXDEC;
+
+            string taxdec = textTDN.Text;
+
+            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
+
+            PopulateHistoryListview(rptList);
+        }
+
         private void btnRestore_Click(object sender, EventArgs e)
         {
             if (RPTInfoLV.SelectedItems.Count == 0)
@@ -59,23 +88,32 @@ namespace SampleRPT1.FORMS
                 MessageBox.Show("No record selected");
                 return;
             }
+
             if (RPTInfoLV.Items[0].Selected)
             {
                 MessageBox.Show("Selected record is the latest.");
                 return;
             }
+
             int SelectedIndex = RPTInfoLV.SelectedItems[0].Index;
             RealPropertyTaxAudit audit = auditList[SelectedIndex];
+
             if (audit.Action == "REVERT")
             {
                 MessageBox.Show("Selected record is a revert action.");
                 return;
             }
+
             RPTDatabase.Revert(audit);
             MessageBox.Show("Success.");
             GlobalVariables.MAINFORM.RefreshListView();
             GlobalVariables.MAINFORM.Show();
             GlobalVariables.MAINFORM.WindowState = FormWindowState.Maximized;
+        }
+
+        private void textTDN_TextChanged(object sender, EventArgs e)
+        {
+            SearchByTaxDec();
         }
     }
 }

@@ -10,8 +10,11 @@ namespace SampleRPT1
     [Table("Jo_RPT_Audit")]
 
     ///These are all objects of the table Jo_RPT.
+    
     internal class RealPropertyTaxAudit
     {
+        [Key]
+        public long AuditID { get; set; }
         public string Action { get; set; }
         public long RptID { get; set; }
         public string TaxDec { get; set; }

@@ -325,7 +325,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTaxAudit>($"SELECT * FROM Jo_RPT_Audit where RptID = @RptID order by LastUpdateDate DESC", new { RptID = RptID }).ToList();
+                return conn.Query<RealPropertyTaxAudit>($"SELECT * FROM Jo_RPT_Audit where RptID = @RptID order by AuditID desc", new { RptID = RptID }).ToList();
             }
         }
 

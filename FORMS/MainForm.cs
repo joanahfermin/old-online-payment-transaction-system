@@ -175,7 +175,14 @@ namespace SampleRPT1
                     VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
                 }
 
-                //displaying of insufficient pament record.
+                if (item.SubItems[12].Text.Length > 0 && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
+                    && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_EWALLET && item.SubItems[7].Text != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
+                {
+                    item.BackColor = Color.LightYellow;
+                    VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
+                }
+
+                //displaying of insufficient payment record.
                 if (Convert.ToDecimal(item.SubItems[4].Text) < Convert.ToDecimal(item.SubItems[3].Text) &&
                     Convert.ToDecimal(item.SubItems[4].Text) != 0)
                 {

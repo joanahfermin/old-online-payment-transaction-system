@@ -124,10 +124,12 @@ namespace SampleRPT1
         private void historyMenuItem_Click(object sender, EventArgs e)
         {
             long RptID = GlobalVariables.MAINFORM.getSelectedRptID();
+
             if (RptID == 0)
             {
                 MessageBox.Show("Please select a record");
             }
+
             else
             {
                 if (viewHistoryForm == null)
@@ -136,10 +138,11 @@ namespace SampleRPT1
                     viewHistoryForm.MdiParent = this;
                     viewHistoryForm.ControlBox = false;
                 }
+
                 viewHistoryForm.Show();
-            viewHistoryForm.setRpdID(RptID);
-            viewHistoryForm.WindowState = FormWindowState.Maximized;
+                viewHistoryForm.setRpdID(RptID);
+                viewHistoryForm.WindowState = FormWindowState.Maximized;
+            }
         }
-    }
     }
 }

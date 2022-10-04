@@ -67,34 +67,28 @@ namespace SampleRPT1
 
         public void InitializeStatus()
         {
-            cboStatus.Items.Add(RPTStatus.FOR_ASSESSMENT);
-            cboStatus.Items.Add(RPTStatus.ASSESSMENT_PRINTED);
-            cboStatus.Items.Add(RPTStatus.BILL_SENT);
-            cboStatus.Items.Add(RPTStatus.PAYMENT_VERIFICATION);
-            cboStatus.Items.Add(RPTStatus.PAYMENT_VALIDATION);
-            cboStatus.Items.Add(RPTStatus.OR_UPLOAD);
-            cboStatus.Items.Add(RPTStatus.OR_PICKUP);
-            cboStatus.Items.Add(RPTStatus.RELEASED);
+            foreach (string status in RPTStatus.ALL_STATUS_VALUES)
+            {
+                cboStatus.Items.Add(status);
+            }
         }
 
         /// <summary>
-        /// THIS IS ONLY TEMPORARY - Get the Encodedby in the Jo_RPT_Users if you're considering all users will accept email.
+        /// Generate names from the RPTUser display names. 
         /// </summary>
         public void InitializeEncodedBy()
         {
-            cboEncodedBy.Items.Add(EncodedByUtil.ARIS);
-            cboEncodedBy.Items.Add(EncodedByUtil.BON);
-            cboEncodedBy.Items.Add(EncodedByUtil.DAN);
-            cboEncodedBy.Items.Add(EncodedByUtil.EMERSON);
-            cboEncodedBy.Items.Add(EncodedByUtil.ERIK);
-            cboEncodedBy.Items.Add(EncodedByUtil.JASTIN);
-            cboEncodedBy.Items.Add(EncodedByUtil.JOANAH);
-            cboEncodedBy.Items.Add(EncodedByUtil.LOVELYN);
-            cboEncodedBy.Items.Add(EncodedByUtil.MAC);
-            cboEncodedBy.Items.Add(EncodedByUtil.NOEL);
-            cboEncodedBy.Items.Add(EncodedByUtil.OGIE);
+            List<string> rptUserDisplayNameList = RPTUserDatabase.GenerateDisplayName();
+
+            foreach (string item in rptUserDisplayNameList)
+            {
+                cboEncodedBy.Items.Add(item);
+            }
         }
 
+        /// <summary>
+        /// Initializes acitons depending on the user logged in. 
+        /// </summary>
         public void InitializeAction()
         {
             if (GlobalVariables.RPTUSER.isBiller)
@@ -141,15 +135,15 @@ namespace SampleRPT1
         private void InitializePaymentChannel()
         {
             cboPaymentChannel.Items.Clear();
+
             if (GlobalVariables.RPTUSER.isVerifier)
             {
                 cboPaymentChannel.Visible = true;
 
-                cboPaymentChannel.Items.Add(RPTGcashPaymaya.BANK_TRANSFER);
-                cboPaymentChannel.Items.Add(RPTGcashPaymaya.GCASH);
-                cboPaymentChannel.Items.Add(RPTGcashPaymaya.PAYMAYA_EWALLET);
-                cboPaymentChannel.Items.Add(RPTGcashPaymaya.PAYGATE_ONLINE_BANKING);
-                cboPaymentChannel.Items.Add(RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD);
+                foreach (string banks in RPTGcashPaymaya.ALL_PAYMENT_CHANNEL)
+                {
+                    cboStatus.Items.Add(banks);
+                }
             }
         }
 
@@ -554,6 +548,8 @@ namespace SampleRPT1
         {
             if (RPTInfoLV.SelectedItems.Count > 0)
             {
+                Clipboard.SetText(RPTInfoLV.SelectedItems[0].SubItems[1].Text);
+
                 string Status = RPTInfoLV.SelectedItems[0].SubItems[9].Text;
 
                 if (Status == RPTStatus.FOR_ASSESSMENT)

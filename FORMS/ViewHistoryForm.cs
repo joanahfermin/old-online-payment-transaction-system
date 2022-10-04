@@ -13,10 +13,8 @@ namespace SampleRPT1.FORMS
     public partial class ViewHistoryForm : Form
     {
         private long RptID;
+        private long AuditID;
         private List<RealPropertyTaxAudit> auditList;
-
-        private String lastSearchAction = "";
-        private const String SEARCH_BY_TAXDEC = "SEARCH_BY_TAXDEC";
 
         public ViewHistoryForm()
         {
@@ -27,21 +25,6 @@ namespace SampleRPT1.FORMS
         {
             this.RptID = RptID;
 
-            //auditList = RPTDatabase.SelectAudits(RptID);
-
-            //ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, RPTInfoLV, new List<string>
-            //{ "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-            //    "Bank", "YearQuarter", "Status",
-            //"EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
-
-            //ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, VerAndValLV, new List<string>
-            //{ "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
-            //   "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks", "LastUpdateBy", "LastUpdateDate", "Action"});
-
-        }
-
-        private void PopulateHistoryListview(List<RealPropertyTax> rptList)
-        {
             auditList = RPTDatabase.SelectAudits(RptID);
 
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, RPTInfoLV, new List<string>
@@ -52,14 +35,27 @@ namespace SampleRPT1.FORMS
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, VerAndValLV, new List<string>
             { "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
                "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks", "LastUpdateBy", "LastUpdateDate", "Action"});
+
         }
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            RealPropertyTax retrieveHistory = RPTDatabase.Get(RptID);
+
+            textLastUpdatedBy.Text = retrieveHistory.LastUpdateBy;
+            dtLastUpdateDate.Value = retrieveHistory.LastUpdateDate.Value;
+
+
             for (int i = 0; i < VerAndValLV.Items.Count; i++)
             {
                 VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
             }
+
+            if (VerAndValLV.SelectedItems.Count > 0)
+            {
+                textAction.Text = VerAndValLV.SelectedItems[0].SubItems[20].Text;
+            }
+
         }
 
         private void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,17 +64,6 @@ namespace SampleRPT1.FORMS
             {
                 RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
             }
-        }
-
-        public void SearchByTaxDec()
-        {
-            lastSearchAction = SEARCH_BY_TAXDEC;
-
-            string taxdec = textTDN.Text;
-
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
-
-            PopulateHistoryListview(rptList);
         }
 
         private void btnRestore_Click(object sender, EventArgs e)
@@ -91,7 +76,7 @@ namespace SampleRPT1.FORMS
 
             if (RPTInfoLV.Items[0].Selected)
             {
-                MessageBox.Show("Selected record is the latest.");
+                MessageBox.Show("Cannot restore a latest updated record.");
                 return;
             }
 
@@ -109,11 +94,6 @@ namespace SampleRPT1.FORMS
             GlobalVariables.MAINFORM.RefreshListView();
             GlobalVariables.MAINFORM.Show();
             GlobalVariables.MAINFORM.WindowState = FormWindowState.Maximized;
-        }
-
-        private void textTDN_TextChanged(object sender, EventArgs e)
-        {
-            SearchByTaxDec();
         }
     }
 }

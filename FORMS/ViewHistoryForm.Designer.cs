@@ -71,22 +71,14 @@ namespace SampleRPT1.FORMS
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnRestore = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textLastUpdatedBy = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textAction = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textTDN = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnSearchHistory = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
+            this.dtLastUpdateDate = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // RPTInfoLV
@@ -348,8 +340,8 @@ namespace SampleRPT1.FORMS
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(1799, 31);
-            this.btnRestore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRestore.Location = new System.Drawing.Point(859, 27);
+            this.btnRestore.Margin = new System.Windows.Forms.Padding(2);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(91, 29);
             this.btnRestore.TabIndex = 3;
@@ -366,13 +358,14 @@ namespace SampleRPT1.FORMS
             this.label2.TabIndex = 5;
             this.label2.Text = "Last Update by: ";
             // 
-            // textBox2
+            // textLastUpdatedBy
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(103, 18);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(169, 20);
-            this.textBox2.TabIndex = 6;
+            this.textLastUpdatedBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textLastUpdatedBy.Enabled = false;
+            this.textLastUpdatedBy.Location = new System.Drawing.Point(103, 18);
+            this.textLastUpdatedBy.Name = "textLastUpdatedBy";
+            this.textLastUpdatedBy.Size = new System.Drawing.Size(169, 20);
+            this.textLastUpdatedBy.TabIndex = 6;
             // 
             // label3
             // 
@@ -383,117 +376,54 @@ namespace SampleRPT1.FORMS
             this.label3.TabIndex = 5;
             this.label3.Text = "Last Update by: ";
             // 
-            // textBox3
-            // 
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(407, 18);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(169, 20);
-            this.textBox3.TabIndex = 6;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(619, 22);
+            this.label4.Location = new System.Drawing.Point(565, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 5;
             this.label4.Text = "Action:  ";
             // 
-            // textBox4
+            // textAction
             // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(671, 18);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(169, 20);
-            this.textBox4.TabIndex = 6;
+            this.textAction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textAction.Enabled = false;
+            this.textAction.Location = new System.Drawing.Point(617, 18);
+            this.textAction.Name = "textAction";
+            this.textAction.Size = new System.Drawing.Size(169, 20);
+            this.textAction.TabIndex = 6;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.dtLastUpdateDate);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.textLastUpdatedBy);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.textBox4);
+            this.panel1.Controls.Add(this.textAction);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(721, 12);
+            this.panel1.Location = new System.Drawing.Point(15, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(867, 65);
+            this.panel1.Size = new System.Drawing.Size(809, 65);
             this.panel1.TabIndex = 7;
-            // 
-            // textTDN
-            // 
-            this.textTDN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTDN.Location = new System.Drawing.Point(103, 31);
-            this.textTDN.Name = "textTDN";
-            this.textTDN.Size = new System.Drawing.Size(143, 20);
-            this.textTDN.TabIndex = 43;
-            this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 44;
-            this.label5.Text = "Enter TDN: ";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(268, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "Enter Year: ";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(353, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(143, 20);
-            this.textBox1.TabIndex = 43;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textBox1.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
-            // 
-            // btnSearchHistory
-            // 
-            this.btnSearchHistory.Location = new System.Drawing.Point(522, 31);
-            this.btnSearchHistory.Name = "btnSearchHistory";
-            this.btnSearchHistory.Size = new System.Drawing.Size(89, 23);
-            this.btnSearchHistory.TabIndex = 45;
-            this.btnSearchHistory.Text = "Search";
-            this.btnSearchHistory.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 8);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(220, 13);
-            this.label6.TabIndex = 47;
-            this.label6.Text = "Search by Tax Declaration Number And Year";
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(15, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(623, 65);
-            this.panel2.TabIndex = 46;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(731, 6);
+            this.label7.Location = new System.Drawing.Point(25, 6);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(132, 13);
             this.label7.TabIndex = 47;
             this.label7.Text = "Record History Information";
+            // 
+            // dtLastUpdateDate
+            // 
+            this.dtLastUpdateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtLastUpdateDate.Location = new System.Drawing.Point(407, 18);
+            this.dtLastUpdateDate.Name = "dtLastUpdateDate";
+            this.dtLastUpdateDate.Size = new System.Drawing.Size(107, 20);
+            this.dtLastUpdateDate.TabIndex = 7;
             // 
             // ViewHistoryForm
             // 
@@ -501,23 +431,15 @@ namespace SampleRPT1.FORMS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1913, 957);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.btnSearchHistory);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textTDN);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.VerAndValLV);
             this.Controls.Add(this.RPTInfoLV);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.panel2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ViewHistoryForm";
             this.Text = "ViewHistoryForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -567,19 +489,12 @@ namespace SampleRPT1.FORMS
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.Button btnRestore;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textLastUpdatedBy;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textAction;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.TextBox textTDN;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnSearchHistory;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dtLastUpdateDate;
     }
 }

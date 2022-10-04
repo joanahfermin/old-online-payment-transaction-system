@@ -242,13 +242,21 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                //Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
                 modelInstance.CreatedBy = GlobalVariables.RPTUSER.DisplayName;
                 modelInstance.CreatedDate = DateTime.Now;
                 modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
+
+                //lilinisin yung bank.
                 BeforeInsertOrUpdate(modelInstance);
+
+                //Insert record in Jo_RPT.
                 long result = conn.Insert<RealPropertyTax>(modelInstance);
+
+                //Insert record in Jo_RPT_Audit.
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
+
                 return result;
             }
         }
@@ -290,8 +298,11 @@ namespace SampleRPT1
             {
                 modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
+
                 BeforeInsertOrUpdate(modelInstance);
+
                 bool result = conn.Update<RealPropertyTax>(modelInstance);
+
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
                 return result;
             }
@@ -315,12 +326,49 @@ namespace SampleRPT1
 
         private static void AfterInsertOrUpdateOrDelete(SqlConnection conn, RealPropertyTax rpt, String action)
         {
+            //Create audit object.
             RealPropertyTaxAudit audit = new RealPropertyTaxAudit();
+
+            //copy the whole record to audit object.
             copyRptToAudit(rpt, audit);
+
+            //populates action.
             audit.Action = action;
+
+            //Insert audit sa Jo_RPT_Audit.
             conn.Insert<RealPropertyTaxAudit>(audit);
         }
 
+        /// <summary>
+        /// copy the entire row from Jo_RPT to Jo_RPT_Audit.
+        /// </summary>
+        private static void copyRptToAudit(RealPropertyTax rpt, RealPropertyTaxAudit audit)
+        {
+            //kukunin pa lang yung lahat ng property from RealPropertyTax at RealPropertyTaxAudit.
+            var rptProperties = typeof(RealPropertyTax).GetProperties();
+            var auditProperties = typeof(RealPropertyTaxAudit).GetProperties();
+
+            //rptProperties = [RptID, TaxDec, TaxPayerName...]
+            //auditProperties = [AuditID, Action, RptID, TaxDec, TaxPayerName...]
+
+            foreach (var rptProperty in rptProperties)
+            {
+                foreach (var auditProperty in auditProperties)
+                {
+                    if (rptProperty.Name == auditProperty.Name)
+                    {
+                        //kung ano makukuha nyang value sa param rpt, ita-transfer nya sa param audit.
+                        auditProperty.SetValue(audit, rptProperty.GetValue(rpt));
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// return a list of record from rpt_audit.
+        /// </summary>
         public static List<RealPropertyTaxAudit> SelectAudits(long RptID)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -329,6 +377,9 @@ namespace SampleRPT1
             }
         }
 
+        /// <summary>
+        /// Restore from previous status.
+        /// </summary>
         public static void Revert(RealPropertyTaxAudit audit)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -343,23 +394,9 @@ namespace SampleRPT1
             }
         }
 
-        private static void copyRptToAudit(RealPropertyTax rpt, RealPropertyTaxAudit audit)
-        {
-            var rptProperties = typeof(RealPropertyTax).GetProperties();
-            var auditProperties = typeof(RealPropertyTaxAudit).GetProperties();
-            foreach (var rptProperty in rptProperties)
-            {
-                foreach (var auditProperty in auditProperties)
-                {
-                    if (rptProperty.Name == auditProperty.Name)
-                    {
-                        auditProperty.SetValue(audit, rptProperty.GetValue(rpt));
-                        break;
-                    }
-                }
-            }
-        }
-
+        /// <summary>
+        /// copy the entire row from Jo_RPT_Audit to Jo_RPT.
+        /// </summary>
         private static void copyAuditToRpt(RealPropertyTaxAudit audit, RealPropertyTax rpt)
         {
             var rptProperties = typeof(RealPropertyTax).GetProperties();

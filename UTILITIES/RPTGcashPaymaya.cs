@@ -17,5 +17,7 @@ namespace SampleRPT1
         public const string PAYMAYA_EWALLET = "PAYMAYA (E-WALLET)";
         public const string PAYMAYA_VISTAMASTERCARD = "VISA/MASTERCARD VIA PAYMAYA";
 
+        public static string[] ALL_PAYMENT_CHANNEL = { BANK_TRANSFER, GCASH, PAYGATE_ONLINE_BANKING, PAYMAYA_EWALLET, PAYMAYA_VISTAMASTERCARD };
+
     }
 }

@@ -19,5 +19,8 @@ namespace SampleRPT1
         public const string OR_UPLOAD = "FOR O.R UPLOAD";
         public const string OR_PICKUP = "FOR O.R PICK UP";
         public const string RELEASED = "RELEASED";
+
+        public static string[] ALL_STATUS_VALUES = { FOR_ASSESSMENT, ASSESSMENT_PRINTED , BILL_SENT , PAYMENT_VERIFICATION , PAYMENT_VALIDATION,
+        OR_UPLOAD, OR_PICKUP, RELEASED } ;
     }
 }

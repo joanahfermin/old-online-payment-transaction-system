@@ -21,5 +21,13 @@ namespace SampleRPT1
                 return conn.QuerySingleOrDefault<RPTUser>($"SELECT * FROM JO_RPT_Users where UserName = @UserName", new { UserName = UserName });
             }
         }
+
+        public static List<string> GenerateDisplayName()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<string>($"SELECT DisplayName FROM JO_RPT_Users order by DisplayName ASC").ToList();
+            }
+        }
     }
 }

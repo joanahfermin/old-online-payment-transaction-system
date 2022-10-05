@@ -55,7 +55,7 @@ namespace SampleRPT1
             // clear muna natin lahat ng error from previous validation.
             errorProvider1.Clear();
 
-            Validations.ValidateRequired(errorProvider1, textTransferredAmount, "Transferred amount");
+            //Validations.ValidateRequired(errorProvider1, textTransferredAmount, "Transferred amount");
 
             Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }
@@ -74,13 +74,18 @@ namespace SampleRPT1
                 {
                     textTaxDec.Text = rpt.TaxDec;
                     textTPName.Text = rpt.TaxPayerName;
-                    textAmountToBePaid.Text = rpt.AmountToPay.ToString();
-                    textTransferredAmount.Text = rpt.AmountTransferred.ToString();
+                    //textAmountToBePaid.Text = rpt.AmountToPay.ToString();
+                    //textTransferredAmount.Text = rpt.AmountTransferred.ToString();
                     cboBankUsed.Text = rpt.Bank;
                     textYearQuarter.Text = rpt.YearQuarter;
                     if (rpt.PaymentDate != null)
                     {
                         dtDateOfPayment.Value = rpt.PaymentDate.Value;
+                    }
+                    if (rpt.AmountTransferred == 0)
+                    {
+                        dtDateOfPayment.Enabled = false;
+                        cboBankUsed.Enabled = false;
                     }
                     cbStatus.Text = rpt.Status;
                     textRequestingParty.Text = rpt.RequestingParty;
@@ -88,9 +93,9 @@ namespace SampleRPT1
 
                     if (rpt.Status == RPTStatus.BILL_SENT)
                     {
-                        textTransferredAmount.Text = rpt.AmountToPay.ToString();
-                        textTransferredAmount.Focus();
-                        textTransferredAmount.Select();
+                        //textTransferredAmount.Text = rpt.AmountToPay.ToString();
+                        //textTransferredAmount.Focus();
+                        //textTransferredAmount.Select();
                     }
 
                     FirstRecord = false;
@@ -105,14 +110,14 @@ namespace SampleRPT1
                     {
                         textTPName.Text = MULTIPLE_MARKER;
                     }
-                    if (textAmountToBePaid.Text != rpt.AmountToPay.ToString())
-                    {
-                        textAmountToBePaid.Text = MULTIPLE_MARKER;
-                    }
-                    if (textTransferredAmount.Text != rpt.AmountTransferred.ToString())
-                    {
-                        textTransferredAmount.Text = MULTIPLE_MARKER;
-                    }
+                    //if (textAmountToBePaid.Text != rpt.AmountToPay.ToString())
+                    //{
+                    //    textAmountToBePaid.Text = MULTIPLE_MARKER;
+                    //}
+                    //if (textTransferredAmount.Text != rpt.AmountTransferred.ToString())
+                    //{
+                    //    textTransferredAmount.Text = MULTIPLE_MARKER;
+                    //}
                     if (cboBankUsed.Text != rpt.Bank)
                     {
                         cboBankUsed.Text = MULTIPLE_MARKER;
@@ -142,25 +147,25 @@ namespace SampleRPT1
         //Date of Payment and bank used will be enabled depending on the value of TransferredAmount textfield.
         private void CheckUncheckDateOfPayment()
         {
-            if (textTransferredAmount.Text != "0.00")
-            {
-                dtDateOfPayment.Format = DateTimePickerFormat.Custom;
-                dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
+            //if (textTransferredAmount.Text != "0.00")
+            //{
+            //    dtDateOfPayment.Format = DateTimePickerFormat.Custom;
+            //    dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
 
-                dtDateOfPayment.Checked = true;
-                dtDateOfPayment.Enabled = true;
-                cboBankUsed.Enabled = true;
-            }
-            else if (textTransferredAmount.Text == "0.00")
-            {
-                cboBankUsed.SelectedIndex = 0;
-                dtDateOfPayment.Format = DateTimePickerFormat.Custom;
-                dtDateOfPayment.CustomFormat = " ";
-                dtDateOfPayment.Checked = false;
-                dtDateOfPayment.Enabled = false;
-                cboBankUsed.Enabled = false;
-                cboBankUsed.Text = string.Empty;
-            }
+            //    dtDateOfPayment.Checked = true;
+            //    dtDateOfPayment.Enabled = true;
+            //    cboBankUsed.Enabled = true;
+            //}
+            //else if (textTransferredAmount.Text == "0.00")
+            //{
+            //    cboBankUsed.SelectedIndex = 0;
+            //    dtDateOfPayment.Format = DateTimePickerFormat.Custom;
+            //    dtDateOfPayment.CustomFormat = " ";
+            //    dtDateOfPayment.Checked = false;
+            //    dtDateOfPayment.Enabled = false;
+            //    cboBankUsed.Enabled = false;
+            //    cboBankUsed.Text = string.Empty;
+            //}
         }
 
         //Updates the record.
@@ -176,16 +181,16 @@ namespace SampleRPT1
                 {
                     rpt.TaxPayerName = textTPName.Text;
                 }
-                if (textAmountToBePaid.Text != MULTIPLE_MARKER)
-                {
-                    rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
-                }
+                //if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+                //{
+                //    rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
+                //}
 
-                if (textTransferredAmount.Text != MULTIPLE_MARKER)
-                {
-                    rpt.AmountTransferred = Convert.ToDecimal(textTransferredAmount.Text);
-                    rpt.ExcessShortAmount = rpt.AmountToPay - rpt.AmountTransferred;
-                }
+                //if (textTransferredAmount.Text != MULTIPLE_MARKER)
+                //{
+                //    rpt.AmountTransferred = Convert.ToDecimal(textTransferredAmount.Text);
+                //    rpt.ExcessShortAmount = rpt.AmountToPay - rpt.AmountTransferred;
+                //}
 
                 //IF USER ENTERED SPECIFIC DATE AND THERE IS AMOUNTOPAY AND AMOUNTTRANSFERRED,
                 //THEN ASSIGN NEW VALUE TO THE DATE. OTHERWISE, RETAIN OLD DATE VALUE.
@@ -223,7 +228,7 @@ namespace SampleRPT1
 
                 if (rpt.Status == RPTStatus.BILL_SENT && rpt.AmountTransferred != 0)
                 {
-                    validateForm();
+                    //validateForm();
 
                     if (Validations.HaveErrors(errorProvider1))
                     {
@@ -271,35 +276,35 @@ namespace SampleRPT1
         //Thousand separator.
         private void textAmountToBePaid_Leave(object sender, EventArgs e)
         {
-            if (textAmountToBePaid.Text != MULTIPLE_MARKER)
-            {
-                double amounttobepaid;
-                double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
-                textAmountToBePaid.Text = amounttobepaid.ToString("N2");
-            }         
+            //if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+            //{
+            //    double amounttobepaid;
+            //    double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
+            //    textAmountToBePaid.Text = amounttobepaid.ToString("N2");
+            //}         
         }
 
         //Thousand separator.
         private void textTransferredAmount_Leave(object sender, EventArgs e)
         {
-            if (textTransferredAmount.Text != MULTIPLE_MARKER)
-            {
-                double TransferredAmount;
-                double.TryParse(textTransferredAmount.Text, out TransferredAmount);
-                textTransferredAmount.Text = TransferredAmount.ToString("N2");
-            }
-            CheckUncheckDateOfPayment();
+            //if (textTransferredAmount.Text != MULTIPLE_MARKER)
+            //{
+            //    double TransferredAmount;
+            //    double.TryParse(textTransferredAmount.Text, out TransferredAmount);
+            //    textTransferredAmount.Text = TransferredAmount.ToString("N2");
+            //}
+            //CheckUncheckDateOfPayment();
         }
 
         private void textTransferredAmount_TextChanged(object sender, EventArgs e)
         {
-            CheckUncheckDateOfPayment();
+            //CheckUncheckDateOfPayment();
         }
 
         private void UpdateRPTForm_Load(object sender, EventArgs e)
         {
             CheckUncheckDateOfPayment();
-            cboBankUsed.SelectedIndex = 0;
+            //cboBankUsed.SelectedIndex = 0;
         }
 
         /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE. <summary>
@@ -337,38 +342,38 @@ namespace SampleRPT1
             textTPNameJustEntered = false;
         }
 
-        private bool textAmountToBePaidJustEntered = false;
+        //private bool textAmountToBePaidJustEntered = false;
         private void textAmountToBePaid_Enter(object sender, EventArgs e)
         {
-            textAmountToBePaid.SelectAll();
-            textAmountToBePaidJustEntered = true;
+            //textAmountToBePaid.SelectAll();
+            //textAmountToBePaidJustEntered = true;
         }
 
         private void textAmountToBePaid_Click(object sender, EventArgs e)
         {
-            if (textAmountToBePaidJustEntered)
-            {
-                textAmountToBePaid.SelectAll();
-            }
+            //if (textAmountToBePaidJustEntered)
+            //{
+            //    textAmountToBePaid.SelectAll();
+            //}
 
-            textAmountToBePaidJustEntered = false;
+            //textAmountToBePaidJustEntered = false;
         }
 
-        private bool textTransferredAmountJustEntered = false;
+        //private bool textTransferredAmountJustEntered = false;
         private void textTransferredAmount_Enter(object sender, EventArgs e)
         {
-            textTransferredAmount.SelectAll();
-            textTransferredAmountJustEntered = true;
+            //textTransferredAmount.SelectAll();
+            //textTransferredAmountJustEntered = true;
         }
 
         private void textTransferredAmount_Click(object sender, EventArgs e)
         {
-            if (textTransferredAmountJustEntered)
-            {
-                textTransferredAmount.SelectAll();
-            }
+            //if (textTransferredAmountJustEntered)
+            //{
+            //    textTransferredAmount.SelectAll();
+            //}
 
-            textTransferredAmountJustEntered = false;
+            //textTransferredAmountJustEntered = false;
         }
 
         private bool cboBankUsedJustEntered = false;
@@ -482,12 +487,12 @@ namespace SampleRPT1
 
         private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            //OneDecimalPointOnly(sender, e);
         }
 
         private void textTransferredAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            //OneDecimalPointOnly(sender, e);
         }
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
@@ -512,12 +517,12 @@ namespace SampleRPT1
 
         private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            //EnterKeyDown(sender, e);
         }
 
         private void textTransferredAmount_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            //EnterKeyDown(sender, e);
         }
 
         private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)

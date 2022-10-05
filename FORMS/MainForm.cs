@@ -176,6 +176,12 @@ namespace SampleRPT1
                     VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
                 }
 
+                if (Convert.ToDecimal(item.SubItems[5].Text) != 0 && Convert.ToDecimal(item.SubItems[6].Text) < 0)
+                {
+                    item.BackColor = Color.Red;
+                    VerAndValLV.Items[item.Index].BackColor = Color.Red;
+                }
+
                 //displaying of insufficient payment record.
                 if (Convert.ToDecimal(item.SubItems[4].Text) < Convert.ToDecimal(item.SubItems[3].Text) &&
                     Convert.ToDecimal(item.SubItems[4].Text) != 0)

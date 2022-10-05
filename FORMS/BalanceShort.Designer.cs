@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BalanceShort));
-            this.textAmountTransferred = new System.Windows.Forms.TextBox();
+            this.textTotalAmountDeposited = new System.Windows.Forms.TextBox();
             this.textRefNum = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,35 +38,40 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
+            this.cboBankUsed = new System.Windows.Forms.ComboBox();
+            this.labelBank = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textYearQuarter = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textAmountTransferred
+            // textTotalAmountDeposited
             // 
-            this.textAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textAmountTransferred.Location = new System.Drawing.Point(190, 130);
-            this.textAmountTransferred.Name = "textAmountTransferred";
-            this.textAmountTransferred.Size = new System.Drawing.Size(163, 20);
-            this.textAmountTransferred.TabIndex = 1;
-            this.textAmountTransferred.Text = "0.00";
-            this.textAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textAmountTransferred.Click += new System.EventHandler(this.textAmountTransferred_Click);
-            this.textAmountTransferred.Enter += new System.EventHandler(this.textAmountTransferred_Enter);
-            this.textAmountTransferred.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountTransferred_KeyDown);
-            this.textAmountTransferred.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountTransferred_KeyPress);
+            this.textTotalAmountDeposited.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalAmountDeposited.Location = new System.Drawing.Point(190, 168);
+            this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
+            this.textTotalAmountDeposited.Size = new System.Drawing.Size(163, 20);
+            this.textTotalAmountDeposited.TabIndex = 1;
+            this.textTotalAmountDeposited.Text = "0.00";
+            this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalAmountDeposited.Click += new System.EventHandler(this.textAmountTransferred_Click);
+            this.textTotalAmountDeposited.Enter += new System.EventHandler(this.textAmountTransferred_Enter);
+            this.textTotalAmountDeposited.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountTransferred_KeyDown);
+            this.textTotalAmountDeposited.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountTransferred_KeyPress);
             // 
             // textRefNum
             // 
             this.textRefNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRefNum.Enabled = false;
-            this.textRefNum.Location = new System.Drawing.Point(190, 48);
+            this.textRefNum.Location = new System.Drawing.Point(190, 24);
             this.textRefNum.Name = "textRefNum";
             this.textRefNum.Size = new System.Drawing.Size(163, 20);
             this.textRefNum.TabIndex = 22;
+            this.textRefNum.TextChanged += new System.EventHandler(this.textRefNum_TextChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(190, 212);
+            this.btnSave.Location = new System.Drawing.Point(190, 393);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(163, 23);
             this.btnSave.TabIndex = 3;
@@ -77,16 +82,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(78, 137);
+            this.label1.Location = new System.Drawing.Point(43, 175);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
+            this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 21;
-            this.label1.Text = "Amount Transferred: ";
+            this.label1.Text = "Total Amount Deposited: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(78, 55);
+            this.label2.Location = new System.Drawing.Point(78, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 2;
@@ -100,7 +105,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(78, 174);
+            this.label3.Location = new System.Drawing.Point(78, 234);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 23;
@@ -111,23 +116,64 @@
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(190, 167);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(190, 227);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.Size = new System.Drawing.Size(163, 23);
             this.dtDateOfPayment.TabIndex = 2;
+            // 
+            // cboBankUsed
+            // 
+            this.cboBankUsed.FormattingEnabled = true;
+            this.cboBankUsed.Items.AddRange(new object[] {
+            "Please select a bank..."});
+            this.cboBankUsed.Location = new System.Drawing.Point(190, 290);
+            this.cboBankUsed.Name = "cboBankUsed";
+            this.cboBankUsed.Size = new System.Drawing.Size(163, 21);
+            this.cboBankUsed.TabIndex = 24;
+            // 
+            // labelBank
+            // 
+            this.labelBank.AutoSize = true;
+            this.labelBank.Location = new System.Drawing.Point(96, 298);
+            this.labelBank.Name = "labelBank";
+            this.labelBank.Size = new System.Drawing.Size(66, 13);
+            this.labelBank.TabIndex = 25;
+            this.labelBank.Text = "Bank Used: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(86, 80);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Year/Quarter: ";
+            // 
+            // textYearQuarter
+            // 
+            this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textYearQuarter.Enabled = false;
+            this.textYearQuarter.Location = new System.Drawing.Point(190, 73);
+            this.textYearQuarter.Name = "textYearQuarter";
+            this.textYearQuarter.Size = new System.Drawing.Size(163, 20);
+            this.textYearQuarter.TabIndex = 27;
             // 
             // BalanceShort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 307);
+            this.ClientSize = new System.Drawing.Size(485, 491);
+            this.Controls.Add(this.textYearQuarter);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cboBankUsed);
+            this.Controls.Add(this.labelBank);
             this.Controls.Add(this.dtDateOfPayment);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textRefNum);
-            this.Controls.Add(this.textAmountTransferred);
+            this.Controls.Add(this.textTotalAmountDeposited);
             this.Name = "BalanceShort";
             this.Text = "BalanceShort";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -138,7 +184,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textAmountTransferred;
+        private System.Windows.Forms.TextBox textTotalAmountDeposited;
         private System.Windows.Forms.TextBox textRefNum;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label1;
@@ -146,5 +192,9 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;
+        private System.Windows.Forms.ComboBox cboBankUsed;
+        private System.Windows.Forms.Label labelBank;
+        private System.Windows.Forms.TextBox textYearQuarter;
+        private System.Windows.Forms.Label label4;
     }
 }

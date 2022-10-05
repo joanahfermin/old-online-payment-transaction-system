@@ -45,7 +45,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemRPT,
@@ -56,22 +55,23 @@
             this.historyMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(1200, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // MenuItemRPT
             // 
             this.MenuItemRPT.Name = "MenuItemRPT";
-            this.MenuItemRPT.Size = new System.Drawing.Size(58, 29);
+            this.MenuItemRPT.Size = new System.Drawing.Size(39, 22);
             this.MenuItemRPT.Text = "RPT";
             this.MenuItemRPT.Click += new System.EventHandler(this.MenuItemHome_Click);
             // 
             // MenuItemGcashPaymaya
             // 
             this.MenuItemGcashPaymaya.Name = "MenuItemGcashPaymaya";
-            this.MenuItemGcashPaymaya.Size = new System.Drawing.Size(152, 29);
+            this.MenuItemGcashPaymaya.Size = new System.Drawing.Size(104, 22);
             this.MenuItemGcashPaymaya.Text = "Gcash/Paymaya";
             this.MenuItemGcashPaymaya.Click += new System.EventHandler(this.MenuItemGcashPaymaya_Click);
             // 
@@ -81,21 +81,21 @@
             this.MenuItemAllocateExcess,
             this.MenuItemAllocateBalance});
             this.MenuItemExcessShort.Name = "MenuItemExcessShort";
-            this.MenuItemExcessShort.Size = new System.Drawing.Size(91, 29);
-            this.MenuItemExcessShort.Text = "Allocate";
+            this.MenuItemExcessShort.Size = new System.Drawing.Size(66, 22);
+            this.MenuItemExcessShort.Text = "Payment";
             // 
             // MenuItemAllocateExcess
             // 
             this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
-            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(164, 34);
-            this.MenuItemAllocateExcess.Text = "Excess";
+            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateExcess.Text = "Allocate Excess";
             this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
             // 
             // MenuItemAllocateBalance
             // 
             this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
-            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(164, 34);
-            this.MenuItemAllocateBalance.Text = "Short";
+            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateBalance.Text = "Balance Short";
             this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
             // 
             // emailToolStripMenuItem
@@ -105,53 +105,52 @@
             this.MenuItemEmailTemplate,
             this.MenuItemReviewEmail});
             this.emailToolStripMenuItem.Name = "emailToolStripMenuItem";
-            this.emailToolStripMenuItem.Size = new System.Drawing.Size(70, 29);
+            this.emailToolStripMenuItem.Size = new System.Drawing.Size(48, 22);
             this.emailToolStripMenuItem.Text = "Email";
             // 
             // MenuItemSendEmail
             // 
             this.MenuItemSendEmail.Name = "MenuItemSendEmail";
-            this.MenuItemSendEmail.Size = new System.Drawing.Size(270, 34);
+            this.MenuItemSendEmail.Size = new System.Drawing.Size(154, 22);
             this.MenuItemSendEmail.Text = "Send Email";
             this.MenuItemSendEmail.Click += new System.EventHandler(this.MenuItemSendEmail_Click);
             // 
             // MenuItemEmailTemplate
             // 
             this.MenuItemEmailTemplate.Name = "MenuItemEmailTemplate";
-            this.MenuItemEmailTemplate.Size = new System.Drawing.Size(270, 34);
+            this.MenuItemEmailTemplate.Size = new System.Drawing.Size(154, 22);
             this.MenuItemEmailTemplate.Text = "Email Template";
             this.MenuItemEmailTemplate.Click += new System.EventHandler(this.MenuItemEmailTemplate_Click);
             // 
             // MenuItemReviewEmail
             // 
             this.MenuItemReviewEmail.Name = "MenuItemReviewEmail";
-            this.MenuItemReviewEmail.Size = new System.Drawing.Size(270, 34);
+            this.MenuItemReviewEmail.Size = new System.Drawing.Size(154, 22);
             this.MenuItemReviewEmail.Text = "Review Emails";
             this.MenuItemReviewEmail.Click += new System.EventHandler(this.MenuItemReviewEmail_Click);
             // 
             // ReleasingMenuItem
             // 
             this.ReleasingMenuItem.Name = "ReleasingMenuItem";
-            this.ReleasingMenuItem.Size = new System.Drawing.Size(102, 29);
+            this.ReleasingMenuItem.Size = new System.Drawing.Size(69, 22);
             this.ReleasingMenuItem.Text = "Releasing";
             this.ReleasingMenuItem.Click += new System.EventHandler(this.ReleasingMenuItem_Click);
             // 
             // historyMenuItem
             // 
             this.historyMenuItem.Name = "historyMenuItem";
-            this.historyMenuItem.Size = new System.Drawing.Size(85, 29);
+            this.historyMenuItem.Size = new System.Drawing.Size(57, 22);
             this.historyMenuItem.Text = "History";
             this.historyMenuItem.Click += new System.EventHandler(this.historyMenuItem_Click);
             // 
             // ParentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ParentForm";
             this.Text = "ParentForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParentForm_FormClosed);

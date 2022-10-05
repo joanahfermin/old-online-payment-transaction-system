@@ -1,4 +1,5 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using SampleRPT1.MODEL;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace SampleRPT1.FORMS
         public BalanceShort()
         {
             InitializeComponent();
+            InitializeBank();
         }
 
         /// <summary>
@@ -27,6 +29,18 @@ namespace SampleRPT1.FORMS
             this.RptId = RptId;
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
+            textYearQuarter.Text = RetrieveRpt.YearQuarter;
+        }
+
+        public void InitializeBank()
+        {
+            List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+
+            foreach (RPTBank bank in bankList)
+            {
+                cboBankUsed.Items.Add(bank.BankName);
+                cboBankUsed.SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -36,8 +50,8 @@ namespace SampleRPT1.FORMS
         {
             errorProvider1.Clear();
 
-            Validations.ValidateRequired(errorProvider1, textAmountTransferred, "Amount Transferred");
-            Validations.ValidateRequired(errorProvider1, textRefNum, "Reference Num.");
+            Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, " Total amount deposited");
+            //Validations.ValidateRequired(errorProvider1, textRefNum, "Reference Num.");
         }
 
         /// <summary>
@@ -54,61 +68,53 @@ namespace SampleRPT1.FORMS
 
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
 
-            decimal AmountTransferred = Convert.ToDecimal(textAmountTransferred.Text);
-
-            //If user inputs short payment, system will not accept. 
-            if (RetrieveRpt.ExcessShortAmount + AmountTransferred < 0)
+            if (RetrieveRpt.RefNum == null)
             {
-                MessageBox.Show("Amount transferred does not cover the short/excess amount.");
-                return;
-            }
+                decimal TotalAmountTransferredUser = Convert.ToDecimal(textTotalAmountDeposited.Text);
 
-            RetrieveRpt.ExcessShortAmount = 0;
+                decimal TotalAmountDepositedVar = RetrieveRpt.TotalAmountTransferred;
 
-            RPTDatabase.Update(RetrieveRpt);
-
-            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(textRefNum.Text);
-
-            //IF SINGLE RECORD IS SHORT, UPDATE THE SINGLE RECORD.
-            if (rptList.Count == 1)
-            {
-                RetrieveRpt.ExcessShortAmount = RetrieveRpt.AmountTransferred + AmountTransferred - RetrieveRpt.AmountToPay;
-
-                RetrieveRpt.AmountTransferred = RetrieveRpt.AmountToPay;
-                RetrieveRpt.TotalAmountTransferred = RetrieveRpt.TotalAmountTransferred + AmountTransferred;
+                RetrieveRpt.ExcessShortAmount += TotalAmountTransferredUser;
+                RetrieveRpt.TotalAmountTransferred += TotalAmountTransferredUser;
+                RetrieveRpt.AmountTransferred += TotalAmountTransferredUser;
 
                 if (RetrieveRpt.PaymentDate == null)
                 {
                     RetrieveRpt.PaymentDate = dtDateOfPayment.Value.Date;
                 }
 
-                RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + "Added payment of " + AmountTransferred + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+                RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+                MessageBox.Show("Payment saved.");
+
+                RetrieveRpt.Bank = cboBankUsed.Text;
+
+                RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
                 RPTDatabase.Update(RetrieveRpt);
             }
 
             //IF MULITPLE RECORD IS SHORT, UPDATE THE LAST RECORD.
-            foreach (RealPropertyTax rpt in rptList)
-            {
-                if (rpt.AmountTransferred < rpt.AmountToPay && rpt.RptID != RetrieveRpt.RptID)
-                {
-                    //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
-                    rpt.ExcessShortAmount = rpt.AmountTransferred + AmountTransferred - rpt.AmountToPay;
+            //foreach (RealPropertyTax rpt in rptList)
+            //{
+            //    if (rpt.AmountTransferred < rpt.AmountToPay && rpt.RptID != RetrieveRpt.RptID)
+            //    {
+            //        //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
+            //        rpt.ExcessShortAmount = rpt.AmountTransferred + TotalAmountTransferred - rpt.AmountToPay;
 
-                    rpt.AmountTransferred = rpt.AmountToPay;
-                    rpt.TotalAmountTransferred = AmountTransferred;
+            //        rpt.AmountTransferred = rpt.AmountToPay;
+            //        rpt.TotalAmountTransferred = TotalAmountTransferred;
 
-                    if (rpt.PaymentDate == null)
-                    {
-                        rpt.PaymentDate = dtDateOfPayment.Value.Date;
-                    }
+            //        if (rpt.PaymentDate == null)
+            //        {
+            //            rpt.PaymentDate = dtDateOfPayment.Value.Date;
+            //        }
 
-                    rpt.RPTremarks = rpt.RPTremarks + "Added payment of " + AmountTransferred + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+            //        rpt.RPTremarks = rpt.RPTremarks + "Added payment of " + TotalAmountTransferred + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
 
-                    RPTDatabase.Update(rpt);
-                    break;
-                }
-            }
+            //        RPTDatabase.Update(rpt);
+            //        break;
+            //    }
+            //}
 
             GlobalVariables.MAINFORM.RefreshListView();
 
@@ -143,7 +149,7 @@ namespace SampleRPT1.FORMS
         private bool textAmountTransferredJustEntered = false;
         private void textAmountTransferred_Enter(object sender, EventArgs e)
         {
-            textAmountTransferred.SelectAll();
+            textTotalAmountDeposited.SelectAll();
             textAmountTransferredJustEntered = true;
         }
 
@@ -151,7 +157,7 @@ namespace SampleRPT1.FORMS
         {
             if (textAmountTransferredJustEntered)
             {
-                textAmountTransferred.SelectAll();
+                textTotalAmountDeposited.SelectAll();
             }
 
             textAmountTransferredJustEntered = false;
@@ -170,6 +176,15 @@ namespace SampleRPT1.FORMS
         private void textAmountTransferred_KeyDown(object sender, KeyEventArgs e)
         {
             EnterKeyDown(sender, e);
+        }
+
+        private void textRefNum_TextChanged(object sender, EventArgs e)
+        {
+            if (textRefNum.Text.Length > 0)
+            {
+                labelBank.Visible = true;
+                cboBankUsed.Visible = true;
+            }
         }
     }
 }

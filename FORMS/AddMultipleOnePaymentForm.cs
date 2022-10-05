@@ -218,7 +218,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
-            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
+            //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
         }
 
         private void checkTaxDecRetain_CheckedChanged(object sender, EventArgs e)

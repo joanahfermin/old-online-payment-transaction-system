@@ -121,7 +121,7 @@ namespace SampleRPT1
             }
 
             //Generate a unique reference number based on the current time. 
-            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string refNo = BusinessUtil.GenerateRefNo();
             string Status = RPTStatus.FOR_ASSESSMENT;
 
             bool FirstRecord = true;

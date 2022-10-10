@@ -300,6 +300,7 @@
     <Compile Include="FORMS\UpdateMultipleRPTForm.Designer.cs">
       <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UTILITIES\BusinessUtil.cs" />
     <Compile Include="UTILITIES\EncodedByUtil.cs" />
     <Compile Include="UTILITIES\FileUtils.cs" />
     <Compile Include="UTILITIES\GlobalConstants.cs" />

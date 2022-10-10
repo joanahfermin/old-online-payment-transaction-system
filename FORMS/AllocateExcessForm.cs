@@ -62,6 +62,7 @@ namespace SampleRPT1.FORMS
 
             decimal ExcessShortAmount = RetrieveRpt.ExcessShortAmount;
             RetrieveRpt.ExcessShortAmount = 0;
+            RetrieveRpt.TotalAmountTransferred = RetrieveRpt.TotalAmountTransferred - Convert.ToDecimal(textAmount2Pay.Text);
 
             RPTDatabase.Update(RetrieveRpt);
 
@@ -70,7 +71,7 @@ namespace SampleRPT1.FORMS
             RetrieveRpt.AmountToPay = Convert.ToDecimal(textAmount2Pay.Text);
             RetrieveRpt.AmountTransferred = ExcessShortAmount;
             RetrieveRpt.ExcessShortAmount = ExcessShortAmount - RetrieveRpt.AmountToPay;
-            RetrieveRpt.TotalAmountTransferred = 0;
+            RetrieveRpt.TotalAmountTransferred = Convert.ToDecimal(textAmount2Pay.Text);
             RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
             RetrieveRpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
             RetrieveRpt.EncodedDate = DateTime.Now;

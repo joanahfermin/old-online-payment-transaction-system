@@ -29,6 +29,7 @@ namespace SampleRPT1.FORMS
             this.RptId = RptId;
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
+
             textYearQuarter.Text = RetrieveRpt.YearQuarter;
         }
 
@@ -67,57 +68,92 @@ namespace SampleRPT1.FORMS
             }
 
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
+            decimal TotalAmountTransferredUser = Convert.ToDecimal(textTotalAmountDeposited.Text);
 
+            bool firstRecord = true;
+
+            //Single record: completion of payment and/or still short of payment. 
             if (RetrieveRpt.RefNum == null)
             {
-                decimal TotalAmountTransferredUser = Convert.ToDecimal(textTotalAmountDeposited.Text);
-
-                decimal TotalAmountDepositedVar = RetrieveRpt.TotalAmountTransferred;
-
                 RetrieveRpt.ExcessShortAmount += TotalAmountTransferredUser;
                 RetrieveRpt.TotalAmountTransferred += TotalAmountTransferredUser;
                 RetrieveRpt.AmountTransferred += TotalAmountTransferredUser;
+
+                if (RetrieveRpt.AmountTransferred > RetrieveRpt.AmountToPay)
+                {
+                    RetrieveRpt.AmountTransferred = RetrieveRpt.AmountToPay;
+                }
 
                 if (RetrieveRpt.PaymentDate == null)
                 {
                     RetrieveRpt.PaymentDate = dtDateOfPayment.Value.Date;
                 }
 
-                RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
-                MessageBox.Show("Payment saved.");
-
                 RetrieveRpt.Bank = cboBankUsed.Text;
 
                 RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
+                RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString() + " using " + RetrieveRpt.Bank + ". ";
+                MessageBox.Show("Payment successfully saved.");
+
                 RPTDatabase.Update(RetrieveRpt);
+
+                if (RetrieveRpt.ExcessShortAmount > 0)
+                {
+                    RetrieveRpt.RefNum = BusinessUtil.GenerateRefNo();
+                    RPTDatabase.Update(RetrieveRpt);
+                }
             }
 
-            //IF MULITPLE RECORD IS SHORT, UPDATE THE LAST RECORD.
-            //foreach (RealPropertyTax rpt in rptList)
-            //{
-            //    if (rpt.AmountTransferred < rpt.AmountToPay && rpt.RptID != RetrieveRpt.RptID)
-            //    {
-            //        //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
-            //        rpt.ExcessShortAmount = rpt.AmountTransferred + TotalAmountTransferred - rpt.AmountToPay;
+            else
+            {
+                //IF MULITPLE RECORD IS SHORT, UPDATE THE LAST RECORD.
+                List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(textRefNum.Text);
 
-            //        rpt.AmountTransferred = rpt.AmountToPay;
-            //        rpt.TotalAmountTransferred = TotalAmountTransferred;
+                foreach (RealPropertyTax rpt in rptList)
+                {
+                    if (firstRecord)
+                    {
+                        if (rpt.TotalAmountTransferred == 0 && rpt.RptID == RetrieveRpt.RptID)
+                        {
+                            //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
+                            rpt.ExcessShortAmount = rpt.AmountTransferred + rpt.AmountToPay - TotalAmountTransferredUser;
 
-            //        if (rpt.PaymentDate == null)
-            //        {
-            //            rpt.PaymentDate = dtDateOfPayment.Value.Date;
-            //        }
+                            rpt.AmountTransferred = rpt.AmountToPay;
+                            rpt.TotalAmountTransferred = TotalAmountTransferredUser;
 
-            //        rpt.RPTremarks = rpt.RPTremarks + "Added payment of " + TotalAmountTransferred + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+                            if (rpt.PaymentDate == null)
+                            {
+                                rpt.PaymentDate = dtDateOfPayment.Value.Date;
+                            }
 
-            //        RPTDatabase.Update(rpt);
-            //        break;
-            //    }
-            //}
+                            RPTDatabase.Update(rpt);
+                        }
+                        firstRecord = false;
 
+                        /////////////////////////////
+                        if (rpt.AmountTransferred < rpt.AmountToPay && rpt.RptID != RetrieveRpt.RptID)
+                        {
+                            //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
+                            rpt.ExcessShortAmount = rpt.AmountTransferred + TotalAmountTransferredUser - rpt.AmountToPay;
+
+                            rpt.AmountTransferred = rpt.AmountToPay;
+                            rpt.TotalAmountTransferred = TotalAmountTransferredUser;
+
+                            if (rpt.PaymentDate == null)
+                            {
+                                rpt.PaymentDate = dtDateOfPayment.Value.Date;
+                            }
+
+                            rpt.RPTremarks = rpt.RPTremarks + "Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+
+                            RPTDatabase.Update(rpt);
+                            break;
+                        }
+                    }
+                }
+            }
             GlobalVariables.MAINFORM.RefreshListView();
-
             this.Close();
         }
 

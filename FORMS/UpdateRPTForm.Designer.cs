@@ -119,8 +119,9 @@
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRemarks.Location = new System.Drawing.Point(152, 331);
+            this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
-            this.textRemarks.Size = new System.Drawing.Size(253, 20);
+            this.textRemarks.Size = new System.Drawing.Size(253, 132);
             this.textRemarks.TabIndex = 10;
             this.textRemarks.Click += new System.EventHandler(this.textRemarks_Click);
             this.textRemarks.Enter += new System.EventHandler(this.textRemarks_Enter);

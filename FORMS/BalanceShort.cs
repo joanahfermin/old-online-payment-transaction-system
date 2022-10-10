@@ -70,8 +70,6 @@ namespace SampleRPT1.FORMS
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             decimal TotalAmountTransferredUser = Convert.ToDecimal(textTotalAmountDeposited.Text);
 
-            bool firstRecord = true;
-
             //Single record: completion of payment and/or still short of payment. 
             if (RetrieveRpt.RefNum == null)
             {
@@ -110,6 +108,41 @@ namespace SampleRPT1.FORMS
                 //IF MULITPLE RECORD IS SHORT, UPDATE THE LAST RECORD.
                 List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(textRefNum.Text);
 
+                bool firstRecord = true;
+                // ididistribute natin yung pera. Initially, yung bagong pinasok ng user ang natitira nating pera.
+                decimal remainingMoney = TotalAmountTransferredUser;
+
+                foreach (RealPropertyTax rpt in rptList)
+                {
+                    // sa unang record tayo nag uupdate ng excess short and remarks.
+                    if (firstRecord)
+                    {
+                        // Idadagdag lang natin yung binayad ng taxpayer sa excess short and sa remarks.
+                        rpt.ExcessShortAmount = rpt.ExcessShortAmount + TotalAmountTransferredUser;
+                        rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+                    }
+
+                    // magkano pa kulang sa specific na RPT na ito.
+                    decimal balance = rpt.AmountToPay - rpt.AmountTransferred;
+                    if (balance > 0 && remainingMoney >0) // may kulang na bayad at may pera pa tayo
+                    {
+                        if (remainingMoney >= balance ) // kasya pa pera natin
+                        {
+                            // bayaran mo na yung balance
+                            rpt.AmountTransferred = rpt.AmountTransferred + balance;
+                        }
+                        else // huhu dina kasya
+                        {
+                            // edi dagdag mo na lang yung natirang pera na hindi kasya.
+                            rpt.AmountTransferred = rpt.AmountTransferred + remainingMoney;
+                        }
+                    }
+                    RPTDatabase.Update(rpt);
+                    firstRecord = false;
+                }
+
+
+                /*
                 foreach (RealPropertyTax rpt in rptList)
                 {
                     if (firstRecord)
@@ -152,6 +185,7 @@ namespace SampleRPT1.FORMS
                         }
                     }
                 }
+                */
             }
             GlobalVariables.MAINFORM.RefreshListView();
             this.Close();

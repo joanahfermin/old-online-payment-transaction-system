@@ -119,7 +119,9 @@ namespace SampleRPT1.FORMS
                     {
                         // Idadagdag lang natin yung binayad ng taxpayer sa excess short and sa remarks.
                         rpt.ExcessShortAmount = rpt.ExcessShortAmount + TotalAmountTransferredUser;
+                        rpt.TotalAmountTransferred = rpt.TotalAmountTransferred + TotalAmountTransferredUser;
                         rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
+                        RPTDatabase.Update(rpt);
                     }
 
                     // magkano pa kulang sa specific na RPT na ito.
@@ -130,14 +132,16 @@ namespace SampleRPT1.FORMS
                         {
                             // bayaran mo na yung balance
                             rpt.AmountTransferred = rpt.AmountTransferred + balance;
+                            remainingMoney = remainingMoney - balance;
                         }
                         else // huhu dina kasya
                         {
                             // edi dagdag mo na lang yung natirang pera na hindi kasya.
                             rpt.AmountTransferred = rpt.AmountTransferred + remainingMoney;
+                            remainingMoney = 0;
                         }
+                        RPTDatabase.Update(rpt);
                     }
-                    RPTDatabase.Update(rpt);
                     firstRecord = false;
                 }
 

@@ -108,6 +108,7 @@ namespace SampleRPT1
             //rpt.AmountToPay = Convert.ToDecimal(textAmount2Pay.Text);
             //rpt.YearQuarter = textYearQuarter.Text;
             rpt.RequestingParty = textRequestingParty.Text;
+            rpt.Bank = cboBankUsed.Text;
 
             RPTDatabase.Update(rpt);
 

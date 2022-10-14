@@ -56,7 +56,16 @@ namespace SampleRPT1.JOBS
                     rpt.Status = RPTStatus.OR_PICKUP;
                     rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
                     rpt.UploadedDate = DateTime.Now;
-                    rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
+
+                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains("rpt.Bank"))
+                    {
+                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
+                    }
+
+                    if (RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains("rpt.Bank"))
+                    {
+                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
+                    }
 
                     RPTDatabase.Update(rpt);
                 }
@@ -66,6 +75,8 @@ namespace SampleRPT1.JOBS
         //Send email of status: ASSESSMENT PRINTED in the background. 
         public void SendAssessment()
         {
+
+
             List<RealPropertyTax> ListOfretrieveAssessmentSendEmail = RPTDatabase.SelectAssessmentSendEmail();
 
             EmailTemplate AssessmentTemplate = EmailTemplateDatabase.SelectAssessmentTemplate();
@@ -81,7 +92,7 @@ namespace SampleRPT1.JOBS
                     rpt.Status = RPTStatus.BILL_SENT;
                     rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
                     rpt.UploadedDate = DateTime.Now;
-                    rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
+                    //rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
 
                     RPTDatabase.Update(rpt);
                 }

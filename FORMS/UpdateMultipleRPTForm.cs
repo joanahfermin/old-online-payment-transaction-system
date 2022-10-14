@@ -106,7 +106,8 @@ namespace SampleRPT1
             rpt.TaxDec = textTDN.Text;
             rpt.TaxPayerName = textTPName.Text;
             //rpt.AmountToPay = Convert.ToDecimal(textAmount2Pay.Text);
-            //rpt.YearQuarter = textYearQuarter.Text;
+            rpt.YearQuarter = textYearQuarter.Text;
+
             rpt.RequestingParty = textRequestingParty.Text;
             rpt.Bank = cboBankUsed.Text;
 

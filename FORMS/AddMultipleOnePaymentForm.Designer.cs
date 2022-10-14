@@ -116,6 +116,7 @@
             this.textTDN.Click += new System.EventHandler(this.textTDN_Click);
             this.textTDN.Enter += new System.EventHandler(this.textTDN_Enter);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
+            this.textTDN.Leave += new System.EventHandler(this.textTDN_Leave);
             // 
             // textYearQuarter
             // 

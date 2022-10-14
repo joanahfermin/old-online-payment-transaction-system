@@ -185,12 +185,14 @@
             this.textTaxDec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTaxDec.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textTaxDec.Location = new System.Drawing.Point(152, 19);
+            this.textTaxDec.MaxLength = 11;
             this.textTaxDec.Name = "textTaxDec";
             this.textTaxDec.Size = new System.Drawing.Size(253, 23);
             this.textTaxDec.TabIndex = 1;
             this.textTaxDec.Click += new System.EventHandler(this.textTaxDec_Click);
             this.textTaxDec.Enter += new System.EventHandler(this.textTaxDec_Enter);
             this.textTaxDec.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTaxDec_KeyDown);
+            this.textTaxDec.Leave += new System.EventHandler(this.textTaxDec_Leave);
             // 
             // textRequestingParty
             // 

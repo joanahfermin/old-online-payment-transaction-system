@@ -42,7 +42,6 @@
             this.textUserName.Name = "textUserName";
             this.textUserName.Size = new System.Drawing.Size(204, 20);
             this.textUserName.TabIndex = 1;
-            this.textUserName.Text = "jfermin";
             this.textUserName.Click += new System.EventHandler(this.textUserName_Click);
             this.textUserName.Enter += new System.EventHandler(this.textUserName_Enter);
             this.textUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textUserName_KeyDown);
@@ -54,7 +53,6 @@
             this.textPassWord.Name = "textPassWord";
             this.textPassWord.Size = new System.Drawing.Size(204, 20);
             this.textPassWord.TabIndex = 2;
-            this.textPassWord.Text = "Joanah1992";
             this.textPassWord.Click += new System.EventHandler(this.textPassWord_Click);
             this.textPassWord.Enter += new System.EventHandler(this.textPassWord_Enter);
             this.textPassWord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textPassWord_KeyDown);

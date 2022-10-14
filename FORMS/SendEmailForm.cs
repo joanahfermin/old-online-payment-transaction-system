@@ -257,7 +257,16 @@ namespace SampleRPT1.FORMS
                     rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
                     rpt.UploadedDate = DateTime.Now;
                     SentTo = SentTo + rpt.RequestingParty + " ";
-                    rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
+
+                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
+                    {
+                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
+                    }
+
+                    else
+                    {
+                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
+                    }
 
                     RPTDatabase.Update(rpt);
                     RefreshMainListviewStatusORPickup();

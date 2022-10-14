@@ -142,7 +142,7 @@ namespace SampleRPT1
 
                 foreach (string banks in RPTGcashPaymaya.ALL_PAYMENT_CHANNEL)
                 {
-                    cboStatus.Items.Add(banks);
+                    cboPaymentChannel.Items.Add(banks);
                 }
             }
         }
@@ -169,6 +169,7 @@ namespace SampleRPT1
                     VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
                 }
 
+                //displaying of same reference number but doesn't have b.ground color, these are gcash/paymaya and online banking.
                 if (item.SubItems[12].Text.Length > 0 && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
                     && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_EWALLET && item.SubItems[7].Text != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
                 {
@@ -176,18 +177,26 @@ namespace SampleRPT1
                     VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
                 }
 
+                //if row has balance, b.ground color: red. 
                 if (Convert.ToDecimal(item.SubItems[5].Text) != 0 && Convert.ToDecimal(item.SubItems[6].Text) < 0)
                 {
-                    item.BackColor = Color.Red;
-                    VerAndValLV.Items[item.Index].BackColor = Color.Red;
+                    item.BackColor = Color.LightCoral;
+                    //item.ForeColor = Color.White;
+                    VerAndValLV.Items[item.Index].BackColor = Color.LightCoral;
+                }
+                else if (Convert.ToDecimal(item.SubItems[5].Text) != 0 && Convert.ToDecimal(item.SubItems[6].Text) > 0)
+                {
+                    item.BackColor = Color.LightGreen;
+                    //item.ForeColor = Color.White;
+                    VerAndValLV.Items[item.Index].BackColor = Color.LightGreen;
                 }
 
                 //displaying of insufficient payment record.
                 if (Convert.ToDecimal(item.SubItems[4].Text) < Convert.ToDecimal(item.SubItems[3].Text) &&
                     Convert.ToDecimal(item.SubItems[4].Text) != 0)
                 {
-                    item.BackColor = Color.Red;
-                    VerAndValLV.Items[item.Index].BackColor = Color.Red;
+                    item.BackColor = Color.LightCoral;
+                    VerAndValLV.Items[item.Index].BackColor = Color.LightCoral;
                 }
             }
         }
@@ -1147,7 +1156,6 @@ namespace SampleRPT1
         public void SendEmail()
         {
             if (RPTInfoLV.SelectedItems.Count > 0)
-
             {
                 List<long> RptIDList = new List<long>();
 

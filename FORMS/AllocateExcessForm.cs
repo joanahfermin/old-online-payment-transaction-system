@@ -185,5 +185,10 @@ namespace SampleRPT1.FORMS
         {
             OneDecimalPointOnly(sender, e);
         }
+
+        private void AllocateExcessForm_Load(object sender, EventArgs e)
+        {
+            textYearQuarter.Text = DateTime.Now.Year.ToString();
+        }
     }
 }

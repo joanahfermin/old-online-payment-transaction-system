@@ -30,6 +30,13 @@ namespace SampleRPT1.FORMS
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
 
+            if (RetrieveRpt.ExcessShortAmount < 0)
+            {
+                decimal test = RetrieveRpt.ExcessShortAmount * (-1);
+
+                textTotalAmountDeposited.Text = Convert.ToDecimal(test).ToString();
+            }
+
             textYearQuarter.Text = RetrieveRpt.YearQuarter;
         }
 

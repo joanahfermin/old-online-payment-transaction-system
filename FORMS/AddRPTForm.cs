@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,6 +46,7 @@ namespace SampleRPT1
             cboBankUsed.SelectedIndex = 0;
             cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
             cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
+            textYearQuarter.Text = DateTime.Now.Year.ToString();
         }
 
         /// <summary>
@@ -69,7 +71,11 @@ namespace SampleRPT1
 
             RealPropertyTax rpt = new RealPropertyTax();
 
-            rpt.TaxDec = textTaxDec.Text.Trim();
+            if (isRPTTaxDecFormat(textTaxDec.Text) == true)
+            {
+                rpt.TaxDec = textTaxDec.Text.Trim();
+            }
+
             rpt.TaxPayerName = textTPName.Text.Trim();
             rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
 
@@ -265,30 +271,30 @@ namespace SampleRPT1
         /// PUT IN ONE CLASS OR VARIABLE.
         /// One decimal only in textfields that only accepts numbers.
         /// </summary>
-        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
-        {
-            //numeric value only
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+        //private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
+        //{
+        //    //numeric value only
+        //    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        //(e.KeyChar != '.'))
+        //    {
+        //        e.Handled = true;
+        //    }
 
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
+        //    // only allow one decimal point
+        //    if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
 
         private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            EventHelperUtil.OneDecimalPointOnly(sender, e);
         }
 
         private void textTotalTransferredAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            EventHelperUtil.OneDecimalPointOnly(sender, e);
         }
 
         private bool textTaxDecJustEntered = false;
@@ -410,62 +416,80 @@ namespace SampleRPT1
         }
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
-        private void EnterKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SelectNextControl(ActiveControl, true, true, true, true);
-            }
-        }
+        //private void EnterKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyData == Keys.Enter)
+        //    {
+        //        e.SuppressKeyPress = true;
+        //        SelectNextControl(ActiveControl, true, true, true, true);
+        //    }
+        //}
+
         private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textTPName_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textTotalTransferredAmount_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void dtDateOfPayment_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textStatForAssessment_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textRemarks_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private bool isRPTTaxDecFormat(string taxDec)
+        {
+            //format of taxdec number.
+            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            return re.IsMatch(taxDec.Trim());
+        }
+
+        private void textTaxDec_Leave(object sender, EventArgs e)
+        {
+            if (isRPTTaxDecFormat(textTaxDec.Text) == false)
+            {
+                MessageBox.Show("Invalid input of Tax Dec. Number.");
+                textTaxDec.Focus();
+                textTaxDec.SelectAll();
+            }
         }
     }
 }

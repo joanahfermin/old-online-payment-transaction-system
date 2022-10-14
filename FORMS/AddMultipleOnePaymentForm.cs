@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -71,14 +72,17 @@ namespace SampleRPT1
                 return;
             }
 
-            ListViewItem item = new ListViewItem(textTDN.Text.Trim());
+            //if (isRPTTaxDecFormat(textTDN.Text) == true)
+            //{
+                ListViewItem item = new ListViewItem(textTDN.Text.ToString());
 
-            item.SubItems.Add(textTPName.Text.Trim());
-            item.SubItems.Add(textAmount2Pay.Text.Trim());
-            item.SubItems.Add(textYearQuarter.Text.Trim());
-            item.SubItems.Add(textRequestingParty.Text.Trim());
+                item.SubItems.Add(textTPName.Text.Trim());
+                item.SubItems.Add(textAmount2Pay.Text.Trim());
+                item.SubItems.Add(textYearQuarter.Text.Trim());
+                item.SubItems.Add(textRequestingParty.Text.Trim());
 
-            lvMultipleRecord.Items.Add(item);
+                lvMultipleRecord.Items.Add(item);
+            //}
 
             if (checkTaxDecRetain.Checked == false)
             {
@@ -467,6 +471,23 @@ namespace SampleRPT1
         private void textTotalAmountDeposited_KeyDown(object sender, KeyEventArgs e)
         {
             EnterKeyDown(sender, e);
+        }
+
+        //private bool isRPTTaxDecFormat(string taxDec)
+        //{
+        //    //format of taxdec number.
+        //    Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+        //    return re.IsMatch(taxDec.Trim());
+        //}
+
+        private void textTDN_Leave(object sender, EventArgs e)
+        {
+            //if (isRPTTaxDecFormat(textTDN.Text) == false)
+            //{
+            //    MessageBox.Show("Invalid input of Tax Dec. Number.");
+            //    textTDN.Focus();
+            //    textTDN.SelectAll();
+            //}
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -56,29 +57,34 @@ namespace SampleRPT1
                     {
                         //Splits the records through TAB. \t = tab.
                         string[] columnArray = row.Split(new char[] { '\t' });
-                        
-                            ListViewItem item = new ListViewItem();
-                            bool firstColumn = true;
-                            int ColumnIndex = 0;
 
-                            foreach (string column in columnArray)
-                            {   //kung pang-ilang column ka na.
-                                ColumnIndex++;
-                                if (firstColumn)
+                        ListViewItem item = new ListViewItem();
+                        bool firstColumn = true;
+                        int ColumnIndex = 0;
+
+                        foreach (string column in columnArray)
+                        {   //kung pang-ilang column ka na.
+                            ColumnIndex++;
+                            if (firstColumn)
+                            {
+                                //ListViewItem item = new ListViewItem(p.firstName);
+                                item.Text = column;
+                                firstColumn = false;
+                            }
+                            else
+                            {
+                                if (!IgnoredColumnList.Contains(ColumnIndex))
                                 {
-                                    //ListViewItem item = new ListViewItem(p.firstName);
-                                    item.Text = column;
-                                    firstColumn = false;
-                                }
-                                else
-                                {
-                                    if (!IgnoredColumnList.Contains(ColumnIndex))
-                                    {
-                                        item.SubItems.Add(column);
-                                    }
+                                    item.SubItems.Add(column);
                                 }
                             }
+                        }
+                        string taxDec = item.SubItems[1].Text;
+
+                        if (isRPTTaxDecFormat(taxDec))
+                        {
                             FirstLVGcashPaymaya.Items.Add(item);
+                        }
                     }
                 }
                 PopulateExistingColumn();
@@ -88,11 +94,19 @@ namespace SampleRPT1
             if (e.KeyCode == Keys.A && e.Control)
             {
                 FirstLVGcashPaymaya.MultiSelect = true;
+
                 foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
                     item.Selected = true;
                 }
             }
+        }
+
+        private bool isRPTTaxDecFormat(string taxDec)
+        {
+            //format of taxdec number.
+            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            return re.IsMatch(taxDec.Trim());
         }
 
         /// <summary>
@@ -139,21 +153,21 @@ namespace SampleRPT1
         /// <summary>
         /// Returns the taxpayer's name if selected record is existing in the database. 
         /// </summary>
-        private string SearchExistingTaxpayerName(string TaxDec)
-        {
-            string TaxPayerName = "";
+        //private string SearchExistingTaxpayerName(string TaxDec)
+        //{
+        //    string TaxPayerName = "";
 
-            List<RealPropertyTax> rptList = RPTDatabase.SelectByTaxDec(TaxDec);
+        //    List<RealPropertyTax> rptList = RPTDatabase.SelectByTaxDec(TaxDec);
 
-            foreach (var ExistingRPT in rptList)
-            {
-                if (ExistingRPT.TaxPayerName.Length > 0)
-                {
-                    TaxPayerName = ExistingRPT.TaxPayerName;
-                }
-            }
-            return TaxPayerName;
-        }
+        //    foreach (var ExistingRPT in rptList)
+        //    {
+        //        if (ExistingRPT.TaxPayerName.Length > 0)
+        //        {
+        //            TaxPayerName = ExistingRPT.TaxPayerName;
+        //        }
+        //    }
+        //    return TaxPayerName;
+        //}
 
         /// <summary>
         /// Populates RptId and Taxpayer's name if selected record is existing in the database.

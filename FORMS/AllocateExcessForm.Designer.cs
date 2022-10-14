@@ -155,6 +155,7 @@
             this.Controls.Add(this.textTDN);
             this.Name = "AllocateExcessForm";
             this.Text = "AllocateExcessForm";
+            this.Load += new System.EventHandler(this.AllocateExcessForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

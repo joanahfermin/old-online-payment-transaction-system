@@ -29,5 +29,13 @@ namespace SampleRPT1
                 return conn.Query<string>($"SELECT DisplayName FROM JO_RPT_Users order by DisplayName ASC").ToList();
             }
         }
+
+        public static List<string> GenerateDisplayNameofValidator()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<string>($"SELECT DisplayName FROM JO_RPT_Users where isValidator = 1 order by DisplayName ASC").ToList();
+            }
+        }
     }
 }

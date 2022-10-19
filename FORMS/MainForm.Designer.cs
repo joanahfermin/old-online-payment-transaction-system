@@ -116,6 +116,8 @@
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
+            this.cboValidator = new System.Windows.Forms.ComboBox();
+            this.labelValidatedBy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -806,11 +808,11 @@
             // labelRepName
             // 
             this.labelRepName.AutoSize = true;
-            this.labelRepName.Location = new System.Drawing.Point(469, 957);
+            this.labelRepName.Location = new System.Drawing.Point(511, 957);
             this.labelRepName.Name = "labelRepName";
-            this.labelRepName.Size = new System.Drawing.Size(116, 13);
+            this.labelRepName.Size = new System.Drawing.Size(74, 13);
             this.labelRepName.TabIndex = 37;
-            this.labelRepName.Text = "Representative Name: ";
+            this.labelRepName.Text = "Released To: ";
             // 
             // textRepName
             // 
@@ -851,11 +853,32 @@
             this.checkAutLetter.Text = "with authorization letter.";
             this.checkAutLetter.UseVisualStyleBackColor = true;
             // 
+            // cboValidator
+            // 
+            this.cboValidator.FormattingEnabled = true;
+            this.cboValidator.Location = new System.Drawing.Point(1400, 29);
+            this.cboValidator.Name = "cboValidator";
+            this.cboValidator.Size = new System.Drawing.Size(202, 21);
+            this.cboValidator.TabIndex = 55;
+            this.cboValidator.SelectedIndexChanged += new System.EventHandler(this.cboValidator_SelectedIndexChanged);
+            this.cboValidator.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboValidator_KeyPress);
+            // 
+            // labelValidatedBy
+            // 
+            this.labelValidatedBy.AutoSize = true;
+            this.labelValidatedBy.Location = new System.Drawing.Point(1323, 35);
+            this.labelValidatedBy.Name = "labelValidatedBy";
+            this.labelValidatedBy.Size = new System.Drawing.Size(71, 13);
+            this.labelValidatedBy.TabIndex = 56;
+            this.labelValidatedBy.Text = "Validated by: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.labelValidatedBy);
+            this.Controls.Add(this.cboValidator);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textContactNum);
             this.Controls.Add(this.textRepName);
@@ -994,6 +1017,8 @@
         private System.Windows.Forms.CheckBox checkAutLetter;
         private System.Windows.Forms.ComboBox cboEncodedBy;
         private System.Windows.Forms.Label labelEncodedBy;
+        private System.Windows.Forms.Label labelValidatedBy;
+        private System.Windows.Forms.ComboBox cboValidator;
     }
 }
 

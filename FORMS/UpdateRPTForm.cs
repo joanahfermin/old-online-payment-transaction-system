@@ -31,7 +31,7 @@ namespace SampleRPT1
                 RptList.Add(rpt);
             }
             InitializeUpdateRecord();
-
+            InitializeQuarter();
             InitializeBank();
         }
 
@@ -43,6 +43,15 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
         }
 
         public void setParent(MainForm mainForm)
@@ -77,7 +86,8 @@ namespace SampleRPT1
                     //textAmountToBePaid.Text = rpt.AmountToPay.ToString();
                     //textTransferredAmount.Text = rpt.AmountTransferred.ToString();
                     cboBankUsed.Text = rpt.Bank;
-                    textYearQuarter.Text = rpt.YearQuarter;
+                    textYear.Text = rpt.YearQuarter;
+                    cboQuarter.Text = rpt.Quarter;
                     if (rpt.PaymentDate != null)
                     {
                         dtDateOfPayment.Value = rpt.PaymentDate.Value;
@@ -128,9 +138,9 @@ namespace SampleRPT1
                     {
                         dtDateOfPayment.Value = MULTIPLE_MARKERDATE;
                     }
-                    if (textYearQuarter.Text != rpt.YearQuarter)
+                    if (textYear.Text != rpt.YearQuarter)
                     {
-                        textYearQuarter.Text = MULTIPLE_MARKER;
+                        textYear.Text = MULTIPLE_MARKER;
                     }
                     if (textRequestingParty.Text != rpt.RequestingParty)
                     {
@@ -213,9 +223,13 @@ namespace SampleRPT1
                 {
                     rpt.Bank = cboBankUsed.Text;
                 }
-                if (textYearQuarter.Text != MULTIPLE_MARKER)
+                if (textYear.Text != MULTIPLE_MARKER)
                 {
-                    rpt.YearQuarter = textYearQuarter.Text;
+                    rpt.YearQuarter = textYear.Text;
+                }
+                if (cboQuarter.Text != MULTIPLE_MARKER)
+                {
+                    rpt.Quarter = cboQuarter.Text;
                 }
                 if (textRequestingParty.Text != MULTIPLE_MARKER)
                 {
@@ -393,21 +407,38 @@ namespace SampleRPT1
             cboBankUsedJustEntered = false;
         }
 
-        private bool textYearQuarterJustEntered = false;
-        private void textYearQuarter_Enter(object sender, EventArgs e)
+        private bool textYearJustEntered = false;
+        private void textYear_Enter(object sender, EventArgs e)
         {
-            textYearQuarter.SelectAll();
-            textYearQuarterJustEntered = true;
+            textYear.SelectAll();
+            textYearJustEntered = true;
         }
 
-        private void textYearQuarter_Click(object sender, EventArgs e)
+        private void textYear_Click(object sender, EventArgs e)
         {
-            if (textYearQuarterJustEntered)
+            if (textYearJustEntered)
             {
-                textYearQuarter.SelectAll();
+                textYear.SelectAll();
             }
 
-            textYearQuarterJustEntered = false;
+            textYearJustEntered = false;
+        }
+
+        private bool cboQuarterJustEntered = false;
+        private void cboQuarter_Enter(object sender, EventArgs e)
+        {
+            cboQuarter.SelectAll();
+            cboQuarterJustEntered = true;
+        }
+
+        private void cboQuarter_Click(object sender, EventArgs e)
+        {
+            if (cboQuarterJustEntered)
+            {
+                cboQuarter.SelectAll();
+            }
+
+            cboQuarterJustEntered = false;
         }
 
         private bool dtDateOfPaymentJustEntered = false;
@@ -469,22 +500,6 @@ namespace SampleRPT1
         }
 
         //Numeric value and one decimal only.
-        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
-        {
-            //numeric value only
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
         {
             //OneDecimalPointOnly(sender, e);
@@ -495,64 +510,59 @@ namespace SampleRPT1
             //OneDecimalPointOnly(sender, e);
         }
 
-        //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
-        private void EnterKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SelectNextControl(ActiveControl, true, true, true, true);
-            }
-        }
-
         private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textTPName_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
         {
-            //EnterKeyDown(sender, e);
+            //EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textTransferredAmount_KeyDown(object sender, KeyEventArgs e)
         {
-            //EnterKeyDown(sender, e);
+            //EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
-        private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
+        private void textYear_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void dtDateOfPayment_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void cbStatus_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textRemarks_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private void cboQuarter_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
     }
 }

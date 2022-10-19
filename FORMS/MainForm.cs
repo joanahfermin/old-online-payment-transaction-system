@@ -38,6 +38,8 @@ namespace SampleRPT1
             cboStatus.Text = RPTStatus.FOR_ASSESSMENT;
             cboPaymentChannel.Visible = false;
             labelPaymentChannel.Visible = false;
+            cboValidator.Visible = false;
+            labelValidatedBy.Visible = false;
 
             dtDate.Checked = false;
             dtDateTo.Enabled = false;
@@ -55,6 +57,7 @@ namespace SampleRPT1
             InitializeAction();
             InitializeEncodedBy();
             InitializeAutoRefreshListViewTimer();
+            InitializeValidator();
         }
 
         private void InitializeAutoRefreshListViewTimer()
@@ -116,6 +119,7 @@ namespace SampleRPT1
             if (GlobalVariables.RPTUSER.isValidator)
             {
                 cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
+                cboAction.SelectedIndex = 0; ;
             }
 
             if (GlobalVariables.RPTUSER.canDelete)
@@ -145,6 +149,23 @@ namespace SampleRPT1
                     cboPaymentChannel.Items.Add(banks);
                 }
             }
+        }
+
+        private void InitializeValidator()
+        {
+            cboValidator.Items.Clear();
+
+            List<string> rptUserDisplayNameList = RPTUserDatabase.GenerateDisplayNameofValidator();
+
+            foreach (string item in rptUserDisplayNameList)
+            {
+                cboValidator.Items.Add(item);
+            }
+        }
+
+        private void cboValidator_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            cboValidator.DroppedDown = false;
         }
 
         private void PopulateListView(List<RealPropertyTax> rptList)
@@ -277,15 +298,25 @@ namespace SampleRPT1
                 DateTime encodedDateFrom = dtDate.Value;
                 DateTime encodedDateTo = dtDateTo.Value;
 
+                // filter by verification of payment and payment channel.
                 if (cboStatus.Text == RPTStatus.PAYMENT_VERIFICATION && cboAction.Text == RPTAction.VERIFY_PAYMENT)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
                 }
 
-                else if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
+                // filter by for assessment and date range and encoded by.
+                else if(cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
                 }
+
+                // filter by for or pickup and date range and uploaded date.
+                else if(cboStatus.Text == RPTStatus.OR_PICKUP)
+                {
+                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, StatusList);
+                }
+
+                // filter by status and date range.
                 else
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
@@ -297,7 +328,6 @@ namespace SampleRPT1
                 dtDateTo.Enabled = false;
 
                 rptList = RPTDatabase.SelectByStatus(StatusList);
-
             }
 
             PopulateListView(rptList);
@@ -372,6 +402,17 @@ namespace SampleRPT1
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshListView();
+
+            if (cboStatus.Text == RPTStatus.OR_UPLOAD)
+            {
+                labelValidatedBy.Visible = true;
+                cboValidator.Visible = true;
+            }
+            else
+            {
+                labelValidatedBy.Visible = false;
+                cboValidator.Visible = false;
+            }
 
             if (cboStatus.Text != RPTStatus.RELEASED)
             {
@@ -561,6 +602,11 @@ namespace SampleRPT1
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            for (int i = 0; i < RPTInfoLV.Items.Count; i++)
+            {
+                VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
+            }
+
             if (RPTInfoLV.SelectedItems.Count > 0)
             {
                 Clipboard.SetText(RPTInfoLV.SelectedItems[0].SubItems[1].Text);
@@ -1101,7 +1147,6 @@ namespace SampleRPT1
                             rptAttachPicture.FileData = resizeFileData;
                         }
                         rptAttachPicture.DocumentType = documentType;
-
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
 
                     }
@@ -1325,6 +1370,11 @@ namespace SampleRPT1
             {
                 return 0;
             }
+        }
+
+        private void cboValidator_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshListView();
         }
     }
 }

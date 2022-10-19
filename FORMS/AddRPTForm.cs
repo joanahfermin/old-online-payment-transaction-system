@@ -20,6 +20,7 @@ namespace SampleRPT1
         {
             InitializeComponent();
             InitializeBank();
+            InitializeQuarter();
         }
 
         public void InitializeBank()
@@ -30,6 +31,15 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
         }
 
         public void setParent(MainForm mainForm)
@@ -46,7 +56,7 @@ namespace SampleRPT1
             cboBankUsed.SelectedIndex = 0;
             cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
             cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
-            textYearQuarter.Text = DateTime.Now.Year.ToString();
+            textYear.Text = DateTime.Now.Year.ToString();
         }
 
         /// <summary>
@@ -99,7 +109,8 @@ namespace SampleRPT1
             {
                 rpt.PaymentDate = dtDateOfPayment.Value.Date;
             }
-            rpt.YearQuarter = textYearQuarter.Text.Trim();
+            rpt.YearQuarter = textYear.Text.Trim();
+            rpt.Quarter = cboQuarter.Text.Trim();
             rpt.Status = textStatForAssessment.Text;
             rpt.RequestingParty = textRequestingParty.Text.Trim();
             rpt.RPTremarks = textRemarks.Text.Trim();
@@ -107,7 +118,7 @@ namespace SampleRPT1
             rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
             rpt.EncodedDate = DateTime.Now;
 
-            //If payment is exceeds the amount to pay, generate a reference number. 
+            //If payment exceeds the amount to pay, generate a reference number. 
             if (rpt.AmountToPay < rpt.TotalAmountTransferred)
             {
                 string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -115,11 +126,11 @@ namespace SampleRPT1
             }
 
             //If payment is short, generate a reference number. 
-            if (rpt.TotalAmountTransferred < rpt.AmountToPay && rpt.TotalAmountTransferred != 0)
-            {
-                string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                rpt.RefNum = refNo;
-            }
+            //if (rpt.TotalAmountTransferred < rpt.AmountToPay && rpt.TotalAmountTransferred != 0)
+            //{
+            //    string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            //    rpt.RefNum = refNo;
+            //}
 
             RPTDatabase.Insert(rpt);
 
@@ -133,10 +144,10 @@ namespace SampleRPT1
                 textTPName.Clear();
             }
 
-            if (checkBankUsedRetain.Checked == false)
-            {
-                cboBankUsed.Text = null;
-            }
+            //if (checkBankUsedRetain.Checked == false)
+            //{
+            //    cboBankUsed.SelectedIndex = 0;
+            //}
 
             if (checkRequestingParty.Checked == false)
             {
@@ -145,7 +156,8 @@ namespace SampleRPT1
 
             textAmountToBePaid.Text = "0.00";
             textTotalTransferredAmount.Text = "0.00";
-            textYearQuarter.Clear();
+            textYear.Clear();
+            cboQuarter.SelectedIndex = 3;
             textRemarks.Clear();
 
             MessageBox.Show("Record successfully saved.");
@@ -164,7 +176,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTaxDec, "Tax Dec. Number");
-            Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
+            Validations.ValidateRequired(errorProvider1, textYear, "Year/Quarter");
         }
 
         //Thousand separator.
@@ -235,10 +247,10 @@ namespace SampleRPT1
 
         private void checkBankUsedRetain_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBankUsedRetain.Checked == false)
-            {
-                cboBankUsed.Text = null;
-            }
+            //if (checkBankUsedRetain.Checked == false)
+            //{
+            //    cboBankUsed.SelectedIndex = 0;
+            //}
         }
 
         private void checkRequestingParty_CheckedChanged(object sender, EventArgs e)
@@ -259,7 +271,7 @@ namespace SampleRPT1
             textTaxDec.Text = string.Empty;
             textAmountToBePaid.Text = String.Empty;
             textTotalTransferredAmount.Text = String.Empty;
-            textYearQuarter.Text = String.Empty;
+            textYear.Text = String.Empty;
             textTPName.Text = string.Empty;
             cboBankUsed.Text = string.Empty;
             textRequestingParty.Text = string.Empty;
@@ -368,7 +380,7 @@ namespace SampleRPT1
         private bool textYearQuarterJustEntered = false;
         private void textYearQuarter_Enter(object sender, EventArgs e)
         {
-            textYearQuarter.SelectAll();
+            textYear.SelectAll();
             textYearQuarterJustEntered = true;
         }
 
@@ -376,7 +388,7 @@ namespace SampleRPT1
         {
             if (textYearQuarterJustEntered)
             {
-                textYearQuarter.SelectAll();
+                textYear.SelectAll();
             }
 
             textYearQuarterJustEntered = false;
@@ -416,14 +428,6 @@ namespace SampleRPT1
         }
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
-        //private void EnterKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyData == Keys.Enter)
-        //    {
-        //        e.SuppressKeyPress = true;
-        //        SelectNextControl(ActiveControl, true, true, true, true);
-        //    }
-        //}
 
         private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
         {

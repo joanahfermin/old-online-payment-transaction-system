@@ -45,12 +45,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
-            this.textYearQuarter = new System.Windows.Forms.TextBox();
+            this.textYear = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textTransferredAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,7 +75,7 @@
             this.btnUpdateRecord.Location = new System.Drawing.Point(152, 481);
             this.btnUpdateRecord.Name = "btnUpdateRecord";
             this.btnUpdateRecord.Size = new System.Drawing.Size(253, 23);
-            this.btnUpdateRecord.TabIndex = 11;
+            this.btnUpdateRecord.TabIndex = 12;
             this.btnUpdateRecord.Text = "Update Record";
             this.btnUpdateRecord.UseVisualStyleBackColor = true;
             this.btnUpdateRecord.Click += new System.EventHandler(this.btnUpdateRecord_Click);
@@ -110,7 +112,7 @@
             this.cbStatus.Location = new System.Drawing.Point(152, 254);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(253, 21);
-            this.cbStatus.TabIndex = 8;
+            this.cbStatus.TabIndex = 9;
             this.cbStatus.Click += new System.EventHandler(this.cbStatus_Click);
             this.cbStatus.Enter += new System.EventHandler(this.cbStatus_Enter);
             this.cbStatus.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbStatus_KeyDown);
@@ -122,7 +124,7 @@
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 132);
-            this.textRemarks.TabIndex = 10;
+            this.textRemarks.TabIndex = 11;
             this.textRemarks.Click += new System.EventHandler(this.textRemarks_Click);
             this.textRemarks.Enter += new System.EventHandler(this.textRemarks_Enter);
             this.textRemarks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRemarks_KeyDown);
@@ -151,7 +153,7 @@
             this.textRequestingParty.Location = new System.Drawing.Point(152, 293);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
-            this.textRequestingParty.TabIndex = 9;
+            this.textRequestingParty.TabIndex = 10;
             this.textRequestingParty.Click += new System.EventHandler(this.textRequestingParty_Click);
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
             this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
@@ -221,16 +223,16 @@
             this.textAmountToBePaid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountToBePaid_KeyPress);
             this.textAmountToBePaid.Leave += new System.EventHandler(this.textAmountToBePaid_Leave);
             // 
-            // textYearQuarter
+            // textYear
             // 
-            this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textYearQuarter.Location = new System.Drawing.Point(152, 176);
-            this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(112, 20);
-            this.textYearQuarter.TabIndex = 6;
-            this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
-            this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
-            this.textYearQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
+            this.textYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textYear.Location = new System.Drawing.Point(152, 176);
+            this.textYear.Name = "textYear";
+            this.textYear.Size = new System.Drawing.Size(80, 20);
+            this.textYear.TabIndex = 6;
+            this.textYear.Click += new System.EventHandler(this.textYear_Click);
+            this.textYear.Enter += new System.EventHandler(this.textYear_Enter);
+            this.textYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYear_KeyDown);
             // 
             // label4
             // 
@@ -279,6 +281,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboQuarter);
+            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.cboBankUsed);
             this.panel1.Controls.Add(this.dtDateOfPayment);
             this.panel1.Controls.Add(this.label12);
@@ -296,11 +300,32 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.textYearQuarter);
+            this.panel1.Controls.Add(this.textYear);
             this.panel1.Location = new System.Drawing.Point(15, 16);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(432, 526);
             this.panel1.TabIndex = 25;
+            // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(291, 175);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 7;
+            this.cboQuarter.Click += new System.EventHandler(this.cboQuarter_Click);
+            this.cboQuarter.Enter += new System.EventHandler(this.cboQuarter_Enter);
+            this.cboQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboQuarter_KeyDown);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(238, 183);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "Quarter: ";
             // 
             // cboBankUsed
             // 
@@ -323,7 +348,7 @@
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(112, 20);
-            this.dtDateOfPayment.TabIndex = 7;
+            this.dtDateOfPayment.TabIndex = 8;
             this.dtDateOfPayment.Enter += new System.EventHandler(this.dtDateOfPayment_Enter);
             this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
@@ -380,7 +405,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textAmountToBePaid;
-        private System.Windows.Forms.TextBox textYearQuarter;
+        private System.Windows.Forms.TextBox textYear;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textTransferredAmount;
         private System.Windows.Forms.Label label11;
@@ -390,5 +415,7 @@
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;
         private System.Windows.Forms.ComboBox cboBankUsed;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label13;
     }
 }

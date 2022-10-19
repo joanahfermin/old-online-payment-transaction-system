@@ -54,15 +54,15 @@ namespace SampleRPT1.JOBS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
+                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.UploadedDate = DateTime.Now;
 
-                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains("rpt.Bank"))
+                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
                     {
                         rpt.LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
                     }
 
-                    if (RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains("rpt.Bank"))
+                    else
                     {
                         rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
                     }

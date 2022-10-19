@@ -195,11 +195,13 @@ namespace SampleRPT1.FORMS
                 if (rdAssessment.Checked)
                 {
                     rpt.SendAssessmentReady = true;
+
                     RPTDatabase.Update(rpt);
                 }
                 else if (rdReceipt.Checked)
                 {
                     rpt.SendReceiptReady = true;
+
                     RPTDatabase.Update(rpt);
                 }
             }
@@ -213,14 +215,24 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        private void SelectAllinLV()
+        {
+            foreach (ListViewItem item in lvReview.Items)
+            {
+                item.Selected = true;
+            }
+        }
+
         private void rdAssessment_CheckedChanged(object sender, EventArgs e)
         {
             RefreshReviewListView();
+            SelectAllinLV();
         }
 
         private void rdReceipt_CheckedChanged(object sender, EventArgs e)
         {
             RefreshReviewListView();
+            SelectAllinLV();
         }
     }
 }

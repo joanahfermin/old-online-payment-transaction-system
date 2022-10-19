@@ -175,7 +175,7 @@ namespace SampleRPT1.FORMS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.BILL_SENT;
-                    rpt.SentBy = GlobalVariables.RPTUSER.UserName;
+                    rpt.SentBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.SentDate = DateTime.Now;
                     SentTo = SentTo + rpt.RequestingParty + " ";
 
@@ -254,7 +254,7 @@ namespace SampleRPT1.FORMS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
+                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.UploadedDate = DateTime.Now;
                     SentTo = SentTo + rpt.RequestingParty + " ";
 

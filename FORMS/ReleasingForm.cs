@@ -357,5 +357,30 @@ namespace SampleRPT1.FORMS
                 }
             }
         }
+
+        private void textLocCode_TextChanged(object sender, EventArgs e)
+        {
+            string locCode = textLocCode.Text;
+
+            List<RealPropertyTax> rptList = RPTDatabase.SelectByLocationCode(locCode);
+
+            PopulateListView(rptList);
+        }
+
+        private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < RPTInfoLV.Items.Count; i++)
+            {
+                VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
+            }
+        }
+
+        private void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < VerAndValLV.Items.Count; i++)
+            {
+                RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
+            }
+        }
     }
 }

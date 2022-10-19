@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReleasingForm));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textLocCode = new System.Windows.Forms.TextBox();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -111,12 +113,32 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.textLocCode);
             this.panel1.Controls.Add(this.textTDN);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(20, 17);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(380, 75);
             this.panel1.TabIndex = 34;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 51);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "Loc. Code: ";
+            // 
+            // textLocCode
+            // 
+            this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textLocCode.Location = new System.Drawing.Point(82, 44);
+            this.textLocCode.Name = "textLocCode";
+            this.textLocCode.Size = new System.Drawing.Size(100, 20);
+            this.textLocCode.TabIndex = 45;
+            this.textLocCode.TextChanged += new System.EventHandler(this.textLocCode_TextChanged);
             // 
             // textTDN
             // 
@@ -286,6 +308,7 @@
             this.RPTInfoLV.TabIndex = 40;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
+            this.RPTInfoLV.SelectedIndexChanged += new System.EventHandler(this.RPTInfoLV_SelectedIndexChanged);
             // 
             // RPTId
             // 
@@ -406,6 +429,7 @@
             this.VerAndValLV.TabIndex = 41;
             this.VerAndValLV.UseCompatibleStateImageBehavior = false;
             this.VerAndValLV.View = System.Windows.Forms.View.Details;
+            this.VerAndValLV.SelectedIndexChanged += new System.EventHandler(this.VerAndValLV_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -690,5 +714,7 @@
         private System.Windows.Forms.CheckBox checkEnableCam;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnStopStart;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textLocCode;
     }
 }

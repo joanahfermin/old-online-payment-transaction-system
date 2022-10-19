@@ -72,7 +72,7 @@ namespace SampleRPT1.FORMS
             RetrieveRpt.AmountTransferred = ExcessShortAmount;
             RetrieveRpt.ExcessShortAmount = ExcessShortAmount - RetrieveRpt.AmountToPay;
             RetrieveRpt.TotalAmountTransferred = Convert.ToDecimal(textAmount2Pay.Text);
-            RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+            RetrieveRpt.Status = RPTStatus.FOR_ASSESSMENT;
             RetrieveRpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
             RetrieveRpt.EncodedDate = DateTime.Now;
 
@@ -140,50 +140,25 @@ namespace SampleRPT1.FORMS
         }
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
-        private void EnterKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SelectNextControl(ActiveControl, true, true, true, true);
-            }
-        }
-
         private void textTDN_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textAmount2Pay_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         //Numeric value and one decimal point only. 
-        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
-        {
-            //numeric value only
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void textAmount2Pay_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            EventHelperUtil.OneDecimalPointOnly(sender, e);
         }
 
         private void AllocateExcessForm_Load(object sender, EventArgs e)

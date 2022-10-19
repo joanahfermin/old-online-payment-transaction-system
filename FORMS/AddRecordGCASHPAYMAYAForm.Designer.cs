@@ -176,7 +176,7 @@
             this.textEmailAddress.Enabled = false;
             this.textEmailAddress.Location = new System.Drawing.Point(355, 559);
             this.textEmailAddress.Name = "textEmailAddress";
-            this.textEmailAddress.Size = new System.Drawing.Size(326, 20);
+            this.textEmailAddress.Size = new System.Drawing.Size(203, 20);
             this.textEmailAddress.TabIndex = 9;
             // 
             // label3
@@ -211,7 +211,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(716, 543);
+            this.label5.Location = new System.Drawing.Point(595, 543);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(95, 13);
             this.label5.TabIndex = 2;
@@ -274,7 +274,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1194, 562);
+            this.btnSave.Location = new System.Drawing.Point(841, 562);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 23);
             this.btnSave.TabIndex = 4;
@@ -304,7 +304,7 @@
             // 
             // btnSaveAll
             // 
-            this.btnSaveAll.Location = new System.Drawing.Point(1314, 562);
+            this.btnSaveAll.Location = new System.Drawing.Point(961, 562);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(83, 23);
             this.btnSaveAll.TabIndex = 5;
@@ -321,7 +321,7 @@
             // 
             this.dtTransactionPayment.CustomFormat = "MM/dd/yyyy HH:mm:ss ";
             this.dtTransactionPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtTransactionPayment.Location = new System.Drawing.Point(719, 562);
+            this.dtTransactionPayment.Location = new System.Drawing.Point(598, 562);
             this.dtTransactionPayment.Name = "dtTransactionPayment";
             this.dtTransactionPayment.Size = new System.Drawing.Size(203, 20);
             this.dtTransactionPayment.TabIndex = 12;

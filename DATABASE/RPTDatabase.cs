@@ -209,18 +209,34 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and DeletedRecord != 1 order by RptID DESC", new { RefNum = RefNum }).ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectByLocationCode(string LocCode)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where LocCode= @LocCode and DeletedRecord != 1 order by RptID ASC", new { LocCode = LocCode }).ToList();
             }
         }
 
         /// <summary>
         /// Returns a list of records based on location code.
         /// </summary>
-        public static int CountLocation()
+        public static int CountLocationReg()
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT where LocCode is not null and DeletedRecord != 1");
+                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT where LocCode is not null and Bank not in @E_CHANNEL and DeletedRecord != 1", new { E_CHANNEL = RPTGcashPaymaya.E_PAYMENT_CHANNEL});
+            }
+        }
+
+        public static int CountLocationElec()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT where LocCode is not null and Bank in @E_CHANNEL and DeletedRecord != 1", new { E_CHANNEL = RPTGcashPaymaya.E_PAYMENT_CHANNEL });
             }
         }
 
@@ -411,6 +427,26 @@ namespace SampleRPT1
                         break;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER.
+        /// </summary>
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList/*, List<string> UploadedDate*/)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND DeletedRecord != 1 " +
+                    "ORDER BY VerifiedDate desc";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    StatusList = StatusList,
+                    //UploadedDate = UploadedDate
+                }).ToList();
             }
         }
     }

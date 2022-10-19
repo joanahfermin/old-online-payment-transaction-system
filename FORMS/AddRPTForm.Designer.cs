@@ -35,7 +35,7 @@
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textYearQuarter = new System.Windows.Forms.TextBox();
+            this.textYear = new System.Windows.Forms.TextBox();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,6 +60,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -113,17 +115,17 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Total Transferred Amount: ";
             // 
-            // textYearQuarter
+            // textYear
             // 
-            this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textYearQuarter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textYearQuarter.Location = new System.Drawing.Point(153, 202);
-            this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(114, 23);
-            this.textYearQuarter.TabIndex = 6;
-            this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
-            this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
-            this.textYearQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
+            this.textYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textYear.Location = new System.Drawing.Point(153, 202);
+            this.textYear.Name = "textYear";
+            this.textYear.Size = new System.Drawing.Size(68, 23);
+            this.textYear.TabIndex = 6;
+            this.textYear.Click += new System.EventHandler(this.textYearQuarter_Click);
+            this.textYear.Enter += new System.EventHandler(this.textYearQuarter_Enter);
+            this.textYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
             // 
             // textAmountToBePaid
             // 
@@ -290,7 +292,7 @@
             // checkBankUsedRetain
             // 
             this.checkBankUsedRetain.AutoSize = true;
-            this.checkBankUsedRetain.Location = new System.Drawing.Point(427, 168);
+            this.checkBankUsedRetain.Location = new System.Drawing.Point(439, 183);
             this.checkBankUsedRetain.Name = "checkBankUsedRetain";
             this.checkBankUsedRetain.Size = new System.Drawing.Size(57, 17);
             this.checkBankUsedRetain.TabIndex = 15;
@@ -363,6 +365,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboQuarter);
+            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.cboBankUsed);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label2);
@@ -370,7 +374,6 @@
             this.panel1.Controls.Add(this.btnAddClearAll);
             this.panel1.Controls.Add(this.checkRequestingParty);
             this.panel1.Controls.Add(this.checkTaxNameRetain);
-            this.panel1.Controls.Add(this.checkBankUsedRetain);
             this.panel1.Controls.Add(this.checkTaxDecRetain);
             this.panel1.Controls.Add(this.textStatForAssessment);
             this.panel1.Controls.Add(this.btnSave);
@@ -386,7 +389,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.textAmountToBePaid);
-            this.panel1.Controls.Add(this.textYearQuarter);
+            this.panel1.Controls.Add(this.textYear);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textTotalTransferredAmount);
@@ -409,13 +412,32 @@
             this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
             this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(238, 211);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Quarter: ";
+            // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(291, 203);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 18;
+            // 
             // AddRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 507);
+            this.ClientSize = new System.Drawing.Size(552, 507);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.checkBankUsedRetain);
             this.Name = "AddRPTForm";
             this.Text = "AddRPTForm";
             this.Load += new System.EventHandler(this.AddRPTForm_Load);
@@ -453,10 +475,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textAmountToBePaid;
-        private System.Windows.Forms.TextBox textYearQuarter;
+        private System.Windows.Forms.TextBox textYear;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textTotalTransferredAmount;
         private System.Windows.Forms.ComboBox cboBankUsed;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label13;
     }
 }

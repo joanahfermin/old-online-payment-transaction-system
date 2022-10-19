@@ -24,7 +24,6 @@ namespace SampleRPT1
             this.taxdec = taxdec;
             InitializeBank();
             cboBankUsed.SelectedIndex = 0;
-            //rdUpdatePayment.Checked = true;
 
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
             PopulateListView(rptList);
@@ -80,7 +79,6 @@ namespace SampleRPT1
 
                 textTDN.Text = rpt.TaxDec.ToString();
                 textTPName.Text = rpt.TaxPayerName;
-                textAmount2Pay.Text = rpt.AmountToPay.ToString();
                 textYearQuarter.Text = rpt.YearQuarter;
                 cboBankUsed.Text = rpt.Bank;
                 dtDateOfPayment.Value = rpt.PaymentDate.Value;
@@ -124,89 +122,6 @@ namespace SampleRPT1
             //textAmount2Pay.Clear();
             //textYearQuarter.Clear();
             textRequestingParty.Clear();
-        }
-
-        //private void validateForm()
-        //{
-        //    errorProvider1.Clear();
-
-        //    Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
-        //    Validations.ValidateRequiredTotalAmountDeposited(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
-        //}
-
-        //private RealPropertyTax GetRetrieveRPT(List<RealPropertyTax> rptList)
-        //{
-        //    RealPropertyTax ret = rptList[0];
-
-        //    foreach (RealPropertyTax item in rptList)
-        //    {
-        //        if (item.TotalAmountTransferred > 0)
-        //        {
-        //            ret = item;
-        //        }
-        //    }
-
-        //    return ret;
-        //}
-
-        private void btnUpdatePayment_Click(object sender, EventArgs e)
-        {
-            //    validateForm();
-
-            //    if (Validations.HaveErrors(errorProvider1))
-            //    {
-            //        return;
-            //    }
-
-            //    decimal TotalAmountTransferred = Convert.ToDecimal(textTotalAmountDeposited.Text);
-
-            //    List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup2(taxdec);
-
-            //    RealPropertyTax RetrieveRpt = GetRetrieveRPT(rptList);
-            //    RetrieveRpt.TotalAmountTransferred = RetrieveRpt.TotalAmountTransferred + TotalAmountTransferred;
-
-            //    decimal totalAmounttoPay = 0;
-
-            //    foreach (RealPropertyTax rpt in rptList)
-            //    {
-            //        totalAmounttoPay = totalAmounttoPay + rpt.AmountToPay;
-            //    }
-
-            //    RetrieveRpt.ExcessShortAmount = RetrieveRpt.TotalAmountTransferred - totalAmounttoPay;
-
-            //    RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + "Added payment of " + TotalAmountTransferred + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
-
-
-            //    RPTDatabase.Update(RetrieveRpt);
-            //    decimal remainingMoney = RetrieveRpt.TotalAmountTransferred;
-
-            //    foreach (RealPropertyTax rpt in rptList)
-            //    {
-            //        if (rpt.AmountTransferred < rpt.AmountToPay)
-            //        {
-            //            if (remainingMoney >= rpt.AmountToPay)
-            //            {
-            //                rpt.AmountTransferred = rpt.AmountToPay;
-            //                remainingMoney = remainingMoney - rpt.AmountToPay;
-            //            }
-            //            else if (remainingMoney > 0)
-            //            {
-            //                rpt.AmountTransferred = remainingMoney;
-            //                remainingMoney = 0;
-            //            }
-            //            else
-            //            {
-            //                rpt.AmountTransferred = 0;
-            //            }
-
-            //            RPTDatabase.Update(rpt);
-            //            break;
-            //        }
-
-            //    }
-            //    parentForm.RefreshListView();
-
-            //    this.Close();
         }
     }
 }

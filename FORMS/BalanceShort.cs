@@ -151,80 +151,20 @@ namespace SampleRPT1.FORMS
                     }
                     firstRecord = false;
                 }
-
-
-                /*
-                foreach (RealPropertyTax rpt in rptList)
-                {
-                    if (firstRecord)
-                    {
-                        if (rpt.TotalAmountTransferred == 0 && rpt.RptID == RetrieveRpt.RptID)
-                        {
-                            //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
-                            rpt.ExcessShortAmount = rpt.AmountTransferred + rpt.AmountToPay - TotalAmountTransferredUser;
-
-                            rpt.AmountTransferred = rpt.AmountToPay;
-                            rpt.TotalAmountTransferred = TotalAmountTransferredUser;
-
-                            if (rpt.PaymentDate == null)
-                            {
-                                rpt.PaymentDate = dtDateOfPayment.Value.Date;
-                            }
-
-                            RPTDatabase.Update(rpt);
-                        }
-                        firstRecord = false;
-
-                        /////////////////////////////
-                        if (rpt.AmountTransferred < rpt.AmountToPay && rpt.RptID != RetrieveRpt.RptID)
-                        {
-                            //EXCESS AMOUNT = PREVIOUS PAYMENT + CURRENT PAYMENT - AMOUNT TO PAY.
-                            rpt.ExcessShortAmount = rpt.AmountTransferred + TotalAmountTransferredUser - rpt.AmountToPay;
-
-                            rpt.AmountTransferred = rpt.AmountToPay;
-                            rpt.TotalAmountTransferred = TotalAmountTransferredUser;
-
-                            if (rpt.PaymentDate == null)
-                            {
-                                rpt.PaymentDate = dtDateOfPayment.Value.Date;
-                            }
-
-                            rpt.RPTremarks = rpt.RPTremarks + "Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString();
-
-                            RPTDatabase.Update(rpt);
-                            break;
-                        }
-                    }
-                }
-                */
             }
             GlobalVariables.MAINFORM.RefreshListView();
             this.Close();
         }
 
+
+
+        // TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
         /// <summary>
         /// Numeric value and one decimal point only.
         /// </summary>
-        private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
-        {
-            //numeric value only
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        // TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
         private void textAmountTransferred_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OneDecimalPointOnly(sender, e);
+            EventHelperUtil.OneDecimalPointOnly(sender, e);
         }
 
         private bool textAmountTransferredJustEntered = false;
@@ -245,18 +185,9 @@ namespace SampleRPT1.FORMS
         }
 
         //TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS ENTER.
-        private void EnterKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                e.SuppressKeyPress = true;
-                SelectNextControl(ActiveControl, true, true, true, true);
-            }
-        }
-
         private void textAmountTransferred_KeyDown(object sender, KeyEventArgs e)
         {
-            EnterKeyDown(sender, e);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textRefNum_TextChanged(object sender, EventArgs e)

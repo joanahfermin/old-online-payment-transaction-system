@@ -56,7 +56,7 @@ namespace SampleRPT1.JOBS
                 {
                     rpt.Status = RPTStatus.OR_PICKUP;
                     rpt.UploadedDate = DateTime.Now;
-                    //ORUploadTemplate.Body = "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
+                    ORUploadTemplate.Body = "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
 
                     if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
                     {

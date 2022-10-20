@@ -191,6 +191,7 @@ namespace SampleRPT1.FORMS
                 long rptID = Convert.ToInt64(lvReview.SelectedItems[i].Text);
 
                 RealPropertyTax rpt = RPTDatabase.Get(rptID);
+                RPTAttachPicture uploadedBy = RPTAttachPictureDatabase.Get(rptID);
 
                 if (rdAssessment.Checked)
                 {

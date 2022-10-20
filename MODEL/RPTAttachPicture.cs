@@ -18,5 +18,6 @@ namespace SampleRPT1
         public string DocumentType { get; set; }
         public string FileName { get; set; }
         public byte[] FileData { get; set; }
+        public string UploadedByUser { get; set; }
     }
 }

@@ -58,6 +58,14 @@ namespace SampleRPT1
             }
         }
 
+        public static RPTAttachPicture Get(long RPTId)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Get<RPTAttachPicture>(RPTId);
+            }
+        }
+
         /// <summary>
         /// Confirms if the selected record has document: Assessment or Receipt.
         /// </summary>

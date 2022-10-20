@@ -45,6 +45,7 @@ namespace SampleRPT1.JOBS
 
             EmailTemplate ORUploadTemplate = EmailTemplateDatabase.SelectORUploadTemplate();
 
+
             foreach (RealPropertyTax rpt in ListOfretrieveORSsendEmail)
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.RECEIPT);
@@ -54,8 +55,8 @@ namespace SampleRPT1.JOBS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
                     rpt.UploadedDate = DateTime.Now;
+                    //ORUploadTemplate.Body = "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
 
                     if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
                     {
@@ -75,8 +76,6 @@ namespace SampleRPT1.JOBS
         //Send email of status: ASSESSMENT PRINTED in the background. 
         public void SendAssessment()
         {
-
-
             List<RealPropertyTax> ListOfretrieveAssessmentSendEmail = RPTDatabase.SelectAssessmentSendEmail();
 
             EmailTemplate AssessmentTemplate = EmailTemplateDatabase.SelectAssessmentTemplate();

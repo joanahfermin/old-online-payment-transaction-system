@@ -431,7 +431,7 @@ namespace SampleRPT1
         }
 
         /// <summary>
-        /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER.
+        /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER: for o.r pickup status.
         /// </summary>
         public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList/*, List<string> UploadedDate*/)
         {
@@ -446,6 +446,27 @@ namespace SampleRPT1
                     EncodedDateTo = encodedDateTo,
                     StatusList = StatusList,
                     //UploadedDate = UploadedDate
+                }).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Returns a list of records based on date range, status and validated date. status: for o.r upload status.
+        /// ISAMA ANG UPLOADEDBY FROM ATTACHPICTURE TABLE
+        /// 
+        /// </summary>
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndValidatedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND DeletedRecord != 1 " +
+                    "ORDER BY ValidatedDate desc";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    StatusList = StatusList,
                 }).ToList();
             }
         }

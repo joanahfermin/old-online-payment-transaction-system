@@ -310,6 +310,12 @@ namespace SampleRPT1
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
                 }
 
+                // filter by for or upload and date range and validated date.
+                else if (cboStatus.Text == RPTStatus.OR_UPLOAD)
+                {
+                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndValidatedDate(encodedDateFrom, encodedDateTo, StatusList);
+                }
+
                 // filter by for or pickup and date range and uploaded date.
                 else if(cboStatus.Text == RPTStatus.OR_PICKUP)
                 {
@@ -623,7 +629,7 @@ namespace SampleRPT1
                     LabelNumBills.Visible = false;
                     textNumOfBills.Visible = false;
                 }
-            }
+            }   
 
             ChangeAction();
 
@@ -660,6 +666,7 @@ namespace SampleRPT1
                         pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Receipt);
                         pictureBoxReceipt.SizeMode = PictureBoxSizeMode.StretchImage;
+                        VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
                     }
                     if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
@@ -1147,8 +1154,8 @@ namespace SampleRPT1
                             rptAttachPicture.FileData = resizeFileData;
                         }
                         rptAttachPicture.DocumentType = documentType;
+                        rptAttachPicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
-
                     }
 
                     if (RetrievePicture != null)
@@ -1168,10 +1175,13 @@ namespace SampleRPT1
                             RetrievePicture.FileData = resizeFileData;
                         }
 
+                        RetrievePicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
+                        VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
                         RPTAttachPictureDatabase.Update(RetrievePicture);
                     }
 
                     MessageBox.Show("Photo uploaded.");
+
                     textFileName.Clear();
                 }
                 else

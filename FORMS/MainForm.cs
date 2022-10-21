@@ -304,6 +304,11 @@ namespace SampleRPT1
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
                 }
 
+                else if(cboStatus.Text == RPTStatus.PAYMENT_VALIDATION)
+                {
+                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(encodedDateFrom, encodedDateTo, StatusList);
+                }
+
                 // filter by for assessment and date range and encoded by.
                 else if(cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
                 {
@@ -666,7 +671,7 @@ namespace SampleRPT1
                         pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Receipt);
                         pictureBoxReceipt.SizeMode = PictureBoxSizeMode.StretchImage;
-                        VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
+                        //VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
                     }
                     if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
@@ -686,7 +691,7 @@ namespace SampleRPT1
 
         private Image getImageFromAttachePicture(RPTAttachPicture AttachPicture)
         {
-            if (AttachPicture.FileName.ToLower().EndsWith("pdf"))
+            if (FileUtils.isDocument(AttachPicture.FileName))
             {
                 return Properties.Resources.pdf_img;
             }
@@ -1068,7 +1073,7 @@ namespace SampleRPT1
                             byte[] FileData = File.ReadAllBytes(textFileName.Text);
 
                             //This creates an image from the specified byte array and converts the byte array into a picture and displays in the imagebox.
-                            if (textFileName.Text.ToLower().EndsWith("pdf"))
+                            if (FileUtils.isDocument(textFileName.Text))
                             {
                                 pictureBoxAssessment.Image = Properties.Resources.pdf_img;
                             }
@@ -1092,7 +1097,7 @@ namespace SampleRPT1
                             byte[] FileData = File.ReadAllBytes(textFileName.Text);
 
                             //This creates an image from the specified byte array and converts the byte array into a picture and displays in the imagebox.
-                            if (textFileName.Text.ToLower().EndsWith("pdf"))
+                            if (FileUtils.isDocument(textFileName.Text))
                             {
                                 pictureBoxReceipt.Image = Properties.Resources.pdf_img;
                             }
@@ -1130,6 +1135,10 @@ namespace SampleRPT1
                     else
                     {
                         documentType = DocumentType.RECEIPT;
+                        rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
+                        VerAndValLV.SelectedItems[0].SubItems[11].Text = rpt.UploadedBy;
+
+                        RPTDatabase.Update(rpt);
                     }
 
                     RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(Rptid, documentType);
@@ -1142,7 +1151,7 @@ namespace SampleRPT1
                         rptAttachPicture.FileName = Path.GetFileName(textFileName.Text);
 
                         byte[] FileData = File.ReadAllBytes(textFileName.Text);
-                        if (rptAttachPicture.FileName.ToLower().EndsWith("pdf"))
+                        if (FileUtils.isDocument(rptAttachPicture.FileName))
                         {
                             // If PDF, store the file content as is
                             rptAttachPicture.FileData = FileData;
@@ -1154,7 +1163,7 @@ namespace SampleRPT1
                             rptAttachPicture.FileData = resizeFileData;
                         }
                         rptAttachPicture.DocumentType = documentType;
-                        rptAttachPicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
+                        //rptAttachPicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
                     }
 
@@ -1163,11 +1172,13 @@ namespace SampleRPT1
                         RetrievePicture.FileName = Path.GetFileName(textFileName.Text);
 
                         byte[] FileData = File.ReadAllBytes(textFileName.Text);
-                        if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+
+                        if (FileUtils.isDocument(RetrievePicture.FileName))
                         {
                             // If PDF, store the file content as is
                             RetrievePicture.FileData = FileData;
                         }
+
                         else
                         {
                             // If JPG, then compress the image
@@ -1175,8 +1186,8 @@ namespace SampleRPT1
                             RetrievePicture.FileData = resizeFileData;
                         }
 
-                        RetrievePicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
-                        VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
+                        //RetrievePicture.UploadedByUser = GlobalVariables.RPTUSER.DisplayName;
+                        //VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
                         RPTAttachPictureDatabase.Update(RetrievePicture);
                     }
 
@@ -1335,12 +1346,12 @@ namespace SampleRPT1
                 RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, documentType);
                 if (RetrievePicture != null)
                 {
-                    if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+                    if (FileUtils.isDocument(RetrievePicture.FileName))
                     {
                         // Download PDF and display
 
                         // generate random pdf filename
-                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf"; 
+                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + RetrievePicture.FileName; 
 
                         // Save the file
                         String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);

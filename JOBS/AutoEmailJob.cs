@@ -50,13 +50,14 @@ namespace SampleRPT1.JOBS
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.RECEIPT);
 
+                ORUploadTemplate.Body += "\n\n" + rpt.UploadedBy + "-CTO";
+
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, ORUploadTemplate.Subject, ORUploadTemplate.Body, RetrieveIdAndImage);
 
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.OR_PICKUP;
                     rpt.UploadedDate = DateTime.Now;
-                    ORUploadTemplate.Body = "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
 
                     if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
                     {

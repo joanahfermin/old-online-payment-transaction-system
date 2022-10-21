@@ -37,5 +37,20 @@ namespace SampleRPT1.UTILITIES
             File.WriteAllBytes(fullpath, data);
             return fullpath;
         }
+
+        public static bool isDocument(String filename)
+        {
+            if (filename.ToLower().EndsWith("pdf"))
+            {
+                return true;
+            }
+
+            if (filename.ToLower().EndsWith("docx"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

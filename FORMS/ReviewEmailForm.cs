@@ -104,7 +104,7 @@ namespace SampleRPT1.FORMS
 
         private Image getImageFromAttachedPicture(RPTAttachPicture AttachPicture)
         {
-            if (AttachPicture.FileName.ToLower().EndsWith("pdf"))
+            if (FileUtils.isDocument(AttachPicture.FileName))
             {
                 return Properties.Resources.pdf_img;
             }
@@ -143,9 +143,9 @@ namespace SampleRPT1.FORMS
         {
             if (RetrievePicture != null)
             {
-                if (RetrievePicture.FileName.ToLower().EndsWith("pdf"))
+                if (FileUtils.isDocument(RetrievePicture.FileName))
                 {
-                    String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".pdf";
+                    String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + RetrievePicture.FileName;
                     String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
                     System.Diagnostics.Process.Start(savedFileFullPath);
 

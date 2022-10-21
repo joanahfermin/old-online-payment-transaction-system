@@ -276,9 +276,9 @@ namespace SampleRPT1
             List<string> EncodedByList = new List<string>();
             EncodedByList.Add(cboEncodedBy.Text);
 
-            if (cboPaymentChannel.Text == BANK_TRANSFER)
+            if (cboPaymentChannel.SelectedIndex == 0)
             {
-                List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+                List<RPTBank> bankList = RPTBankDatabase.SelectAllNot_E_Banks();
 
                 foreach (RPTBank bank in bankList)
                 {

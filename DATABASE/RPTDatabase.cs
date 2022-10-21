@@ -102,7 +102,7 @@ namespace SampleRPT1
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
                     "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND Bank in @PaymentChannelList AND DeletedRecord != 1 " +
-                    "ORDER BY RptID ASC";
+                    "ORDER BY BilledDate asc";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,

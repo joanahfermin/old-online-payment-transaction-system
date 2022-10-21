@@ -197,9 +197,10 @@ namespace SampleRPT1
                 textServiceProvider.Text = FirstLVGcashPaymaya.SelectedItems[0].Text;
                 textTaxDec.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[1].Text;
                 textYearQuarter.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[2].Text;
-                textPropertyName.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
-                textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
-                textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text;
+                textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
+                textPropertyName.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
+                textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text;
+                
 
                 dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text);
 
@@ -238,7 +239,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
-            Validations.ValidateRequired(errorProvider1, textBillQuantity, "Bill quantity");
+            //Validations.ValidateRequired(errorProvider1, textBillQuantity, "Bill quantity");
         }
 
         /// <summary>
@@ -264,7 +265,6 @@ namespace SampleRPT1
                     string DuplicateRecordRemarks = "DUPLICATE RECORD";
 
                     RealPropertyTax RetrievedRpt = RPTDatabase.Get(RPTid);
-
                     RetrievedRpt.TaxPayerName = textPropertyName.Text.Trim();
                     RetrievedRpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
                     RetrievedRpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
@@ -306,7 +306,8 @@ namespace SampleRPT1
                     rpt.BilledDate = DateTime.Now;
                     rpt.RefNum = refNo;
 
-                    RPTDatabase.Insert(rpt);
+                    //RPTDatabase.Insert(rpt);
+                    RPTDatabase.Update(rpt);
                 }
 
                 //Removes processed record from the listview.

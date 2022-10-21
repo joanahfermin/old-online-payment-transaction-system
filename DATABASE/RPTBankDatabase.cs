@@ -35,5 +35,13 @@ namespace SampleRPT1
                 return conn.Query<RPTBank>($"SELECT * FROM Jo_RPT_Banks order by BankName ASC").ToList();
             }
         }
+
+        public static List<RPTBank> SelectAllNot_E_Banks()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RPTBank>($"SELECT * FROM Jo_RPT_Banks where isEBank = 0 order by BankName ASC").ToList();
+            }
+        }
     }
 }

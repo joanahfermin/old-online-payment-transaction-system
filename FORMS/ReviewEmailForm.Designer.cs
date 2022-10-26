@@ -107,7 +107,7 @@ namespace SampleRPT1.FORMS
             // rdAssessment
             // 
             this.rdAssessment.AutoSize = true;
-            this.rdAssessment.Location = new System.Drawing.Point(515, 15);
+            this.rdAssessment.Location = new System.Drawing.Point(99, 15);
             this.rdAssessment.Name = "rdAssessment";
             this.rdAssessment.Size = new System.Drawing.Size(95, 17);
             this.rdAssessment.TabIndex = 5;
@@ -119,7 +119,7 @@ namespace SampleRPT1.FORMS
             // rdReceipt
             // 
             this.rdReceipt.AutoSize = true;
-            this.rdReceipt.Location = new System.Drawing.Point(629, 15);
+            this.rdReceipt.Location = new System.Drawing.Point(213, 15);
             this.rdReceipt.Name = "rdReceipt";
             this.rdReceipt.Size = new System.Drawing.Size(76, 17);
             this.rdReceipt.TabIndex = 6;
@@ -153,6 +153,7 @@ namespace SampleRPT1.FORMS
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReviewEmailForm";
             this.Text = "ReviewEmailForm";
+            this.Load += new System.EventHandler(this.ReviewEmailForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

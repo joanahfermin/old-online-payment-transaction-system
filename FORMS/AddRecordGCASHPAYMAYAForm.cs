@@ -79,6 +79,7 @@ namespace SampleRPT1
                                 }
                             }
                         }
+
                         string taxDec = item.SubItems[1].Text;
 
                         if (isRPTTaxDecFormat(taxDec))

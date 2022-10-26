@@ -172,6 +172,16 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        private void ReviewEmailForm_Load(object sender, EventArgs e)
+        {
+            btnConfirm.Visible = false;
+
+            if (GlobalVariables.RPTUSER.isAutomatedEmailSender)
+            {
+                btnConfirm.Visible = true;
+            }
+        }
+
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (lvReview.SelectedItems.Count > 0)

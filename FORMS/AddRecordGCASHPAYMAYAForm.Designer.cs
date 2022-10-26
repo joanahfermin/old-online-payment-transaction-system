@@ -61,7 +61,6 @@
             this.btnSaveAll = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dtTransactionPayment = new System.Windows.Forms.DateTimePicker();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -118,7 +117,7 @@
             // 
             // paymentdate
             // 
-            this.paymentdate.Text = "Transaction Date";
+            this.paymentdate.Text = "Transaction Payment Date";
             this.paymentdate.Width = 150;
             // 
             // emailadd
@@ -176,7 +175,7 @@
             // 
             this.textEmailAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textEmailAddress.Enabled = false;
-            this.textEmailAddress.Location = new System.Drawing.Point(1078, 61);
+            this.textEmailAddress.Location = new System.Drawing.Point(1093, 61);
             this.textEmailAddress.Name = "textEmailAddress";
             this.textEmailAddress.Size = new System.Drawing.Size(203, 20);
             this.textEmailAddress.TabIndex = 9;
@@ -184,7 +183,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1075, 45);
+            this.label3.Location = new System.Drawing.Point(1090, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 2;
@@ -279,7 +278,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(67, 23);
             this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Update";
+            this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -324,18 +323,9 @@
             this.dtTransactionPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtTransactionPayment.Location = new System.Drawing.Point(923, 61);
             this.dtTransactionPayment.Name = "dtTransactionPayment";
-            this.dtTransactionPayment.Size = new System.Drawing.Size(132, 20);
+            this.dtTransactionPayment.Size = new System.Drawing.Size(149, 20);
             this.dtTransactionPayment.TabIndex = 12;
             this.dtTransactionPayment.Value = new System.DateTime(2022, 9, 5, 14, 56, 11, 0);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(1456, 19);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(93, 23);
-            this.btnAdd.TabIndex = 13;
-            this.btnAdd.Text = "Add Record";
-            this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
@@ -358,7 +348,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1563, 553);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dtTransactionPayment);
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnSave);
@@ -421,7 +410,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DateTimePicker dtTransactionPayment;
         private System.Windows.Forms.ColumnHeader taxpayername;
-        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
     }
 }

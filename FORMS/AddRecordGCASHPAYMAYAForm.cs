@@ -23,8 +23,9 @@ namespace SampleRPT1
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
 
             dtTransactionPayment.Value = DateTime.Now;
-
             parentForm = GlobalVariables.MAINFORM;
+            labelRPTID.Visible = false;
+            textRPTID.Visible = false;
         }
 
         /// <summary>

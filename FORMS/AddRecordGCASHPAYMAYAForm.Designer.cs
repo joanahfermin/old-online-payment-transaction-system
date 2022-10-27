@@ -54,7 +54,7 @@
             this.textYearQuarter = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textRPTID = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelRPTID = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.textBillQuantity = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -258,19 +258,19 @@
             // 
             this.textRPTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRPTID.Enabled = false;
-            this.textRPTID.Location = new System.Drawing.Point(65, 12);
+            this.textRPTID.Location = new System.Drawing.Point(253, 12);
             this.textRPTID.Name = "textRPTID";
             this.textRPTID.Size = new System.Drawing.Size(71, 20);
             this.textRPTID.TabIndex = 6;
             // 
-            // label8
+            // labelRPTID
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 19);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "RPT Id: ";
+            this.labelRPTID.AutoSize = true;
+            this.labelRPTID.Location = new System.Drawing.Point(200, 19);
+            this.labelRPTID.Name = "labelRPTID";
+            this.labelRPTID.Size = new System.Drawing.Size(47, 13);
+            this.labelRPTID.TabIndex = 2;
+            this.labelRPTID.Text = "RPT Id: ";
             // 
             // btnSave
             // 
@@ -285,7 +285,7 @@
             // textBillQuantity
             // 
             this.textBillQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBillQuantity.Location = new System.Drawing.Point(246, 12);
+            this.textBillQuantity.Location = new System.Drawing.Point(108, 12);
             this.textBillQuantity.Name = "textBillQuantity";
             this.textBillQuantity.Size = new System.Drawing.Size(27, 20);
             this.textBillQuantity.TabIndex = 2;
@@ -296,7 +296,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(151, 19);
+            this.label9.Location = new System.Drawing.Point(13, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(89, 13);
             this.label9.TabIndex = 2;
@@ -352,7 +352,7 @@
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.labelRPTID);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
@@ -394,7 +394,7 @@
         private System.Windows.Forms.TextBox textYearQuarter;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textRPTID;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelRPTID;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox textBillQuantity;
         private System.Windows.Forms.Label label9;

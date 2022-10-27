@@ -162,6 +162,7 @@
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
             this.RPTInfoLV.SelectedIndexChanged += new System.EventHandler(this.RPTInfoLV_SelectedIndexChanged);
             this.RPTInfoLV.DoubleClick += new System.EventHandler(this.RPTInfoLV_DoubleClick);
+            this.RPTInfoLV.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RPTInfoLV_MouseClick);
             // 
             // RPTId
             // 

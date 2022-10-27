@@ -1397,5 +1397,18 @@ namespace SampleRPT1
         {
             RefreshListView();
         }
+
+        private void RPTInfoLV_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var focusedItem = RPTInfoLV.FocusedItem;
+
+                if (focusedItem != null)
+                {
+                    AllocateShort();
+                }
+            }
+        }
     }
 }

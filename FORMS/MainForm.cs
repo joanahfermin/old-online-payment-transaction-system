@@ -1400,14 +1400,43 @@ namespace SampleRPT1
 
         private void RPTInfoLV_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                var focusedItem = RPTInfoLV.FocusedItem;
+            string AcquiredRptid = RPTInfoLV.SelectedItems[0].Text;
+            RptID = Convert.ToInt64(AcquiredRptid);
 
-                if (focusedItem != null)
+            RealPropertyTax RetrieveRPT = RPTDatabase.Get(RptID);
+            var focusedItem = RPTInfoLV.FocusedItem;
+
+            if (focusedItem != null && RetrieveRPT.ExcessShortAmount < 0)
+            {
+                if (e.Button == MouseButtons.Right)
                 {
                     AllocateShort();
                 }
+            }
+
+            if (RetrieveRPT.RefNum != null && RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(RetrieveRPT.Bank))
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    RetrieveRPT.TaxDec = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
+                    MessageBox.Show(RetrieveRPT.TaxDec);
+
+                    List<string> RptIDList = new List<string>();
+
+                    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+                    {
+                        string RptId = RPTInfoLV.SelectedItems[i].Text;
+                        RptID = Convert.ToInt64(RptId);
+
+                        RptIDList.Add(i);
+
+
+                    }
+                }
+
+                AddRPTForm addRPT = new AddRPTForm();
+                addRPT.setParent(this);
+                addRPT.ShowDialog();
             }
         }
     }

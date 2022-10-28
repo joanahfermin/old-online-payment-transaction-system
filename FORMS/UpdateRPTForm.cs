@@ -18,7 +18,7 @@ namespace SampleRPT1
 
         List<RealPropertyTax> RptList = new List<RealPropertyTax>();
         private static string MULTIPLE_MARKER = "***";
-        private static DateTime MULTIPLE_MARKERDATE = DateTime.Parse ("01/01/1900");
+        private static DateTime MULTIPLE_MARKERDATE = DateTime.Parse("01/01/1900");
 
         //Initializes the passed list of rptid records from the main form. 
         public UpdateRPTForm(List<long> RptIDList)

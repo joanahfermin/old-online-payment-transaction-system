@@ -16,6 +16,7 @@ namespace SampleRPT1
     public partial class AddRPTForm : Form
     {
         MainForm parentForm;
+
         public AddRPTForm()
         {
             InitializeComponent();
@@ -88,7 +89,6 @@ namespace SampleRPT1
 
             rpt.TaxPayerName = textTPName.Text.Trim();
             rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
-
             rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
 
             if (rpt.TotalAmountTransferred >= rpt.AmountToPay)
@@ -100,8 +100,6 @@ namespace SampleRPT1
                 rpt.AmountTransferred = rpt.TotalAmountTransferred;
             }
 
-            //rpt.AmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
-            //rpt.TotalAmountTransferred = rpt.AmountTransferred;
             rpt.ExcessShortAmount = rpt.TotalAmountTransferred - rpt.AmountToPay;
 
             rpt.Bank = cboBankUsed.Text;
@@ -125,13 +123,6 @@ namespace SampleRPT1
                 rpt.RefNum = refNo;
             }
 
-            //If payment is short, generate a reference number. 
-            //if (rpt.TotalAmountTransferred < rpt.AmountToPay && rpt.TotalAmountTransferred != 0)
-            //{
-            //    string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            //    rpt.RefNum = refNo;
-            //}
-
             RPTDatabase.Insert(rpt);
 
             if (checkTaxDecRetain.Checked == false)
@@ -143,11 +134,6 @@ namespace SampleRPT1
             {
                 textTPName.Clear();
             }
-
-            //if (checkBankUsedRetain.Checked == false)
-            //{
-            //    cboBankUsed.SelectedIndex = 0;
-            //}
 
             if (checkRequestingParty.Checked == false)
             {
@@ -247,10 +233,7 @@ namespace SampleRPT1
 
         private void checkBankUsedRetain_CheckedChanged(object sender, EventArgs e)
         {
-            //if (checkBankUsedRetain.Checked == false)
-            //{
-            //    cboBankUsed.SelectedIndex = 0;
-            //}
+
         }
 
         private void checkRequestingParty_CheckedChanged(object sender, EventArgs e)
@@ -281,23 +264,6 @@ namespace SampleRPT1
         /// <summary>
         /// TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
         /// PUT IN ONE CLASS OR VARIABLE.
-        /// One decimal only in textfields that only accepts numbers.
-        /// </summary>
-        //private void OneDecimalPointOnly(object sender, KeyPressEventArgs e)
-        //{
-        //    //numeric value only
-        //    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-        //(e.KeyChar != '.'))
-        //    {
-        //        e.Handled = true;
-        //    }
-
-        //    // only allow one decimal point
-        //    if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-        //    {
-        //        e.Handled = true;
-        //    }
-        //}
 
         private void textAmountToBePaid_KeyPress(object sender, KeyPressEventArgs e)
         {

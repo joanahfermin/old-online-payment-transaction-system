@@ -21,6 +21,7 @@ namespace SampleRPT1
         {
             InitializeComponent();
             InitializeBank();
+            InitializeQuarter();
         }
         public void setParent(MainForm mainForm)
         {
@@ -38,6 +39,15 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
         }
 
         /// <summary>
@@ -76,6 +86,7 @@ namespace SampleRPT1
             item.SubItems.Add(textTPName.Text.Trim());
             item.SubItems.Add(textAmount2Pay.Text.Trim());
             item.SubItems.Add(textYearQuarter.Text.Trim());
+            item.SubItems.Add(cboQuarter.Text.Trim());
             item.SubItems.Add(textRequestingParty.Text.Trim());
 
             lvMultipleRecord.Items.Add(item);
@@ -138,14 +149,17 @@ namespace SampleRPT1
             {
                 string TaxDec = item.Text;
                 string TaxPayerName = item.SubItems[1].Text;
-                string YearQuarter = item.SubItems[3].Text;
+                
                 string Amount2Pay = item.SubItems[2].Text;
+                string YearQuarter = item.SubItems[3].Text;
+                string Quarter = item.SubItems[4].Text;
 
                 RealPropertyTax rpt = new RealPropertyTax();
 
                 rpt.TaxDec = TaxDec;
                 rpt.TaxPayerName = TaxPayerName;
                 rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
+                rpt.Quarter = Quarter;
 
                 //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
                 if (FirstRecord)

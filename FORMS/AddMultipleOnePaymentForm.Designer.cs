@@ -62,6 +62,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -73,13 +76,14 @@
             this.taxDec,
             this.taxpayerName,
             this.Amount2Pay,
-            this.YearQuarter});
+            this.YearQuarter,
+            this.qtr});
             this.lvMultipleRecord.FullRowSelect = true;
             this.lvMultipleRecord.GridLines = true;
             this.lvMultipleRecord.HideSelection = false;
             this.lvMultipleRecord.Location = new System.Drawing.Point(515, 44);
             this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(697, 488);
+            this.lvMultipleRecord.Size = new System.Drawing.Size(776, 488);
             this.lvMultipleRecord.TabIndex = 0;
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
@@ -290,6 +294,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboQuarter);
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.checkTaxNameRetain);
             this.panel1.Controls.Add(this.checkTaxDecRetain);
             this.panel1.Controls.Add(this.btnAdd);
@@ -372,7 +378,7 @@
             // 
             this.textTotalAmountToPay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountToPay.Enabled = false;
-            this.textTotalAmountToPay.Location = new System.Drawing.Point(1032, 12);
+            this.textTotalAmountToPay.Location = new System.Drawing.Point(1111, 12);
             this.textTotalAmountToPay.Name = "textTotalAmountToPay";
             this.textTotalAmountToPay.Size = new System.Drawing.Size(180, 20);
             this.textTotalAmountToPay.TabIndex = 45;
@@ -383,17 +389,40 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(913, 19);
+            this.label8.Location = new System.Drawing.Point(992, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 13);
             this.label8.TabIndex = 23;
             this.label8.Text = "Total Amount To Pay: ";
             // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(339, 128);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 20;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(286, 136);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Quarter: ";
+            // 
+            // qtr
+            // 
+            this.qtr.Text = "Quarter";
+            this.qtr.Width = 80;
+            // 
             // AddMultipleOnePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1229, 550);
+            this.ClientSize = new System.Drawing.Size(1307, 550);
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
@@ -456,5 +485,8 @@
         private System.Windows.Forms.ComboBox cboBankUsed;
         private System.Windows.Forms.CheckBox checkTaxNameRetain;
         private System.Windows.Forms.CheckBox checkTaxDecRetain;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ColumnHeader qtr;
     }
 }

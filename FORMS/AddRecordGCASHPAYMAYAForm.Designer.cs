@@ -71,10 +71,10 @@
             this.serviceProv,
             this.taxdec,
             this.year,
-            this.amountdue,
             this.taxpayername,
-            this.paymentdate,
             this.emailadd,
+            this.amountdue,
+            this.paymentdate,
             this.duplicateindb,
             this.duplicateinlist});
             this.FirstLVGcashPaymaya.FullRowSelect = true;

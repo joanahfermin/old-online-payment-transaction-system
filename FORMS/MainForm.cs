@@ -1414,29 +1414,13 @@ namespace SampleRPT1
                 }
             }
 
-            if (RetrieveRPT.RefNum != null && RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(RetrieveRPT.Bank))
+            else if (RetrieveRPT.RefNum != null && RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(RetrieveRPT.Bank))
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    RetrieveRPT.TaxDec = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
-                    MessageBox.Show(RetrieveRPT.TaxDec);
-
-                    List<string> RptIDList = new List<string>();
-
-                    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-                    {
-                        string RptId = RPTInfoLV.SelectedItems[i].Text;
-                        RptID = Convert.ToInt64(RptId);
-
-                        RptIDList.Add(i);
-
-
-                    }
+                    SplitPaymentForm splitPayment = new SplitPaymentForm(RptID);
+                    splitPayment.ShowDialog();
                 }
-
-                AddRPTForm addRPT = new AddRPTForm();
-                addRPT.setParent(this);
-                addRPT.ShowDialog();
             }
         }
     }

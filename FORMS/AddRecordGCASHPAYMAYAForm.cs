@@ -370,6 +370,9 @@ namespace SampleRPT1
                         RetrievedRpt.BilledDate = DateTime.Now;
                         RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
                         RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+
+                        //TO DO
+                        RetrievedRpt.Quarter = "1-4";
                         RetrievedRpt.RefNum = refNo;
 
                         RPTDatabase.Insert(RetrievedRpt);
@@ -386,6 +389,9 @@ namespace SampleRPT1
                         rpt.AmountTransferred = AmountDue;
                         rpt.Bank = ServiceProvider;
                         rpt.YearQuarter = YearQuarter;
+
+                        //TO DO
+                        rpt.Quarter = "1-4";
                         rpt.BillCount = textBillQuantity.Text;
                         rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                         rpt.RequestingParty = textEmailAddress.Text;

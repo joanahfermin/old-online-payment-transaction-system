@@ -56,20 +56,7 @@ namespace SampleRPT1.JOBS
 
                 if (result == true)
                 {
-                    rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedDate = DateTime.Now;
-
-                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
-                    {
-                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
-                    }
-
-                    else
-                    {
-                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
-                    }
-
-                    RPTDatabase.Update(rpt);
+                    RPTDatabase.ChangeStatusForORPickUp(rpt);
                 }
             }
         }

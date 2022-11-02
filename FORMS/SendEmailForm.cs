@@ -253,22 +253,9 @@ namespace SampleRPT1.FORMS
 
                 if (result == true)
                 {
-                    rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
-                    rpt.UploadedDate = DateTime.Now;
+                    RPTDatabase.ChangeStatusForORPickUp(rpt);
+                    
                     SentTo = SentTo + rpt.RequestingParty + " ";
-
-                    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
-                    {
-                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
-                    }
-
-                    else
-                    {
-                        rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
-                    }
-
-                    RPTDatabase.Update(rpt);
                     RefreshMainListviewStatusORPickup();
                 }
                 else

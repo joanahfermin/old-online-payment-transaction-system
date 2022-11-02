@@ -488,5 +488,48 @@ namespace SampleRPT1
             }
         }
         
+        //changes status to FOR OR PICK UP when one record shares same reference number to other records and not e-payments.
+        public static void ChangeStatusForORPickUp(RealPropertyTax rpt)
+        {
+            if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
+            {
+                string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
+                string UploadedBy = rpt.UploadedBy;
+
+                if (rpt.RefNum != null && rpt.RefNum.Length > 0)
+                {
+                    List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(rpt.RefNum);
+
+                    foreach (var item in rptList)
+                    {
+                        item.LocCode = LocCode;
+                        item.UploadedBy = UploadedBy;
+                        item.Status = RPTStatus.OR_PICKUP;
+                        item.UploadedDate = DateTime.Now;
+
+                        RPTDatabase.Update(item);
+                    }
+                }
+                else
+                {
+                    rpt.LocCode = LocCode;
+
+                    rpt.Status = RPTStatus.OR_PICKUP;
+                    rpt.UploadedDate = DateTime.Now;
+
+                    RPTDatabase.Update(rpt);
+                }
+            }
+
+            else
+            {
+                rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
+
+                rpt.Status = RPTStatus.OR_PICKUP;
+                rpt.UploadedDate = DateTime.Now;
+
+                RPTDatabase.Update(rpt);
+            }
+        }
     }
 }

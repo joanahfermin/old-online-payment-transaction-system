@@ -461,7 +461,7 @@ namespace SampleRPT1
             if (RPTInfoLV.SelectedItems.Count > 0 && GlobalVariables.RPTUSER.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
                 RetrieveRPT.Status == RPTStatus.ASSESSMENT_PRINTED || RetrieveRPT.Status == RPTStatus.BILL_SENT || RetrieveRPT.Status == RPTStatus.PAYMENT_VERIFICATION)
             {
-                if (RPTInfoLV.SelectedItems[0].SubItems[13].Text.Length > 0)
+                if (RetrieveRPT.RefNum != null)
                 {
                     string taxDecList = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
 
@@ -716,15 +716,16 @@ namespace SampleRPT1
         private List<RealPropertyTax> GetSelectedRPTByStatus(string ExpectedStatus)
         {
             List<RealPropertyTax> SelectedRPTByStatus = new List<RealPropertyTax>();
+            RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
             for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
             {
-                if (RPTInfoLV.SelectedItems[i].SubItems[9].Text == ExpectedStatus)
+                if (rpt.Status == ExpectedStatus)
                 {
                     string RptId = RPTInfoLV.SelectedItems[i].Text;
                     RptID = Convert.ToInt32(RptId);
 
-                    RealPropertyTax rpt = RPTDatabase.Get(RptID);
+                    //RealPropertyTax rpt = RPTDatabase.Get(RptID);
                     SelectedRPTByStatus.Add(rpt);
                 }
             }

@@ -127,6 +127,7 @@ namespace SampleRPT1.FORMS
                         // Idadagdag lang natin yung binayad ng taxpayer sa excess short and sa remarks.
                         rpt.ExcessShortAmount = rpt.ExcessShortAmount + TotalAmountTransferredUser;
                         rpt.TotalAmountTransferred = rpt.TotalAmountTransferred + TotalAmountTransferredUser;
+                        rpt.Bank = cboBankUsed.Text;
                         rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + 
                             dtDateOfPayment.Value.Date.ToShortDateString();
                         RPTDatabase.Update(rpt);

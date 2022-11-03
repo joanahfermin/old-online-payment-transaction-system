@@ -34,10 +34,10 @@
             this.serviceProv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxdec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.amountdue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxpayername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.paymentdate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.emailadd = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.amountdue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.paymentdate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateindb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateinlist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textServiceProvider = new System.Windows.Forms.TextBox();
@@ -62,6 +62,8 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dtTransactionPayment = new System.Windows.Forms.DateTimePicker();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,26 +106,26 @@
             this.year.Text = "YearQuarter";
             this.year.Width = 100;
             // 
+            // taxpayername
+            // 
+            this.taxpayername.Text = "Taxpayer Name";
+            this.taxpayername.Width = 300;
+            // 
+            // emailadd
+            // 
+            this.emailadd.Text = "Requesting Party ";
+            this.emailadd.Width = 250;
+            // 
             // amountdue
             // 
             this.amountdue.Text = "Amount Due";
             this.amountdue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.amountdue.Width = 150;
             // 
-            // taxpayername
-            // 
-            this.taxpayername.Text = "Taxpayer Name";
-            this.taxpayername.Width = 300;
-            // 
             // paymentdate
             // 
             this.paymentdate.Text = "Transaction Payment Date";
             this.paymentdate.Width = 150;
-            // 
-            // emailadd
-            // 
-            this.emailadd.Text = "Requesting Party ";
-            this.emailadd.Width = 250;
             // 
             // duplicateindb
             // 
@@ -150,7 +152,7 @@
             this.textTaxDec.Enabled = false;
             this.textTaxDec.Location = new System.Drawing.Point(199, 61);
             this.textTaxDec.Name = "textTaxDec";
-            this.textTaxDec.Size = new System.Drawing.Size(203, 20);
+            this.textTaxDec.Size = new System.Drawing.Size(201, 20);
             this.textTaxDec.TabIndex = 7;
             // 
             // label1
@@ -165,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 45);
+            this.label2.Location = new System.Drawing.Point(200, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(128, 13);
             this.label2.TabIndex = 2;
@@ -175,7 +177,7 @@
             // 
             this.textEmailAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textEmailAddress.Enabled = false;
-            this.textEmailAddress.Location = new System.Drawing.Point(1093, 61);
+            this.textEmailAddress.Location = new System.Drawing.Point(1346, 61);
             this.textEmailAddress.Name = "textEmailAddress";
             this.textEmailAddress.Size = new System.Drawing.Size(203, 20);
             this.textEmailAddress.TabIndex = 9;
@@ -183,7 +185,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1090, 45);
+            this.label3.Location = new System.Drawing.Point(1246, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 2;
@@ -212,7 +214,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(920, 45);
+            this.label5.Location = new System.Drawing.Point(1059, 45);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(95, 13);
             this.label5.TabIndex = 2;
@@ -221,7 +223,7 @@
             // textPropertyName
             // 
             this.textPropertyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textPropertyName.Location = new System.Drawing.Point(663, 61);
+            this.textPropertyName.Location = new System.Drawing.Point(805, 61);
             this.textPropertyName.Name = "textPropertyName";
             this.textPropertyName.Size = new System.Drawing.Size(237, 20);
             this.textPropertyName.TabIndex = 3;
@@ -229,7 +231,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(660, 45);
+            this.label6.Location = new System.Drawing.Point(802, 45);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 13);
             this.label6.TabIndex = 2;
@@ -274,7 +276,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1383, 48);
+            this.btnSave.Location = new System.Drawing.Point(1338, 19);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(67, 23);
             this.btnSave.TabIndex = 4;
@@ -304,7 +306,7 @@
             // 
             // btnSaveAll
             // 
-            this.btnSaveAll.Location = new System.Drawing.Point(1383, 19);
+            this.btnSaveAll.Location = new System.Drawing.Point(1409, 19);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(67, 23);
             this.btnSaveAll.TabIndex = 5;
@@ -321,7 +323,7 @@
             // 
             this.dtTransactionPayment.CustomFormat = "MM/dd/yyyy HH:mm:ss ";
             this.dtTransactionPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtTransactionPayment.Location = new System.Drawing.Point(923, 61);
+            this.dtTransactionPayment.Location = new System.Drawing.Point(1062, 61);
             this.dtTransactionPayment.Name = "dtTransactionPayment";
             this.dtTransactionPayment.Size = new System.Drawing.Size(149, 20);
             this.dtTransactionPayment.TabIndex = 12;
@@ -335,18 +337,38 @@
             this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDelete.Location = new System.Drawing.Point(1456, 48);
+            this.btnDelete.Location = new System.Drawing.Point(1482, 19);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(93, 23);
+            this.btnDelete.Size = new System.Drawing.Size(69, 23);
             this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(666, 61);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(663, 45);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Quarter: ";
             // 
             // AddRecordGCASHPAYMAYAForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1563, 553);
+            this.Controls.Add(this.cboQuarter);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dtTransactionPayment);
             this.Controls.Add(this.btnSaveAll);
@@ -411,5 +433,7 @@
         private System.Windows.Forms.DateTimePicker dtTransactionPayment;
         private System.Windows.Forms.ColumnHeader taxpayername;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label13;
     }
 }

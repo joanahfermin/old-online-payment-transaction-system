@@ -172,7 +172,7 @@ namespace SampleRPT1
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, RPTInfoLV, new List<string>
             { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-                "Bank", "YearQuarter", "Status",
+                "Bank", "YearQuarter", "Quarter", "Status",
             "EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
 
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, VerAndValLV, new List<string>
@@ -182,7 +182,7 @@ namespace SampleRPT1
             foreach (ListViewItem item in RPTInfoLV.Items)
             {
                 //displaying of same reference number that colors the entire row, except for e-tranfer payments.
-                if (item.SubItems[12].Text.Length > 0 && Convert.ToDecimal(item.SubItems[4].Text) != 0 
+                if (item.SubItems[12].Text.Length > 0 && Convert.ToDecimal(item.SubItems[4].Text) != 0
                     && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
                     && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_EWALLET && item.SubItems[7].Text != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
                 {
@@ -304,13 +304,13 @@ namespace SampleRPT1
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
                 }
 
-                else if(cboStatus.Text == RPTStatus.PAYMENT_VALIDATION)
+                else if (cboStatus.Text == RPTStatus.PAYMENT_VALIDATION)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(encodedDateFrom, encodedDateTo, StatusList);
                 }
 
                 // filter by for assessment and date range and encoded by.
-                else if(cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
+                else if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
                 }
@@ -322,7 +322,7 @@ namespace SampleRPT1
                 }
 
                 // filter by for or pickup and date range and uploaded date.
-                else if(cboStatus.Text == RPTStatus.OR_PICKUP)
+                else if (cboStatus.Text == RPTStatus.OR_PICKUP)
                 {
                     rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, StatusList);
                 }
@@ -456,13 +456,12 @@ namespace SampleRPT1
 
         private void RPTInfoLV_DoubleClick(object sender, EventArgs e)
         {
-            if (RPTInfoLV.SelectedItems.Count > 0 && GlobalVariables.RPTUSER.isBiller &&
-                RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.FOR_ASSESSMENT ||
-                RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.ASSESSMENT_PRINTED ||
-                RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.BILL_SENT ||
-                RPTInfoLV.SelectedItems[0].SubItems[9].Text == RPTStatus.PAYMENT_VERIFICATION)
+            RealPropertyTax RetrieveRPT = RPTDatabase.Get(RptID);
+
+            if (RPTInfoLV.SelectedItems.Count > 0 && GlobalVariables.RPTUSER.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
+                RetrieveRPT.Status == RPTStatus.ASSESSMENT_PRINTED || RetrieveRPT.Status == RPTStatus.BILL_SENT || RetrieveRPT.Status == RPTStatus.PAYMENT_VERIFICATION)
             {
-                if (RPTInfoLV.SelectedItems[0].SubItems[12].Text.Length > 0)
+                if (RPTInfoLV.SelectedItems[0].SubItems[13].Text.Length > 0)
                 {
                     string taxDecList = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
 
@@ -470,7 +469,6 @@ namespace SampleRPT1
                     updateMultipleRPTForm.setParent(this);
                     updateMultipleRPTForm.ShowDialog();
                 }
-
                 else
                 {
                     List<long> RptIDList = new List<long>();

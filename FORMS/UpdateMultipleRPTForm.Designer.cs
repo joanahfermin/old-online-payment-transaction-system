@@ -57,6 +57,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSaveUpdate = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +72,7 @@
             this.taxpayerName,
             this.Amount2Pay,
             this.YearQuarter,
+            this.qtr,
             this.paymentChannel,
             this.paymentDate,
             this.email});
@@ -77,7 +81,7 @@
             this.lvMultipleRecord.HideSelection = false;
             this.lvMultipleRecord.Location = new System.Drawing.Point(513, 22);
             this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(1264, 488);
+            this.lvMultipleRecord.Size = new System.Drawing.Size(1346, 488);
             this.lvMultipleRecord.TabIndex = 1;
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
@@ -248,7 +252,7 @@
             this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textYearQuarter.Location = new System.Drawing.Point(155, 240);
             this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(126, 20);
+            this.textYearQuarter.Size = new System.Drawing.Size(80, 20);
             this.textYearQuarter.TabIndex = 204;
             // 
             // textTDN
@@ -262,6 +266,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboQuarter);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnSaveUpdate);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.cboBankUsed);
@@ -297,11 +303,34 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // qtr
+            // 
+            this.qtr.Text = "Quarter";
+            this.qtr.Width = 80;
+            // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(294, 239);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 213;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(241, 247);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 13);
+            this.label3.TabIndex = 212;
+            this.label3.Text = "Quarter: ";
+            // 
             // UpdateMultipleRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1795, 529);
+            this.ClientSize = new System.Drawing.Size(1871, 529);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lvMultipleRecord);
@@ -344,5 +373,8 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ColumnHeader paymentChannel;
         private System.Windows.Forms.ColumnHeader paymentDate;
+        private System.Windows.Forms.ColumnHeader qtr;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -26,6 +26,18 @@ namespace SampleRPT1
             parentForm = GlobalVariables.MAINFORM;
             labelRPTID.Visible = false;
             textRPTID.Visible = false;
+            btnSave.Visible = false;
+
+            InitializeQuarter();
+        }
+
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
         }
 
         /// <summary>
@@ -370,9 +382,10 @@ namespace SampleRPT1
                         RetrievedRpt.BilledDate = DateTime.Now;
                         RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
                         RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+                        RetrievedRpt.Quarter = cboQuarter.Text;
 
-                        //TO DO
-                        RetrievedRpt.Quarter = "1-4";
+                        ////TO DO
+                        //RetrievedRpt.Quarter = "1-4";
                         RetrievedRpt.RefNum = refNo;
 
                         RPTDatabase.Insert(RetrievedRpt);
@@ -389,9 +402,10 @@ namespace SampleRPT1
                         rpt.AmountTransferred = AmountDue;
                         rpt.Bank = ServiceProvider;
                         rpt.YearQuarter = YearQuarter;
+                        rpt.Quarter = cboQuarter.Text;
 
-                        //TO DO
-                        rpt.Quarter = "1-4";
+                        ////TO DO
+                        //rpt.Quarter = "1-4";
                         rpt.BillCount = textBillQuantity.Text;
                         rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                         rpt.RequestingParty = textEmailAddress.Text;

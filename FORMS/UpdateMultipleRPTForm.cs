@@ -21,6 +21,7 @@ namespace SampleRPT1
         public UpdateMultipleRPTForm(string taxdec)
         {
             InitializeComponent();
+
             this.taxdec = taxdec;
             InitializeBank();
             cboBankUsed.SelectedIndex = 0;
@@ -29,6 +30,7 @@ namespace SampleRPT1
             PopulateListView(rptList);
 
             ComputeAllPayment();
+            InitializeQuarter();
         }
 
         public void setParent(MainForm mainForm)
@@ -46,10 +48,19 @@ namespace SampleRPT1
             }
         }
 
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
+        }
+
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvMultipleRecord, new List<string>
-            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "YearQuarter", "Bank", "PaymentDate", "RequestingParty",});
+            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty",});
         }
 
         private void ComputeAllPayment()
@@ -80,9 +91,12 @@ namespace SampleRPT1
                 textTDN.Text = rpt.TaxDec.ToString();
                 textTPName.Text = rpt.TaxPayerName;
                 textYearQuarter.Text = rpt.YearQuarter;
+                cboQuarter.SelectedIndex = 3;
                 cboBankUsed.Text = rpt.Bank;
                 dtDateOfPayment.Value = rpt.PaymentDate.Value;
                 textRequestingParty.Text = rpt.RequestingParty;
+
+                Clipboard.SetText(textTDN.Text);
             }
         }
 
@@ -108,6 +122,7 @@ namespace SampleRPT1
 
             rpt.RequestingParty = textRequestingParty.Text;
             rpt.Bank = cboBankUsed.Text;
+            rpt.Quarter = cboQuarter.Text;
 
             RPTDatabase.Update(rpt);
 

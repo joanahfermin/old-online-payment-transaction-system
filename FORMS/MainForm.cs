@@ -716,16 +716,16 @@ namespace SampleRPT1
         private List<RealPropertyTax> GetSelectedRPTByStatus(string ExpectedStatus)
         {
             List<RealPropertyTax> SelectedRPTByStatus = new List<RealPropertyTax>();
-            RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
             for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
             {
+                string RptId = RPTInfoLV.SelectedItems[i].Text;
+                RptID = Convert.ToInt32(RptId);
+
+                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+
                 if (rpt.Status == ExpectedStatus)
                 {
-                    string RptId = RPTInfoLV.SelectedItems[i].Text;
-                    RptID = Convert.ToInt32(RptId);
-
-                    //RealPropertyTax rpt = RPTDatabase.Get(RptID);
                     SelectedRPTByStatus.Add(rpt);
                 }
             }
@@ -785,6 +785,8 @@ namespace SampleRPT1
 
                 foreach (var rpt in SelectedRPTList)
                 {
+                    //MessageBox.Show(rpt.RptID.ToString());
+
                     if (rpt.AmountTransferred != 0)
                     {
                         rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;

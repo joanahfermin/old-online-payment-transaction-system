@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace SampleRPT1.FORMS
 {
     public partial class SendEmailForm : Form
     {
-        MainForm parentForm;
+        private RPTUser loginUser = SecurityService.getLoginUser();
 
         List<long> RptiDList = new List<long>();
 
@@ -23,7 +24,6 @@ namespace SampleRPT1.FORMS
         {
             InitializeComponent();
             this.RptiDList = RptIDList;
-            parentForm = GlobalVariables.MAINFORM;
             InitializeTemplates();
         }
 
@@ -73,7 +73,7 @@ namespace SampleRPT1.FORMS
             if (template != null)
             {
                 textSubject.Text = template.Subject;
-                richTextBox1.Text = template.Body + "\n\n\n" + GlobalVariables.RPTUSER.DisplayName + "-CTO";
+                richTextBox1.Text = template.Body + "\n\n\n" + loginUser.DisplayName + "-CTO";
 
                 btnSendAssessment.Enabled = false;
                 btnSendReceipt.Enabled = false;
@@ -175,7 +175,7 @@ namespace SampleRPT1.FORMS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.BILL_SENT;
-                    rpt.SentBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.SentBy = loginUser.DisplayName;
                     rpt.SentDate = DateTime.Now;
                     SentTo = SentTo + rpt.RequestingParty + " ";
 
@@ -212,12 +212,12 @@ namespace SampleRPT1.FORMS
 
         private void RefreshMainListviewStatusBillSent()
         {
-            parentForm.SearchBillSent();
+            MainForm.INSTANCE.SearchBillSent();
         }
 
         private void RefreshMainListviewStatusORPickup()
         {
-            parentForm.SearchORPickup();
+            MainForm.INSTANCE.SearchORPickup();
         }
 
         /// <summary>

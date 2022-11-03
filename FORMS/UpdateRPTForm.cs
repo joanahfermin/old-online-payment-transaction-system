@@ -14,8 +14,6 @@ namespace SampleRPT1
 {
     public partial class UpdateRPTForm : Form
     {
-        MainForm parentForm;
-
         List<RealPropertyTax> RptList = new List<RealPropertyTax>();
         private static string MULTIPLE_MARKER = "***";
         private static DateTime MULTIPLE_MARKERDATE = DateTime.Parse("01/01/1900");
@@ -52,11 +50,6 @@ namespace SampleRPT1
                 cboQuarter.Items.Add(quarter);
             }
             cboQuarter.SelectedIndex = 3;
-        }
-
-        public void setParent(MainForm mainForm)
-        {
-            parentForm = mainForm;
         }
 
         private void validateForm()
@@ -269,7 +262,7 @@ namespace SampleRPT1
 
                 RPTDatabase.Update(rpt);
             }
-            parentForm.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
 
             Close();
         }

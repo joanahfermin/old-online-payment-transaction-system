@@ -12,13 +12,25 @@ namespace SampleRPT1.FORMS
 {
     public partial class ViewHistoryForm : Form
     {
+        public static ViewHistoryForm INSTANCE;
+
         private long RptID;
         private long AuditID;
         private List<RealPropertyTaxAudit> auditList;
 
-        public ViewHistoryForm()
+        public ViewHistoryForm(Form parentForm)
         {
             InitializeComponent();
+
+            INSTANCE = this;
+            MdiParent = parentForm;
+            ControlBox = false;
+        }
+
+        public void Show()
+        {
+            base.Show();
+            WindowState = FormWindowState.Maximized;
         }
 
         public void setRpdID(long RptID)
@@ -91,9 +103,8 @@ namespace SampleRPT1.FORMS
 
             RPTDatabase.Revert(audit);
             MessageBox.Show("Success.");
-            GlobalVariables.MAINFORM.RefreshListView();
-            GlobalVariables.MAINFORM.Show();
-            GlobalVariables.MAINFORM.WindowState = FormWindowState.Maximized;
+            MainForm.INSTANCE.RefreshListView();
+            MainForm.INSTANCE.Show();
         }
     }
 }

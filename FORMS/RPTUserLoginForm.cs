@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,12 @@ namespace SampleRPT1
 {
     public partial class RPTUserLoginForm : Form
     {
+        public static RPTUserLoginForm INSTANCE;
+
         public RPTUserLoginForm()
         {
             InitializeComponent();
+            INSTANCE = this;
         }
 
         /// <summary>
@@ -27,21 +31,15 @@ namespace SampleRPT1
             string userName = textUserName.Text.Trim();
             string passWord = textPassWord.Text.Trim();
 
-            RPTUser rptUser = RPTUserDatabase.FindByUserName(userName);
+            try
+            {
+                SecurityService.login(userName, passWord);
+            } catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             
-            if (rptUser == null)
-            {
-                MessageBox.Show("Invalid Username.");
-                return;
-            }
-            if (rptUser.PassWord != passWord)
-            {
-                MessageBox.Show("Invalid Password.");
-                return;
-            }
-            GlobalVariables.RPTUSER = rptUser;
             ParentForm parentForm = new ParentForm();
-            parentForm.SetLoginForm(this);
             parentForm.Show();
             this.Hide();
         }

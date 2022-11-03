@@ -1,4 +1,5 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,28 @@ namespace SampleRPT1.FORMS
 {
     public partial class ReviewEmailForm : Form
     {
+        public static ReviewEmailForm INSTANCE;
+
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         private Timer AutoRefreshListViewTimer;
 
-        public ReviewEmailForm()
+        public ReviewEmailForm(Form parentForm)
         {
             InitializeComponent();
 
+            INSTANCE = this;
+            MdiParent = parentForm;
+            ControlBox = false;
+
+
             InitializeAutoRefreshListViewTimer();
+        }
+
+        public void Show()
+        {
+            base.Show();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void InitializeAutoRefreshListViewTimer()
@@ -176,7 +192,7 @@ namespace SampleRPT1.FORMS
         {
             btnConfirm.Visible = false;
 
-            if (GlobalVariables.RPTUSER.isAutomatedEmailSender)
+            if (loginUser.isAutomatedEmailSender)
             {
                 btnConfirm.Visible = true;
             }

@@ -1,4 +1,5 @@
 ﻿using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,13 @@ namespace SampleRPT1
 {
     public partial class AddMultipleOnePaymentForm : Form
     {
-        MainForm parentForm;
+        private RPTUser loginUser = SecurityService.getLoginUser();
 
         public AddMultipleOnePaymentForm()
         {
             InitializeComponent();
             InitializeBank();
             InitializeQuarter();
-        }
-        public void setParent(MainForm mainForm)
-        {
-            parentForm = mainForm;
         }
 
         /// <summary>
@@ -189,7 +186,7 @@ namespace SampleRPT1
                 rpt.Status = Status;
                 rpt.RequestingParty = textRequestingParty.Text.Trim();
 
-                rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+                rpt.EncodedBy = loginUser.DisplayName;
                 rpt.EncodedDate = DateTime.Now;
                 rpt.RefNum = refNo;
 
@@ -209,7 +206,7 @@ namespace SampleRPT1
             textRequestingParty.Clear();
             textTotalAmountDeposited.Clear();
 
-            parentForm.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
             this.Close();
         }
 

@@ -11,11 +11,16 @@ using SampleRPT1.FORMS;
 using SampleRPT1.UTILITIES;
 using System.IO;
 using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 
 namespace SampleRPT1
 {
     public partial class MainForm : Form
     {
+        public static MainForm INSTANCE;
+
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         private const String BANK_TRANSFER = "BANK TRANSFER";
         private const String SEARCH_BY_TAXDEC = "SEARCH_BY_TAXDEC";
         private const String SEARCH_BY_DATE_STATUS = "SEARCH_BY_DATE_STATUS";
@@ -24,9 +29,14 @@ namespace SampleRPT1
         private long RptID;
         private Timer AutoRefreshListViewTimer;
 
-        public MainForm()
+        public MainForm(Form parentForm)
         {
             InitializeComponent();
+
+            INSTANCE = this;
+            WindowState = FormWindowState.Maximized;
+            MdiParent = parentForm;
+            ControlBox = false;
 
             dtDate.Value = DateTime.Now;
             dtDateTo.Value = DateTime.Now;
@@ -58,6 +68,12 @@ namespace SampleRPT1
             InitializeEncodedBy();
             InitializeAutoRefreshListViewTimer();
             InitializeValidator();
+        }
+
+        public void Show()
+        {
+            base.Show();
+            WindowState = FormWindowState.Maximized;
         }
 
         private void InitializeAutoRefreshListViewTimer()
@@ -94,35 +110,35 @@ namespace SampleRPT1
         /// </summary>
         public void InitializeAction()
         {
-            if (GlobalVariables.RPTUSER.isBiller)
+            if (loginUser.isBiller)
             {
                 cboAction.Items.Add(RPTAction.BILL_NO_POP);
                 cboAction.Items.Add(RPTAction.BILL_WITH_POP);
             }
 
-            if (GlobalVariables.RPTUSER.isEncoder)
+            if (loginUser.isEncoder)
             {
                 cboAction.Items.Add(RPTAction.MANUAL_SEND_BILL);
             }
 
-            if (GlobalVariables.RPTUSER.isUploader)
+            if (loginUser.isUploader)
             {
                 cboAction.Items.Add(RPTAction.MANUAL_SEND_OR);
             }
 
-            if (GlobalVariables.RPTUSER.isVerifier)
+            if (loginUser.isVerifier)
             {
                 cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
                 cboAction.SelectedIndex = 0;
             }
 
-            if (GlobalVariables.RPTUSER.isValidator)
+            if (loginUser.isValidator)
             {
                 cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
                 cboAction.SelectedIndex = 0; ;
             }
 
-            if (GlobalVariables.RPTUSER.canDelete)
+            if (loginUser.canDelete)
             {
                 btnDelete.Visible = true;
             }
@@ -140,7 +156,7 @@ namespace SampleRPT1
         {
             cboPaymentChannel.Items.Clear();
 
-            if (GlobalVariables.RPTUSER.isVerifier)
+            if (loginUser.isVerifier)
             {
                 cboPaymentChannel.Visible = true;
 
@@ -348,8 +364,6 @@ namespace SampleRPT1
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
             AddRPTForm addRPTForm = new AddRPTForm();
-            addRPTForm.setParent(this);
-
             addRPTForm.ShowDialog();
         }
 
@@ -458,7 +472,7 @@ namespace SampleRPT1
         {
             RealPropertyTax RetrieveRPT = RPTDatabase.Get(RptID);
 
-            if (RPTInfoLV.SelectedItems.Count > 0 && GlobalVariables.RPTUSER.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
+            if (RPTInfoLV.SelectedItems.Count > 0 && loginUser.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
                 RetrieveRPT.Status == RPTStatus.ASSESSMENT_PRINTED || RetrieveRPT.Status == RPTStatus.BILL_SENT || RetrieveRPT.Status == RPTStatus.PAYMENT_VERIFICATION)
             {
                 if (RetrieveRPT.RefNum != null)
@@ -466,7 +480,6 @@ namespace SampleRPT1
                     string taxDecList = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
 
                     UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(taxDecList);
-                    updateMultipleRPTForm.setParent(this);
                     updateMultipleRPTForm.ShowDialog();
                 }
                 else
@@ -482,7 +495,6 @@ namespace SampleRPT1
                     }
 
                     UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptIDList);
-                    updateRPTForm.setParent(this);
                     updateRPTForm.ShowDialog();
                 }
             }
@@ -789,7 +801,7 @@ namespace SampleRPT1
 
                     if (rpt.AmountTransferred != 0)
                     {
-                        rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.BilledBy = loginUser.DisplayName;
                         rpt.BilledDate = DateTime.Now;
                         rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                         rpt.BillCount = textNumOfBills.Text;
@@ -832,7 +844,7 @@ namespace SampleRPT1
                 {
                     if (rpt.AmountTransferred == 0)
                     {
-                        rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.BilledBy = loginUser.DisplayName;
                         rpt.BilledDate = DateTime.Now;
                         rpt.Status = RPTStatus.ASSESSMENT_PRINTED;
                         rpt.BillCount = textNumOfBills.Text;
@@ -869,7 +881,7 @@ namespace SampleRPT1
                 {
                     if (rpt.AmountTransferred == 0)
                     {
-                        rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.BilledBy = loginUser.DisplayName;
                         rpt.BilledDate = DateTime.Now;
                         rpt.Status = RPTStatus.BILL_SENT;
 
@@ -900,7 +912,7 @@ namespace SampleRPT1
 
                 foreach (var rpt in SelectedRPTList)
                 {
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.UploadedBy = loginUser.DisplayName;
                     rpt.UploadedDate = DateTime.Now;
                     rpt.Status = RPTStatus.OR_PICKUP;
 
@@ -935,7 +947,7 @@ namespace SampleRPT1
 
                 foreach (var rpt in SelectedRPTList)
                 {
-                    rpt.VerifiedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.VerifiedBy = loginUser.DisplayName;
                     rpt.VerifiedDate = DateTime.Now;
                     rpt.Status = RPTStatus.PAYMENT_VALIDATION;
                     rpt.VerRemarks = textRemarks.Text;
@@ -971,7 +983,7 @@ namespace SampleRPT1
 
                 foreach (var rpt in SelectedRPTList)
                 {
-                    rpt.ValidatedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.ValidatedBy = loginUser.DisplayName;
                     rpt.ValidatedDate = DateTime.Now;
                     rpt.Status = RPTStatus.OR_UPLOAD;
                     rpt.ValRemarks = textRemarks.Text;
@@ -1007,7 +1019,6 @@ namespace SampleRPT1
         private void btnMultipleRecordOnePayment_Click(object sender, EventArgs e)
         {
             AddMultipleOnePaymentForm addMultipleOnePayment = new AddMultipleOnePaymentForm();
-            addMultipleOnePayment.setParent(this);
             addMultipleOnePayment.ShowDialog();
         }
 
@@ -1136,7 +1147,7 @@ namespace SampleRPT1
                     else
                     {
                         documentType = DocumentType.RECEIPT;
-                        rpt.UploadedBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.UploadedBy = loginUser.DisplayName;
                         VerAndValLV.SelectedItems[0].SubItems[11].Text = rpt.UploadedBy;
 
                         RPTDatabase.Update(rpt);

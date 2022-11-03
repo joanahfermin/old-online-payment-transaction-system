@@ -7,6 +7,7 @@ using Dapper.Contrib.Extensions;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 
 namespace SampleRPT1
 {
@@ -249,10 +250,11 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                RPTUser loginUser = SecurityService.getLoginUser();
                 //Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
-                modelInstance.CreatedBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.CreatedBy = loginUser.DisplayName;
                 modelInstance.CreatedDate = DateTime.Now;
-                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateBy = loginUser.DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
 
                 //lilinisin yung bank.
@@ -303,7 +305,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
 
                 BeforeInsertOrUpdate(modelInstance);
@@ -323,7 +325,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 modelInstance.DeletedRecord = 1;
-                modelInstance.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
                 bool result = conn.Update<RealPropertyTax>(modelInstance);
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "DELETE");
@@ -394,7 +396,7 @@ namespace SampleRPT1
                 RealPropertyTax rpt = Get(audit.RptID);
                 copyAuditToRpt(audit, rpt);
 
-                rpt.LastUpdateBy = GlobalVariables.RPTUSER.DisplayName;
+                rpt.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 rpt.LastUpdateDate = DateTime.Now;
                 conn.Update<RealPropertyTax>(rpt);
                 AfterInsertOrUpdateOrDelete(conn, rpt, "REVERT");

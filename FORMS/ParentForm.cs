@@ -13,22 +13,15 @@ namespace SampleRPT1
 {
     public partial class ParentForm : Form
     {
-        RPTUserLoginForm loginForm;
-        MainForm mainForm;
-        ReleasingForm releasingForm;
-        ReviewEmailForm reviewEmailForm;
-        ViewHistoryForm viewHistoryForm;
+        public static ParentForm INSTANCE;
 
         public ParentForm()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            INSTANCE = this;
         }
 
-        public void SetLoginForm(RPTUserLoginForm _loginForm)
-        {
-            this.loginForm = _loginForm;
-        }
         private void ParentForm_Load(object sender, EventArgs e)
         {
             this.menuStrip1.Items.OfType<ToolStripMenuItem>().ToList().ForEach(x =>
@@ -36,19 +29,15 @@ namespace SampleRPT1
                 x.MouseHover += (obj, arg) => ((ToolStripDropDownItem)obj).ShowDropDown();
             });
             CreateOrShowMainForm();
-            GlobalVariables.MAINFORM = mainForm;
         }
 
         private void CreateOrShowMainForm()
         {
-            if (mainForm == null)
+            if (MainForm.INSTANCE == null)
             {
-                mainForm = new MainForm();
-                mainForm.MdiParent = this;
-                mainForm.ControlBox = false;
+                new MainForm(this);
             }
-            mainForm.Show();
-            mainForm.WindowState = FormWindowState.Maximized;
+            MainForm.INSTANCE.Show();
         }
 
         private void MenuItemHome_Click(object sender, EventArgs e)
@@ -64,17 +53,17 @@ namespace SampleRPT1
 
         private void MenuItemAllocateExcess_Click(object sender, EventArgs e)
         {
-            mainForm.AllocateExcess();
+            MainForm.INSTANCE.AllocateExcess();
         }
 
         private void MenuItemAllocateBalance_Click(object sender, EventArgs e)
         {
-            mainForm.AllocateShort();
+            MainForm.INSTANCE.AllocateShort();
         }
 
         private void MenuItemSendEmail_Click(object sender, EventArgs e)
         {
-            mainForm.SendEmail();
+            MainForm.INSTANCE.SendEmail();
         }
 
         private void MenuItemEmailTemplate_Click(object sender, EventArgs e)
@@ -87,43 +76,32 @@ namespace SampleRPT1
         private void ParentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // When parent form is closed, we should also close the invisible login form
-            if (loginForm!=null)
+            if (RPTUserLoginForm.INSTANCE != null)
             {
-                loginForm.Close();
+                RPTUserLoginForm.INSTANCE.Close();
             }
 		}
         private void ReleasingMenuItem_Click(object sender, EventArgs e)
         {
-            //ReleasingForm releasingForm = new ReleasingForm();
-            //releasingForm.ShowDialog();
-
-            if (releasingForm == null)
+            if (ReleasingForm.INSTANCE == null)
             {
-                releasingForm = new ReleasingForm();
-                releasingForm.MdiParent = this;
-                releasingForm.ControlBox = false;
+                new ReleasingForm(this);
             }
-            releasingForm.Show();
-            releasingForm.WindowState = FormWindowState.Maximized;
-
+            ReleasingForm.INSTANCE.Show();
         }
 
         private void MenuItemReviewEmail_Click(object sender, EventArgs e)
         {
-            //MenuItemReviewEmail
-            if (reviewEmailForm == null)
+            if (ReviewEmailForm.INSTANCE == null)
             {
-                reviewEmailForm = new ReviewEmailForm();
-                reviewEmailForm.MdiParent = this;
-                reviewEmailForm.ControlBox = false;
+                new ReviewEmailForm(this);
             }
-            reviewEmailForm.Show();
-            reviewEmailForm.WindowState = FormWindowState.Maximized;
+            ReviewEmailForm.INSTANCE.Show();
         }
 
         private void historyMenuItem_Click(object sender, EventArgs e)
         {
-            long RptID = GlobalVariables.MAINFORM.getSelectedRptID();
+            long RptID = MainForm.INSTANCE.getSelectedRptID();
 
             if (RptID == 0)
             {
@@ -132,16 +110,13 @@ namespace SampleRPT1
 
             else
             {
-                if (viewHistoryForm == null)
+                if (ViewHistoryForm.INSTANCE == null)
                 {
-                    viewHistoryForm = new ViewHistoryForm();
-                    viewHistoryForm.MdiParent = this;
-                    viewHistoryForm.ControlBox = false;
+                    new ViewHistoryForm(this);
                 }
 
-                viewHistoryForm.Show();
-                viewHistoryForm.setRpdID(RptID);
-                viewHistoryForm.WindowState = FormWindowState.Maximized;
+                ViewHistoryForm.INSTANCE.Show();
+                ViewHistoryForm.INSTANCE.setRpdID(RptID);
             }
         }
     }

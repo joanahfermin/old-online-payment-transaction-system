@@ -14,7 +14,6 @@ namespace SampleRPT1
 {
     public partial class UpdateMultipleRPTForm : Form
     {
-        MainForm parentForm;
         long RptiD;
         string taxdec;
 
@@ -31,11 +30,6 @@ namespace SampleRPT1
 
             ComputeAllPayment();
             InitializeQuarter();
-        }
-
-        public void setParent(MainForm mainForm)
-        {
-            parentForm = mainForm;
         }
 
         public void InitializeBank()
@@ -130,7 +124,7 @@ namespace SampleRPT1
 
             RefreshListview();
 
-            parentForm.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
 
             textTDN.Clear();
             textTPName.Clear();

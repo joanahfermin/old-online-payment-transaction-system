@@ -1,4 +1,5 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,8 @@ namespace SampleRPT1
 {
     public partial class AddRecordGCASHPAYMAYAForm : Form
     {
-        MainForm parentForm;
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         public AddRecordGCASHPAYMAYAForm()
         {
             InitializeComponent();
@@ -23,7 +25,6 @@ namespace SampleRPT1
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
 
             dtTransactionPayment.Value = DateTime.Now;
-            parentForm = GlobalVariables.MAINFORM;
             labelRPTID.Visible = false;
             textRPTID.Visible = false;
             btnSave.Visible = false;
@@ -239,12 +240,12 @@ namespace SampleRPT1
 
         private void RefreshMainListviewTaxDec()
         {
-            parentForm.SearchByTaxDec(textTaxDec.Text);
+            MainForm.INSTANCE.SearchByTaxDec(textTaxDec.Text);
         }
 
         private void RefreshMainListviewStatus()
         {
-            parentForm.SearchPaymentVerification();
+            MainForm.INSTANCE.SearchPaymentVerification();
         }
 
         //Required fields. 
@@ -288,7 +289,7 @@ namespace SampleRPT1
 
                     RetrievedRpt.PaymentDate = dtTransactionPayment.Value;
 
-                    RetrievedRpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                    RetrievedRpt.BilledBy = loginUser.DisplayName;
                     RetrievedRpt.BilledDate = DateTime.Now;
                     RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
                     RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")".Trim();
@@ -313,10 +314,10 @@ namespace SampleRPT1
 
                     rpt.PaymentDate = dtTransactionPayment.Value;
 
-                    rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.EncodedBy = loginUser.DisplayName;
                     rpt.EncodedDate = DateTime.Now;
 
-                    rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.BilledBy = loginUser.DisplayName;
                     rpt.BilledDate = DateTime.Now;
                     rpt.RefNum = refNo;
 
@@ -378,7 +379,7 @@ namespace SampleRPT1
 
                         RetrievedRpt.PaymentDate = Convert.ToDateTime(TransactionDate);
 
-                        RetrievedRpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        RetrievedRpt.BilledBy = loginUser.DisplayName;
                         RetrievedRpt.BilledDate = DateTime.Now;
                         RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
                         RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
@@ -412,11 +413,11 @@ namespace SampleRPT1
 
                         rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
 
-                        rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.EncodedBy = loginUser.DisplayName;
                         rpt.EncodedDate = DateTime.Now;
 
                         rpt.RequestingParty = RequestingParty;
-                        rpt.BilledBy = GlobalVariables.RPTUSER.DisplayName;
+                        rpt.BilledBy = loginUser.DisplayName;
                         rpt.BilledDate = DateTime.Now;
                         rpt.RefNum = refNo;
 

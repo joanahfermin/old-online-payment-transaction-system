@@ -154,7 +154,7 @@ namespace SampleRPT1.FORMS
                     firstRecord = false;
                 }
             }
-            GlobalVariables.MAINFORM.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
             this.Close();
         }
 

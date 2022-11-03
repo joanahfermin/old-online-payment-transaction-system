@@ -306,6 +306,7 @@
     <Compile Include="FORMS\UpdateMultipleRPTForm.Designer.cs">
       <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\SecurityService.cs" />
     <Compile Include="UTILITIES\BusinessUtil.cs" />
     <Compile Include="UTILITIES\EventHelperUtil.cs" />
     <Compile Include="UTILITIES\FileUtils.cs" />
@@ -328,10 +329,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UTILITIES\RPTUserLoginForm.cs">
+    <Compile Include="FORMS\RPTUserLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UTILITIES\RPTUserLoginForm.Designer.cs">
+    <Compile Include="FORMS\RPTUserLoginForm.Designer.cs">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UTILITIES\DbUtils.cs" />
@@ -408,7 +409,7 @@
     <EmbeddedResource Include="FORMS\UpdateMultipleRPTForm.resx">
       <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UTILITIES\RPTUserLoginForm.resx">
+    <EmbeddedResource Include="FORMS\RPTUserLoginForm.resx">
       <DependentUpon>RPTUserLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

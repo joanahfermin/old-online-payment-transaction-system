@@ -13,10 +13,6 @@ namespace SampleRPT1
     /// </summary>
     internal class GlobalVariables
     {
-        public static RPTUser RPTUSER;
-
-        public static MainForm MAINFORM;
-
         // constant variables for the entire quarter of rpt.
         public const string FIRST_QUARTER = "1-1";
         public const string FIRSTQUARTER_TO_SECONDQUARTER = "1-2";

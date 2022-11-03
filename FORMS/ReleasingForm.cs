@@ -1,5 +1,6 @@
 ﻿using OpenCvSharp;
 using OpenCvSharp.Extensions;
+using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ namespace SampleRPT1.FORMS
 {
     public partial class ReleasingForm : Form
     {
+        public static ReleasingForm INSTANCE;
+
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         private long RptID;
 
         VideoCapture videoCapture;
@@ -24,9 +29,14 @@ namespace SampleRPT1.FORMS
         bool isCameraRunning = false;
         bool isCapturing = true;
 
-        public ReleasingForm()
+        public ReleasingForm(Form parentForm)
         {
             InitializeComponent();
+
+            INSTANCE = this;
+            MdiParent = parentForm;
+            ControlBox = false;
+
             dtDate.Value = DateTime.Now;
             dtDateTo.Value = DateTime.Now;
 
@@ -34,6 +44,12 @@ namespace SampleRPT1.FORMS
             InitializeAction();
             cboStatus.Enabled = false;
             cboAction.Enabled = false;
+        }
+
+        public void Show()
+        {
+            base.Show();
+            WindowState = FormWindowState.Maximized;
         }
 
         public void InitializeStatus()
@@ -174,7 +190,7 @@ namespace SampleRPT1.FORMS
 
                 foreach (var rpt in SelectedRPTList)
                 {
-                    rpt.ReleasedBy = GlobalVariables.RPTUSER.DisplayName;
+                    rpt.ReleasedBy = loginUser.DisplayName;
                     rpt.ReleasedDate = DateTime.Now;
                     rpt.Status = RPTStatus.RELEASED;
                     rpt.RepName = textRepName.Text;
@@ -196,7 +212,7 @@ namespace SampleRPT1.FORMS
             textRepContactNum.Clear();
             checkAutLetter.Checked = false;
 
-            GlobalVariables.MAINFORM.SearchReleased();
+            MainForm.INSTANCE.SearchReleased();
             RefreshListView();
         }
 

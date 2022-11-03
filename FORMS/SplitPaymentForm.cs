@@ -51,7 +51,7 @@ namespace SampleRPT1.FORMS
 
             RPTDatabase.Insert(rpt);
 
-            GlobalVariables.MAINFORM.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
         }
     }
 }

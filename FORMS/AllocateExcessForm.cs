@@ -1,4 +1,5 @@
-﻿using SampleRPT1.UTILITIES;
+﻿using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,13 @@ namespace SampleRPT1.FORMS
 {
     public partial class AllocateExcessForm : Form
     {
-        MainForm parentForm;
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         long RptId;
 
         public AllocateExcessForm()
         {
             InitializeComponent();
-            parentForm = GlobalVariables.MAINFORM;
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace SampleRPT1.FORMS
             RetrieveRpt.ExcessShortAmount = ExcessShortAmount - RetrieveRpt.AmountToPay;
             RetrieveRpt.TotalAmountTransferred = Convert.ToDecimal(textAmount2Pay.Text);
             RetrieveRpt.Status = RPTStatus.FOR_ASSESSMENT;
-            RetrieveRpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+            RetrieveRpt.EncodedBy = loginUser.DisplayName;
             RetrieveRpt.EncodedDate = DateTime.Now;
 
             RPTDatabase.Insert(RetrieveRpt);
@@ -82,7 +83,7 @@ namespace SampleRPT1.FORMS
             textAmount2Pay.Clear();
             textTDN.Clear();
 
-            parentForm.RefreshListView();
+            MainForm.INSTANCE.RefreshListView();
 
             this.Close();    
         }

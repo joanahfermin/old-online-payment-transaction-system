@@ -1,4 +1,5 @@
 ﻿using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace SampleRPT1
 {
     public partial class AddRPTForm : Form
     {
-        MainForm parentForm;
+        private RPTUser loginUser = SecurityService.getLoginUser();
 
         public AddRPTForm()
         {
@@ -43,10 +44,6 @@ namespace SampleRPT1
             cboQuarter.SelectedIndex = 3;
         }
 
-        public void setParent(MainForm mainForm)
-        {
-            parentForm = mainForm;
-        }
 
         /// <summary>
         /// Auto-suggests the word being typed in the bank combobox.
@@ -113,7 +110,7 @@ namespace SampleRPT1
             rpt.RequestingParty = textRequestingParty.Text.Trim();
             rpt.RPTremarks = textRemarks.Text.Trim();
 
-            rpt.EncodedBy = GlobalVariables.RPTUSER.DisplayName;
+            rpt.EncodedBy = loginUser.DisplayName;
             rpt.EncodedDate = DateTime.Now;
 
             //If payment exceeds the amount to pay, generate a reference number. 
@@ -150,7 +147,7 @@ namespace SampleRPT1
 
             CheckUncheckDateOfPayment();
 
-            parentForm.SearchForAssessment();
+            MainForm.INSTANCE.SearchForAssessment();
         }
 
         /// <summary>

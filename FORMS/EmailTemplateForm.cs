@@ -12,13 +12,11 @@ namespace SampleRPT1.FORMS
 {
     public partial class EmailTemplateForm : Form
     {
-        MainForm parentForm;
         long TemplateID;
         public EmailTemplateForm()
         {
             InitializeComponent();
             InitializeData();
-            parentForm = GlobalVariables.MAINFORM;
         }
 
         /// <summary>

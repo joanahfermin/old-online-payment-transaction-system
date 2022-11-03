@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,9 @@ namespace SampleRPT1.JOBS
 
         private async void RunAutoEmailLogic()
         {
-            if (GlobalVariables.RPTUSER == null || !GlobalVariables.RPTUSER.isAutomatedEmailSender)
+            RPTUser loginUser = SecurityService.getLoginUser();
+
+            if (loginUser == null || !loginUser.isAutomatedEmailSender)
             {
                 // If user is not yet logged in, or user does not have rights for automated email sending
                 // then do nothing.
@@ -64,6 +67,8 @@ namespace SampleRPT1.JOBS
         //Send email of status: ASSESSMENT PRINTED in the background. 
         public void SendAssessment()
         {
+            RPTUser loginUser = SecurityService.getLoginUser();
+
             List<RealPropertyTax> ListOfretrieveAssessmentSendEmail = RPTDatabase.SelectAssessmentSendEmail();
 
             EmailTemplate AssessmentTemplate = EmailTemplateDatabase.SelectAssessmentTemplate();
@@ -77,7 +82,7 @@ namespace SampleRPT1.JOBS
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.BILL_SENT;
-                    rpt.UploadedBy = GlobalVariables.RPTUSER.UserName;
+                    rpt.UploadedBy = loginUser.UserName;
                     rpt.UploadedDate = DateTime.Now;
                     //rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
 

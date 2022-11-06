@@ -78,9 +78,7 @@ namespace SampleRPT1.FORMS
         /// </summary>
         public void RefreshListView()
         {
-            List<string> StatusList = new List<string>();
-
-            StatusList.Add(cboStatus.Text);
+            string Status = cboStatus.Text;
 
             List<RealPropertyTax> rptList;
 
@@ -90,12 +88,12 @@ namespace SampleRPT1.FORMS
                 DateTime encodedDateFrom = dtDate.Value;
                 DateTime encodedDateTo = dtDateTo.Value;
 
-                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
+                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, Status);
             }
             else
             {
                 dtDateTo.Enabled = false;
-                rptList = RPTDatabase.SelectByStatus(StatusList);
+                rptList = RPTDatabase.SelectByStatus(Status);
             }
             PopulateListView(rptList);
         }

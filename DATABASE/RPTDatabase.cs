@@ -82,34 +82,34 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on date range and status.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatus(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatus(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList and DeletedRecord != 1 " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status and DeletedRecord != 1 " +
                     "ORDER BY RptID ASC";
                 return conn.Query<RealPropertyTax>(query, new { EncodedDateFrom = encodedDateFrom, EncodedDateTo = encodedDateTo, 
-                    StatusList = StatusList }).ToList();
+                    Status = Status }).ToList();
             }
         }
 
         /// <summary>
         /// Returns a list of records based on date range, status and paymentchannel.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndPaymentChannel(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList, List<string> PaymentChannelList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndPaymentChannel(DateTime encodedDateFrom, DateTime encodedDateTo, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND Bank in @PaymentChannelList AND DeletedRecord != 1 " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND Bank in @BankList AND DeletedRecord != 1 " +
                     "ORDER BY BilledDate asc";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,
                     EncodedDateTo = encodedDateTo,
-                    StatusList = StatusList,
-                    PaymentChannelList = PaymentChannelList
+                    Status = Status,
+                    BankList = BankList
                 }).ToList();
             }
         }
@@ -117,18 +117,18 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on date range, status and encodedby.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndEncodedBy(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList, List<string> EncodedBy)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndEncodedBy(DateTime encodedDateFrom, DateTime encodedDateTo, string Status, string EncodedBy)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND EncodedBy in @EncodedBy AND DeletedRecord != 1 " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND EncodedBy = @EncodedBy AND DeletedRecord != 1 " +
                     "ORDER BY RptID ASC";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,
                     EncodedDateTo = encodedDateTo,
-                    StatusList = StatusList,
+                    Status = Status,
                     EncodedBy = EncodedBy
                 }).ToList();
             }
@@ -150,12 +150,12 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on selected status.
         /// </summary>
-        public static List<RealPropertyTax> SelectByStatus(List<string> StatusList)
+        public static List<RealPropertyTax> SelectByStatus(string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status in @StatusList and DeletedRecord != 1 ORDER BY RptID ASC";
-                return conn.Query<RealPropertyTax>(query, new { StatusList = StatusList }).ToList();
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status = @Status and DeletedRecord != 1 ORDER BY RptID ASC";
+                return conn.Query<RealPropertyTax>(query, new { Status = Status }).ToList();
             }
         }
 
@@ -426,18 +426,18 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER: for o.r pickup status.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList/*, List<string> UploadedDate*/)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND DeletedRecord != 1 " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                     "ORDER BY ValidatedDate ASC";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,
                     EncodedDateTo = encodedDateTo,
-                    StatusList = StatusList,
+                    Status = Status,
                     //UploadedDate = UploadedDate
                 }).ToList();
             }
@@ -448,35 +448,35 @@ namespace SampleRPT1
         /// ISAMA ANG UPLOADEDBY FROM ATTACHPICTURE TABLE
         /// 
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndValidatedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndValidatedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND DeletedRecord != 1 " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                     "ORDER BY ValidatedDate desc";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,
                     EncodedDateTo = encodedDateTo,
-                    StatusList = StatusList,
+                    Status = Status,
                 }).ToList();
             }
         }
 
 
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndVerifiedDate(DateTime encodedDateFrom, DateTime encodedDateTo, List<string> StatusList)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndVerifiedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status in @StatusList AND DeletedRecord != 1 " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                     "ORDER BY VerifiedDate desc";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,
                     EncodedDateTo = encodedDateTo,
-                    StatusList = StatusList,
+                    Status = Status,
                 }).ToList();
             }
         }

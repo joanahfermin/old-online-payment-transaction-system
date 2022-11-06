@@ -21,5 +21,18 @@ namespace SampleRPT1
 
         public static string[] E_PAYMENT_CHANNEL = { GCASH, PAYGATE_ONLINE_BANKING, PAYMAYA_EWALLET, PAYMAYA_VISTAMASTERCARD };
 
+        public static bool isNotElectronicBankName(String BankName)
+        {
+            if(BankName != RPTGcashPaymaya.GCASH && BankName != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
+                    && BankName != RPTGcashPaymaya.PAYMAYA_EWALLET && BankName != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

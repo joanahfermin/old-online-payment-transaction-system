@@ -26,33 +26,35 @@ namespace SampleRPT1
         private const String SEARCH_BY_DATE_STATUS = "SEARCH_BY_DATE_STATUS";
         private String lastSearchAction = "";
 
-        private long RptID;
         private Timer AutoRefreshListViewTimer;
 
+        MainFormListViewHelper mainFormListViewHelper;
         public MainForm(Form parentForm)
         {
             InitializeComponent();
+            mainFormListViewHelper = new MainFormListViewHelper(RPTInfoLV, VerAndValLV);
 
+            // Set instance and mdi related properties
             INSTANCE = this;
             WindowState = FormWindowState.Maximized;
             MdiParent = parentForm;
             ControlBox = false;
 
+            // default from and to date
             dtDate.Value = DateTime.Now;
             dtDateTo.Value = DateTime.Now;
+            dtDate.Checked = false;
+            dtDateTo.Enabled = false;
 
-            RefreshListView();
-            ShowPicture();
-
-            WindowState = FormWindowState.Maximized;
+            // Default Status to show
             cboStatus.Text = RPTStatus.FOR_ASSESSMENT;
+
+            // Initialize Invisible Controls
             cboPaymentChannel.Visible = false;
             labelPaymentChannel.Visible = false;
             cboValidator.Visible = false;
             labelValidatedBy.Visible = false;
 
-            dtDate.Checked = false;
-            dtDateTo.Enabled = false;
             textRemarks.Visible = false;
             LabelRemarks.Visible = false;
             btnDelete.Visible = false;
@@ -63,11 +65,16 @@ namespace SampleRPT1
             textContactNum.Visible = false;
             checkAutLetter.Visible = false;
 
+            // Load various supporting data
             InitializeStatus();
             InitializeAction();
             InitializeEncodedBy();
             InitializeAutoRefreshListViewTimer();
             InitializeValidator();
+
+            // Show content of list view
+            RefreshListView();
+            ShowPicture();
         }
 
         public void Show()
@@ -110,33 +117,12 @@ namespace SampleRPT1
         /// </summary>
         public void InitializeAction()
         {
-            if (loginUser.isBiller)
+            List<string> AllowedRptActions = SecurityService.getLoginUserAllowedRptActions();
+            foreach (string rptAction in AllowedRptActions)
             {
-                cboAction.Items.Add(RPTAction.BILL_NO_POP);
-                cboAction.Items.Add(RPTAction.BILL_WITH_POP);
+                cboAction.Items.Add(rptAction);
             }
-
-            if (loginUser.isEncoder)
-            {
-                cboAction.Items.Add(RPTAction.MANUAL_SEND_BILL);
-            }
-
-            if (loginUser.isUploader)
-            {
-                cboAction.Items.Add(RPTAction.MANUAL_SEND_OR);
-            }
-
-            if (loginUser.isVerifier)
-            {
-                cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
-                cboAction.SelectedIndex = 0;
-            }
-
-            if (loginUser.isValidator)
-            {
-                cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
-                cboAction.SelectedIndex = 0; ;
-            }
+            cboAction.SelectedIndex = 0;
 
             if (loginUser.canDelete)
             {
@@ -148,7 +134,7 @@ namespace SampleRPT1
         {
             List<RealPropertyTax> rptList = RPTDatabase.SelectLatest();
 
-            PopulateListView(rptList);
+            mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
         }
 
@@ -184,59 +170,6 @@ namespace SampleRPT1
             cboValidator.DroppedDown = false;
         }
 
-        private void PopulateListView(List<RealPropertyTax> rptList)
-        {
-            ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, RPTInfoLV, new List<string>
-            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-                "Bank", "YearQuarter", "Quarter", "Status",
-            "EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
-
-            ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, VerAndValLV, new List<string>
-            { "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
-               "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks"});
-
-            foreach (ListViewItem item in RPTInfoLV.Items)
-            {
-                //displaying of same reference number that colors the entire row, except for e-tranfer payments.
-                if (item.SubItems[12].Text.Length > 0 && Convert.ToDecimal(item.SubItems[4].Text) != 0
-                    && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
-                    && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_EWALLET && item.SubItems[7].Text != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
-                {
-                    item.BackColor = Color.LightYellow;
-                    VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
-                }
-
-                //displaying of same reference number but doesn't have b.ground color, these are gcash/paymaya and online banking.
-                if (item.SubItems[12].Text.Length > 0 && item.SubItems[7].Text != RPTGcashPaymaya.GCASH && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
-                    && item.SubItems[7].Text != RPTGcashPaymaya.PAYMAYA_EWALLET && item.SubItems[7].Text != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
-                {
-                    item.BackColor = Color.LightYellow;
-                    VerAndValLV.Items[item.Index].BackColor = Color.LightYellow;
-                }
-
-                //if row has balance, b.ground color: red. 
-                if (Convert.ToDecimal(item.SubItems[5].Text) != 0 && Convert.ToDecimal(item.SubItems[6].Text) < 0)
-                {
-                    item.BackColor = Color.LightCoral;
-                    //item.ForeColor = Color.White;
-                    VerAndValLV.Items[item.Index].BackColor = Color.LightCoral;
-                }
-                else if (Convert.ToDecimal(item.SubItems[5].Text) != 0 && Convert.ToDecimal(item.SubItems[6].Text) > 0)
-                {
-                    item.BackColor = Color.LightGreen;
-                    //item.ForeColor = Color.White;
-                    VerAndValLV.Items[item.Index].BackColor = Color.LightGreen;
-                }
-
-                //displaying of insufficient payment record.
-                if (Convert.ToDecimal(item.SubItems[4].Text) < Convert.ToDecimal(item.SubItems[3].Text) &&
-                    Convert.ToDecimal(item.SubItems[4].Text) != 0)
-                {
-                    item.BackColor = Color.LightCoral;
-                    VerAndValLV.Items[item.Index].BackColor = Color.LightCoral;
-                }
-            }
-        }
 
         public void SearchByTaxDec(String taxDec)
         {
@@ -270,11 +203,79 @@ namespace SampleRPT1
             lastSearchAction = SEARCH_BY_TAXDEC;
 
             string taxdec = textTDN.Text;
-
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
-
-            PopulateListView(rptList);
+            mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
+        }
+
+        private List<string> getBankList()
+        {
+            List<string> BankList = new List<string>();
+            string PaymentChannel = cboPaymentChannel.Text;
+
+            if (PaymentChannel == RPTGcashPaymaya.BANK_TRANSFER)
+            {
+                List<RPTBank> bankList = RPTBankDatabase.SelectAllNot_E_Banks();
+                foreach (RPTBank bank in bankList)
+                {
+                    BankList.Add(bank.BankName);
+                }
+            }
+            else
+            {
+                BankList.Add(PaymentChannel);
+            }
+
+            return BankList;
+        }
+
+        private List<RealPropertyTax> SearchByDateRangeAndStatus()
+        {
+            List<RealPropertyTax> rptList;
+
+            string Status = cboStatus.Text;
+            DateTime encodedDateFrom = dtDate.Value;
+            DateTime encodedDateTo = dtDateTo.Value;
+            string Action = cboAction.Text;
+            string EncodedBy = cboEncodedBy.Text;
+
+            // filter by verification of payment and payment channel.
+            if (Status == RPTStatus.PAYMENT_VERIFICATION && Action == RPTAction.VERIFY_PAYMENT)
+            {
+                List<string> BankList = getBankList();
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, Status, BankList);
+            }
+
+            else if (Status == RPTStatus.PAYMENT_VALIDATION)
+            {
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(encodedDateFrom, encodedDateTo, Status);
+            }
+
+            // filter by for assessment and date range and encoded by.
+            else if (Status == RPTStatus.FOR_ASSESSMENT)
+            {
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, Status, EncodedBy);
+            }
+
+            // filter by for or upload and date range and validated date.
+            else if (Status == RPTStatus.OR_UPLOAD)
+            {
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndValidatedDate(encodedDateFrom, encodedDateTo, Status);
+            }
+
+            // filter by for or pickup and date range and uploaded date.
+            else if (Status == RPTStatus.OR_PICKUP)
+            {
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, Status);
+            }
+
+            // filter by status and date range.
+            else
+            {
+                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, Status);
+            }
+
+            return rptList;
         }
 
         /// <summary>
@@ -284,80 +285,20 @@ namespace SampleRPT1
         {
             lastSearchAction = SEARCH_BY_DATE_STATUS;
 
-            List<string> StatusList = new List<string>();
-            StatusList.Add(cboStatus.Text);
-
-            List<string> PaymentChannelList = new List<string>();
-
-            List<string> EncodedByList = new List<string>();
-            EncodedByList.Add(cboEncodedBy.Text);
-
-            if (cboPaymentChannel.SelectedIndex == 0)
-            {
-                List<RPTBank> bankList = RPTBankDatabase.SelectAllNot_E_Banks();
-
-                foreach (RPTBank bank in bankList)
-                {
-                    PaymentChannelList.Add(bank.BankName);
-                }
-            }
-            else
-            {
-                PaymentChannelList.Add(cboPaymentChannel.Text);
-            }
-
             List<RealPropertyTax> rptList;
 
+            // If date range is checked, search by date range and status. Otherwise, just search by status.
             if (dtDate.Checked)
             {
-                dtDateTo.Enabled = true;
-                DateTime encodedDateFrom = dtDate.Value;
-                DateTime encodedDateTo = dtDateTo.Value;
-
-                // filter by verification of payment and payment channel.
-                if (cboStatus.Text == RPTStatus.PAYMENT_VERIFICATION && cboAction.Text == RPTAction.VERIFY_PAYMENT)
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, StatusList, PaymentChannelList);
-                }
-
-                else if (cboStatus.Text == RPTStatus.PAYMENT_VALIDATION)
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(encodedDateFrom, encodedDateTo, StatusList);
-                }
-
-                // filter by for assessment and date range and encoded by.
-                else if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT)
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndEncodedBy(encodedDateFrom, encodedDateTo, StatusList, EncodedByList);
-                }
-
-                // filter by for or upload and date range and validated date.
-                else if (cboStatus.Text == RPTStatus.OR_UPLOAD)
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndValidatedDate(encodedDateFrom, encodedDateTo, StatusList);
-                }
-
-                // filter by for or pickup and date range and uploaded date.
-                else if (cboStatus.Text == RPTStatus.OR_PICKUP)
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, StatusList);
-                }
-
-                // filter by status and date range.
-                else
-                {
-                    rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, StatusList);
-                }
+                rptList = SearchByDateRangeAndStatus();
             }
-
             else
             {
-                dtDateTo.Enabled = false;
-
-                rptList = RPTDatabase.SelectByStatus(StatusList);
+                string Status = cboStatus.Text;
+                rptList = RPTDatabase.SelectByStatus(Status);
             }
 
-            PopulateListView(rptList);
+            mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
         }
 
@@ -369,7 +310,8 @@ namespace SampleRPT1
 
         private void btnSearchDateStatus_Click(object sender, EventArgs e)
         {
-            RefreshListView();
+            // copy enabled property of date from to date to.
+            dtDateTo.Enabled = dtDate.Checked;
 
             if (cboStatus.Text == RPTStatus.FOR_ASSESSMENT && dtDate.Checked == true)
             {
@@ -382,6 +324,7 @@ namespace SampleRPT1
                 cboEncodedBy.Visible = false;
             }
 
+            RefreshListView();
         }
 
         private void dtDateTo_ValueChanged(object sender, EventArgs e)
@@ -470,30 +413,20 @@ namespace SampleRPT1
 
         private void RPTInfoLV_DoubleClick(object sender, EventArgs e)
         {
-            RealPropertyTax RetrieveRPT = RPTDatabase.Get(RptID);
+            RealPropertyTax RetrieveRPT = mainFormListViewHelper.getSelectedRpt();
 
-            if (RPTInfoLV.SelectedItems.Count > 0 && loginUser.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
+            if (loginUser.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
                 RetrieveRPT.Status == RPTStatus.ASSESSMENT_PRINTED || RetrieveRPT.Status == RPTStatus.BILL_SENT || RetrieveRPT.Status == RPTStatus.PAYMENT_VERIFICATION)
             {
                 if (RetrieveRPT.RefNum != null)
                 {
-                    string taxDecList = RPTInfoLV.SelectedItems[0].SubItems[1].Text;
-
-                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(taxDecList);
+                    string TaxDec = RetrieveRPT.TaxDec;
+                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(TaxDec);
                     updateMultipleRPTForm.ShowDialog();
                 }
                 else
                 {
-                    List<long> RptIDList = new List<long>();
-
-                    for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-                    {
-                        string RptId = RPTInfoLV.SelectedItems[i].Text;
-                        RptID = Convert.ToInt32(RptId);
-
-                        RptIDList.Add(Convert.ToInt32(RptID));
-                    }
-
+                    List<long> RptIDList = mainFormListViewHelper.getSelectedRptIDList();
                     UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptIDList);
                     updateRPTForm.ShowDialog();
                 }
@@ -502,10 +435,7 @@ namespace SampleRPT1
 
         private void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < VerAndValLV.Items.Count; i++)
-            {
-                RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
-            }
+            mainFormListViewHelper.VerAndValLV_SelectedIndexChanged(sender, e);
         }
 
         private void SetAction(string NewAction)
@@ -518,9 +448,10 @@ namespace SampleRPT1
 
         private void ChangeAction()
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                string Status = RPTInfoLV.SelectedItems[0].SubItems[9].Text;
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
+                string Status = rpt.Status;
 
                 if (Status == RPTStatus.FOR_ASSESSMENT)
                 {
@@ -565,21 +496,14 @@ namespace SampleRPT1
 
         private void CalculateTotalAmount()
         {
-            for (int i = 0; i < RPTInfoLV.Items.Count; i++)
-            {
-                VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
-            }
-
             decimal TotalAmountToPay = 0;
             decimal TotalAmountTransferred = 0;
 
-            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+            List<RealPropertyTax> rptList = mainFormListViewHelper.GetSelectedRPTList();
+            foreach (RealPropertyTax rpt in rptList)
             {
-                decimal AmountToPay = Convert.ToDecimal(RPTInfoLV.SelectedItems[i].SubItems[3].Text);
-                TotalAmountToPay = AmountToPay + TotalAmountToPay;
-
-                decimal AmountTransferred = Convert.ToDecimal(RPTInfoLV.SelectedItems[i].SubItems[4].Text);
-                TotalAmountTransferred = AmountTransferred + TotalAmountTransferred;
+                TotalAmountToPay = TotalAmountToPay + rpt.AmountToPay;
+                TotalAmountTransferred = TotalAmountTransferred + rpt.AmountTransferred;
             }
 
             textTotalAmount2Pay.Text = TotalAmountToPay.ToString();
@@ -588,15 +512,15 @@ namespace SampleRPT1
 
         private void ShowRepsInfo()
         {
-            RealPropertyTax retrievedRepsInfo = RPTDatabase.Get(RptID);
+            List<RealPropertyTax> rptList = mainFormListViewHelper.GetSelectedRPTList();
 
             Boolean FirstRecord = true;
 
-            foreach (var rpt in RPTInfoLV.SelectedItems)
+            foreach (RealPropertyTax rpt in rptList)
             {
                 if (FirstRecord == true)
                 {
-                    if (retrievedRepsInfo.Status == RPTStatus.RELEASED)
+                    if (rpt.Status == RPTStatus.RELEASED)
                     {
                         labelRepName.Visible = true;
                         textRepName.Visible = true;
@@ -605,10 +529,10 @@ namespace SampleRPT1
                         labelContactNumber.Visible = true;
                         textContactNum.Visible = true;
 
-                        textRepName.Text = retrievedRepsInfo.RepName;
-                        textContactNum.Text = retrievedRepsInfo.ContactNumber;
+                        textRepName.Text = rpt.RepName;
+                        textContactNum.Text = rpt.ContactNumber;
 
-                        checkAutLetter.Checked = retrievedRepsInfo.WithAuthorizationLetter;
+                        checkAutLetter.Checked = rpt.WithAuthorizationLetter;
                     }
                     FirstRecord = false;
                 }
@@ -623,16 +547,14 @@ namespace SampleRPT1
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < RPTInfoLV.Items.Count; i++)
-            {
-                VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
-            }
+            mainFormListViewHelper.RPTInfoLV_SelectedIndexChanged(sender, e);
 
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                Clipboard.SetText(RPTInfoLV.SelectedItems[0].SubItems[1].Text);
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
-                string Status = RPTInfoLV.SelectedItems[0].SubItems[9].Text;
+                Clipboard.SetText(rpt.TaxDec);
+                string Status = rpt.Status;
 
                 if (Status == RPTStatus.FOR_ASSESSMENT)
                 {
@@ -644,7 +566,7 @@ namespace SampleRPT1
                     LabelNumBills.Visible = false;
                     textNumOfBills.Visible = false;
                 }
-            }   
+            }
 
             ChangeAction();
 
@@ -661,10 +583,9 @@ namespace SampleRPT1
             pictureBoxReceipt.Image = Properties.Resources.no_img;
             pictureBoxORrelease.Image = Properties.Resources.no_img;
 
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                string AcquiredRptid = RPTInfoLV.SelectedItems[0].Text;
-                RptID = Convert.ToInt64(AcquiredRptid);
+                long RptID = mainFormListViewHelper.getSelectedRptID();
 
                 List<RPTAttachPicture> RetrievePictureList = RPTAttachPictureDatabase.SelectByRPT(RptID);
 
@@ -681,7 +602,6 @@ namespace SampleRPT1
                         pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
                         TabPicture.SelectTab(Receipt);
                         pictureBoxReceipt.SizeMode = PictureBoxSizeMode.StretchImage;
-                        //VerAndValLV.SelectedItems[0].SubItems[11].Text = RetrievePicture.UploadedByUser;
                     }
                     if (RetrievePicture.DocumentType == DocumentType.OR_RELEASING)
                     {
@@ -709,39 +629,6 @@ namespace SampleRPT1
             {
                 return Image.FromStream(new MemoryStream(AttachPicture.FileData));
             }
-        }
-
-        private bool CheckSameStatus(string ExpectedStatus)
-        {
-            bool SameStatus = true;
-
-            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-            {
-                if (RPTInfoLV.SelectedItems[i].SubItems[9].Text != ExpectedStatus)
-                {
-                    SameStatus = false;
-                }
-            }
-            return SameStatus;
-        }
-
-        private List<RealPropertyTax> GetSelectedRPTByStatus(string ExpectedStatus)
-        {
-            List<RealPropertyTax> SelectedRPTByStatus = new List<RealPropertyTax>();
-
-            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-            {
-                string RptId = RPTInfoLV.SelectedItems[i].Text;
-                RptID = Convert.ToInt32(RptId);
-
-                RealPropertyTax rpt = RPTDatabase.Get(RptID);
-
-                if (rpt.Status == ExpectedStatus)
-                {
-                    SelectedRPTByStatus.Add(rpt);
-                }
-            }
-            return SelectedRPTByStatus;
         }
 
         private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -791,14 +678,12 @@ namespace SampleRPT1
 
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.FOR_ASSESSMENT);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.FOR_ASSESSMENT);
 
                 bool TransferredAmountHaveValue = true;
 
                 foreach (var rpt in SelectedRPTList)
                 {
-                    //MessageBox.Show(rpt.RptID.ToString());
-
                     if (rpt.AmountTransferred != 0)
                     {
                         rpt.BilledBy = loginUser.DisplayName;
@@ -815,7 +700,7 @@ namespace SampleRPT1
                     }
                 }
 
-                if (CheckSameStatus(RPTStatus.FOR_ASSESSMENT) == false || TransferredAmountHaveValue == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.FOR_ASSESSMENT) == false || TransferredAmountHaveValue == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.FOR_ASSESSMENT;
@@ -836,7 +721,7 @@ namespace SampleRPT1
 
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.FOR_ASSESSMENT);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.FOR_ASSESSMENT);
 
                 bool TransferredAmountHaveNoValue = true;
 
@@ -858,7 +743,7 @@ namespace SampleRPT1
                     }
                 }
 
-                if (CheckSameStatus(RPTStatus.FOR_ASSESSMENT) == false || TransferredAmountHaveNoValue == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.FOR_ASSESSMENT) == false || TransferredAmountHaveNoValue == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.FOR_ASSESSMENT;
@@ -873,7 +758,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.ASSESSMENT_PRINTED);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.ASSESSMENT_PRINTED);
 
                 bool TransferredAmountHaveValue = true;
 
@@ -893,7 +778,7 @@ namespace SampleRPT1
                         TransferredAmountHaveValue = false;
                     }
                 }
-                if (CheckSameStatus(RPTStatus.ASSESSMENT_PRINTED) == false || TransferredAmountHaveValue == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.ASSESSMENT_PRINTED) == false || TransferredAmountHaveValue == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.ASSESSMENT_PRINTED;
@@ -908,7 +793,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD);
 
                 foreach (var rpt in SelectedRPTList)
                 {
@@ -920,7 +805,7 @@ namespace SampleRPT1
                     cboStatus.Text = RPTStatus.OR_PICKUP;
                 }
 
-                if (CheckSameStatus(RPTStatus.OR_UPLOAD) == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.OR_UPLOAD) == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.OR_UPLOAD;
@@ -941,7 +826,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.PAYMENT_VERIFICATION);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.PAYMENT_VERIFICATION);
 
                 bool AllProcessed = true;
 
@@ -963,7 +848,7 @@ namespace SampleRPT1
                     }
                 }
 
-                if (CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION) == false || AllProcessed == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION) == false || AllProcessed == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
@@ -979,7 +864,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.PAYMENT_VALIDATION);
+                List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.PAYMENT_VALIDATION);
 
                 foreach (var rpt in SelectedRPTList)
                 {
@@ -992,7 +877,7 @@ namespace SampleRPT1
                     cboStatus.Text = RPTStatus.OR_UPLOAD;
                 }
 
-                if (CheckSameStatus(RPTStatus.PAYMENT_VALIDATION) == false)
+                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VALIDATION) == false)
                 {
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
@@ -1024,17 +909,14 @@ namespace SampleRPT1
 
         public void AllocateExcess()
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                string RptId = RPTInfoLV.SelectedItems[0].Text;
-                decimal ExcessShortAmountNotNull = Convert.ToDecimal(RPTInfoLV.SelectedItems[0].SubItems[6].Text);
-                RptID = Convert.ToInt32(RptId);
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
-                if (ExcessShortAmountNotNull > 0)
+                if (rpt.ExcessShortAmount > 0)
                 {
                     AllocateExcessForm AllocateExcess = new AllocateExcessForm();
-                    //AllocateExcess.setParent(this);
-                    AllocateExcess.setRptId(RptID);
+                    AllocateExcess.setRptId(rpt.RptID);
                     AllocateExcess.ShowDialog();
                 }
                 else
@@ -1046,18 +928,13 @@ namespace SampleRPT1
 
         public void AllocateShort()
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                string RptId = RPTInfoLV.SelectedItems[0].Text;
-                decimal ExcessShortAmountNotNull = Convert.ToDecimal(RPTInfoLV.SelectedItems[0].SubItems[6].Text);
-                RptID = Convert.ToInt32(RptId);
-
-                if (ExcessShortAmountNotNull < 0)
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
+                if (rpt.ExcessShortAmount < 0)
                 {
                     BalanceShort balanceShort = new BalanceShort();
-
-                    //balanceShort.setParent(this);
-                    balanceShort.setRptId(RptID);
+                    balanceShort.setRptId(rpt.RptID);
                     balanceShort.ShowDialog();
                 }
                 else
@@ -1069,9 +946,9 @@ namespace SampleRPT1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
                 if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED && TabPicture.SelectedTab.Text == DocumentType.ASSESSMENT)
                 {
@@ -1129,17 +1006,13 @@ namespace SampleRPT1
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
                 if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED || rpt.Status == RPTStatus.OR_UPLOAD)
                 {
-                    string AcquiredRptid = RPTInfoLV.SelectedItems[0].Text;
-                    long Rptid = Convert.ToInt64(AcquiredRptid);
-
                     string documentType;
-
                     if (TabPicture.SelectedTab.Text == DocumentType.ASSESSMENT)
                     {
                         documentType = DocumentType.ASSESSMENT;
@@ -1148,18 +1021,20 @@ namespace SampleRPT1
                     {
                         documentType = DocumentType.RECEIPT;
                         rpt.UploadedBy = loginUser.DisplayName;
+
+                        //todo optional to refactor this later
                         VerAndValLV.SelectedItems[0].SubItems[11].Text = rpt.UploadedBy;
 
                         RPTDatabase.Update(rpt);
                     }
 
-                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(Rptid, documentType);
+                    RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, documentType);
 
                     if (RetrievePicture == null)
                     {
                         RPTAttachPicture rptAttachPicture = new RPTAttachPicture();
 
-                        rptAttachPicture.RptId = Convert.ToInt64(AcquiredRptid);
+                        rptAttachPicture.RptId = rpt.RptID;
                         rptAttachPicture.FileName = Path.GetFileName(textFileName.Text);
 
                         byte[] FileData = File.ReadAllBytes(textFileName.Text);
@@ -1233,17 +1108,9 @@ namespace SampleRPT1
 
         public void SendEmail()
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
-                List<long> RptIDList = new List<long>();
-
-                for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
-                {
-                    string RptId = RPTInfoLV.SelectedItems[i].Text;
-                    RptID = Convert.ToInt32(RptId);
-
-                    RptIDList.Add(Convert.ToInt32(RptID));
-                }
+                List<long> RptIDList = mainFormListViewHelper.getSelectedRptIDList();
                 SendEmailForm sendEmailForm = new SendEmailForm(RptIDList);
                 sendEmailForm.ShowDialog();
             }
@@ -1251,17 +1118,12 @@ namespace SampleRPT1
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (RPTInfoLV.SelectedIndices.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
                 var Confirmation = MessageBox.Show("Are you sure you want to delete record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (Confirmation == DialogResult.Yes)
                 {
-                    for (int i = RPTInfoLV.SelectedIndices.Count - 1; i >= 0; i--)
-                    {
-                        RPTInfoLV.Items.RemoveAt(RPTInfoLV.SelectedIndices[i]);
-                    }
-
-                    RealPropertyTax RptRecord = RPTDatabase.Get(RptID);
+                    RealPropertyTax RptRecord = mainFormListViewHelper.getSelectedRpt();
                     RPTDatabase.Delete(RptRecord);
                 }
             }
@@ -1353,8 +1215,9 @@ namespace SampleRPT1
 
         private void ViewAttachedPicture(string documentType)
         {
-            if (RPTInfoLV.SelectedItems.Count > 0)
+            if (mainFormListViewHelper.haveSelectedRow())
             {
+                long RptID = mainFormListViewHelper.getSelectedRptID();
                 RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, documentType);
                 if (RetrievePicture != null)
                 {
@@ -1395,14 +1258,7 @@ namespace SampleRPT1
 
         public long getSelectedRptID()
         {
-            if (RPTInfoLV.SelectedItems.Count>0)
-            {
-                return Convert.ToInt64(RPTInfoLV.SelectedItems[0].Text);
-            }
-            else
-            {
-                return 0;
-            }
+            return mainFormListViewHelper.getSelectedRptID();
         }
 
         private void cboValidator_SelectedIndexChanged(object sender, EventArgs e)
@@ -1412,13 +1268,9 @@ namespace SampleRPT1
 
         private void RPTInfoLV_MouseClick(object sender, MouseEventArgs e)
         {
-            string AcquiredRptid = RPTInfoLV.SelectedItems[0].Text;
-            RptID = Convert.ToInt64(AcquiredRptid);
+            RealPropertyTax RetrieveRPT = mainFormListViewHelper.getSelectedRpt();
 
-            RealPropertyTax RetrieveRPT = RPTDatabase.Get(RptID);
-            var focusedItem = RPTInfoLV.FocusedItem;
-
-            if (focusedItem != null && RetrieveRPT.ExcessShortAmount < 0)
+            if (RetrieveRPT.ExcessShortAmount < 0)
             {
                 if (e.Button == MouseButtons.Right)
                 {
@@ -1430,7 +1282,7 @@ namespace SampleRPT1
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    SplitPaymentForm splitPayment = new SplitPaymentForm(RptID);
+                    SplitPaymentForm splitPayment = new SplitPaymentForm(RetrieveRPT.RptID);
                     splitPayment.ShowDialog();
                 }
             }

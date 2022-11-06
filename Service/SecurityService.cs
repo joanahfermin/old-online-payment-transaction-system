@@ -29,5 +29,39 @@ namespace SampleRPT1.Service
         {
             return LOGIN_USER;
         }
+
+        public static List<string> getLoginUserAllowedRptActions()
+        {
+            List<string> AllowedRptActions = new List<string>();
+
+            if (LOGIN_USER.isBiller)
+            {
+                AllowedRptActions.Add(RPTAction.BILL_NO_POP);
+                AllowedRptActions.Add(RPTAction.BILL_WITH_POP);
+            }
+
+            if (LOGIN_USER.isEncoder)
+            {
+                AllowedRptActions.Add(RPTAction.MANUAL_SEND_BILL);
+            }
+
+            if (LOGIN_USER.isUploader)
+            {
+                AllowedRptActions.Add(RPTAction.MANUAL_SEND_OR);
+            }
+
+            if (LOGIN_USER.isVerifier)
+            {
+                AllowedRptActions.Add(RPTAction.VERIFY_PAYMENT);
+            }
+
+            if (LOGIN_USER.isValidator)
+            {
+                AllowedRptActions.Add(RPTAction.VALIDATE_PAYMENT);
+                //cboAction.SelectedIndex = 0; ;
+            }
+
+            return AllowedRptActions;
+        }
     }
 }

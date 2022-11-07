@@ -53,7 +53,7 @@ namespace SampleRPT1.UTILITIES
         /// <param name="ep"></param>
         /// <param name="tb"></param>
         /// <param name="propertyName"></param>
-        public static void ValidateRequiredTotalAmountDeposited(ErrorProvider ep, TextBox tb, string propertyName)
+        public static void ValidateRequiredAmountToPay(ErrorProvider ep, TextBox tb, string propertyName)
         {
             if (hasExistingError(ep, tb))
             {

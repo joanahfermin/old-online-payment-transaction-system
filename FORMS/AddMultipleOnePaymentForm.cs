@@ -86,7 +86,9 @@ namespace SampleRPT1
             item.SubItems.Add(cboQuarter.Text.Trim());
             item.SubItems.Add(textRequestingParty.Text.Trim());
 
-            lvMultipleRecord.Items.Add(item);
+            lvMultipleRecord.Items.Insert(0, item);
+            lvMultipleRecord.SelectedItems.Clear();
+            lvMultipleRecord.Items[0].Selected = true;
 
             decimal TotalAmountToPay = 0;
 
@@ -101,9 +103,10 @@ namespace SampleRPT1
             textTotalAmountToPay.Text = ConvertedTotalAmountToPay.ToString("N2");
 
             textAmount2Pay.Clear();
-            textYearQuarter.Clear();
+            int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
+            textYearQuarter.Text = (yearQuarter + 1).ToString();
             textRequestingParty.Clear();
-            textTDN.Focus();
+            textYearQuarter.Focus();
         }
 
         /// <summary>
@@ -209,6 +212,7 @@ namespace SampleRPT1
 
             Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
+            Validations.ValidateRequiredTotalAmountDeposited(errorProvider1, textAmount2Pay, "Amount to pay");
         }
 
         /// <summary>

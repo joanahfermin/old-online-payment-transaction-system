@@ -88,16 +88,6 @@ namespace SampleRPT1
 
             lvMultipleRecord.Items.Add(item);
 
-            if (checkTaxDecRetain.Checked == false)
-            {
-                textTDN.Clear();
-            }
-
-            if (checkTaxNameRetain.Checked == false)
-            {
-                textTPName.Clear();
-            }
-
             decimal TotalAmountToPay = 0;
 
             foreach (ListViewItem Record in lvMultipleRecord.Items)

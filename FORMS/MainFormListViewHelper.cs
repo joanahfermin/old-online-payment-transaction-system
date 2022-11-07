@@ -50,19 +50,19 @@ namespace SampleRPT1.FORMS
                 }
 
                 //displaying of same reference number but doesn't have b.ground color, these are gcash/paymaya and online banking.
-                if (rpt.RefNum != null && rpt.RefNum.Length > 0  && RPTGcashPaymaya.isNotElectronicBankName(rpt.Bank))
+                if (rpt.RefNum != null && rpt.RefNum.Length > 0 && RPTGcashPaymaya.isNotElectronicBankName(rpt.Bank))
                 {
                     topItem.BackColor = Color.LightYellow;
                     bottomItem.BackColor = Color.LightYellow;
                 }
 
                 //if row has balance, b.ground color: red. 
-                if (rpt.ExcessShortAmount < 0)
+                if (rpt.ExcessShortAmount < 0 && rpt.AmountTransferred != 0)
                 {
                     topItem.BackColor = Color.LightCoral;
                     bottomItem.BackColor = Color.LightCoral;
                 }
-                else if (rpt.ExcessShortAmount > 0)
+                else if (rpt.ExcessShortAmount > 0 && rpt.AmountTransferred > 0)
                 {
                     topItem.BackColor = Color.LightGreen;
                     bottomItem.BackColor = Color.LightGreen;

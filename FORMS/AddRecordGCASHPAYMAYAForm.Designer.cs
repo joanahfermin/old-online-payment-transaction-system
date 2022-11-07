@@ -64,6 +64,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -276,7 +277,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1338, 19);
+            this.btnSave.Location = new System.Drawing.Point(1565, 516);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(67, 23);
             this.btnSave.TabIndex = 4;
@@ -306,7 +307,7 @@
             // 
             // btnSaveAll
             // 
-            this.btnSaveAll.Location = new System.Drawing.Point(1409, 19);
+            this.btnSaveAll.Location = new System.Drawing.Point(1328, 19);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(67, 23);
             this.btnSaveAll.TabIndex = 5;
@@ -362,11 +363,22 @@
             this.label13.TabIndex = 19;
             this.label13.Text = "Quarter: ";
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(1401, 19);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 21;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // AddRecordGCASHPAYMAYAForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1563, 553);
+            this.ClientSize = new System.Drawing.Size(1565, 553);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.cboQuarter);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.btnDelete);
@@ -435,5 +447,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

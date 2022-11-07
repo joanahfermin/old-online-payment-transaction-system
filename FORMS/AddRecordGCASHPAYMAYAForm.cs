@@ -453,5 +453,10 @@ namespace SampleRPT1
                 e.Handled = true;
             }
         }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 } 

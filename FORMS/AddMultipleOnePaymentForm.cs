@@ -87,6 +87,7 @@ namespace SampleRPT1
             item.SubItems.Add(textRequestingParty.Text.Trim());
 
             lvMultipleRecord.Items.Insert(0, item);
+
             lvMultipleRecord.SelectedItems.Clear();
             lvMultipleRecord.Items[0].Selected = true;
 
@@ -212,7 +213,7 @@ namespace SampleRPT1
 
             Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
-            Validations.ValidateRequiredTotalAmountDeposited(errorProvider1, textAmount2Pay, "Amount to pay");
+            Validations.ValidateRequiredAmountToPay(errorProvider1, textAmount2Pay, "Amount to pay");
         }
 
         /// <summary>

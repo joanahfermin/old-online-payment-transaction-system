@@ -91,8 +91,21 @@ namespace SampleRPT1
             lvMultipleRecord.SelectedItems.Clear();
             lvMultipleRecord.Items[0].Selected = true;
 
-            decimal TotalAmountToPay = 0;
+            ComputeTotalAmountToPay();
 
+            textAmount2Pay.Clear();
+            int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
+            textYearQuarter.Text = (yearQuarter + 1).ToString();
+            textRequestingParty.Clear();
+            textYearQuarter.Focus();
+
+            checkTaxDecRetain_CheckedChanged(sender, e);
+            checkTaxNameRetain_CheckedChanged(sender, e);
+        }
+
+        private void ComputeTotalAmountToPay()
+        {
+            decimal TotalAmountToPay = 0;
             foreach (ListViewItem Record in lvMultipleRecord.Items)
             {
                 TotalAmountToPay += decimal.Parse(Record.SubItems[2].Text);
@@ -102,12 +115,6 @@ namespace SampleRPT1
 
             decimal ConvertedTotalAmountToPay = decimal.Parse(textTotalAmountToPay.Text, System.Globalization.NumberStyles.Currency);
             textTotalAmountToPay.Text = ConvertedTotalAmountToPay.ToString("N2");
-
-            textAmount2Pay.Clear();
-            int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
-            textYearQuarter.Text = (yearQuarter + 1).ToString();
-            textRequestingParty.Clear();
-            textYearQuarter.Focus();
         }
 
         /// <summary>
@@ -214,6 +221,7 @@ namespace SampleRPT1
             Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
             Validations.ValidateRequiredAmountToPay(errorProvider1, textAmount2Pay, "Amount to pay");
+            Validations.ValidateTaxDecFormat(errorProvider1, textTDN, "Tax dec num. ");
         }
 
         /// <summary>
@@ -431,6 +439,44 @@ namespace SampleRPT1
         private void textTotalAmountDeposited_KeyDown(object sender, KeyEventArgs e)
         {
             EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private void textTDN_Leave(object sender, EventArgs e)
+        {
+            //if (isRPTTaxDecFormat(textTDN.Text) == false)
+            //{
+            //    MessageBox.Show("Invalid input of Tax Dec. Number.");
+            //    textTDN.Focus();
+            //    textTDN.SelectAll();
+            //}
+            Validations.ValidateTaxDecFormat(errorProvider1, textTDN, "Tax declation number ");
+        }
+
+        private bool isRPTTaxDecFormat(string taxDec)
+        {
+            //format of taxdec number.
+            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            return re.IsMatch(taxDec.Trim());
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lvMultipleRecord.SelectedIndices.Count > 0)
+            {
+                var Confirmation = MessageBox.Show("Are you sure you want to delete record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Confirmation == DialogResult.Yes)
+                {
+                    for (int i = lvMultipleRecord.SelectedIndices.Count - 1; i >= 0; i--)
+                    {
+                        lvMultipleRecord.Items.RemoveAt(lvMultipleRecord.SelectedIndices[i]);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid deletion of record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            ComputeTotalAmountToPay();
         }
     }
 }

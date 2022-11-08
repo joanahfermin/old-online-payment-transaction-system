@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,6 +31,19 @@ namespace SampleRPT1.UTILITIES
                 }
 
             return false;
+        }
+
+        public static void ValidateTaxDecFormat(ErrorProvider ep, TextBox tb, string propertyName)
+        {
+            if (hasExistingError(ep, tb))
+            {
+                return;
+            }
+            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            if (!re.IsMatch(tb.Text.Trim()))
+            {
+                ep.SetError(tb, $"{propertyName} is not in correct format.");
+            }
         }
 
         /// <summary>

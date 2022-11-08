@@ -216,9 +216,11 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
+    <Compile Include="DATABASE\ReportDatabase.cs" />
     <Compile Include="DATABASE\RPTAttachPictureDatabase.cs" />
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
     <Compile Include="DATABASE\SystemSettingDatabase.cs" />
+    <Compile Include="DATABASE\TagReceiptDatabase.cs" />
     <Compile Include="FORMS\AddMultipleOnePaymentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,6 +265,12 @@
     <Compile Include="FORMS\ReleasingForm.Designer.cs">
       <DependentUpon>ReleasingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\ReportForm.Designer.cs">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\ReviewEmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,7 +307,9 @@
     <Compile Include="FORMS\ViewImageForm.Designer.cs">
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="JOBS\AutoTagRPTValidationJob.cs" />
     <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
+    <Compile Include="MODEL\ReportUserActivity.cs" />
     <Compile Include="MODEL\RPTBank.cs" />
     <Compile Include="FORMS\UpdateMultipleRPTForm.cs">
       <SubType>Form</SubType>
@@ -307,6 +317,7 @@
     <Compile Include="FORMS\UpdateMultipleRPTForm.Designer.cs">
       <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\TagReceipt.cs" />
     <Compile Include="Service\SecurityService.cs" />
     <Compile Include="UTILITIES\BusinessUtil.cs" />
     <Compile Include="UTILITIES\EventHelperUtil.cs" />
@@ -380,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReleasingForm.resx">
       <DependentUpon>ReleasingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReviewEmailForm.resx">
       <DependentUpon>ReviewEmailForm.cs</DependentUpon>

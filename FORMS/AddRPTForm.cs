@@ -160,6 +160,7 @@ namespace SampleRPT1
 
             Validations.ValidateRequired(errorProvider1, textTaxDec, "Tax Dec. Number");
             Validations.ValidateRequired(errorProvider1, textYear, "Year/Quarter");
+            Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declaration number ");
         }
 
         //Thousand separator.
@@ -451,12 +452,13 @@ namespace SampleRPT1
 
         private void textTaxDec_Leave(object sender, EventArgs e)
         {
-            if (isRPTTaxDecFormat(textTaxDec.Text) == false)
-            {
-                MessageBox.Show("Invalid input of Tax Dec. Number.");
-                textTaxDec.Focus();
-                textTaxDec.SelectAll();
-            }
+            //if (isRPTTaxDecFormat(textTaxDec.Text) == false)
+            //{
+            //    MessageBox.Show("Invalid input of Tax Dec. Number.");
+            //    textTaxDec.Focus();
+            //    textTaxDec.SelectAll();
+            //}
+            Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declation number ");
         }
     }
 }

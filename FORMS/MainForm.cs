@@ -12,6 +12,7 @@ using SampleRPT1.UTILITIES;
 using System.IO;
 using SampleRPT1.MODEL;
 using SampleRPT1.Service;
+using SampleRPT1.DATABASE;
 
 namespace SampleRPT1
 {
@@ -323,7 +324,6 @@ namespace SampleRPT1
                 labelEncodedBy.Visible = false;
                 cboEncodedBy.Visible = false;
             }
-
             RefreshListView();
         }
 

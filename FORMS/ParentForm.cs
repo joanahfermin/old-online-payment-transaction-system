@@ -119,5 +119,14 @@ namespace SampleRPT1
                 ViewHistoryForm.INSTANCE.setRpdID(RptID);
             }
         }
+
+        private void ReportMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ReportForm.INSTANCE == null)
+            {
+                new ReportForm(this);
+            }
+            ReportForm.INSTANCE.Show();
+        }
     }
 }

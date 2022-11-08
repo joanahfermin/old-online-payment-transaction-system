@@ -524,5 +524,17 @@ namespace SampleRPT1
                 RPTDatabase.Update(rpt);
             }
         }
+
+        public static RealPropertyTax SearchByTagReceipt(TagReceipt tagReceipt)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter " +
+                    $"and TotalAmountTransferred = @TotalAmountTransferred and DeletedRecord != 1 and Status = @Status", 
+                    new { TaxDec = tagReceipt.RefNo, YearQtr = tagReceipt.TaxYear, Quarter = tagReceipt.Quarter, 
+                        TotalAmountTransferred = tagReceipt.ORAmount, Status = RPTStatus.PAYMENT_VALIDATION});
+            }
+        }
+
     }
 }

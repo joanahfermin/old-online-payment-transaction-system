@@ -21,5 +21,12 @@ namespace SampleRPT1
             cnn.Open();
             return cnn;
         }
+
+        public static SqlConnection getConnectionToMISCReportV()
+        {
+            SqlConnection cnn = new SqlConnection(GlobalConstants.DATABASE_CONNECTION_STRING_TO_MISCREPORT);
+            cnn.Open();
+            return cnn;
+        }
     }
 }

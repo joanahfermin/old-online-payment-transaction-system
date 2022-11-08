@@ -65,6 +65,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -120,20 +121,22 @@
             // 
             this.textTDN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTDN.Location = new System.Drawing.Point(158, 63);
+            this.textTDN.MaxLength = 11;
             this.textTDN.Name = "textTDN";
             this.textTDN.Size = new System.Drawing.Size(253, 20);
             this.textTDN.TabIndex = 1;
             this.textTDN.Click += new System.EventHandler(this.textTDN_Click);
             this.textTDN.Enter += new System.EventHandler(this.textTDN_Enter);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
+            this.textTDN.Leave += new System.EventHandler(this.textTDN_Leave);
             // 
             // textYearQuarter
             // 
             this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textYearQuarter.Location = new System.Drawing.Point(158, 174);
+            this.textYearQuarter.Location = new System.Drawing.Point(145, 92);
             this.textYearQuarter.Name = "textYearQuarter";
             this.textYearQuarter.Size = new System.Drawing.Size(126, 20);
-            this.textYearQuarter.TabIndex = 4;
+            this.textYearQuarter.TabIndex = 3;
             this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
             this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
             this.textYearQuarter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYearQuarter_KeyDown);
@@ -141,10 +144,10 @@
             // textAmount2Pay
             // 
             this.textAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textAmount2Pay.Location = new System.Drawing.Point(158, 136);
+            this.textAmount2Pay.Location = new System.Drawing.Point(145, 129);
             this.textAmount2Pay.Name = "textAmount2Pay";
             this.textAmount2Pay.Size = new System.Drawing.Size(126, 20);
-            this.textAmount2Pay.TabIndex = 3;
+            this.textAmount2Pay.TabIndex = 4;
             this.textAmount2Pay.Text = "0.00";
             this.textAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmount2Pay.Click += new System.EventHandler(this.textAmount2Pay_Click);
@@ -156,7 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(72, 181);
+            this.label2.Location = new System.Drawing.Point(59, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 200;
@@ -277,7 +280,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(62, 143);
+            this.label15.Location = new System.Drawing.Point(49, 136);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(86, 13);
             this.label15.TabIndex = 18;
@@ -305,6 +308,10 @@
             this.panel1.Controls.Add(this.checkTaxNameRetain);
             this.panel1.Controls.Add(this.checkTaxDecRetain);
             this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.textAmount2Pay);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.textYearQuarter);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 44);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(487, 208);
@@ -314,7 +321,7 @@
             // 
             this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboQuarter.FormattingEnabled = true;
-            this.cboQuarter.Location = new System.Drawing.Point(339, 128);
+            this.cboQuarter.Location = new System.Drawing.Point(337, 91);
             this.cboQuarter.Name = "cboQuarter";
             this.cboQuarter.Size = new System.Drawing.Size(114, 21);
             this.cboQuarter.TabIndex = 20;
@@ -322,7 +329,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(286, 136);
+            this.label5.Location = new System.Drawing.Point(284, 99);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 19;
@@ -402,7 +409,7 @@
             // 
             this.textTotalAmountToPay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountToPay.Enabled = false;
-            this.textTotalAmountToPay.Location = new System.Drawing.Point(1111, 12);
+            this.textTotalAmountToPay.Location = new System.Drawing.Point(636, 12);
             this.textTotalAmountToPay.Name = "textTotalAmountToPay";
             this.textTotalAmountToPay.Size = new System.Drawing.Size(180, 20);
             this.textTotalAmountToPay.TabIndex = 45;
@@ -413,17 +420,34 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(992, 19);
+            this.label8.Location = new System.Drawing.Point(517, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 13);
             this.label8.TabIndex = 23;
             this.label8.Text = "Total Amount To Pay: ";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.IndianRed;
+            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnDelete.Location = new System.Drawing.Point(1222, 12);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(69, 23);
+            this.btnDelete.TabIndex = 201;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // AddMultipleOnePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1307, 550);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
@@ -431,10 +455,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textTPName);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textAmount2Pay);
-            this.Controls.Add(this.textYearQuarter);
             this.Controls.Add(this.textTDN);
             this.Controls.Add(this.lvMultipleRecord);
             this.Controls.Add(this.panel1);
@@ -489,5 +509,6 @@
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ColumnHeader qtr;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

@@ -26,5 +26,6 @@ namespace SampleRPT1
         public bool isAutomatedEmailSender { get; set; }
         public bool isActive { get; set; }
         public bool canDelete { get; set; }
+        public string MachNo { get; set; }
     }
 }

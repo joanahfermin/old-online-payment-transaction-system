@@ -40,6 +40,7 @@
             this.MenuItemReviewEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.ReleasingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,8 @@
             this.MenuItemExcessShort,
             this.emailToolStripMenuItem,
             this.ReleasingMenuItem,
-            this.historyMenuItem});
+            this.historyMenuItem,
+            this.ReportMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -87,14 +89,14 @@
             // MenuItemAllocateExcess
             // 
             this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
-            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(154, 22);
             this.MenuItemAllocateExcess.Text = "Allocate Excess";
             this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
             // 
             // MenuItemAllocateBalance
             // 
             this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
-            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(154, 22);
             this.MenuItemAllocateBalance.Text = "Balance Short";
             this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
             // 
@@ -143,6 +145,13 @@
             this.historyMenuItem.Text = "History";
             this.historyMenuItem.Click += new System.EventHandler(this.historyMenuItem_Click);
             // 
+            // ReportMenuItem
+            // 
+            this.ReportMenuItem.Name = "ReportMenuItem";
+            this.ReportMenuItem.Size = new System.Drawing.Size(54, 22);
+            this.ReportMenuItem.Text = "Report";
+            this.ReportMenuItem.Click += new System.EventHandler(this.ReportMenuItem_Click);
+            // 
             // ParentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,5 +185,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemAllocateBalance;
         private System.Windows.Forms.ToolStripMenuItem MenuItemReviewEmail;
         private System.Windows.Forms.ToolStripMenuItem historyMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ReportMenuItem;
     }
 }

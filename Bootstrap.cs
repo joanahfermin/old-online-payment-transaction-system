@@ -12,6 +12,7 @@ namespace SampleRPT1
     class Bootstrap
     {
         private static AutoEmailJob autoEmailJob;
+        private static AutoTagRPTValidationJob autoTag;
         /// <summary>
         /// Initialize the system when program is RUN.
         /// </summary>
@@ -31,6 +32,9 @@ namespace SampleRPT1
 
             autoEmailJob = new AutoEmailJob();
             autoEmailJob.Initialize();
+
+            autoTag = new AutoTagRPTValidationJob();
+            autoTag.Initialize();
         }
 
         /// <summary>

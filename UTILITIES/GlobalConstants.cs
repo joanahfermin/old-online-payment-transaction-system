@@ -14,6 +14,9 @@ namespace SampleRPT1
     {
         public static string DATABASE_CONNECTION_STRING = ConfigurationManager.AppSettings["ConnectionString"];
 
+        public static string DATABASE_CONNECTION_STRING_TO_MISCREPORT = ConfigurationManager.AppSettings["ConnectionStringToMiscServer"];
+
+
         public static int GMAIL_PORT;
 
         public static string GMAIL_HOST;

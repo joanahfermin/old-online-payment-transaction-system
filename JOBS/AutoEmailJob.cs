@@ -19,7 +19,6 @@ namespace SampleRPT1.JOBS
             AutoEmailJobTimer.Start();
         }
 
-
         public void RunAutoEmail(object sender, EventArgs e)
         {
             Task.Run(() => RunAutoEmailLogic());

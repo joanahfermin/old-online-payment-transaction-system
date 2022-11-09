@@ -94,8 +94,13 @@ namespace SampleRPT1
             ComputeTotalAmountToPay();
 
             textAmount2Pay.Clear();
-            int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
-            textYearQuarter.Text = (yearQuarter + 1).ToString();
+
+            if (checkTaxDecRetain.Checked == true)
+            {
+                int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
+                textYearQuarter.Text = (yearQuarter + 1).ToString();
+            }
+
             textRequestingParty.Clear();
             textYearQuarter.Focus();
 

@@ -143,6 +143,7 @@ namespace SampleRPT1
                 if (rpt != null)
                 {
                     item.SubItems.Add("YES");
+                    item.BackColor = Color.LightBlue;
                 }
                 else
                 {
@@ -155,6 +156,7 @@ namespace SampleRPT1
                 if (ProcessedList.Contains(TaxDecAndYearQuarter))
                 {
                     item.SubItems.Add("YES");
+                    item.BackColor = Color.LightCoral;
                 }
                 else
                 {
@@ -215,7 +217,7 @@ namespace SampleRPT1
                 textAmountDue.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[3].Text;
                 textPropertyName.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
                 textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text;
-                
+
 
                 dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text);
 

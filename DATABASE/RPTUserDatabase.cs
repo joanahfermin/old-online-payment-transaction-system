@@ -37,5 +37,21 @@ namespace SampleRPT1
                 return conn.Query<string>($"SELECT DisplayName FROM JO_RPT_Users where isValidator = 1 order by DisplayName ASC").ToList();
             }
         }
+
+        public static List<string> GetAllMachNo()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<string>($"SELECT MachNo FROM JO_RPT_Users where MachNo is not null").ToList();
+            }
+        }
+
+        public static RPTUser FindByMAchNo(string MachNo)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.QuerySingleOrDefault<RPTUser>($"SELECT * FROM JO_RPT_Users where MachNo = @MachNo", new { MachNo = MachNo });
+            }
+        }
     }
 }

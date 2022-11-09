@@ -445,7 +445,6 @@ namespace SampleRPT1
 
         /// <summary>
         /// Returns a list of records based on date range, status and validated date. status: for o.r upload status.
-        /// ISAMA ANG UPLOADEDBY FROM ATTACHPICTURE TABLE
         /// 
         /// </summary>
         public static List<RealPropertyTax> SelectByDateFromToAndStatusAndValidatedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
@@ -454,7 +453,7 @@ namespace SampleRPT1
             {
                 String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
                     "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
-                    "ORDER BY ValidatedDate desc";
+                    "ORDER BY ValidatedDate asc";
                 return conn.Query<RealPropertyTax>(query, new
                 {
                     EncodedDateFrom = encodedDateFrom,

@@ -17,7 +17,8 @@ namespace SampleRPT1.JOBS
         {
             AutoTimer = new Timer();
             AutoTimer.Tick += new EventHandler(RunTag);
-            AutoTimer.Interval = 3600*1000; // convert seconds to milliseconds
+            //AutoTimer.Interval = 3600*1000; // convert seconds to milliseconds
+            AutoTimer.Interval = 1800*1000;
             AutoTimer.Start();
         }
 
@@ -45,8 +46,8 @@ namespace SampleRPT1.JOBS
 
                 if (rpt != null)
                 {
-                    //TO DO
-                    rpt.ValidatedBy = loginUser.DisplayName;
+                    RPTUser rptUser = RPTUserDatabase.FindByMAchNo(tagReceipt.MachNo);
+                    rpt.ValidatedBy = rptUser.DisplayName;
                     rpt.ValidatedDate = DateTime.Now;
                     rpt.Status = RPTStatus.OR_UPLOAD;
 

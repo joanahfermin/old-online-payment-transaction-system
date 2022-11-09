@@ -132,5 +132,10 @@ namespace SampleRPT1
             //textYearQuarter.Clear();
             textRequestingParty.Clear();
         }
+
+        private void UpdateMultipleRPTForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

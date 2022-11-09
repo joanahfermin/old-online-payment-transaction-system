@@ -255,6 +255,8 @@ namespace SampleRPT1
         {
             errorProvider1.Clear();
 
+            Validations.ValidateRequired(errorProvider1, textTaxDec, "Tax dec");
+            Validations.ValidateRequired(errorProvider1, textPropertyName, "Property name");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
             //Validations.ValidateRequired(errorProvider1, textBillQuantity, "Bill quantity");
         }
@@ -458,7 +460,37 @@ namespace SampleRPT1
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            object Nothing = System.Reflection.Missing.Value;
+            var app = new Microsoft.Office.Interop.Excel.Application();
+            app.Visible = false;
+            Microsoft.Office.Interop.Excel.Workbook workBook = app.Workbooks.Add(Nothing);
+            Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workBook.Sheets[1];
+            worksheet.Name = "WorkSheet";
 
+            int row = 5;
+
+            foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
+            {
+                worksheet.Cells[row, 1] = item.Text;
+                worksheet.Cells[row, 2] = item.SubItems[1].Text;
+                worksheet.Cells[row, 3] = item.SubItems[2].Text;
+                worksheet.Cells[row, 4] = item.SubItems[3].Text;
+                worksheet.Cells[row, 5] = item.SubItems[4].Text;
+                worksheet.Cells[row, 6] = item.SubItems[5].Text;
+                worksheet.Cells[row, 7] = item.SubItems[6].Text;
+
+                row++;
+            }
+
+            String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
+            String folder = FileUtils.GetDownloadFolderPath();
+            String fullpath = folder + "\\" + filename;
+
+            worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
+            workBook.Close(false, Type.Missing, Type.Missing);
+            app.Quit();
+
+            System.Diagnostics.Process.Start(fullpath);
         }
     }
 } 

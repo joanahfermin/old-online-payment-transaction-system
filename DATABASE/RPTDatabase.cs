@@ -185,12 +185,21 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on taxdec and status: FOR OR RELEASE.
         /// </summary>
-        public static List<RealPropertyTax> SelectBySameGroupReleasing(string TaxDec, List<string> StatusList)
+        //public static List<RealPropertyTax> SelectBySameGroupReleasing(string TaxDec, List<string> StatusList)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnection())
+        //    {
+        //        return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+        //            $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
+        //    }
+        //}
+
+        public static List<RealPropertyTax> SelectBySameEmailAddressReleasing(string TaxDec, List<string> StatusList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
-                    $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+                    $"order by RequestingParty desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
             }
         }
 

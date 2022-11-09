@@ -14,6 +14,7 @@ namespace SampleRPT1.MODEL
         public decimal ORAmount { get; set; }
         public string TaxYear { get; set; }
         public string Quarter { get; set; }
+
         //taxdec
         public string RefNo { get; set; }
         public DateTime OrDate { get; set; }

@@ -20,7 +20,9 @@ namespace SampleRPT1.FORMS
 
         private static object[] REPORT_USER_ACTIVITY_COLUMN_NAMES = {
             new { Name="User", Width=200}, new { Name="Encoded", Width=100},
-            new { Name="Billed", Width=100}, new { Name="Validated", Width=100},new { Name="Uploaded", Width=100}};
+            new { Name="Billed", Width=100}, new { Name="Verified", Width=100}, 
+            new { Name="Validated", Width=100}, new { Name="Uploaded", Width=100},
+            new { Name="Released", Width=100}};
 
         public ReportForm(Form parentForm)
         {
@@ -61,7 +63,7 @@ namespace SampleRPT1.FORMS
             }
             List<ReportUserActivity> userActivityList = ReportDatabase.SelectUserActivity();
             ListViewUtil.copyFromListToListview<ReportUserActivity>(userActivityList, LVreport, new List<string>
-            { "DisplayName", "EncodedCount", "BilledCount", "ValidatedCount", "UploadCount"});
+            { "DisplayName", "EncodedCount", "BilledCount", "VerifiedCount", "ValidatedCount", "UploadCount", "ReleasedCount"});
         }
     }
 }

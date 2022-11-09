@@ -82,15 +82,15 @@ namespace SampleRPT1.FORMS
 
             List<RealPropertyTax> rptList;
 
-            if (dtDate.Checked)
-            {
-                dtDateTo.Enabled = true;
-                DateTime encodedDateFrom = dtDate.Value;
-                DateTime encodedDateTo = dtDateTo.Value;
+            //if (dtDate.Checked)
+            //{
+            //    dtDateTo.Enabled = true;
+            //    DateTime encodedDateFrom = dtDate.Value;
+            //    DateTime encodedDateTo = dtDateTo.Value;
 
-                rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, Status);
-            }
-            else
+            //    rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, Status);
+            //}
+            //else
             {
                 dtDateTo.Enabled = false;
                 rptList = RPTDatabase.SelectByStatus(Status);
@@ -122,7 +122,8 @@ namespace SampleRPT1.FORMS
 
             string taxdec = textTDN.Text;
 
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
+            //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
+            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameEmailAddressReleasing(taxdec, StatusList);
 
             PopulateListView(rptList);
         }

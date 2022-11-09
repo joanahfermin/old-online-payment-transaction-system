@@ -18,7 +18,9 @@ namespace SampleRPT1.JOBS
             AutoTimer = new Timer();
             AutoTimer.Tick += new EventHandler(RunTag);
             //AutoTimer.Interval = 3600*1000; // convert seconds to milliseconds
-            AutoTimer.Interval = 1800*1000;
+            AutoTimer.Interval = 1800 * 1000; //30 mins
+
+            //AutoTimer.Interval = 10 * 1000;
             AutoTimer.Start();
         }
 

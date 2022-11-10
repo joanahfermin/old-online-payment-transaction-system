@@ -69,13 +69,25 @@ namespace SampleRPT1
         }
 
         /// <summary>
-        /// Returns a list of records based on taxdec.
+        /// Returns a list records based on uploaded date - for OR RELEASING FILTER.
         /// </summary>
-        public static List<RealPropertyTax> SelectByTaxDec(string taxdec) //F-084-12122;
+        /// <param name="UploadedDateFrom"></param>
+        /// <param name="UploadedDateTo"></param>
+        /// <param name="Status"></param>
+        /// <returns></returns>
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusUploadedBy(DateTime UploadedDateFrom, DateTime UploadedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
-            { 
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 order by EncodedDate", new { TaxDec = taxdec }).ToList();
+            {
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@UploadedDateFrom as DATE) " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@UploadedDateTo as DATE) AND Status = @Status and DeletedRecord != 1 " +
+                    "ORDER BY RptID ASC";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    UploadedDateFrom = UploadedDateFrom,
+                    UploadedDateTo = UploadedDateTo,
+                    Status = Status
+                }).ToList();
             }
         }
 
@@ -492,10 +504,16 @@ namespace SampleRPT1
         //changes status to FOR OR PICK UP when one record shares same reference number to other records and not e-payments.
         public static void ChangeStatusForORPickUp(RealPropertyTax rpt)
         {
+            string UploadedBy = rpt.UploadedBy;
+
+            if (UploadedBy == null)
+            {
+                UploadedBy = SecurityService.getLoginUser().DisplayName;
+            }
+
             if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
             {
                 string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
-                string UploadedBy = rpt.UploadedBy;
 
                 if (rpt.RefNum != null && rpt.RefNum.Length > 0)
                 {
@@ -514,18 +532,17 @@ namespace SampleRPT1
                 else
                 {
                     rpt.LocCode = LocCode;
-
                     rpt.Status = RPTStatus.OR_PICKUP;
                     rpt.UploadedDate = DateTime.Now;
+                    rpt.UploadedBy = UploadedBy;
 
                     RPTDatabase.Update(rpt);
                 }
             }
-
             else
             {
                 rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
-
+                rpt.UploadedBy = UploadedBy;
                 rpt.Status = RPTStatus.OR_PICKUP;
                 rpt.UploadedDate = DateTime.Now;
 

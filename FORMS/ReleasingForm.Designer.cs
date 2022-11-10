@@ -95,6 +95,7 @@
             this.btnStopStart = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.checkEnableCam = new System.Windows.Forms.CheckBox();
+            this.btnAdvancePickUp = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -171,6 +172,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnAdvancePickUp);
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
             this.panel2.Controls.Add(this.dtDateTo);
@@ -216,7 +218,7 @@
             // 
             // btnSearchDateStatus
             // 
-            this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 37);
+            this.btnSearchDateStatus.Location = new System.Drawing.Point(539, 41);
             this.btnSearchDateStatus.Name = "btnSearchDateStatus";
             this.btnSearchDateStatus.Size = new System.Drawing.Size(75, 23);
             this.btnSearchDateStatus.TabIndex = 5;
@@ -610,6 +612,16 @@
             this.checkEnableCam.UseVisualStyleBackColor = true;
             this.checkEnableCam.CheckedChanged += new System.EventHandler(this.checkEnableCam_CheckedChanged);
             // 
+            // btnAdvancePickUp
+            // 
+            this.btnAdvancePickUp.Location = new System.Drawing.Point(383, 41);
+            this.btnAdvancePickUp.Name = "btnAdvancePickUp";
+            this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
+            this.btnAdvancePickUp.TabIndex = 48;
+            this.btnAdvancePickUp.Text = "Advance PickUp Code";
+            this.btnAdvancePickUp.UseVisualStyleBackColor = true;
+            this.btnAdvancePickUp.Click += new System.EventHandler(this.btnAdvancePickUp_Click);
+            // 
             // ReleasingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -716,5 +728,6 @@
         private System.Windows.Forms.Button btnStopStart;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textLocCode;
+        private System.Windows.Forms.Button btnAdvancePickUp;
     }
 }

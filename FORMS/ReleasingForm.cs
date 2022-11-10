@@ -82,15 +82,15 @@ namespace SampleRPT1.FORMS
 
             List<RealPropertyTax> rptList;
 
-            //if (dtDate.Checked)
-            //{
-            //    dtDateTo.Enabled = true;
-            //    DateTime encodedDateFrom = dtDate.Value;
-            //    DateTime encodedDateTo = dtDateTo.Value;
+            if (dtDate.Checked)
+            {
+                dtDateTo.Enabled = true;
+                DateTime UploadedDateFrom = dtDate.Value;
+                DateTime UploadedDateTo = dtDateTo.Value;
 
-            //    rptList = RPTDatabase.SelectByDateFromToAndStatus(encodedDateFrom, encodedDateTo, Status);
-            //}
-            //else
+                rptList = RPTDatabase.SelectByDateFromToAndStatusUploadedBy(UploadedDateFrom, UploadedDateTo, Status);
+            }
+            else
             {
                 dtDateTo.Enabled = false;
                 rptList = RPTDatabase.SelectByStatus(Status);
@@ -136,7 +136,7 @@ namespace SampleRPT1.FORMS
         private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshListView();
-        } 
+        }
 
         /// <summary>
         /// Required fields: Representative name and contact number.
@@ -246,7 +246,7 @@ namespace SampleRPT1.FORMS
                             pictureCam.Image = image;
                         }
                     }
-                    
+
                     else
                     {
                         // Camera is paused, let's rest for a 1/10 of a second so we don't consume much CPU.
@@ -396,6 +396,23 @@ namespace SampleRPT1.FORMS
             {
                 RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
             }
+        }
+
+        private void btnAdvancePickUp_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
+            {
+
+                string RptId = RPTInfoLV.SelectedItems[i].Text;
+                RptID = Convert.ToInt64(RptId);
+
+                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+
+                rpt.LocCode = DateTime.Now.ToString("yyyy-MM ADV");
+
+                RPTDatabase.Update(rpt);
+            }
+            RefreshListView();
         }
     }
 }

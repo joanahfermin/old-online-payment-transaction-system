@@ -795,13 +795,9 @@ namespace SampleRPT1
             {
                 List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD);
 
-                foreach (var rpt in SelectedRPTList)
+                foreach (RealPropertyTax rpt in SelectedRPTList)
                 {
-                    rpt.UploadedBy = loginUser.DisplayName;
-                    rpt.UploadedDate = DateTime.Now;
-                    rpt.Status = RPTStatus.OR_PICKUP;
-
-                    RPTDatabase.Update(rpt);
+                    RPTDatabase.ChangeStatusForORPickUp(rpt); 
                     cboStatus.Text = RPTStatus.OR_PICKUP;
                 }
 
@@ -817,10 +813,10 @@ namespace SampleRPT1
 
         private void validateForm()
         {
-            errorProvider1.Clear(); 
+            errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textNumOfBills, "Number of bills");
-        }   
+        }
 
         private void VerifyPayment()
         {

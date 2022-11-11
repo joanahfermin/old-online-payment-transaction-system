@@ -61,7 +61,6 @@
             this.btnSaveAll = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dtTransactionPayment = new System.Windows.Forms.DateTimePicker();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -330,21 +329,6 @@
             this.dtTransactionPayment.TabIndex = 12;
             this.dtTransactionPayment.Value = new System.DateTime(2022, 9, 5, 14, 56, 11, 0);
             // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.IndianRed;
-            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnDelete.FlatAppearance.BorderSize = 0;
-            this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDelete.Location = new System.Drawing.Point(1482, 19);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(69, 23);
-            this.btnDelete.TabIndex = 14;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            // 
             // cboQuarter
             // 
             this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -381,7 +365,6 @@
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.cboQuarter);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dtTransactionPayment);
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.btnSave);
@@ -444,7 +427,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DateTimePicker dtTransactionPayment;
         private System.Windows.Forms.ColumnHeader taxpayername;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnPrint;

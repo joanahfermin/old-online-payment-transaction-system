@@ -55,6 +55,7 @@ namespace SampleRPT1
             labelPaymentChannel.Visible = false;
             cboValidator.Visible = false;
             labelValidatedBy.Visible = false;
+            btnDelete.Visible = false;
 
             textRemarks.Visible = false;
             LabelRemarks.Visible = false;

@@ -32,6 +32,9 @@ namespace SampleRPT1.FORMS
             MdiParent = parentForm;
             ControlBox = false;
 
+            dtDate.Value = DateTime.Now;
+            dtDateTo.Value = DateTime.Now;
+
             cboReportName.Items.Add(REPORT_USER_ACTIVITY);
             cboReportName.SelectedIndex = 0;
         }
@@ -42,7 +45,7 @@ namespace SampleRPT1.FORMS
             WindowState = FormWindowState.Maximized;
         }
 
-        private void cboReportName_SelectedIndexChanged(object sender, EventArgs e)
+        private void RefreshReport()
         {
             if (cboReportName.Text == REPORT_USER_ACTIVITY)
             {
@@ -50,8 +53,16 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        private void cboReportName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshReport();
+        }
+
         private void ShowReportUserActivity()
         {
+            DateTime DateFrom = dtDate.Value;
+            DateTime DateTo = dtDateTo.Value;
+
             LVreport.Columns.Clear();
 
             foreach (dynamic column in REPORT_USER_ACTIVITY_COLUMN_NAMES)
@@ -61,9 +72,19 @@ namespace SampleRPT1.FORMS
                 ColumnHeader lastHeader = LVreport.Columns[lastHeaderIndex];
                 lastHeader.Width = column.Width;
             }
-            List<ReportUserActivity> userActivityList = ReportDatabase.SelectUserActivity();
+            List<ReportUserActivity> userActivityList = ReportDatabase.SelectUserActivity(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview<ReportUserActivity>(userActivityList, LVreport, new List<string>
             { "DisplayName", "EncodedCount", "BilledCount", "VerifiedCount", "ValidatedCount", "UploadCount", "ReleasedCount"});
+        }
+
+        private void dtDate_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshReport();
+        }
+
+        private void dtDateTo_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshReport();
         }
     }
 }

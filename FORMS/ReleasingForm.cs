@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -388,6 +389,47 @@ namespace SampleRPT1.FORMS
             {
                 VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
             }
+
+            ShowPicture();
+        } 
+
+        private void ShowPicture()
+        {
+            pictureBoxReceipt.Image = Properties.Resources.no_img;
+
+            if (RPTInfoLV.SelectedItems.Count > 0)
+            {
+                string RptIDString = RPTInfoLV.SelectedItems[0].Text;
+                long RptID = Convert.ToInt64(RptIDString);
+
+                List<RPTAttachPicture> RetrievePictureList = RPTAttachPictureDatabase.SelectByRPT(RptID);
+
+                foreach (RPTAttachPicture RetrievePicture in RetrievePictureList)
+                {
+                    if (RetrievePicture.DocumentType == DocumentType.RECEIPT)
+                    {
+                        pictureBoxReceipt.Image = getImageFromAttachePicture(RetrievePicture);
+                        TabPicture.SelectTab(Receipt);
+                        pictureBoxReceipt.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+                    else
+                    {
+                        pictureBoxReceipt.SizeMode = PictureBoxSizeMode.CenterImage;
+                    }
+                }
+            }        
+        }
+
+        private Image getImageFromAttachePicture(RPTAttachPicture AttachPicture)
+        {
+            if (FileUtils.isDocument(AttachPicture.FileName))
+            {
+                return Properties.Resources.pdf_img;
+            }
+            else
+            {
+                return Image.FromStream(new MemoryStream(AttachPicture.FileData));
+            }
         }
 
         private void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)
@@ -408,11 +450,72 @@ namespace SampleRPT1.FORMS
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
-                rpt.LocCode = DateTime.Now.ToString("yyyy-MM ADV");
+                string locCodePrefix = DateTime.Now.ToString("yyyy-MM ADV");
+                string locCode = RPTDatabase.GetAdvancePickExistingSequence(locCodePrefix, rpt.RequestingParty);
+
+                if (locCode == null)
+                {
+                    int nextSequence = RPTDatabase.GetAdvancePickUpLocCodeSequence(locCodePrefix);
+                    locCode = locCodePrefix + nextSequence;
+                }
+
+                rpt.LocCode = locCode;
+
 
                 RPTDatabase.Update(rpt);
             }
             RefreshListView();
+        }
+
+        private void pictureBoxReceipt_Click(object sender, EventArgs e)
+        {
+            ViewAttachedPicture(DocumentType.RECEIPT);
+        }
+
+        private void ViewAttachedPicture(string documentType)
+        {
+            if (RPTInfoLV.SelectedItems.Count > 0)
+            {
+                string RptIDString = RPTInfoLV.SelectedItems[0].Text;
+                long RptID = Convert.ToInt64(RptIDString);
+
+                RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, documentType);
+
+                if (RetrievePicture != null)
+                {
+                    if (FileUtils.isDocument(RetrievePicture.FileName))
+                    {
+                        // Download PDF and display
+
+                        // generate random pdf filename
+                        String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + RetrievePicture.FileName;
+
+                        // Save the file
+                        String savedFileFullPath = FileUtils.SaveFileToDownloadFolder(filename, RetrievePicture.FileData);
+                        //MessageBox.Show(savedFileFullPath);
+
+                        // Open the file
+                        System.Diagnostics.Process.Start(savedFileFullPath);
+                    }
+                    else
+                    {
+                        // Display the picture retrieved from DB
+                        Image image = Image.FromStream(new MemoryStream(RetrievePicture.FileData));
+                        ViewImageForm form = new ViewImageForm(image);
+                        form.ShowDialog();
+                    }
+                }
+                else
+                {
+                    // No image was uploaded to DB, we show Empty image.
+                    ViewImageForm form = new ViewImageForm(Properties.Resources.no_img);
+                    form.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a record from the list view.");
+            }
         }
     }
 }

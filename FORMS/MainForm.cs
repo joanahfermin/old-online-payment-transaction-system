@@ -432,6 +432,12 @@ namespace SampleRPT1
                     updateRPTForm.ShowDialog();
                 }
             }
+
+            if (loginUser.isVerifier && RetrieveRPT.Status == RPTStatus.PAYMENT_VALIDATION)
+            {
+                UpdateValidationRemarksForm updateRemarksVal = new UpdateValidationRemarksForm(RetrieveRPT.RptID);
+                updateRemarksVal.ShowDialog();
+            }
         }
 
         private void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)

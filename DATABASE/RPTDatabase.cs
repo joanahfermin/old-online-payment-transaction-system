@@ -561,5 +561,24 @@ namespace SampleRPT1
             }
         }
 
+        public static string GetAdvancePickExistingSequence(String LocCodePrefix, String RequestingParty)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String LocCodePattern = LocCodePrefix + "%";
+                return conn.ExecuteScalar<string>($"select top 1 LocCode from Jo_RPT Where LocCode like @LocCodePattern and RequestingParty=@RequestingParty and DeletedRecord != 1", new { LocCodePattern = LocCodePattern, RequestingParty = RequestingParty });
+            }
+        }
+
+        public static int GetAdvancePickUpLocCodeSequence(String LocCodePrefix)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String LocCodePattern = LocCodePrefix + "%";
+                int currentMaxSequence = conn.ExecuteScalar<int>($"SELECT COALESCE(max (CAST(ltrim(rtrim(substring(LocCode, len(@LocCodePrefix)+1, len(LocCode)-len(@LocCodePrefix) )))AS INT)),0) from Jo_RPT Where LocCode like @LocCodePattern and DeletedRecord != 1", new { LocCodePrefix = LocCodePrefix, LocCodePattern = LocCodePattern });
+                return currentMaxSequence + 1;
+            }
+        }
+
     }
 }

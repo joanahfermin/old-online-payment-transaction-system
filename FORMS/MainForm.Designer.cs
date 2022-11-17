@@ -40,6 +40,7 @@
             this.excessShortAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedBy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -118,7 +119,6 @@
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
             this.cboValidator = new System.Windows.Forms.ComboBox();
             this.labelValidatedBy = new System.Windows.Forms.Label();
-            this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -213,6 +213,10 @@
             // 
             this.YearQuarter.Text = "Year/Quarter";
             this.YearQuarter.Width = 160;
+            // 
+            // qtr
+            // 
+            this.qtr.Text = "Quarter";
             // 
             // Status
             // 
@@ -874,10 +878,6 @@
             this.labelValidatedBy.Size = new System.Drawing.Size(71, 13);
             this.labelValidatedBy.TabIndex = 56;
             this.labelValidatedBy.Text = "Validated by: ";
-            // 
-            // qtr
-            // 
-            this.qtr.Text = "Quarter";
             // 
             // MainForm
             // 

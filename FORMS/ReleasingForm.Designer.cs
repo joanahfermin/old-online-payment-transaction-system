@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnAdvancePickUp = new System.Windows.Forms.Button();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.cboStatus = new System.Windows.Forms.ComboBox();
             this.dtDateTo = new System.Windows.Forms.DateTimePicker();
@@ -95,11 +96,18 @@
             this.btnStopStart = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.checkEnableCam = new System.Windows.Forms.CheckBox();
-            this.btnAdvancePickUp = new System.Windows.Forms.Button();
+            this.TabPicture = new System.Windows.Forms.TabControl();
+            this.Camera = new System.Windows.Forms.TabPage();
+            this.Receipt = new System.Windows.Forms.TabPage();
+            this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCam)).BeginInit();
+            this.TabPicture.SuspendLayout();
+            this.Camera.SuspendLayout();
+            this.Receipt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -184,6 +192,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 36;
+            // 
+            // btnAdvancePickUp
+            // 
+            this.btnAdvancePickUp.Location = new System.Drawing.Point(383, 41);
+            this.btnAdvancePickUp.Name = "btnAdvancePickUp";
+            this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
+            this.btnAdvancePickUp.TabIndex = 48;
+            this.btnAdvancePickUp.Text = "Advance PickUp Code";
+            this.btnAdvancePickUp.UseVisualStyleBackColor = true;
+            this.btnAdvancePickUp.Click += new System.EventHandler(this.btnAdvancePickUp_Click);
             // 
             // dtDate
             // 
@@ -575,15 +593,15 @@
             // pictureCam
             // 
             this.pictureCam.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.pictureCam.Location = new System.Drawing.Point(1428, 549);
+            this.pictureCam.Location = new System.Drawing.Point(3, 3);
             this.pictureCam.Name = "pictureCam";
-            this.pictureCam.Size = new System.Drawing.Size(463, 354);
+            this.pictureCam.Size = new System.Drawing.Size(449, 326);
             this.pictureCam.TabIndex = 42;
             this.pictureCam.TabStop = false;
             // 
             // btnStopStart
             // 
-            this.btnStopStart.Location = new System.Drawing.Point(1737, 909);
+            this.btnStopStart.Location = new System.Drawing.Point(293, 331);
             this.btnStopStart.Name = "btnStopStart";
             this.btnStopStart.Size = new System.Drawing.Size(75, 23);
             this.btnStopStart.TabIndex = 44;
@@ -593,7 +611,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(1818, 909);
+            this.btnSave.Location = new System.Drawing.Point(374, 331);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 45;
@@ -604,7 +622,7 @@
             // checkEnableCam
             // 
             this.checkEnableCam.AutoSize = true;
-            this.checkEnableCam.Location = new System.Drawing.Point(1440, 913);
+            this.checkEnableCam.Location = new System.Drawing.Point(6, 335);
             this.checkEnableCam.Name = "checkEnableCam";
             this.checkEnableCam.Size = new System.Drawing.Size(101, 17);
             this.checkEnableCam.TabIndex = 46;
@@ -612,25 +630,58 @@
             this.checkEnableCam.UseVisualStyleBackColor = true;
             this.checkEnableCam.CheckedChanged += new System.EventHandler(this.checkEnableCam_CheckedChanged);
             // 
-            // btnAdvancePickUp
+            // TabPicture
             // 
-            this.btnAdvancePickUp.Location = new System.Drawing.Point(383, 41);
-            this.btnAdvancePickUp.Name = "btnAdvancePickUp";
-            this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
-            this.btnAdvancePickUp.TabIndex = 48;
-            this.btnAdvancePickUp.Text = "Advance PickUp Code";
-            this.btnAdvancePickUp.UseVisualStyleBackColor = true;
-            this.btnAdvancePickUp.Click += new System.EventHandler(this.btnAdvancePickUp_Click);
+            this.TabPicture.Controls.Add(this.Camera);
+            this.TabPicture.Controls.Add(this.Receipt);
+            this.TabPicture.Location = new System.Drawing.Point(1430, 549);
+            this.TabPicture.Name = "TabPicture";
+            this.TabPicture.SelectedIndex = 0;
+            this.TabPicture.Size = new System.Drawing.Size(463, 383);
+            this.TabPicture.TabIndex = 47;
+            // 
+            // Camera
+            // 
+            this.Camera.Controls.Add(this.pictureCam);
+            this.Camera.Controls.Add(this.checkEnableCam);
+            this.Camera.Controls.Add(this.btnSave);
+            this.Camera.Controls.Add(this.btnStopStart);
+            this.Camera.Location = new System.Drawing.Point(4, 22);
+            this.Camera.Name = "Camera";
+            this.Camera.Padding = new System.Windows.Forms.Padding(3);
+            this.Camera.Size = new System.Drawing.Size(455, 357);
+            this.Camera.TabIndex = 0;
+            this.Camera.Text = "Camera";
+            this.Camera.UseVisualStyleBackColor = true;
+            // 
+            // Receipt
+            // 
+            this.Receipt.Controls.Add(this.pictureBoxReceipt);
+            this.Receipt.Location = new System.Drawing.Point(4, 22);
+            this.Receipt.Name = "Receipt";
+            this.Receipt.Padding = new System.Windows.Forms.Padding(3);
+            this.Receipt.Size = new System.Drawing.Size(455, 357);
+            this.Receipt.TabIndex = 1;
+            this.Receipt.Text = "Receipt";
+            this.Receipt.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxReceipt
+            // 
+            this.pictureBoxReceipt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxReceipt.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxReceipt.Name = "pictureBoxReceipt";
+            this.pictureBoxReceipt.Size = new System.Drawing.Size(459, 359);
+            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxReceipt.TabIndex = 21;
+            this.pictureBoxReceipt.TabStop = false;
+            this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
             // 
             // ReleasingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 948);
-            this.Controls.Add(this.checkEnableCam);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnStopStart);
-            this.Controls.Add(this.pictureCam);
+            this.Controls.Add(this.TabPicture);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);
             this.Controls.Add(this.textRepName);
@@ -656,6 +707,11 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCam)).EndInit();
+            this.TabPicture.ResumeLayout(false);
+            this.Camera.ResumeLayout(false);
+            this.Camera.PerformLayout();
+            this.Receipt.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -729,5 +785,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textLocCode;
         private System.Windows.Forms.Button btnAdvancePickUp;
+        private System.Windows.Forms.TabControl TabPicture;
+        private System.Windows.Forms.TabPage Camera;
+        private System.Windows.Forms.TabPage Receipt;
+        private System.Windows.Forms.PictureBox pictureBoxReceipt;
     }
 }

@@ -444,13 +444,12 @@ namespace SampleRPT1.FORMS
         {
             for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
             {
-
                 string RptId = RPTInfoLV.SelectedItems[i].Text;
                 RptID = Convert.ToInt64(RptId);
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
-                string locCodePrefix = DateTime.Now.ToString("yyyy-MM ADV");
+                string locCodePrefix = DateTime.Now.ToString("yy-MM ADV");
                 string locCode = RPTDatabase.GetAdvancePickExistingSequence(locCodePrefix, rpt.RequestingParty);
 
                 if (locCode == null)
@@ -461,12 +460,11 @@ namespace SampleRPT1.FORMS
 
                 rpt.LocCode = locCode;
 
-
                 RPTDatabase.Update(rpt);
             }
             RefreshListView();
         }
-
+         
         private void pictureBoxReceipt_Click(object sender, EventArgs e)
         {
             ViewAttachedPicture(DocumentType.RECEIPT);

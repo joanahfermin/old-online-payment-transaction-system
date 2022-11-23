@@ -59,9 +59,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cboBankUsed = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cboBankUsed = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -192,6 +192,7 @@
             this.textTaxDec.Size = new System.Drawing.Size(253, 23);
             this.textTaxDec.TabIndex = 1;
             this.textTaxDec.Click += new System.EventHandler(this.textTaxDec_Click);
+            this.textTaxDec.TextChanged += new System.EventHandler(this.textTaxDec_TextChanged);
             this.textTaxDec.Enter += new System.EventHandler(this.textTaxDec_Enter);
             this.textTaxDec.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTaxDec_KeyDown);
             this.textTaxDec.Leave += new System.EventHandler(this.textTaxDec_Leave);
@@ -398,6 +399,24 @@
             this.panel1.Size = new System.Drawing.Size(526, 479);
             this.panel1.TabIndex = 4;
             // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(291, 203);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 18;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(238, 211);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Quarter: ";
+            // 
             // cboBankUsed
             // 
             this.cboBankUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -411,24 +430,6 @@
             this.cboBankUsed.TabIndex = 5;
             this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
             this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(238, 211);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(48, 13);
-            this.label13.TabIndex = 17;
-            this.label13.Text = "Quarter: ";
-            // 
-            // cboQuarter
-            // 
-            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboQuarter.FormattingEnabled = true;
-            this.cboQuarter.Location = new System.Drawing.Point(291, 203);
-            this.cboQuarter.Name = "cboQuarter";
-            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
-            this.cboQuarter.TabIndex = 18;
             // 
             // AddRPTForm
             // 

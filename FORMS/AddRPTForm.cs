@@ -460,5 +460,10 @@ namespace SampleRPT1
             //}
             Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declation number ");
         }
+
+        private void textTaxDec_TextChanged(object sender, EventArgs e)
+        {
+            textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
+        }
     }
 }

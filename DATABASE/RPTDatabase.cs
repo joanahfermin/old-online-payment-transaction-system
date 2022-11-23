@@ -580,5 +580,12 @@ namespace SampleRPT1
             }
         }
 
+        public static string SelectByPropertyName(string tdn)
+        {
+            using (SqlConnection conn = DbUtils.getConnectionToMISCReportV())
+            {
+                return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [ONAME] FROM V_TaxBills where pstdn = @tdn order by billdate desc", new { tdn = tdn });
+            }
+        }
     }
 }

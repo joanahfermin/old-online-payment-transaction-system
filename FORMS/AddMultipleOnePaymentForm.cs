@@ -483,5 +483,10 @@ namespace SampleRPT1
             }
             ComputeTotalAmountToPay();
         }
+
+        private void textTDN_TextChanged(object sender, EventArgs e)
+        {
+            textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+        }
     }
 }

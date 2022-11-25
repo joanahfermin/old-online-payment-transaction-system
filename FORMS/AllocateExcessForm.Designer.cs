@@ -40,6 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@
             this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textYearQuarter.Location = new System.Drawing.Point(137, 159);
             this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(264, 20);
+            this.textYearQuarter.Size = new System.Drawing.Size(91, 20);
             this.textYearQuarter.TabIndex = 2;
             this.textYearQuarter.Click += new System.EventHandler(this.textYearQuarter_Click);
             this.textYearQuarter.Enter += new System.EventHandler(this.textYearQuarter_Enter);
@@ -100,11 +102,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 166);
+            this.label2.Location = new System.Drawing.Point(90, 166);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "YearQuarter: ";
+            this.label2.Text = "Year:";
             // 
             // label3
             // 
@@ -118,7 +120,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(46, 43);
+            this.label4.Location = new System.Drawing.Point(61, 43);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 13;
@@ -139,11 +141,31 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // cboQuarter
+            // 
+            this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuarter.FormattingEnabled = true;
+            this.cboQuarter.Location = new System.Drawing.Point(287, 158);
+            this.cboQuarter.Name = "cboQuarter";
+            this.cboQuarter.Size = new System.Drawing.Size(114, 21);
+            this.cboQuarter.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(234, 166);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(48, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Quarter: ";
+            // 
             // AllocateExcessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 329);
+            this.Controls.Add(this.cboQuarter);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -174,5 +196,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ComboBox cboQuarter;
+        private System.Windows.Forms.Label label13;
     }
 }

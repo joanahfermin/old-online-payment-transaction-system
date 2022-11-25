@@ -21,6 +21,7 @@ namespace SampleRPT1.FORMS
         public AllocateExcessForm()
         {
             InitializeComponent();
+            InitializeQuarter();
         }
 
         /// <summary>
@@ -32,7 +33,17 @@ namespace SampleRPT1.FORMS
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
             textTDN.Text = RetrieveRpt.TaxDec;
+            textYearQuarter.Text = RetrieveRpt.YearQuarter;
             textAmount2Pay.Text = RetrieveRpt.ExcessShortAmount.ToString();
+        }
+
+        public void InitializeQuarter()
+        {
+            foreach (string quarter in GlobalVariables.ALL_QUARTER)
+            {
+                cboQuarter.Items.Add(quarter);
+            }
+            cboQuarter.SelectedIndex = 3;
         }
 
         /// <summary>
@@ -164,7 +175,7 @@ namespace SampleRPT1.FORMS
 
         private void AllocateExcessForm_Load(object sender, EventArgs e)
         {
-            textYearQuarter.Text = DateTime.Now.Year.ToString();
+            //textYearQuarter.Text = DateTime.Now.Year.ToString();
         }
     }
 }

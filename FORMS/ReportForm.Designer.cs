@@ -35,12 +35,19 @@
             this.dtDateTo = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.btnReportCollector = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cboReportName
             // 
             this.cboReportName.FormattingEnabled = true;
-            this.cboReportName.Location = new System.Drawing.Point(103, 68);
+            this.cboReportName.Location = new System.Drawing.Point(23, 36);
             this.cboReportName.Name = "cboReportName";
             this.cboReportName.Size = new System.Drawing.Size(236, 21);
             this.cboReportName.TabIndex = 0;
@@ -49,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 76);
+            this.label1.Location = new System.Drawing.Point(20, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 1;
@@ -58,10 +65,11 @@
             // LVreport
             // 
             this.LVreport.FullRowSelect = true;
+            this.LVreport.GridLines = true;
             this.LVreport.HideSelection = false;
-            this.LVreport.Location = new System.Drawing.Point(23, 106);
+            this.LVreport.Location = new System.Drawing.Point(23, 73);
             this.LVreport.Name = "LVreport";
-            this.LVreport.Size = new System.Drawing.Size(1119, 591);
+            this.LVreport.Size = new System.Drawing.Size(808, 742);
             this.LVreport.TabIndex = 2;
             this.LVreport.UseCompatibleStateImageBehavior = false;
             this.LVreport.View = System.Windows.Forms.View.Details;
@@ -71,7 +79,7 @@
             this.dtDate.Checked = false;
             this.dtDate.CustomFormat = "MM/dd/yyyy";
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDate.Location = new System.Drawing.Point(103, 29);
+            this.dtDate.Location = new System.Drawing.Point(294, 36);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(95, 20);
             this.dtDate.TabIndex = 46;
@@ -82,7 +90,7 @@
             // 
             this.dtDateTo.CustomFormat = "MM/dd/yyyy";
             this.dtDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateTo.Location = new System.Drawing.Point(244, 28);
+            this.dtDateTo.Location = new System.Drawing.Point(408, 36);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 47;
@@ -92,7 +100,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 36);
+            this.label2.Location = new System.Drawing.Point(291, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 48;
@@ -101,19 +109,83 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(212, 35);
+            this.label13.Location = new System.Drawing.Point(405, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 49;
             this.label13.Text = "To: ";
             // 
+            // btnReportCollector
+            // 
+            this.btnReportCollector.Location = new System.Drawing.Point(731, 33);
+            this.btnReportCollector.Name = "btnReportCollector";
+            this.btnReportCollector.Size = new System.Drawing.Size(100, 23);
+            this.btnReportCollector.TabIndex = 50;
+            this.btnReportCollector.Text = "Generate Report";
+            this.btnReportCollector.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(863, 99);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(143, 20);
+            this.textBox1.TabIndex = 51;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(860, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "Total Collection: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(860, 157);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "Total Billing: ";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(863, 183);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(143, 20);
+            this.textBox2.TabIndex = 51;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(860, 250);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 13);
+            this.label5.TabIndex = 48;
+            this.label5.Text = "SHT-TC: ";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(863, 276);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(143, 20);
+            this.textBox3.TabIndex = 51;
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1303, 725);
+            this.ClientSize = new System.Drawing.Size(1828, 924);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnReportCollector);
             this.Controls.Add(this.dtDate);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dtDateTo);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.LVreport);
@@ -135,5 +207,12 @@
         private System.Windows.Forms.DateTimePicker dtDateTo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button btnReportCollector;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

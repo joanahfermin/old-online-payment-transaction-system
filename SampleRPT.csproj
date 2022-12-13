@@ -313,6 +313,7 @@
     </Compile>
     <Compile Include="JOBS\AutoTagRPTValidationJob.cs" />
     <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
+    <Compile Include="MODEL\ReportCollection.cs" />
     <Compile Include="MODEL\ReportUserActivity.cs" />
     <Compile Include="MODEL\RPTBank.cs" />
     <Compile Include="FORMS\UpdateMultipleRPTForm.cs">

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 
 namespace SampleRPT1.DATABASE
 {
@@ -25,6 +26,33 @@ namespace SampleRPT1.DATABASE
                     "    (SELECT COUNT(*) FROM Jo_RPT r WHERE DeletedRecord = 0 and r.ReleasedBy = u.DisplayName  and CAST(ReleasedDate AS Date)  >= CAST(@FromDate AS Date) and CAST(ReleasedDate AS Date)  <= CAST(@ToDate AS Date) ) as ReleasedCount" +
                     " FROM Jo_RPT_Users u" +
                     " WHERE isActive = 1 order by DisplayName asc", new { FromDate = _DateFrom, ToDate = _DateTo }).ToList();
+            }
+        }
+
+        public static List<ReportCollection> SelectUserRPT(DateTime _DateFrom, DateTime _DateTo)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                string UserName = SecurityService.getLoginUser().DisplayName;
+                return conn.Query<ReportCollection>(
+"SELECT Collection, Billing, ExcessShort " +
+"FROM ( " +
+" SELECT AmountTransferred as Collection,  AmountToPay as Billing, 0 as ExcessShort, ValidatedDate, RPTID " +
+" FROM Jo_RPT r " +
+" WHERE Bank in @OnlinePaymentChannels " +
+" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+" UNION " +
+" SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, (select min(ValidatedDate) from Jo_RPT r2 where r2.RefNum = r.RefNum ) as ValidatedDate, RPTID " +
+" FROM Jo_RPT r " +
+" WHERE Bank not in @OnlinePaymentChannels and RefNum is not null " +
+" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+" UNION " +
+" SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, ValidatedDate, RPTID " +
+" FROM Jo_RPT r " +
+" WHERE Bank not in @OnlinePaymentChannels and RefNum is null " +
+" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+") AS ReportView " +
+"order by ValidatedDate, RPTID ", new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
             }
         }
     }

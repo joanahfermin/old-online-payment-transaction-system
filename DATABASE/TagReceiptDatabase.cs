@@ -23,7 +23,5 @@ namespace SampleRPT1.DATABASE
                     $"@MachNoList order by ORDate asc", new { MachNoList = machNoList }).ToList();
             }
         }
-
-
     }
 }

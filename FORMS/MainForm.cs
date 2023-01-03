@@ -662,6 +662,8 @@ namespace SampleRPT1
                 cboPaymentChannel.Visible = true;
                 labelPaymentChannel.Visible = true;
                 InitializePaymentChannel();
+                LabelRemarks.Visible = true;
+                textRemarks.Visible = true;
             }
 
             if (cboAction.Text != RPTAction.BILL_NO_POP && cboAction.Text != RPTAction.BILL_WITH_POP && cboAction.Text != RPTAction.VERIFY_PAYMENT)
@@ -1029,14 +1031,20 @@ namespace SampleRPT1
                 if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED || rpt.Status == RPTStatus.OR_UPLOAD)
                 {
                     string documentType;
+
+                    byte[] FileData;
+
                     if (TabPicture.SelectedTab.Text == DocumentType.ASSESSMENT)
                     {
                         documentType = DocumentType.ASSESSMENT;
+                        FileData = ImageUtil.ImageToByteArray(pictureBoxAssessment.Image);
                     }
                     else
                     {
                         documentType = DocumentType.RECEIPT;
                         rpt.UploadedBy = loginUser.DisplayName;
+
+                        FileData = ImageUtil.ImageToByteArray(pictureBoxReceipt.Image);
 
                         //todo optional to refactor this later
                         VerAndValLV.SelectedItems[0].SubItems[11].Text = rpt.UploadedBy;
@@ -1053,7 +1061,7 @@ namespace SampleRPT1
                         rptAttachPicture.RptId = rpt.RptID;
                         rptAttachPicture.FileName = Path.GetFileName(textFileName.Text);
 
-                        byte[] FileData = File.ReadAllBytes(textFileName.Text);
+                        //byte[] FileData = File.ReadAllBytes(textFileName.Text);
                         if (FileUtils.isDocument(rptAttachPicture.FileName))
                         {
                             // If PDF, store the file content as is
@@ -1074,7 +1082,7 @@ namespace SampleRPT1
                     {
                         RetrievePicture.FileName = Path.GetFileName(textFileName.Text);
 
-                        byte[] FileData = File.ReadAllBytes(textFileName.Text);
+                        //byte[] FileData = File.ReadAllBytes(textFileName.Text);
 
                         if (FileUtils.isDocument(RetrievePicture.FileName))
                         {

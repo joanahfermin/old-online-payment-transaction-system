@@ -119,6 +119,7 @@
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
             this.cboValidator = new System.Windows.Forms.ComboBox();
             this.labelValidatedBy = new System.Windows.Forms.Label();
+            this.btnRotate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -879,11 +880,22 @@
             this.labelValidatedBy.TabIndex = 56;
             this.labelValidatedBy.Text = "Validated by: ";
             // 
+            // btnRotate
+            // 
+            this.btnRotate.Location = new System.Drawing.Point(1779, 947);
+            this.btnRotate.Name = "btnRotate";
+            this.btnRotate.Size = new System.Drawing.Size(110, 23);
+            this.btnRotate.TabIndex = 57;
+            this.btnRotate.Text = "Rotate";
+            this.btnRotate.UseVisualStyleBackColor = true;
+            this.btnRotate.Click += new System.EventHandler(this.btnRotate_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.btnRotate);
             this.Controls.Add(this.labelValidatedBy);
             this.Controls.Add(this.cboValidator);
             this.Controls.Add(this.checkAutLetter);
@@ -1027,6 +1039,7 @@
         private System.Windows.Forms.Label labelValidatedBy;
         private System.Windows.Forms.ComboBox cboValidator;
         private System.Windows.Forms.ColumnHeader qtr;
+        private System.Windows.Forms.Button btnRotate;
     }
 }
 

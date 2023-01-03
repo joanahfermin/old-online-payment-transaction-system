@@ -947,6 +947,19 @@ namespace SampleRPT1
             }
         }
 
+        private void btnRotate_Click(object sender, EventArgs e)
+        {
+            if (TabPicture.SelectedTab.Text == DocumentType.ASSESSMENT)
+            {
+                pictureBoxAssessment.Image = ImageUtil.RotateImage(pictureBoxAssessment.Image);
+            }
+
+            if (TabPicture.SelectedTab.Text == DocumentType.RECEIPT)
+            {
+                pictureBoxReceipt.Image = ImageUtil.RotateImage(pictureBoxReceipt.Image);
+            }
+        }
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             if (mainFormListViewHelper.haveSelectedRow())
@@ -1290,5 +1303,7 @@ namespace SampleRPT1
                 }
             }
         }
+
+        
     }
 }

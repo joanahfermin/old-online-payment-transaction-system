@@ -36,10 +36,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.btnReportCollector = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textTotalCollection = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textTotalBilling = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -124,12 +124,14 @@
             this.btnReportCollector.Text = "Generate Report";
             this.btnReportCollector.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textTotalCollection
             // 
-            this.textBox1.Location = new System.Drawing.Point(863, 99);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(143, 20);
-            this.textBox1.TabIndex = 51;
+            this.textTotalCollection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalCollection.Location = new System.Drawing.Point(863, 99);
+            this.textTotalCollection.Name = "textTotalCollection";
+            this.textTotalCollection.Size = new System.Drawing.Size(143, 20);
+            this.textTotalCollection.TabIndex = 51;
+            this.textTotalCollection.TextChanged += new System.EventHandler(this.textTotalCollection_TextChanged);
             // 
             // label3
             // 
@@ -149,12 +151,13 @@
             this.label4.TabIndex = 48;
             this.label4.Text = "Total Billing: ";
             // 
-            // textBox2
+            // textTotalBilling
             // 
-            this.textBox2.Location = new System.Drawing.Point(863, 183);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(143, 20);
-            this.textBox2.TabIndex = 51;
+            this.textTotalBilling.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalBilling.Location = new System.Drawing.Point(863, 183);
+            this.textTotalBilling.Name = "textTotalBilling";
+            this.textTotalBilling.Size = new System.Drawing.Size(143, 20);
+            this.textTotalBilling.TabIndex = 51;
             // 
             // label5
             // 
@@ -178,8 +181,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1828, 924);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textTotalBilling);
+            this.Controls.Add(this.textTotalCollection);
             this.Controls.Add(this.btnReportCollector);
             this.Controls.Add(this.dtDate);
             this.Controls.Add(this.label5);
@@ -208,10 +211,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnReportCollector;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textTotalCollection;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textTotalBilling;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox3;
     }

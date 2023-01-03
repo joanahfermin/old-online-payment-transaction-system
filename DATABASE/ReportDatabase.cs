@@ -35,24 +35,28 @@ namespace SampleRPT1.DATABASE
             {
                 string UserName = SecurityService.getLoginUser().DisplayName;
                 return conn.Query<ReportCollection>(
-"SELECT Collection, Billing, ExcessShort " +
-"FROM ( " +
-" SELECT AmountTransferred as Collection,  AmountToPay as Billing, 0 as ExcessShort, ValidatedDate, RPTID " +
-" FROM Jo_RPT r " +
-" WHERE Bank in @OnlinePaymentChannels " +
-" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
-" UNION " +
-" SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, (select min(ValidatedDate) from Jo_RPT r2 where r2.RefNum = r.RefNum ) as ValidatedDate, RPTID " +
-" FROM Jo_RPT r " +
-" WHERE Bank not in @OnlinePaymentChannels and RefNum is not null " +
-" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
-" UNION " +
-" SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, ValidatedDate, RPTID " +
-" FROM Jo_RPT r " +
-" WHERE Bank not in @OnlinePaymentChannels and RefNum is null " +
-" and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
-") AS ReportView " +
-"order by ValidatedDate, RPTID ", new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
+                "SELECT Collection, Billing, ExcessShort " +
+                "FROM ( " +
+                " SELECT AmountTransferred as Collection,  AmountToPay as Billing, 0 as ExcessShort, ValidatedDate, RPTID " +
+                " FROM Jo_RPT r " +
+                " WHERE Bank in @OnlinePaymentChannels " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                " UNION " +
+
+                " SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, (select min(ValidatedDate) from Jo_RPT r2 where r2.RefNum = r.RefNum ) as ValidatedDate, RPTID " +
+                " FROM Jo_RPT r " +
+                " WHERE Bank not in @OnlinePaymentChannels and RefNum is not null " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                " UNION " +
+
+                " SELECT TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, ValidatedDate, RPTID " +
+                " FROM Jo_RPT r " +
+                " WHERE Bank not in @OnlinePaymentChannels and RefNum is null " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                ") AS ReportView " +
+                "order by ValidatedDate, RPTID ", 
+                
+                new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
             }
         }
     }

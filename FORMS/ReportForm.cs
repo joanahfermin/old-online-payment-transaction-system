@@ -72,6 +72,7 @@ namespace SampleRPT1.FORMS
         private void cboReportName_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshReport();
+            ComputeTotalCollectionAndBilling();
         }
 
         private void ShowReportUserActivity()
@@ -183,6 +184,30 @@ namespace SampleRPT1.FORMS
             app.Quit();
 
             System.Diagnostics.Process.Start(fullpath);
+        }
+
+        private void ComputeTotalCollectionAndBilling()
+        {
+            decimal totalCollection = 0;
+            decimal totalBilling = 0;
+            decimal resultcolletion = 0;
+
+            foreach (ListViewItem lstItem in LVreport.Items)
+            {
+                //totalCollection += Convert.ToDecimal(lstItem.SubItems[0].Text);
+                decimal.TryParse(lstItem.SubItems[0].Text,out totalCollection);
+                resultcolletion += totalCollection;
+                //MessageBox.Show(totalCollection.ToString());
+                totalBilling += Convert.ToDecimal(lstItem.SubItems[1].Text);
+            }
+
+            textTotalCollection.Text = resultcolletion.ToString();
+            textTotalBilling.Text = totalBilling.ToString();
+        }
+
+        private void textTotalCollection_TextChanged(object sender, EventArgs e)
+        {
+            //ComputeTotalCollectionAndBilling();
         }
     }
 }

@@ -39,6 +39,7 @@ namespace SampleRPT1.FORMS
             this.rdAssessment = new System.Windows.Forms.RadioButton();
             this.rdReceipt = new System.Windows.Forms.RadioButton();
             this.checkRefreshAll = new System.Windows.Forms.CheckBox();
+            this.uploadedby = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +49,8 @@ namespace SampleRPT1.FORMS
             this.rptID,
             this.docType,
             this.taxdec,
-            this.email});
+            this.email,
+            this.uploadedby});
             this.lvReview.FullRowSelect = true;
             this.lvReview.GridLines = true;
             this.lvReview.HideSelection = false;
@@ -139,6 +141,11 @@ namespace SampleRPT1.FORMS
             this.checkRefreshAll.UseVisualStyleBackColor = true;
             this.checkRefreshAll.CheckedChanged += new System.EventHandler(this.checkRefreshAll_CheckedChanged);
             // 
+            // uploadedby
+            // 
+            this.uploadedby.Text = "EncodedBy/UploadedBy";
+            this.uploadedby.Width = 100;
+            // 
             // ReviewEmailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,5 +178,6 @@ namespace SampleRPT1.FORMS
         private System.Windows.Forms.RadioButton rdAssessment;
         private System.Windows.Forms.RadioButton rdReceipt;
         private System.Windows.Forms.CheckBox checkRefreshAll;
+        private System.Windows.Forms.ColumnHeader uploadedby;
     }
 }

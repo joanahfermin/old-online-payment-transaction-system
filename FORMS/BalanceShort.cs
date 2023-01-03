@@ -116,6 +116,8 @@ namespace SampleRPT1.FORMS
                 List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(textRefNum.Text);
 
                 bool firstRecord = true;
+                bool forVerification = false;
+
                 // ididistribute natin yung pera. Initially, yung bagong pinasok ng user ang natitira nating pera.
                 decimal remainingMoney = TotalAmountTransferredUser;
 
@@ -130,6 +132,17 @@ namespace SampleRPT1.FORMS
                         rpt.Bank = cboBankUsed.Text;
                         rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + 
                             dtDateOfPayment.Value.Date.ToShortDateString();
+
+                        if (rpt.ExcessShortAmount >= 0)
+                        {
+                            forVerification = true;
+                        }
+
+                        if (forVerification)
+                        {
+                            rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                        }
+
                         RPTDatabase.Update(rpt);
                     }
 
@@ -149,6 +162,12 @@ namespace SampleRPT1.FORMS
                             rpt.AmountTransferred = rpt.AmountTransferred + remainingMoney;
                             remainingMoney = 0;
                         }
+
+                        if (forVerification)
+                        {
+                            rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                        }
+
                         RPTDatabase.Update(rpt);
                     }
                     firstRecord = false;

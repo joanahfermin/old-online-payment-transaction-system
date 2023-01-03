@@ -60,12 +60,12 @@ namespace SampleRPT1.FORMS
             if (rdAssessment.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyAssessmentSendEmail();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty", "EncodedBy" });
             }
             else if (rdReceipt.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyForORUpload();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty", "UploadedBy" });
             }
             else
             {

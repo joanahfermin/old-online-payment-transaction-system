@@ -82,6 +82,17 @@ namespace SampleRPT1
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptiD);
 
+                if (rpt.Status != RPTStatus.FOR_ASSESSMENT)
+                {
+                    textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
+                    labelAmountToBPay.Enabled = false;
+                    textAmountToBePay.Enabled = false;
+                }
+                else
+                {
+                    textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
+                }
+
                 textTDN.Text = rpt.TaxDec.ToString();
                 textTPName.Text = rpt.TaxPayerName;
                 textYearQuarter.Text = rpt.YearQuarter;
@@ -111,7 +122,7 @@ namespace SampleRPT1
 
             rpt.TaxDec = textTDN.Text;
             rpt.TaxPayerName = textTPName.Text;
-            //rpt.AmountToPay = Convert.ToDecimal(textAmount2Pay.Text);
+            rpt.AmountToPay = Convert.ToDecimal(textAmountToBePay.Text);
             rpt.YearQuarter = textYearQuarter.Text;
 
             rpt.RequestingParty = textRequestingParty.Text;
@@ -128,14 +139,126 @@ namespace SampleRPT1
 
             textTDN.Clear();
             textTPName.Clear();
-            //textAmount2Pay.Clear();
+            textAmountToBePay.Clear();
             //textYearQuarter.Clear();
             textRequestingParty.Clear();
         }
 
-        private void UpdateMultipleRPTForm_Load(object sender, EventArgs e)
+        private void textAmountToBePay_TextChanged(object sender, EventArgs e)
         {
+            double amounttobepaid;
+            double.TryParse(textAmountToBePay.Text, out amounttobepaid);
+            textAmountToBePay.Text = amounttobepaid.ToString("N2");
+        }
 
+        private void textAmountToBePay_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private bool textAmountToBePayJustEntered = false;
+        private void textAmountToBePay_Enter(object sender, EventArgs e)
+        {
+            textAmountToBePay.SelectAll();
+            textAmountToBePayJustEntered = true;
+        }
+
+        private void textAmountToBePay_Click(object sender, EventArgs e)
+        {
+            if (textAmountToBePayJustEntered)
+            {
+                textAmountToBePay.SelectAll();
+            }
+            textAmountToBePayJustEntered = false;
+        }
+
+        private bool textTPNameJustEntered = false;
+        private void textTPName_Enter(object sender, EventArgs e)
+        {
+            textTPName.SelectAll();
+            textTPNameJustEntered = true;
+        }
+
+        private void textTPName_Click(object sender, EventArgs e)
+        {
+            if (textTPNameJustEntered)
+            {
+                textTPName.SelectAll();
+            }
+
+            textTPNameJustEntered = false;
+        }
+
+        private void textTPName_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private bool textTDNJustEntered = false;
+        private void textTDN_Enter(object sender, EventArgs e)
+        {
+            textTDN.SelectAll();
+            textTDNJustEntered = true;
+        }
+
+        private void textTDN_Click(object sender, EventArgs e)
+        {
+            if (textTDNJustEntered)
+            {
+                textTDN.SelectAll();
+            }
+
+            textTDNJustEntered = false;
+        }
+
+        private void textTDN_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private bool textYearQuarterJustEntered = false;
+        private void textYearQuarter_Enter(object sender, EventArgs e)
+        {
+            textYearQuarter.SelectAll();
+            textYearQuarterJustEntered = true;
+        }
+
+        private void textYearQuarter_Click(object sender, EventArgs e)
+        {
+            if (textYearQuarterJustEntered)
+            {
+                textYearQuarter.SelectAll();
+            }
+
+            textYearQuarterJustEntered = false;
+        }
+       
+        private void textYearQuarter_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
+
+        }
+
+        private bool textRequestingPartyJustEntered = false;
+        private void textRequestingParty_Enter(object sender, EventArgs e)
+        {
+            textRequestingParty.SelectAll();
+            textRequestingPartyJustEntered = true;
+        }
+
+        private void textRequestingParty_Click(object sender, EventArgs e)
+        {
+            if (textRequestingPartyJustEntered)
+            {
+                textRequestingParty.SelectAll();
+            }
+
+            textRequestingPartyJustEntered = false;
+        }
+
+        private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
     }
 }

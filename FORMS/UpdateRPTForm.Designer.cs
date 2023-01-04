@@ -56,6 +56,7 @@
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.labelAmountToBPay = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -172,7 +173,7 @@
             // textTPName
             // 
             this.textTPName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTPName.Location = new System.Drawing.Point(152, 94);
+            this.textTPName.Location = new System.Drawing.Point(152, 58);
             this.textTPName.Name = "textTPName";
             this.textTPName.Size = new System.Drawing.Size(253, 20);
             this.textTPName.TabIndex = 2;
@@ -192,7 +193,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(47, 101);
+            this.label3.Location = new System.Drawing.Point(47, 65);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 13;
@@ -210,14 +211,14 @@
             // textAmountToBePaid
             // 
             this.textAmountToBePaid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textAmountToBePaid.Enabled = false;
-            this.textAmountToBePaid.Location = new System.Drawing.Point(625, 140);
+            this.textAmountToBePaid.Location = new System.Drawing.Point(152, 102);
             this.textAmountToBePaid.Name = "textAmountToBePaid";
             this.textAmountToBePaid.Size = new System.Drawing.Size(112, 20);
             this.textAmountToBePaid.TabIndex = 3;
             this.textAmountToBePaid.Text = "0.00";
             this.textAmountToBePaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmountToBePaid.Click += new System.EventHandler(this.textAmountToBePaid_Click);
+            this.textAmountToBePaid.TextChanged += new System.EventHandler(this.textAmountToBePaid_TextChanged);
             this.textAmountToBePaid.Enter += new System.EventHandler(this.textAmountToBePaid_Enter);
             this.textAmountToBePaid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountToBePaid_KeyDown);
             this.textAmountToBePaid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountToBePaid_KeyPress);
@@ -284,6 +285,7 @@
             this.panel1.Controls.Add(this.cboQuarter);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.cboBankUsed);
+            this.panel1.Controls.Add(this.textAmountToBePaid);
             this.panel1.Controls.Add(this.dtDateOfPayment);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.btnUpdateRecord);
@@ -298,6 +300,7 @@
             this.panel1.Controls.Add(this.textTaxDec);
             this.panel1.Controls.Add(this.textTPName);
             this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.labelAmountToBPay);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.textYear);
@@ -361,6 +364,15 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Date Of Payment: ";
             // 
+            // labelAmountToBPay
+            // 
+            this.labelAmountToBPay.AutoSize = true;
+            this.labelAmountToBPay.Location = new System.Drawing.Point(56, 109);
+            this.labelAmountToBPay.Name = "labelAmountToBPay";
+            this.labelAmountToBPay.Size = new System.Drawing.Size(86, 13);
+            this.labelAmountToBPay.TabIndex = 13;
+            this.labelAmountToBPay.Text = "Amount To Pay: ";
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -370,10 +382,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 554);
+            this.ClientSize = new System.Drawing.Size(466, 554);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textAmountToBePaid);
             this.Controls.Add(this.textTransferredAmount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
@@ -417,5 +428,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelAmountToBPay;
     }
 }

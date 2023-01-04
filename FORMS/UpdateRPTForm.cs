@@ -76,8 +76,21 @@ namespace SampleRPT1
                 {
                     textTaxDec.Text = rpt.TaxDec;
                     textTPName.Text = rpt.TaxPayerName;
+
+                    if (rpt.Status != RPTStatus.FOR_ASSESSMENT)
+                    {
+                        textAmountToBePaid.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
+                        labelAmountToBPay.Enabled = false;
+                        textAmountToBePaid.Enabled = false;
+                    }
+                    else
+                    {
+                        textAmountToBePaid.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
+                    }
+
                     //textAmountToBePaid.Text = rpt.AmountToPay.ToString();
                     //textTransferredAmount.Text = rpt.AmountTransferred.ToString();
+
                     cboBankUsed.Text = rpt.Bank;
                     textYear.Text = rpt.YearQuarter;
                     cboQuarter.Text = rpt.Quarter;
@@ -184,10 +197,10 @@ namespace SampleRPT1
                 {
                     rpt.TaxPayerName = textTPName.Text;
                 }
-                //if (textAmountToBePaid.Text != MULTIPLE_MARKER)
-                //{
-                //    rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
-                //}
+                if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+                {
+                    rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
+                }
 
                 //if (textTransferredAmount.Text != MULTIPLE_MARKER)
                 //{
@@ -209,6 +222,7 @@ namespace SampleRPT1
                     else
                     {
                         rpt.PaymentDate = null;
+                        
                     }
                 }
 
@@ -283,12 +297,12 @@ namespace SampleRPT1
         //Thousand separator.
         private void textAmountToBePaid_Leave(object sender, EventArgs e)
         {
-            //if (textAmountToBePaid.Text != MULTIPLE_MARKER)
-            //{
-            //    double amounttobepaid;
-            //    double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
-            //    textAmountToBePaid.Text = amounttobepaid.ToString("N2");
-            //}         
+            if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+            {
+                double amounttobepaid;
+                double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
+                textAmountToBePaid.Text = amounttobepaid.ToString("N2");
+            }
         }
 
         //Thousand separator.
@@ -349,21 +363,21 @@ namespace SampleRPT1
             textTPNameJustEntered = false;
         }
 
-        //private bool textAmountToBePaidJustEntered = false;
+        private bool textAmountToBePaidJustEntered = false;
         private void textAmountToBePaid_Enter(object sender, EventArgs e)
         {
-            //textAmountToBePaid.SelectAll();
-            //textAmountToBePaidJustEntered = true;
+            textAmountToBePaid.SelectAll();
+            textAmountToBePaidJustEntered = true;
         }
 
         private void textAmountToBePaid_Click(object sender, EventArgs e)
         {
-            //if (textAmountToBePaidJustEntered)
-            //{
-            //    textAmountToBePaid.SelectAll();
-            //}
+            if (textAmountToBePaidJustEntered)
+            {
+                textAmountToBePaid.SelectAll();
+            }
 
-            //textAmountToBePaidJustEntered = false;
+            textAmountToBePaidJustEntered = false;
         }
 
         //private bool textTransferredAmountJustEntered = false;
@@ -515,7 +529,7 @@ namespace SampleRPT1
 
         private void textAmountToBePaid_KeyDown(object sender, KeyEventArgs e)
         {
-            //EventHelperUtil.EnterKeyDown(sender, e, this);
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
         private void textTransferredAmount_KeyDown(object sender, KeyEventArgs e)
@@ -556,6 +570,16 @@ namespace SampleRPT1
         private void cboQuarter_KeyDown(object sender, KeyEventArgs e)
         {
             EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private void textAmountToBePaid_TextChanged(object sender, EventArgs e)
+        {
+            if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+            {
+                double amounttobepaid;
+                double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
+                textAmountToBePaid.Text = amounttobepaid.ToString("N2");
+            }
         }
     }
 }

@@ -194,6 +194,24 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByEncodedDate(string TaxDec)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
+                    $"order by RefNum desc, EncodedDate asc", new { TaxDec = TaxDec }).ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectByVerifiedDate(string TaxDec)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and status = @FORPAYMENTVALIDATION and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 AND status = @FORPAYMENTVALIDATION" +
+                    $" order by RefNum desc, VerifiedDate asc", new { TaxDec = TaxDec, FORPAYMENTVALIDATION = RPTStatus.PAYMENT_VALIDATION }).ToList();
+            }
+        }
+
         /// <summary>
         /// Returns a list of records based on taxdec and status: FOR OR RELEASE.
         /// </summary>
@@ -500,7 +518,7 @@ namespace SampleRPT1
                 }).ToList();
             }
         }
-        
+
         //changes status to FOR OR PICK UP when one record shares same reference number to other records and not e-payments.
         public static void ChangeStatusForORPickUp(RealPropertyTax rpt)
         {

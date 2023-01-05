@@ -206,6 +206,17 @@ namespace SampleRPT1
 
             string taxdec = textTDN.Text;
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
+
+            if (loginUser.isValidator && SecurityService.getLoginUser().MachNo != null)
+            {
+                rptList = RPTDatabase.SelectByVerifiedDate(taxdec);
+            }
+
+            if (loginUser.isVerifier)
+            {
+                rptList = RPTDatabase.SelectByEncodedDate(taxdec);
+            }
+
             mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
         }
@@ -507,6 +518,7 @@ namespace SampleRPT1
             decimal TotalAmountTransferred = 0;
 
             List<RealPropertyTax> rptList = mainFormListViewHelper.GetSelectedRPTList();
+
             foreach (RealPropertyTax rpt in rptList)
             {
                 TotalAmountToPay = TotalAmountToPay + rpt.AmountToPay;

@@ -564,8 +564,74 @@ namespace SampleRPT1
             }
         }
 
-        private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        private static decimal totalAmount2Pay = 0;
+        private static decimal totalAmountTrans = 0;
+
+        private void RPTInfoLV_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            int index = e.ItemIndex;
+            VerAndValLV.Items[index].Selected = e.IsSelected;
+
+            if (RPTInfoLV.SelectedItems.Count == 0)
+            {
+                totalAmount2Pay = 0;
+                totalAmountTrans = 0;
+
+            }
+
+            if (RPTInfoLV.SelectedItems.Count == 1)
+            {
+                string RptIDString = RPTInfoLV.Items[index].Text;
+                long RptID = Convert.ToInt64(RptIDString);
+
+                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+                totalAmount2Pay = rpt.AmountToPay;
+                totalAmountTrans = rpt.TotalAmountTransferred;
+
+                Clipboard.SetText(rpt.TaxDec);
+                string Status = rpt.Status;
+
+                if (Status == RPTStatus.FOR_ASSESSMENT)
+                {
+                    LabelNumBills.Visible = true;
+                    textNumOfBills.Visible = true;
+                }
+                else
+                {
+                    LabelNumBills.Visible = false;
+                    textNumOfBills.Visible = false;
+                }
+
+                ChangeAction();
+
+                ShowPicture();
+
+                ShowRepsInfo();
+
+            }
+
+            if (RPTInfoLV.SelectedItems.Count > 1)
+            {
+                string RptIDString = RPTInfoLV.Items[index].Text;
+                long RptID = Convert.ToInt64(RptIDString);
+
+                RealPropertyTax rpt = RPTDatabase.Get(RptID);
+                totalAmount2Pay += rpt.AmountToPay;
+                totalAmountTrans += rpt.TotalAmountTransferred;
+
+                textRepName.Text = "***";
+                textContactNum.Text = "***";
+                checkAutLetter.Visible = false;
+
+            }
+
+            textTotalAmount2Pay.Text = totalAmount2Pay.ToString();
+            textTotalAmountTransferred.Text = totalAmountTrans.ToString();
+
+        }
+
+        private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        { /*
             mainFormListViewHelper.RPTInfoLV_SelectedIndexChanged(sender, e);
 
             if (mainFormListViewHelper.haveSelectedRow())
@@ -594,6 +660,9 @@ namespace SampleRPT1
             ShowPicture();
 
             ShowRepsInfo();
+             */
+
+            //Console.WriteLine("joanah");
         }
 
         private void ShowPicture()

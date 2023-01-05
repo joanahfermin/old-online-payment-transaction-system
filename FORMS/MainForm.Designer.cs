@@ -163,6 +163,7 @@
             this.RPTInfoLV.TabIndex = 0;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
+            this.RPTInfoLV.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RPTInfoLV_ItemSelectionChanged);
             this.RPTInfoLV.SelectedIndexChanged += new System.EventHandler(this.RPTInfoLV_SelectedIndexChanged);
             this.RPTInfoLV.DoubleClick += new System.EventHandler(this.RPTInfoLV_DoubleClick);
             this.RPTInfoLV.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RPTInfoLV_MouseClick);

@@ -82,9 +82,12 @@ namespace SampleRPT1.FORMS
         /// </summary>
         public void VerAndValLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < VerAndValLV.Items.Count; i++)
+            if (VerAndValLV.SelectedItems.Count == 1)
             {
-                RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
+                for (int i = 0; i < VerAndValLV.Items.Count; i++)
+                {
+                    RPTInfoLV.Items[i].Selected = VerAndValLV.Items[i].Selected;
+                }
             }
         }
 
@@ -93,9 +96,19 @@ namespace SampleRPT1.FORMS
         /// </summary>
         public void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < RPTInfoLV.Items.Count; i++)
+            if (RPTInfoLV.SelectedItems.Count == 1)
             {
-                VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
+                for (int i = 0; i < RPTInfoLV.Items.Count; i++)
+                {
+                    VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
+                }
+            }
+            else
+            {
+                foreach (ListViewItem item in VerAndValLV.SelectedItems)
+                {
+                    item.Selected = false;
+                }
             }
         }
 

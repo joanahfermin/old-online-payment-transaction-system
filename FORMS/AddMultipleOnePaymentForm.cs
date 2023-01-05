@@ -84,7 +84,7 @@ namespace SampleRPT1
             item.SubItems.Add(textAmount2Pay.Text.Trim());
             item.SubItems.Add(textYearQuarter.Text.Trim());
             item.SubItems.Add(cboQuarter.Text.Trim());
-            item.SubItems.Add(textRequestingParty.Text.Trim());
+            item.SubItems.Add(textRemarks.Text.Trim());
 
             lvMultipleRecord.Items.Insert(0, item);
 
@@ -102,6 +102,7 @@ namespace SampleRPT1
             }
 
             textRequestingParty.Clear();
+            textRemarks.Clear();
             textYearQuarter.Focus();
 
             checkTaxDecRetain_CheckedChanged(sender, e);
@@ -156,6 +157,7 @@ namespace SampleRPT1
                 string Amount2Pay = item.SubItems[2].Text;
                 string YearQuarter = item.SubItems[3].Text;
                 string Quarter = item.SubItems[4].Text;
+                string Remarks = item.SubItems[5].Text;
 
                 RealPropertyTax rpt = new RealPropertyTax();
 
@@ -195,6 +197,7 @@ namespace SampleRPT1
                 rpt.EncodedBy = loginUser.DisplayName;
                 rpt.EncodedDate = DateTime.Now;
                 rpt.RefNum = refNo;
+                rpt.RPTremarks = Remarks;
 
                 RPTDatabase.Insert(rpt);
 

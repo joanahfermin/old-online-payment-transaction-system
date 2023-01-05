@@ -54,7 +54,7 @@ namespace SampleRPT1
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvMultipleRecord, new List<string>
-            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty",});
+            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
         }
 
         private void ComputeAllPayment()
@@ -100,6 +100,7 @@ namespace SampleRPT1
                 cboBankUsed.Text = rpt.Bank;
                 dtDateOfPayment.Value = rpt.PaymentDate.Value;
                 textRequestingParty.Text = rpt.RequestingParty;
+                textRemarks.Text = rpt.RPTremarks;
 
                 Clipboard.SetText(textTDN.Text);
             }
@@ -128,6 +129,7 @@ namespace SampleRPT1
             rpt.RequestingParty = textRequestingParty.Text;
             rpt.Bank = cboBankUsed.Text;
             rpt.Quarter = cboQuarter.Text;
+            rpt.RPTremarks = textRemarks.Text;
 
             RPTDatabase.Update(rpt);
 
@@ -142,6 +144,7 @@ namespace SampleRPT1
             textAmountToBePay.Clear();
             //textYearQuarter.Clear();
             textRequestingParty.Clear();
+            textRemarks.Clear();
         }
 
         private void textAmountToBePay_TextChanged(object sender, EventArgs e)

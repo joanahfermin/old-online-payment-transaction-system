@@ -52,9 +52,10 @@ namespace SampleRPT1.JOBS
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.RECEIPT);
 
-                ORUploadTemplate.Body += "\n\n" + rpt.UploadedBy + "-CTO";
+                string body = ORUploadTemplate.Body + "\n\n" + rpt.UploadedBy + "-CTO";
+                string subject = ORUploadTemplate.Subject + " - " + rpt.TaxDec;
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, ORUploadTemplate.Subject, ORUploadTemplate.Body, RetrieveIdAndImage);
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 
                 if (result == true)
                 {

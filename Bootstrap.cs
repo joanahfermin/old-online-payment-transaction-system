@@ -30,6 +30,10 @@ namespace SampleRPT1
 
             GlobalConstants.AUTO_REFRESH_CONFIRM_SENDEMAIL = getSystemSettingAsInt("AUTO_REFRESH_CONFIRM_SENDEMAIL");
 
+            GlobalConstants.LOC_CODE_ADJUSTMENT_REGULAR = getSystemSettingAsInt("LOC_CODE_ADJUSTMENT_REGULAR");
+
+            GlobalConstants.LOC_CODE_ADJUSTMENT_ELECTRONIC = getSystemSettingAsInt("LOC_CODE_ADJUSTMENT_ELECTRONIC");
+
             autoEmailJob = new AutoEmailJob();
             autoEmailJob.Initialize();
 

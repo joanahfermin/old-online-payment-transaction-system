@@ -205,18 +205,27 @@ namespace SampleRPT1
             lastSearchAction = SEARCH_BY_TAXDEC;
 
             string taxdec = textTDN.Text;
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
+            List<RealPropertyTax> rptList = null;
 
             if (loginUser.isValidator && SecurityService.getLoginUser().MachNo != null)
             {
                 rptList = RPTDatabase.SelectByVerifiedDate(taxdec);
             }
+            else
 
             if (loginUser.isVerifier)
             {
                 rptList = RPTDatabase.SelectByEncodedDate(taxdec);
             }
-
+            else
+            if (loginUser.isReleaser && SecurityService.getLoginUser().DisplayName == "NIKKO")
+            {
+                rptList = RPTDatabase.SelectByTaxDecAndEmail(taxdec);
+            }
+            else
+            {
+                rptList = RPTDatabase.SelectBySameGroup(taxdec);
+            }
             mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
         }
@@ -576,7 +585,6 @@ namespace SampleRPT1
             {
                 totalAmount2Pay = 0;
                 totalAmountTrans = 0;
-
             }
 
             if (RPTInfoLV.SelectedItems.Count == 1)
@@ -624,7 +632,6 @@ namespace SampleRPT1
                 checkAutLetter.Visible = false;
 
             }
-
             textTotalAmount2Pay.Text = totalAmount2Pay.ToString();
             textTotalAmountTransferred.Text = totalAmountTrans.ToString();
 
@@ -963,11 +970,12 @@ namespace SampleRPT1
                     cboStatus.Text = RPTStatus.OR_UPLOAD;
                 }
 
-                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VALIDATION) == false)
-                {
-                    MessageBox.Show("Some selected records has not been processed.");
-                    cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
-                }
+                //if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VALIDATION) == false)
+                //{
+                //    MessageBox.Show("Some selected records has not been processed.");
+                //    cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
+                //}
+                MessageBox.Show("Successfully Validated.");
 
                 RefreshListView();
             }

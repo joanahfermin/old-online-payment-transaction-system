@@ -28,5 +28,10 @@ namespace SampleRPT1
         public static int AUTO_EMAIL_INTERVAL_SECONDS;
 
         public static int AUTO_REFRESH_CONFIRM_SENDEMAIL;
+
+        public static int LOC_CODE_ADJUSTMENT_REGULAR;
+
+        public static int LOC_CODE_ADJUSTMENT_ELECTRONIC;
+
     }
 }

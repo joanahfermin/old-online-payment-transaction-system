@@ -11,8 +11,8 @@ namespace SampleRPT1
     {
         public const int FOLDERSIZE = 80;
 
-        static string[] regPrefix = { "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
-        static string[] EPrefix = { "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        static string[] regPrefix = { "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "B" };
+        static string[] EPrefix = { "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Q" };
 
         /// <summary>
         /// Generates a Location code for the uploaded receipts.
@@ -21,7 +21,7 @@ namespace SampleRPT1
         {
             string yearPrefix = DateTime.Now.Year.ToString();
 
-            int Count = RPTDatabase.CountLocationReg();
+            int Count = RPTDatabase.CountLocationReg() + GlobalConstants.LOC_CODE_ADJUSTMENT_REGULAR;
             int Folder = ((Count / FOLDERSIZE)) % 99 + 1 ;
             string prefix = regPrefix[Count/FOLDERSIZE / 99];
             return "(" + yearPrefix + ")" + " " + prefix + Folder;
@@ -31,7 +31,7 @@ namespace SampleRPT1
         {
             string yearPrefix = DateTime.Now.Year.ToString();
 
-            int Count = RPTDatabase.CountLocationElec();
+            int Count = RPTDatabase.CountLocationElec() + GlobalConstants.LOC_CODE_ADJUSTMENT_ELECTRONIC;
             int Folder = ((Count / FOLDERSIZE)) % 99 + 1;
             string prefix = EPrefix[Count / FOLDERSIZE / 99];
 

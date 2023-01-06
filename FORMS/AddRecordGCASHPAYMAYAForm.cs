@@ -113,6 +113,8 @@ namespace SampleRPT1
                 foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
                     item.Selected = true;
+
+                    //textTotalAmount.Text += decimal.Parse(FirstLVGcashPaymaya.Items[item].SubItems[5].Text);
                 }
             }
         }

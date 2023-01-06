@@ -53,7 +53,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP 200 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1").ToList();
             }
         }
 
@@ -166,7 +166,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status = @Status and DeletedRecord != 1 ORDER BY RptID ASC";
+                String query = $"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT WHERE Status = @Status and DeletedRecord != 1 ORDER BY EncodedDate ASC";
                 return conn.Query<RealPropertyTax>(query, new { Status = Status }).ToList();
             }
         }
@@ -209,6 +209,15 @@ namespace SampleRPT1
             {
                 return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and status = @FORPAYMENTVALIDATION and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 AND status = @FORPAYMENTVALIDATION" +
                     $" order by RefNum desc, VerifiedDate asc", new { TaxDec = TaxDec, FORPAYMENTVALIDATION = RPTStatus.PAYMENT_VALIDATION }).ToList();
+            }
+        }
+
+        public static List<RealPropertyTax> SelectByTaxDecAndEmail(string TaxDec)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
+                    $"order by RequestingParty desc, UploadedDate asc", new { TaxDec = TaxDec }).ToList();
             }
         }
 

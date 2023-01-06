@@ -66,7 +66,7 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.LabelTotalRecords = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textNumRec = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textTotalAmount = new System.Windows.Forms.TextBox();
@@ -94,6 +94,7 @@
             this.FirstLVGcashPaymaya.TabIndex = 0;
             this.FirstLVGcashPaymaya.UseCompatibleStateImageBehavior = false;
             this.FirstLVGcashPaymaya.View = System.Windows.Forms.View.Details;
+            this.FirstLVGcashPaymaya.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.FirstLVGcashPaymaya_ItemSelectionChanged);
             this.FirstLVGcashPaymaya.SelectedIndexChanged += new System.EventHandler(this.FirstLVGcashPaymaya_SelectedIndexChanged);
             this.FirstLVGcashPaymaya.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FirstLVGcashPaymaya_MouseClick);
             // 
@@ -293,7 +294,7 @@
             // textBillQuantity
             // 
             this.textBillQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBillQuantity.Location = new System.Drawing.Point(498, 12);
+            this.textBillQuantity.Location = new System.Drawing.Point(514, 12);
             this.textBillQuantity.Name = "textBillQuantity";
             this.textBillQuantity.Size = new System.Drawing.Size(27, 20);
             this.textBillQuantity.TabIndex = 2;
@@ -304,7 +305,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(403, 19);
+            this.label9.Location = new System.Drawing.Point(419, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(89, 13);
             this.label9.TabIndex = 2;
@@ -380,14 +381,14 @@
             this.LabelTotalRecords.Size = new System.Drawing.Size(0, 13);
             this.LabelTotalRecords.TabIndex = 22;
             // 
-            // textBox1
+            // textNumRec
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(107, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(55, 20);
-            this.textBox1.TabIndex = 23;
+            this.textNumRec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textNumRec.Enabled = false;
+            this.textNumRec.Location = new System.Drawing.Point(107, 12);
+            this.textNumRec.Name = "textNumRec";
+            this.textNumRec.Size = new System.Drawing.Size(55, 20);
+            this.textNumRec.TabIndex = 23;
             // 
             // label10
             // 
@@ -412,7 +413,7 @@
             this.textTotalAmount.Enabled = false;
             this.textTotalAmount.Location = new System.Drawing.Point(266, 12);
             this.textTotalAmount.Name = "textTotalAmount";
-            this.textTotalAmount.Size = new System.Drawing.Size(114, 20);
+            this.textTotalAmount.Size = new System.Drawing.Size(113, 20);
             this.textTotalAmount.TabIndex = 23;
             // 
             // AddRecordGCASHPAYMAYAForm
@@ -422,7 +423,7 @@
             this.ClientSize = new System.Drawing.Size(1565, 563);
             this.Controls.Add(this.textTotalAmount);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textNumRec);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.LabelTotalRecords);
             this.Controls.Add(this.label8);
@@ -494,7 +495,7 @@
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textNumRec;
         private System.Windows.Forms.Label LabelTotalRecords;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textTotalAmount;

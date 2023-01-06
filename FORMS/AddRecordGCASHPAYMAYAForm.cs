@@ -211,7 +211,7 @@ namespace SampleRPT1
         //Populates textfields upong selection of record.
         private void FirstLVGcashPaymaya_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
+            if (FirstLVGcashPaymaya.SelectedItems.Count == 1)
             {
                 textServiceProvider.Text = FirstLVGcashPaymaya.SelectedItems[0].Text;
                 textTaxDec.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[1].Text;
@@ -234,7 +234,7 @@ namespace SampleRPT1
 
         private void FirstLVGcashPaymaya_MouseClick(object sender, MouseEventArgs e)
         {
-            textYearQuarter.Focus();
+            //textYearQuarter.Focus();
         }
 
         private void textYearQuarter_TextChanged(object sender, EventArgs e)
@@ -493,6 +493,31 @@ namespace SampleRPT1
             app.Quit();
 
             System.Diagnostics.Process.Start(fullpath);
+        }
+
+        private static decimal totalAmount = 0;
+
+        private void FirstLVGcashPaymaya_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            textNumRec.Text = FirstLVGcashPaymaya.SelectedItems.Count.ToString();
+
+            if (FirstLVGcashPaymaya.SelectedItems.Count == 0)
+            {
+                totalAmount = 0;
+            }
+            else if (FirstLVGcashPaymaya.SelectedItems.Count == 1)
+            {
+                totalAmount = Convert.ToDecimal(FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text);
+            }
+
+            else
+            {
+                int index = e.ItemIndex;
+                totalAmount += Convert.ToDecimal(FirstLVGcashPaymaya.Items[index].SubItems[5].Text);
+            }
+
+            textTotalAmount.Text = totalAmount.ToString("N2");
+
         }
     }
 } 

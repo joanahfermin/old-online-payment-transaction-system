@@ -181,6 +181,21 @@ namespace SampleRPT1
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
             SearchByTaxDec();
+            HighlightRecord();
+        }
+
+        private void HighlightRecord()
+        {
+            string tdn = textTDN.Text;
+
+            foreach (ListViewItem item in RPTInfoLV.Items)
+            {
+                if (item.SubItems[1].Text == tdn)
+                {
+                    item.Selected = true;
+                    RPTInfoLV.Focus();
+                }
+            }
         }
 
         private void AutoRefreshListViewTimerEvent(object sender, EventArgs e)
@@ -217,11 +232,11 @@ namespace SampleRPT1
             {
                 rptList = RPTDatabase.SelectByEncodedDate(taxdec);
             }
-            else
-            if (loginUser.isReleaser && SecurityService.getLoginUser().DisplayName == "NIKKO")
-            {
-                rptList = RPTDatabase.SelectByTaxDecAndEmail(taxdec);
-            }
+            //else
+            //if (loginUser.isReleaser && SecurityService.getLoginUser().DisplayName == "NIKKO")
+            //{
+            //    rptList = RPTDatabase.SelectByTaxDecAndEmail(taxdec);
+            //}
             else
             {
                 rptList = RPTDatabase.SelectBySameGroup(taxdec);
@@ -1400,7 +1415,31 @@ namespace SampleRPT1
                 }
             }
         }
-
         
+        //Press CTRL + O for Browse button.
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            KeyEventArgs e = new KeyEventArgs(keyData);
+
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                btnSearch.PerformClick();
+                return true;
+            }
+
+            else if (e.Control && e.KeyCode == Keys.U)
+            {
+                btnUpload.PerformClick();
+                return true;
+            }
+
+            else if (e.Control && e.KeyCode == Keys.R)
+            {
+                btnRotate.PerformClick();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }

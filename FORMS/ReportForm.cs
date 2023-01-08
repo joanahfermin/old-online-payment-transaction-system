@@ -32,7 +32,7 @@ namespace SampleRPT1.FORMS
             new { Name="Released", Width=100}};
 
         private static object[] REPORT_USER_RPT_COLUMN_NAMES = {
-            new { Name="Online Collection", Width=200}, new { Name="Billing", Width=100}, new { Name="Excess/Short", Width=100}};
+            new { Name="TaxDec", Width=200}, new { Name="TaxPayerName", Width=200}, new { Name="Online Collection", Width=200}, new { Name="Billing", Width=100}, new { Name="Excess/Short", Width=100}};
 
 
         public ReportForm(Form parentForm)
@@ -110,9 +110,9 @@ namespace SampleRPT1.FORMS
             }
             List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview<ReportCollection>(RPTList, LVreport, new List<string>
-            { "Collection", "Billing", "ExcessShort"});
+            { "TaxDec", "TaxPayerName", "Collection", "Billing", "ExcessShort"});
 
-            ShowExcelReport(RPTList);
+            //ShowExcelReport(RPTList);
         }
 
         private void dtDate_ValueChanged(object sender, EventArgs e)
@@ -195,10 +195,10 @@ namespace SampleRPT1.FORMS
             foreach (ListViewItem lstItem in LVreport.Items)
             {
                 //totalCollection += Convert.ToDecimal(lstItem.SubItems[0].Text);
-                decimal.TryParse(lstItem.SubItems[0].Text,out totalCollection);
+                decimal.TryParse(lstItem.SubItems[2].Text,out totalCollection);
                 resultcolletion += totalCollection;
                 //MessageBox.Show(totalCollection.ToString());
-                totalBilling += Convert.ToDecimal(lstItem.SubItems[1].Text);
+                totalBilling += Convert.ToDecimal(lstItem.SubItems[3].Text);
             }
 
             textTotalCollection.Text = resultcolletion.ToString();
@@ -208,6 +208,15 @@ namespace SampleRPT1.FORMS
         private void textTotalCollection_TextChanged(object sender, EventArgs e)
         {
             //ComputeTotalCollectionAndBilling();
+        }
+
+        private void btnReportCollector_Click(object sender, EventArgs e)
+        {
+            DateTime DateFrom = dtDate.Value;
+            DateTime DateTo = dtDateTo.Value;
+            List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
+
+            ShowExcelReport(RPTList);
         }
     }
 }

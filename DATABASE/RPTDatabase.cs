@@ -31,7 +31,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 1 and DeletedRecord != 1").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 1 and DeletedRecord != 1 order by ValidatedDate asc").ToList();
             }
         }
 
@@ -53,7 +53,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1 order by ValidatedDate asc").ToList();
             }
         }
 
@@ -212,14 +212,14 @@ namespace SampleRPT1
             }
         }
 
-        public static List<RealPropertyTax> SelectByTaxDecAndEmail(string TaxDec)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
-                    $"order by RequestingParty desc, UploadedDate asc", new { TaxDec = TaxDec }).ToList();
-            }
-        }
+        //public static List<RealPropertyTax> SelectByTaxDecAndEmail(string TaxDec)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnection())
+        //    {
+        //        return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
+        //            $"order by RequestingParty desc, UploadedDate asc", new { TaxDec = TaxDec }).ToList();
+        //    }
+        //}
 
         /// <summary>
         /// Returns a list of records based on taxdec and status: FOR OR RELEASE.
@@ -238,7 +238,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
-                    $"order by RequestingParty desc, taxdec asc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
+                    $"order by ValidatedDate desc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
             }
         }
 
@@ -257,7 +257,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where LocCode= @LocCode and DeletedRecord != 1 order by RptID ASC", new { LocCode = LocCode }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where LocCode= @LocCode and DeletedRecord != 1 order by ValidatedDate desc", new { LocCode = LocCode }).ToList();
             }
         }
 

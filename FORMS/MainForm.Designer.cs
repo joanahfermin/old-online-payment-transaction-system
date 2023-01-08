@@ -120,6 +120,9 @@
             this.cboValidator = new System.Windows.Forms.ComboBox();
             this.labelValidatedBy = new System.Windows.Forms.Label();
             this.btnRotate = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -465,7 +468,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1432, 908);
+            this.btnSearch.Location = new System.Drawing.Point(1486, 907);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(110, 23);
             this.btnSearch.TabIndex = 22;
@@ -479,14 +482,14 @@
             // 
             // textFileName
             // 
-            this.textFileName.Location = new System.Drawing.Point(1675, 912);
+            this.textFileName.Location = new System.Drawing.Point(1636, 544);
             this.textFileName.Name = "textFileName";
-            this.textFileName.Size = new System.Drawing.Size(212, 20);
+            this.textFileName.Size = new System.Drawing.Size(248, 20);
             this.textFileName.TabIndex = 24;
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(1554, 909);
+            this.btnUpload.Location = new System.Drawing.Point(1608, 908);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(110, 23);
             this.btnUpload.TabIndex = 25;
@@ -883,7 +886,7 @@
             // 
             // btnRotate
             // 
-            this.btnRotate.Location = new System.Drawing.Point(1779, 947);
+            this.btnRotate.Location = new System.Drawing.Point(1732, 908);
             this.btnRotate.Name = "btnRotate";
             this.btnRotate.Size = new System.Drawing.Size(110, 23);
             this.btnRotate.TabIndex = 57;
@@ -891,11 +894,48 @@
             this.btnRotate.UseVisualStyleBackColor = true;
             this.btnRotate.Click += new System.EventHandler(this.btnRotate_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(1498, 933);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 58;
+            this.label5.Text = "Press CTRL + O";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label6.Location = new System.Drawing.Point(1619, 934);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.TabIndex = 58;
+            this.label6.Text = "Press CTRL + U";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label7.Location = new System.Drawing.Point(1744, 934);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.TabIndex = 58;
+            this.label7.Text = "Press CTRL + R";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.textFileName);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnRotate);
             this.Controls.Add(this.labelValidatedBy);
             this.Controls.Add(this.cboValidator);
@@ -926,7 +966,6 @@
             this.Controls.Add(this.textTotalAmount2Pay);
             this.Controls.Add(this.VerAndValLV);
             this.Controls.Add(this.RPTInfoLV);
-            this.Controls.Add(this.textFileName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "MainForm";
@@ -1041,6 +1080,9 @@
         private System.Windows.Forms.ComboBox cboValidator;
         private System.Windows.Forms.ColumnHeader qtr;
         private System.Windows.Forms.Button btnRotate;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

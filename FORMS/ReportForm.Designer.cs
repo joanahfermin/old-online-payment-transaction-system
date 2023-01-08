@@ -123,6 +123,7 @@
             this.btnReportCollector.TabIndex = 50;
             this.btnReportCollector.Text = "Generate Report";
             this.btnReportCollector.UseVisualStyleBackColor = true;
+            this.btnReportCollector.Click += new System.EventHandler(this.btnReportCollector_Click);
             // 
             // textTotalCollection
             // 

@@ -126,7 +126,24 @@ namespace SampleRPT1.FORMS
             //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
             List<RealPropertyTax> rptList = RPTDatabase.SelectBySameEmailAddressReleasing(taxdec, StatusList);
 
+
+
             PopulateListView(rptList);
+            HighlightRecord();
+        }
+
+        private void HighlightRecord()
+        {
+            string tdn = textTDN.Text;
+
+            foreach (ListViewItem item in RPTInfoLV.Items)
+            {
+                if (item.SubItems[1].Text == tdn)
+                {
+                    item.Selected = true;
+                    RPTInfoLV.Focus();
+                }
+            }
         }
 
         private void dtDate_ValueChanged(object sender, EventArgs e)

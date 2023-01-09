@@ -612,7 +612,7 @@ namespace SampleRPT1
                 totalAmount2Pay = rpt.AmountToPay;
                 totalAmountTrans = rpt.TotalAmountTransferred;
 
-                Clipboard.SetText(rpt.TaxDec);
+                //Clipboard.SetText(rpt.TaxDec);
                 string Status = rpt.Status;
 
                 if (Status == RPTStatus.FOR_ASSESSMENT)
@@ -1132,7 +1132,7 @@ namespace SampleRPT1
                 }
                 else
                 {
-                    MessageBox.Show("Status of record is not yet ASSESSMENT PRINTED or FOR O.R UPLOAD.");
+                    //MessageBox.Show("Status of record is not yet ASSESSMENT PRINTED or FOR O.R UPLOAD.");
                 }
             }
         }
@@ -1176,9 +1176,10 @@ namespace SampleRPT1
                         rptAttachPicture.RptId = rpt.RptID;
                         rptAttachPicture.FileName = Path.GetFileName(textFileName.Text);
 
-                        //byte[] FileData = File.ReadAllBytes(textFileName.Text);
                         if (FileUtils.isDocument(rptAttachPicture.FileName))
                         {
+                            FileData = File.ReadAllBytes(textFileName.Text);
+
                             // If PDF, store the file content as is
                             rptAttachPicture.FileData = FileData;
                         }
@@ -1201,6 +1202,8 @@ namespace SampleRPT1
 
                         if (FileUtils.isDocument(RetrievePicture.FileName))
                         {
+                            FileData = File.ReadAllBytes(textFileName.Text);
+
                             // If PDF, store the file content as is
                             RetrievePicture.FileData = FileData;
                         }

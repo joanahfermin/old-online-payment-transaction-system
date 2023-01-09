@@ -176,8 +176,8 @@ namespace SampleRPT1.FORMS
             decimal.TryParse(textShttc.Text, out shttc);
 
 
-            worksheet.Cells[3, 2] =(totalCollection - shttc).ToString();
-            worksheet.Cells[3, 3] = totalBilling.ToString();
+            worksheet.Cells[3, 2] =totalCollection.ToString();
+            worksheet.Cells[3, 3] = (totalBilling + shttc).ToString();
             worksheet.Cells[3, 4] = totalExcessShort.ToString();
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "Collections.xlsx";
@@ -191,12 +191,12 @@ namespace SampleRPT1.FORMS
             System.Diagnostics.Process.Start(fullpath);
         }
 
-        private decimal totalCollection = 0;
+        private decimal totalBilling = 0;
 
         private void ComputeTotalCollectionAndBilling()
         {
-            totalCollection = 0;
-            decimal totalBilling = 0;
+            decimal totalCollection = 0;
+            totalBilling = 0;
             decimal collection = 0;
 
             foreach (ListViewItem lstItem in LVreport.Items)
@@ -212,8 +212,8 @@ namespace SampleRPT1.FORMS
 
             decimal.TryParse(textShttc.Text, out shttc);
 
-            textTotalCollection.Text = (totalCollection - shttc).ToString("N2");
-            textTotalBilling.Text = totalBilling.ToString("N2");
+            textTotalCollection.Text = totalCollection.ToString("N2");
+            textTotalBilling.Text = (totalBilling + shttc).ToString("N2");
         }
 
         private void textTotalCollection_TextChanged(object sender, EventArgs e)
@@ -236,8 +236,7 @@ namespace SampleRPT1.FORMS
 
             decimal.TryParse(textShttc.Text, out shttc);
 
-            textTotalCollection.Text = (totalCollection - shttc).ToString("N2");
-
+            textTotalBilling.Text = (totalBilling + shttc).ToString("N2");
         }
     }
 }

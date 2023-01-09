@@ -41,7 +41,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textTotalBilling = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textShttc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cboReportName
@@ -169,19 +169,21 @@
             this.label5.TabIndex = 48;
             this.label5.Text = "SHT-TC: ";
             // 
-            // textBox3
+            // textShttc
             // 
-            this.textBox3.Location = new System.Drawing.Point(863, 276);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(143, 20);
-            this.textBox3.TabIndex = 51;
+            this.textShttc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textShttc.Location = new System.Drawing.Point(863, 276);
+            this.textShttc.Name = "textShttc";
+            this.textShttc.Size = new System.Drawing.Size(143, 20);
+            this.textShttc.TabIndex = 51;
+            this.textShttc.TextChanged += new System.EventHandler(this.textShttc_TextChanged);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1828, 924);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textShttc);
             this.Controls.Add(this.textTotalBilling);
             this.Controls.Add(this.textTotalCollection);
             this.Controls.Add(this.btnReportCollector);
@@ -217,6 +219,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textTotalBilling;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textShttc;
     }
 }

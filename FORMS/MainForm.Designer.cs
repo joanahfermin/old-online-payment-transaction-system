@@ -868,7 +868,7 @@
             // cboValidator
             // 
             this.cboValidator.FormattingEnabled = true;
-            this.cboValidator.Location = new System.Drawing.Point(1400, 29);
+            this.cboValidator.Location = new System.Drawing.Point(1380, 225);
             this.cboValidator.Name = "cboValidator";
             this.cboValidator.Size = new System.Drawing.Size(202, 21);
             this.cboValidator.TabIndex = 55;
@@ -878,7 +878,7 @@
             // labelValidatedBy
             // 
             this.labelValidatedBy.AutoSize = true;
-            this.labelValidatedBy.Location = new System.Drawing.Point(1323, 35);
+            this.labelValidatedBy.Location = new System.Drawing.Point(1303, 233);
             this.labelValidatedBy.Name = "labelValidatedBy";
             this.labelValidatedBy.Size = new System.Drawing.Size(71, 13);
             this.labelValidatedBy.TabIndex = 56;
@@ -937,8 +937,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnRotate);
-            this.Controls.Add(this.labelValidatedBy);
-            this.Controls.Add(this.cboValidator);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textContactNum);
             this.Controls.Add(this.textRepName);
@@ -968,6 +966,8 @@
             this.Controls.Add(this.RPTInfoLV);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.labelValidatedBy);
+            this.Controls.Add(this.cboValidator);
             this.Name = "MainForm";
             this.Text = "RPT";
             this.Load += new System.EventHandler(this.MainForm_Load);

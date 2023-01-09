@@ -139,8 +139,10 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[2, 3] = "TOTAL BILLING";
             worksheet.Cells[2, 4] = "EXCESS/SHORT";
 
+
             worksheet.Cells[3, 5] = SecurityService.getLoginUser().DisplayName;
             worksheet.Cells[4, 2] = "with shttc";
+            worksheet.Cells[5, 2] = textShttc.Text;
 
             worksheet.Cells[6, 2] = "COLLECTION";
             worksheet.Cells[6, 3] = "BILLING";
@@ -170,8 +172,11 @@ namespace SampleRPT1.FORMS
                 row++;
                 counter++;
             }
+            decimal shttc = 0;
+            decimal.TryParse(textShttc.Text, out shttc);
 
-            worksheet.Cells[3, 2] = totalCollection.ToString();
+
+            worksheet.Cells[3, 2] =(totalCollection - shttc).ToString();
             worksheet.Cells[3, 3] = totalBilling.ToString();
             worksheet.Cells[3, 4] = totalExcessShort.ToString();
 
@@ -186,23 +191,29 @@ namespace SampleRPT1.FORMS
             System.Diagnostics.Process.Start(fullpath);
         }
 
+        private decimal totalCollection = 0;
+
         private void ComputeTotalCollectionAndBilling()
         {
-            decimal totalCollection = 0;
+            totalCollection = 0;
             decimal totalBilling = 0;
-            decimal resultcolletion = 0;
+            decimal collection = 0;
 
             foreach (ListViewItem lstItem in LVreport.Items)
             {
                 //totalCollection += Convert.ToDecimal(lstItem.SubItems[0].Text);
-                decimal.TryParse(lstItem.SubItems[2].Text,out totalCollection);
-                resultcolletion += totalCollection;
+                decimal.TryParse(lstItem.SubItems[2].Text,out collection);
+                totalCollection += collection;
                 //MessageBox.Show(totalCollection.ToString());
                 totalBilling += Convert.ToDecimal(lstItem.SubItems[3].Text);
             }
 
-            textTotalCollection.Text = resultcolletion.ToString();
-            textTotalBilling.Text = totalBilling.ToString();
+            decimal shttc = 0;
+
+            decimal.TryParse(textShttc.Text, out shttc);
+
+            textTotalCollection.Text = (totalCollection - shttc).ToString("N2");
+            textTotalBilling.Text = totalBilling.ToString("N2");
         }
 
         private void textTotalCollection_TextChanged(object sender, EventArgs e)
@@ -217,6 +228,16 @@ namespace SampleRPT1.FORMS
             List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
 
             ShowExcelReport(RPTList);
+        }
+
+        private void textShttc_TextChanged(object sender, EventArgs e)
+        {
+            decimal shttc = 0;
+
+            decimal.TryParse(textShttc.Text, out shttc);
+
+            textTotalCollection.Text = (totalCollection - shttc).ToString("N2");
+
         }
     }
 }

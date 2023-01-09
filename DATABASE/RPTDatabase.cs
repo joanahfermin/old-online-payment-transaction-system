@@ -126,6 +126,23 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime encodedDateFrom, DateTime encodedDateTo, string Status, List<string> BankList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT WHERE CAST(VerifiedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(VerifiedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND Bank in @BankList AND DeletedRecord != 1 " +
+                    "ORDER BY VerifiedDate asc";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    Status = Status,
+                    BankList = BankList
+                }).ToList();
+            }
+        }
+
         /// <summary>
         /// Returns a list of records based on date range, status and encodedby.
         /// </summary>
@@ -340,6 +357,7 @@ namespace SampleRPT1
                         newBank = new RPTBank();
 
                         newBank.BankName = modelInstance.Bank;
+                        newBank.isEBank = false;
                         RPTBankDatabase.Insert(newBank);
                     }
                 }

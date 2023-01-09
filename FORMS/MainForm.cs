@@ -144,7 +144,7 @@ namespace SampleRPT1
         {
             cboPaymentChannel.Items.Clear();
 
-            if (loginUser.isVerifier)
+            if (loginUser.isVerifier || loginUser.isValidator)
             {
                 cboPaymentChannel.Visible = true;
 
@@ -233,9 +233,9 @@ namespace SampleRPT1
                 rptList = RPTDatabase.SelectByEncodedDate(taxdec);
             }
             //else
-            //if (loginUser.isReleaser && SecurityService.getLoginUser().DisplayName == "NIKKO")
+            //if (loginUser.isValidator)
             //{
-            //    rptList = RPTDatabase.SelectByTaxDecAndEmail(taxdec);
+            //    rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(taxdec);
             //}
             else
             {
@@ -283,9 +283,10 @@ namespace SampleRPT1
                 rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannel(encodedDateFrom, encodedDateTo, Status, BankList);
             }
 
-            else if (Status == RPTStatus.PAYMENT_VALIDATION)
+            else if (Status == RPTStatus.PAYMENT_VALIDATION && Action == RPTAction.VALIDATE_PAYMENT)
             {
-                rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(encodedDateFrom, encodedDateTo, Status);
+                List<string> BankList = getBankList();
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannelForValidation(encodedDateFrom, encodedDateTo, Status, BankList);
             }
 
             // filter by for assessment and date range and encoded by.
@@ -769,7 +770,17 @@ namespace SampleRPT1
                 textRemarks.Visible = true;
             }
 
-            if (cboAction.Text != RPTAction.BILL_NO_POP && cboAction.Text != RPTAction.BILL_WITH_POP && cboAction.Text != RPTAction.VERIFY_PAYMENT)
+            if (cboAction.Text == RPTAction.VALIDATE_PAYMENT)
+            {
+                //PAYMENT CHANNEL COMBOBOX AND LABEL.
+                cboPaymentChannel.Visible = true;
+                labelPaymentChannel.Visible = true;
+                InitializePaymentChannel();
+                LabelRemarks.Visible = true;
+                textRemarks.Visible = true;
+            }
+
+            if (cboAction.Text != RPTAction.BILL_NO_POP && cboAction.Text != RPTAction.BILL_WITH_POP && cboAction.Text != RPTAction.VERIFY_PAYMENT && cboAction.Text != RPTAction.VALIDATE_PAYMENT)
             {
                 cboPaymentChannel.Visible = false;
                 labelPaymentChannel.Visible = false;

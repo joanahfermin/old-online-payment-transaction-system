@@ -34,12 +34,12 @@ namespace SampleRPT1.FORMS
             this.docType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxdec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.email = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.uploadedby = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pbAttachedPicture = new System.Windows.Forms.PictureBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.rdAssessment = new System.Windows.Forms.RadioButton();
             this.rdReceipt = new System.Windows.Forms.RadioButton();
             this.checkRefreshAll = new System.Windows.Forms.CheckBox();
-            this.uploadedby = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +61,7 @@ namespace SampleRPT1.FORMS
             this.lvReview.TabIndex = 1;
             this.lvReview.UseCompatibleStateImageBehavior = false;
             this.lvReview.View = System.Windows.Forms.View.Details;
+            this.lvReview.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvReview_ItemSelectionChanged);
             this.lvReview.SelectedIndexChanged += new System.EventHandler(this.lvReview_SelectedIndexChanged);
             // 
             // rptID
@@ -82,6 +83,11 @@ namespace SampleRPT1.FORMS
             // 
             this.email.Text = "Requesting Party";
             this.email.Width = 330;
+            // 
+            // uploadedby
+            // 
+            this.uploadedby.Text = "EncodedBy/UploadedBy";
+            this.uploadedby.Width = 100;
             // 
             // pbAttachedPicture
             // 
@@ -140,11 +146,6 @@ namespace SampleRPT1.FORMS
             this.checkRefreshAll.Text = "Refresh";
             this.checkRefreshAll.UseVisualStyleBackColor = true;
             this.checkRefreshAll.CheckedChanged += new System.EventHandler(this.checkRefreshAll_CheckedChanged);
-            // 
-            // uploadedby
-            // 
-            this.uploadedby.Text = "EncodedBy/UploadedBy";
-            this.uploadedby.Width = 100;
             // 
             // ReviewEmailForm
             // 

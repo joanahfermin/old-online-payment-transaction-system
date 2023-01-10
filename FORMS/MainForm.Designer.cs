@@ -123,6 +123,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textRecSelected = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -160,7 +162,7 @@
             this.RPTInfoLV.FullRowSelect = true;
             this.RPTInfoLV.GridLines = true;
             this.RPTInfoLV.HideSelection = false;
-            this.RPTInfoLV.Location = new System.Drawing.Point(18, 119);
+            this.RPTInfoLV.Location = new System.Drawing.Point(18, 136);
             this.RPTInfoLV.Name = "RPTInfoLV";
             this.RPTInfoLV.Size = new System.Drawing.Size(1875, 416);
             this.RPTInfoLV.TabIndex = 0;
@@ -287,7 +289,7 @@
             this.VerAndValLV.FullRowSelect = true;
             this.VerAndValLV.GridLines = true;
             this.VerAndValLV.HideSelection = false;
-            this.VerAndValLV.Location = new System.Drawing.Point(18, 549);
+            this.VerAndValLV.Location = new System.Drawing.Point(18, 563);
             this.VerAndValLV.Name = "VerAndValLV";
             this.VerAndValLV.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.VerAndValLV.Size = new System.Drawing.Size(1404, 383);
@@ -425,9 +427,9 @@
             // 
             this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmount2Pay.Enabled = false;
-            this.textTotalAmount2Pay.Location = new System.Drawing.Point(1634, 30);
+            this.textTotalAmount2Pay.Location = new System.Drawing.Point(136, 105);
             this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
-            this.textTotalAmount2Pay.Size = new System.Drawing.Size(115, 20);
+            this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmount2Pay.TabIndex = 16;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmount2Pay.TextChanged += new System.EventHandler(this.textTotalAmount2Pay_TextChanged);
@@ -435,7 +437,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1631, 9);
+            this.label10.Location = new System.Drawing.Point(17, 112);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(113, 13);
             this.label10.TabIndex = 17;
@@ -445,9 +447,9 @@
             // 
             this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
-            this.textTotalAmountTransferred.Location = new System.Drawing.Point(1762, 30);
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(469, 105);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
-            this.textTotalAmountTransferred.Size = new System.Drawing.Size(127, 20);
+            this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmountTransferred.TabIndex = 16;
             this.textTotalAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmountTransferred.TextChanged += new System.EventHandler(this.textTotalAmountTransferred_TextChanged);
@@ -455,7 +457,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1759, 9);
+            this.label11.Location = new System.Drawing.Point(333, 112);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
             this.label11.TabIndex = 18;
@@ -468,7 +470,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(1486, 907);
+            this.btnSearch.Location = new System.Drawing.Point(1486, 921);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(110, 23);
             this.btnSearch.TabIndex = 22;
@@ -482,14 +484,14 @@
             // 
             // textFileName
             // 
-            this.textFileName.Location = new System.Drawing.Point(1636, 544);
+            this.textFileName.Location = new System.Drawing.Point(1636, 558);
             this.textFileName.Name = "textFileName";
             this.textFileName.Size = new System.Drawing.Size(248, 20);
             this.textFileName.TabIndex = 24;
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(1608, 908);
+            this.btnUpload.Location = new System.Drawing.Point(1608, 922);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(110, 23);
             this.btnUpload.TabIndex = 25;
@@ -502,7 +504,7 @@
             this.TabPicture.Controls.Add(this.Assessment);
             this.TabPicture.Controls.Add(this.Receipt);
             this.TabPicture.Controls.Add(this.OR_Release);
-            this.TabPicture.Location = new System.Drawing.Point(1428, 549);
+            this.TabPicture.Location = new System.Drawing.Point(1428, 563);
             this.TabPicture.Name = "TabPicture";
             this.TabPicture.SelectedIndex = 0;
             this.TabPicture.Size = new System.Drawing.Size(463, 354);
@@ -820,7 +822,7 @@
             // labelRepName
             // 
             this.labelRepName.AutoSize = true;
-            this.labelRepName.Location = new System.Drawing.Point(511, 957);
+            this.labelRepName.Location = new System.Drawing.Point(511, 965);
             this.labelRepName.Name = "labelRepName";
             this.labelRepName.Size = new System.Drawing.Size(74, 13);
             this.labelRepName.TabIndex = 37;
@@ -830,7 +832,7 @@
             // 
             this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRepName.Enabled = false;
-            this.textRepName.Location = new System.Drawing.Point(591, 950);
+            this.textRepName.Location = new System.Drawing.Point(591, 958);
             this.textRepName.Name = "textRepName";
             this.textRepName.Size = new System.Drawing.Size(272, 20);
             this.textRepName.TabIndex = 38;
@@ -838,7 +840,7 @@
             // labelContactNumber
             // 
             this.labelContactNumber.AutoSize = true;
-            this.labelContactNumber.Location = new System.Drawing.Point(907, 957);
+            this.labelContactNumber.Location = new System.Drawing.Point(907, 965);
             this.labelContactNumber.Name = "labelContactNumber";
             this.labelContactNumber.Size = new System.Drawing.Size(90, 13);
             this.labelContactNumber.TabIndex = 37;
@@ -848,7 +850,7 @@
             // 
             this.textContactNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textContactNum.Enabled = false;
-            this.textContactNum.Location = new System.Drawing.Point(1003, 950);
+            this.textContactNum.Location = new System.Drawing.Point(1003, 958);
             this.textContactNum.Name = "textContactNum";
             this.textContactNum.Size = new System.Drawing.Size(272, 20);
             this.textContactNum.TabIndex = 38;
@@ -858,7 +860,7 @@
             this.checkAutLetter.AutoSize = true;
             this.checkAutLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAutLetter.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.checkAutLetter.Location = new System.Drawing.Point(1285, 953);
+            this.checkAutLetter.Location = new System.Drawing.Point(1285, 961);
             this.checkAutLetter.Name = "checkAutLetter";
             this.checkAutLetter.Size = new System.Drawing.Size(137, 17);
             this.checkAutLetter.TabIndex = 54;
@@ -886,7 +888,7 @@
             // 
             // btnRotate
             // 
-            this.btnRotate.Location = new System.Drawing.Point(1732, 908);
+            this.btnRotate.Location = new System.Drawing.Point(1732, 922);
             this.btnRotate.Name = "btnRotate";
             this.btnRotate.Size = new System.Drawing.Size(110, 23);
             this.btnRotate.TabIndex = 57;
@@ -899,7 +901,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(1498, 933);
+            this.label5.Location = new System.Drawing.Point(1498, 947);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 58;
@@ -910,7 +912,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(1619, 934);
+            this.label6.Location = new System.Drawing.Point(1619, 948);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 13);
             this.label6.TabIndex = 58;
@@ -921,17 +923,37 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label7.Location = new System.Drawing.Point(1744, 934);
+            this.label7.Location = new System.Drawing.Point(1744, 948);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 13);
             this.label7.TabIndex = 58;
             this.label7.Text = "Press CTRL + R";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(671, 112);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Records Selected: ";
+            // 
+            // textRecSelected
+            // 
+            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRecSelected.Enabled = false;
+            this.textRecSelected.Location = new System.Drawing.Point(775, 105);
+            this.textRecSelected.Name = "textRecSelected";
+            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.TabIndex = 59;
+            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -957,6 +979,7 @@
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.textNumOfBills);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textTotalAmountTransferred);
             this.Controls.Add(this.LabelNumBills);
@@ -1083,6 +1106,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textRecSelected;
+        private System.Windows.Forms.Label label8;
     }
 }
 

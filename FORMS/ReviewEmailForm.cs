@@ -88,7 +88,7 @@ namespace SampleRPT1.FORMS
 
         private void lvReview_SelectedIndexChanged(object sender, EventArgs e)
         {
-            getImageAccordingToDocType();
+            //getImageAccordingToDocType();
         }
 
         private void getImageAccordingToDocType()
@@ -260,6 +260,14 @@ namespace SampleRPT1.FORMS
         {
             RefreshReviewListView();
             SelectAllinLV();
+        }
+
+        private void lvReview_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (lvReview.SelectedItems.Count == 1)
+            {
+                getImageAccordingToDocType();
+            }
         }
     }
 }

@@ -597,6 +597,8 @@ namespace SampleRPT1
             int index = e.ItemIndex;
             VerAndValLV.Items[index].Selected = e.IsSelected;
 
+            textRecSelected.Text = RPTInfoLV.SelectedItems.Count.ToString();
+
             if (RPTInfoLV.SelectedItems.Count == 0)
             {
                 totalAmount2Pay = 0;

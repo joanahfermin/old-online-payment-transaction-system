@@ -270,6 +270,14 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByRefNumAndEmail(string RefNum, string RequestingParty)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and RequestingParty= @RequestingParty and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum, RequestingParty = RequestingParty }).ToList();
+            }
+        }
+
         public static List<RealPropertyTax> SelectByLocationCode(string LocCode)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -558,6 +566,7 @@ namespace SampleRPT1
 
             if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
             {
+                //regular payment
                 string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
 
                 if (rpt.RefNum != null && rpt.RefNum.Length > 0)
@@ -584,14 +593,22 @@ namespace SampleRPT1
                     RPTDatabase.Update(rpt);
                 }
             }
+            //electronic payment
             else
             {
-                rpt.LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
-                rpt.UploadedBy = UploadedBy;
-                rpt.Status = RPTStatus.OR_PICKUP;
-                rpt.UploadedDate = DateTime.Now;
+                string LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
 
-                RPTDatabase.Update(rpt);
+                List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndEmail(rpt.RefNum, rpt.RequestingParty);
+
+                foreach (var item in rptList)
+                {
+                    item.LocCode = LocCode;
+                    item.UploadedBy = UploadedBy;
+                    item.Status = RPTStatus.OR_PICKUP;
+                    item.UploadedDate = DateTime.Now;
+
+                    RPTDatabase.Update(item);
+                }
             }
         }
 

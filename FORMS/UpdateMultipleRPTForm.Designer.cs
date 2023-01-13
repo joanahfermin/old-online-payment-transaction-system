@@ -40,6 +40,7 @@
             this.paymentChannel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.paymentDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.email = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.remarks = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
@@ -56,6 +57,8 @@
             this.textYearQuarter = new System.Windows.Forms.TextBox();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textRemarks = new System.Windows.Forms.TextBox();
             this.textAmountToBePay = new System.Windows.Forms.TextBox();
             this.labelAmountToBPay = new System.Windows.Forms.Label();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
@@ -63,9 +66,6 @@
             this.btnSaveUpdate = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnDelete = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textRemarks = new System.Windows.Forms.TextBox();
-            this.remarks = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -138,6 +138,11 @@
             // 
             this.email.Text = "Requesting Party";
             this.email.Width = 250;
+            // 
+            // remarks
+            // 
+            this.remarks.Text = "Remarks";
+            this.remarks.Width = 150;
             // 
             // textTotalAmountToPay
             // 
@@ -314,6 +319,24 @@
             this.panel1.Size = new System.Drawing.Size(487, 513);
             this.panel1.TabIndex = 209;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(102, 353);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 216;
+            this.label10.Text = "Remarks: ";
+            // 
+            // textRemarks
+            // 
+            this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRemarks.Location = new System.Drawing.Point(168, 346);
+            this.textRemarks.Multiline = true;
+            this.textRemarks.Name = "textRemarks";
+            this.textRemarks.Size = new System.Drawing.Size(253, 101);
+            this.textRemarks.TabIndex = 215;
+            // 
             // textAmountToBePay
             // 
             this.textAmountToBePay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -384,29 +407,6 @@
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(102, 353);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(55, 13);
-            this.label10.TabIndex = 216;
-            this.label10.Text = "Remarks: ";
-            // 
-            // textRemarks
-            // 
-            this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(168, 346);
-            this.textRemarks.Multiline = true;
-            this.textRemarks.Name = "textRemarks";
-            this.textRemarks.Size = new System.Drawing.Size(253, 101);
-            this.textRemarks.TabIndex = 215;
-            // 
-            // remarks
-            // 
-            this.remarks.Text = "Remarks";
-            this.remarks.Width = 150;
-            // 
             // UpdateMultipleRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,6 +420,7 @@
             this.Controls.Add(this.label8);
             this.Name = "UpdateMultipleRPTForm";
             this.Text = "UpdateMultipleRPTForm";
+            this.Load += new System.EventHandler(this.UpdateMultipleRPTForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

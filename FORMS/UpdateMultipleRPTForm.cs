@@ -15,17 +15,21 @@ namespace SampleRPT1
     public partial class UpdateMultipleRPTForm : Form
     {
         long RptiD;
-        string taxdec;
+        string RefNum;
+        string EAdd;
 
-        public UpdateMultipleRPTForm(string taxdec)
+        public UpdateMultipleRPTForm(string refNum, string eAdd)
         {
             InitializeComponent();
 
-            this.taxdec = taxdec;
+            this.RefNum = refNum;
+            this.EAdd = eAdd;
             InitializeBank();
             cboBankUsed.SelectedIndex = 0;
 
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
+            //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxdec);
+            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndReqParty(RefNum, eAdd);
+
             PopulateListView(rptList);
 
             ComputeAllPayment();
@@ -110,15 +114,34 @@ namespace SampleRPT1
         {
             lvMultipleRecord.Items.Clear();
 
-            RealPropertyTax rpt = RPTDatabase.Get(RptiD);
-            string taxDec = rpt.TaxDec.ToString();
+            //RealPropertyTax rpt = RPTDatabase.Get(RptiD);
+            //string refNum = rpt.RefNum.ToString();
 
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxDec);
+            //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroup(taxDec);
+            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndReqParty(RefNum, EAdd);
             PopulateListView(rptList);
+        }
+
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+
+            //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }
 
         private void btnSaveUpdate_Click(object sender, EventArgs e)
         {
+
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
             RealPropertyTax rpt = RPTDatabase.Get(RptiD);
 
             rpt.TaxDec = textTDN.Text;
@@ -127,7 +150,7 @@ namespace SampleRPT1
             rpt.YearQuarter = textYearQuarter.Text;
 
             rpt.RequestingParty = textRequestingParty.Text;
-            rpt.Bank = cboBankUsed.Text;
+            rpt.Bank = cboBankUsed.Text.Trim();
             rpt.Quarter = cboQuarter.Text;
             rpt.RPTremarks = textRemarks.Text;
 
@@ -139,12 +162,7 @@ namespace SampleRPT1
 
             MainForm.INSTANCE.RefreshListView();
 
-            textTDN.Clear();
-            textTPName.Clear();
-            textAmountToBePay.Clear();
-            //textYearQuarter.Clear();
-            textRequestingParty.Clear();
-            textRemarks.Clear();
+            UpdateMultipleRPTForm_Load(sender, e);
         }
 
         private void textAmountToBePay_TextChanged(object sender, EventArgs e)
@@ -262,6 +280,14 @@ namespace SampleRPT1
         private void textRequestingParty_KeyDown(object sender, KeyEventArgs e)
         {
             EventHelperUtil.EnterKeyDown(sender, e, this);
+        }
+
+        private void UpdateMultipleRPTForm_Load(object sender, EventArgs e)
+        {
+            if (lvMultipleRecord.Items.Count > 0)
+            {
+                lvMultipleRecord.Items[0].Selected = true;
+            }
         }
     }
 }

@@ -61,5 +61,8 @@ namespace SampleRPT1
         public string LastUpdateBy { get; set; }
         public DateTime? LastUpdateDate { get; set; }
 
+        public DateTime? ORConfirmDate { get; set; }
+        public DateTime? ORAttachedDate { get; set; }
+
     }
 }

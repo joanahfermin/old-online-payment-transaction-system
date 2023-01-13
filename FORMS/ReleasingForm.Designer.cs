@@ -100,6 +100,8 @@
             this.Camera = new System.Windows.Forms.TabPage();
             this.Receipt = new System.Windows.Forms.TabPage();
             this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
+            this.textRecSelected = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -158,6 +160,7 @@
             this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
+            this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label1
             // 
@@ -328,6 +331,7 @@
             this.RPTInfoLV.TabIndex = 40;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
+            this.RPTInfoLV.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RPTInfoLV_ItemSelectionChanged);
             this.RPTInfoLV.SelectedIndexChanged += new System.EventHandler(this.RPTInfoLV_SelectedIndexChanged);
             // 
             // RPTId
@@ -676,11 +680,32 @@
             this.pictureBoxReceipt.TabStop = false;
             this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
             // 
+            // textRecSelected
+            // 
+            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRecSelected.Enabled = false;
+            this.textRecSelected.Location = new System.Drawing.Point(121, 96);
+            this.textRecSelected.Name = "textRecSelected";
+            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.TabIndex = 61;
+            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(17, 103);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 60;
+            this.label8.Text = "Records Selected: ";
+            // 
             // ReleasingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 948);
+            this.Controls.Add(this.textRecSelected);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.TabPicture);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);
@@ -789,5 +814,7 @@
         private System.Windows.Forms.TabPage Camera;
         private System.Windows.Forms.TabPage Receipt;
         private System.Windows.Forms.PictureBox pictureBoxReceipt;
+        private System.Windows.Forms.TextBox textRecSelected;
+        private System.Windows.Forms.Label label8;
     }
 }

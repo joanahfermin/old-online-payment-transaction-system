@@ -117,19 +117,7 @@ namespace SampleRPT1.FORMS
         /// </summary>
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
-            List<string> StatusList = new List<string>();
-
-            StatusList.Add(cboStatus.Text);
-
-            string taxdec = textTDN.Text;
-
-            //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
-            List<RealPropertyTax> rptList = RPTDatabase.SelectBySameEmailAddressReleasing(taxdec, StatusList);
-
-
-
-            PopulateListView(rptList);
-            HighlightRecord();
+            
         }
 
         private void HighlightRecord()
@@ -530,6 +518,30 @@ namespace SampleRPT1.FORMS
             else
             {
                 MessageBox.Show("Select a record from the list view.");
+            }
+        }
+
+        private void RPTInfoLV_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            textRecSelected.Text = RPTInfoLV.SelectedItems.Count.ToString();
+        }
+
+        private void textTDN_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                List<string> StatusList = new List<string>();
+
+                StatusList.Add(cboStatus.Text);
+
+                string taxdec = textTDN.Text;
+
+                //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
+                List<RealPropertyTax> rptList = RPTDatabase.SelectBySameEmailAddressReleasing(taxdec, StatusList);
+
+
+                PopulateListView(rptList);
+                HighlightRecord();
             }
         }
     }

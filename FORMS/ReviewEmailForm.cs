@@ -202,16 +202,32 @@ namespace SampleRPT1.FORMS
         {
             if (lvReview.SelectedItems.Count > 0)
             {
-                if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //{
+                //    ChangeSelectedItemStatus();
+                //    RefreshReviewListView();
+                //}
+
+                if (textLocCode.Text.Trim().Length == 0)
                 {
-                    ChangeSelectedItemStatus();
-                    RefreshReviewListView();
+                    MessageBox.Show("Enter Loc. Code.");
+                }
+                else
+                {
+                    if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        ChangeSelectedItemStatus();
+                        RefreshReviewListView();
+                    }
                 }
             }
         }
 
         private void ChangeSelectedItemStatus()
         {
+            DateTime ORconfirmDate = DateTime.Now;
+            string LocCode = textLocCode.Text;
+
             for (int i = 0; i < lvReview.SelectedItems.Count; i++)
             {
                 long rptID = Convert.ToInt64(lvReview.SelectedItems[i].Text);
@@ -228,6 +244,8 @@ namespace SampleRPT1.FORMS
                 else if (rdReceipt.Checked)
                 {
                     rpt.SendReceiptReady = true;
+                    rpt.ORConfirmDate = ORconfirmDate;
+                    rpt.LocCode = LocCode;
 
                     RPTDatabase.Update(rpt);
                 }
@@ -264,10 +282,64 @@ namespace SampleRPT1.FORMS
 
         private void lvReview_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            textRecSelected.Text = lvReview.SelectedItems.Count.ToString();
+
             if (lvReview.SelectedItems.Count == 1)
             {
                 getImageAccordingToDocType();
             }
         }
+
+
+        //START: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
+        Int32 firstClickItemIndex = 0;
+        public Boolean numInRange(Int32 num, Int32 first, Int32 last)
+        {
+            return first <= num && num <= last;
+        }
+
+        private void lvReview_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                foreach (ListViewItem lvItem in lvReview.Items)
+                    lvItem.Selected = true;
+            }
+        }
+
+        private void lvReview_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left && lvReview.HitTest(e.Location).Item != null)
+                firstClickItemIndex = lvReview.HitTest(e.Location).Item.Index;
+        }
+
+        private void lvReview_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left)
+            {
+                ListViewItem lvItem = lvReview.HitTest(e.Location).Item;
+                if (lvItem != null)
+                {
+                    lvItem.Selected = true;
+                    if (lvReview.SelectedItems.Count > 1)
+                    {
+                        Int32 firstSelected = lvReview.SelectedItems[0].Index;
+                        Int32 lastSelected = lvReview.SelectedItems[lvReview.SelectedItems.Count - 1].Index;
+                        foreach (ListViewItem tempLvItem in lvReview.Items)
+                        {
+                            if (numInRange(tempLvItem.Index, firstSelected, lastSelected) && (numInRange(tempLvItem.Index, lvItem.Index, firstClickItemIndex) || numInRange(tempLvItem.Index, firstClickItemIndex, lvItem.Index)))
+                            {
+                                tempLvItem.Selected = true;
+                            }
+                            else
+                            {
+                                tempLvItem.Selected = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
     }
 }

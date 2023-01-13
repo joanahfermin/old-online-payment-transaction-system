@@ -31,7 +31,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 1 and DeletedRecord != 1 order by ValidatedDate asc").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP 10 * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 1 and DeletedRecord != 1 order by ORConfirmDate asc, ORAttachedDate asc").ToList();
             }
         }
 
@@ -53,7 +53,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1 order by UploadedBy asc, ValidatedDate ASC").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1 order by UploadedBy asc, /*ValidatedDate ASC*/ ORAttachedDate asc").ToList();
             }
         }
 
@@ -143,6 +143,25 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndPaymentChannelAndValidatedBy(DateTime encodedDateFrom, DateTime encodedDateTo, string Status, List<string> BankList, string ValidatedBy)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(ValidatedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND Bank in @BankList AND ValidatedBy = @ValidatedBy and DeletedRecord != 1 " +
+                    "ORDER BY ValidatedDate ASC";
+                return conn.Query<RealPropertyTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    Status = Status,
+                    BankList = BankList,
+                    ValidatedBy = ValidatedBy
+
+                }).ToList();
+            }
+        }
+
         /// <summary>
         /// Returns a list of records based on date range, status and encodedby.
         /// </summary>
@@ -211,6 +230,15 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByRefNumAndReqParty(string RefNum, string ReqParty)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where RefNum = @RefNum and DeletedRecord != 1 and RequestingParty = @ReqParty " +
+                    $"order by RefNum desc, taxdec asc", new { RefNum = RefNum, ReqParty = ReqParty }).ToList();
+            }
+        }
+
         public static List<RealPropertyTax> SelectByEncodedDate(string TaxDec)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -254,8 +282,9 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 and Status = @Status " +
-                    $"order by ValidatedDate desc", new { TaxDec = TaxDec, Status = StatusList }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec like @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec like @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+                    $"order by ValidatedDate desc", new { TaxDec = "%" + TaxDec + "%", Status = StatusList }).ToList();
+           
             }
         }
 
@@ -270,11 +299,19 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectByRefNumAndORUpload(string RefNum)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and Status= @Status and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum, Status = RPTStatus.OR_UPLOAD }).ToList();
+            }
+        }
+
         public static List<RealPropertyTax> SelectByRefNumAndEmail(string RefNum, string RequestingParty)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and RequestingParty= @RequestingParty and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum, RequestingParty = RequestingParty }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and Status= @Status and RequestingParty= @RequestingParty and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum, RequestingParty = RequestingParty, Status = RPTStatus.OR_UPLOAD }).ToList();
             }
         }
 
@@ -282,7 +319,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where LocCode= @LocCode and DeletedRecord != 1 order by /*UploadedBy asc,*/ UploadedDate desc", new { LocCode = LocCode }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where LocCode= @LocCode and Status= @Status and DeletedRecord != 1 order by /*ValidatedDate desc*/ ORConfirmDate desc, ORAttachedDate asc", new { LocCode = LocCode, Status = RPTStatus.OR_PICKUP }).ToList();
             }
         }
 
@@ -563,53 +600,71 @@ namespace SampleRPT1
             {
                 UploadedBy = SecurityService.getLoginUser().DisplayName;
             }
+            rpt.Status = RPTStatus.OR_PICKUP;
+            rpt.UploadedDate = DateTime.Now;
+            rpt.UploadedBy = UploadedBy;
 
-            if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
-            {
-                //regular payment
-                string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
+            RPTDatabase.Update(rpt);
 
-                if (rpt.RefNum != null && rpt.RefNum.Length > 0)
-                {
-                    List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNum(rpt.RefNum);
+            //    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
+            //    {
+            //        //regular payment
+            //        //string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
 
-                    foreach (var item in rptList)
-                    {
-                        item.LocCode = LocCode;
-                        item.UploadedBy = UploadedBy;
-                        item.Status = RPTStatus.OR_PICKUP;
-                        item.UploadedDate = DateTime.Now;
+            //        if (rpt.RefNum != null && rpt.RefNum.Length > 0)
+            //        {
+            //            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndORUpload(rpt.RefNum);
 
-                        RPTDatabase.Update(item);
-                    }
-                }
-                else
-                {
-                    rpt.LocCode = LocCode;
-                    rpt.Status = RPTStatus.OR_PICKUP;
-                    rpt.UploadedDate = DateTime.Now;
-                    rpt.UploadedBy = UploadedBy;
+            //            foreach (var item in rptList)
+            //            {
+            //                //item.LocCode = LocCode;
+            //                item.UploadedBy = UploadedBy;
+            //                item.Status = RPTStatus.OR_PICKUP;
+            //                item.UploadedDate = DateTime.Now;
 
-                    RPTDatabase.Update(rpt);
-                }
-            }
-            //electronic payment
-            else
-            {
-                string LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
+            //                RPTDatabase.Update(item);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //rpt.LocCode = LocCode;
+            //            rpt.Status = RPTStatus.OR_PICKUP;
+            //            rpt.UploadedDate = DateTime.Now;
+            //            rpt.UploadedBy = UploadedBy;
 
-                List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndEmail(rpt.RefNum, rpt.RequestingParty);
+            //            RPTDatabase.Update(rpt);
+            //        }
+            //    }
+            //    //electronic payment
+            //    else
+            //    {
+            //        //string LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
 
-                foreach (var item in rptList)
-                {
-                    item.LocCode = LocCode;
-                    item.UploadedBy = UploadedBy;
-                    item.Status = RPTStatus.OR_PICKUP;
-                    item.UploadedDate = DateTime.Now;
+            //        if (rpt.RefNum != null && rpt.RefNum.Length > 0)
+            //        {
+            //            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndEmail(rpt.RefNum, rpt.RequestingParty);
 
-                    RPTDatabase.Update(item);
-                }
-            }
+            //            foreach (var item in rptList)
+            //            {
+            //                //item.LocCode = LocCode;
+            //                item.UploadedBy = UploadedBy;
+            //                item.Status = RPTStatus.OR_PICKUP;
+            //                item.UploadedDate = DateTime.Now;
+
+            //                RPTDatabase.Update(item);
+            //            }
+
+            //        }
+            //        else
+            //        {
+            //            //rpt.LocCode = LocCode;
+            //            rpt.Status = RPTStatus.OR_PICKUP;
+            //            rpt.UploadedDate = DateTime.Now;
+            //            rpt.UploadedBy = UploadedBy;
+
+            //            RPTDatabase.Update(rpt);
+            //        }
+            //    }
         }
 
         public static RealPropertyTax SearchByTagReceipt(TagReceipt tagReceipt)

@@ -125,6 +125,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textRecSelected = new System.Windows.Forms.TextBox();
+            this.cboValidatedBy = new System.Windows.Forms.ComboBox();
+            this.labelValiBy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -171,7 +173,10 @@
             this.RPTInfoLV.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RPTInfoLV_ItemSelectionChanged);
             this.RPTInfoLV.SelectedIndexChanged += new System.EventHandler(this.RPTInfoLV_SelectedIndexChanged);
             this.RPTInfoLV.DoubleClick += new System.EventHandler(this.RPTInfoLV_DoubleClick);
+            this.RPTInfoLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RPTInfoLV_KeyDown);
             this.RPTInfoLV.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RPTInfoLV_MouseClick);
+            this.RPTInfoLV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RPTInfoLV_MouseDown);
+            this.RPTInfoLV.MouseMove += new System.Windows.Forms.MouseEventHandler(this.RPTInfoLV_MouseMove);
             // 
             // RPTId
             // 
@@ -948,14 +953,35 @@
             this.textRecSelected.TabIndex = 59;
             this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // cboValidatedBy
+            // 
+            this.cboValidatedBy.FormattingEnabled = true;
+            this.cboValidatedBy.Location = new System.Drawing.Point(1692, 30);
+            this.cboValidatedBy.Name = "cboValidatedBy";
+            this.cboValidatedBy.Size = new System.Drawing.Size(181, 21);
+            this.cboValidatedBy.TabIndex = 7;
+            this.cboValidatedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
+            this.cboValidatedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
+            // 
+            // labelValiBy
+            // 
+            this.labelValiBy.AutoSize = true;
+            this.labelValiBy.Location = new System.Drawing.Point(1616, 37);
+            this.labelValiBy.Name = "labelValiBy";
+            this.labelValiBy.Size = new System.Drawing.Size(72, 13);
+            this.labelValiBy.TabIndex = 48;
+            this.labelValiBy.Text = "Validated By: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.cboValidatedBy);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnRotate);
@@ -1108,6 +1134,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textRecSelected;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelValiBy;
+        private System.Windows.Forms.ComboBox cboValidatedBy;
     }
 }
 

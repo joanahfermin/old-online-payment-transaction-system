@@ -99,11 +99,16 @@ namespace SampleRPT1
             {
                 int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
                 textYearQuarter.Text = (yearQuarter + 1).ToString();
+                textAmount2Pay.Focus();
+            }
+            else
+            {
+                textTDN.Focus();
             }
 
             textRequestingParty.Clear();
             textRemarks.Clear();
-            textYearQuarter.Focus();
+
 
             checkTaxDecRetain_CheckedChanged(sender, e);
             checkTaxNameRetain_CheckedChanged(sender, e);
@@ -240,6 +245,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
+            Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
             //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
         }
 

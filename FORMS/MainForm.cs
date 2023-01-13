@@ -67,6 +67,9 @@ namespace SampleRPT1
             textContactNum.Visible = false;
             checkAutLetter.Visible = false;
 
+            labelValiBy.Visible = false;
+            cboValidatedBy.Visible = false;
+
             // Load various supporting data
             InitializeStatus();
             InitializeAction();
@@ -144,7 +147,7 @@ namespace SampleRPT1
         {
             cboPaymentChannel.Items.Clear();
 
-            if (loginUser.isVerifier || loginUser.isValidator)
+            if (loginUser.isVerifier || loginUser.isValidator || loginUser.isUploader)
             {
                 cboPaymentChannel.Visible = true;
 
@@ -157,13 +160,13 @@ namespace SampleRPT1
 
         private void InitializeValidator()
         {
-            cboValidator.Items.Clear();
+            cboValidatedBy.Items.Clear();
 
             List<string> rptUserDisplayNameList = RPTUserDatabase.GenerateDisplayNameofValidator();
 
             foreach (string item in rptUserDisplayNameList)
             {
-                cboValidator.Items.Add(item);
+                cboValidatedBy.Items.Add(item);
             }
         }
 
@@ -275,6 +278,7 @@ namespace SampleRPT1
             DateTime encodedDateTo = dtDateTo.Value;
             string Action = cboAction.Text;
             string EncodedBy = cboEncodedBy.Text;
+            string ValidatedBy = cboValidatedBy.Text;
 
             // filter by verification of payment and payment channel.
             if (Status == RPTStatus.PAYMENT_VERIFICATION && Action == RPTAction.VERIFY_PAYMENT)
@@ -298,7 +302,8 @@ namespace SampleRPT1
             // filter by for or upload and date range and validated date.
             else if (Status == RPTStatus.OR_UPLOAD)
             {
-                rptList = RPTDatabase.SelectByDateFromToAndStatusAndValidatedDate(encodedDateFrom, encodedDateTo, Status);
+                List<string> BankList = getBankList();
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndPaymentChannelAndValidatedBy(encodedDateFrom, encodedDateTo, Status, BankList, ValidatedBy);
             }
 
             // filter by for or pickup and date range and uploaded date.
@@ -412,6 +417,14 @@ namespace SampleRPT1
             {
                 labelValidatedBy.Visible = true;
                 cboValidator.Visible = true;
+
+                InitializePaymentChannel();
+                labelPaymentChannel.Visible = true;
+                cboPaymentChannel.Visible = true;
+
+                InitializeValidator();
+                labelValiBy.Visible = true;
+                cboValidatedBy.Visible = true;
             }
             else
             {
@@ -457,8 +470,9 @@ namespace SampleRPT1
             {
                 if (RetrieveRPT.RefNum != null)
                 {
-                    string TaxDec = RetrieveRPT.TaxDec;
-                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(TaxDec);
+                    string Refnum = RetrieveRPT.RefNum;
+                    string ReqParty = RetrieveRPT.RequestingParty;
+                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(Refnum, ReqParty);
                     updateMultipleRPTForm.ShowDialog();
                 }
                 else
@@ -547,7 +561,8 @@ namespace SampleRPT1
             foreach (RealPropertyTax rpt in rptList)
             {
                 TotalAmountToPay = TotalAmountToPay + rpt.AmountToPay;
-                TotalAmountTransferred = TotalAmountTransferred + rpt.AmountTransferred;
+                //TotalAmountTransferred = TotalAmountTransferred + rpt.AmountTransferred;
+                TotalAmountTransferred = TotalAmountTransferred + rpt.TotalAmountTransferred;
             }
 
             textTotalAmount2Pay.Text = TotalAmountToPay.ToString();
@@ -614,7 +629,6 @@ namespace SampleRPT1
                 totalAmount2Pay = rpt.AmountToPay;
                 totalAmountTrans = rpt.TotalAmountTransferred;
 
-                //Clipboard.SetText(rpt.TaxDec);
                 string Status = rpt.Status;
 
                 if (Status == RPTStatus.FOR_ASSESSMENT)
@@ -656,39 +670,47 @@ namespace SampleRPT1
         }
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
-        { /*
-            mainFormListViewHelper.RPTInfoLV_SelectedIndexChanged(sender, e);
-
+        {
             if (mainFormListViewHelper.haveSelectedRow())
             {
                 RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
                 Clipboard.SetText(rpt.TaxDec);
                 string Status = rpt.Status;
-
-                if (Status == RPTStatus.FOR_ASSESSMENT)
-                {
-                    LabelNumBills.Visible = true;
-                    textNumOfBills.Visible = true;
-                }
-                else
-                {
-                    LabelNumBills.Visible = false;
-                    textNumOfBills.Visible = false;
-                }
             }
+                /*
+                mainFormListViewHelper.RPTInfoLV_SelectedIndexChanged(sender, e);
 
-            ChangeAction();
+                if (mainFormListViewHelper.haveSelectedRow())
+                {
+                    RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
-            CalculateTotalAmount();
+                    Clipboard.SetText(rpt.TaxDec);
+                    string Status = rpt.Status;
 
-            ShowPicture();
+                    if (Status == RPTStatus.FOR_ASSESSMENT)
+                    {
+                        LabelNumBills.Visible = true;
+                        textNumOfBills.Visible = true;
+                    }
+                    else
+                    {
+                        LabelNumBills.Visible = false;
+                        textNumOfBills.Visible = false;
+                    }
+                }
 
-            ShowRepsInfo();
-             */
+                ChangeAction();
 
-            //Console.WriteLine("joanah");
-        }
+                CalculateTotalAmount();
+
+                ShowPicture();
+
+                ShowRepsInfo();
+                 */
+
+                //Console.WriteLine("joanah");
+            }
 
         private void ShowPicture()
         {
@@ -1160,6 +1182,7 @@ namespace SampleRPT1
                     {
                         documentType = DocumentType.RECEIPT;
                         rpt.UploadedBy = loginUser.DisplayName;
+                        rpt.ORAttachedDate  = DateTime.Now;
 
                         FileData = ImageUtil.ImageToByteArray(pictureBoxReceipt.Image);
 
@@ -1457,5 +1480,54 @@ namespace SampleRPT1
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+
+        //START: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
+        Int32 firstClickItemIndex = 0;
+        public Boolean numInRange(Int32 num, Int32 first, Int32 last)
+        {
+            return first <= num && num <= last;
+        }
+        private void RPTInfoLV_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left && RPTInfoLV.HitTest(e.Location).Item != null)
+                firstClickItemIndex = RPTInfoLV.HitTest(e.Location).Item.Index;
+        }
+        private void RPTInfoLV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                foreach (ListViewItem lvItem in RPTInfoLV.Items)
+                    lvItem.Selected = true;
+            }
+        }
+        private void RPTInfoLV_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left)
+            {
+                ListViewItem lvItem = RPTInfoLV.HitTest(e.Location).Item;
+                if (lvItem != null)
+                {
+                    lvItem.Selected = true;
+                    if (RPTInfoLV.SelectedItems.Count > 1)
+                    {
+                        Int32 firstSelected = RPTInfoLV.SelectedItems[0].Index;
+                        Int32 lastSelected = RPTInfoLV.SelectedItems[RPTInfoLV.SelectedItems.Count - 1].Index;
+                        foreach (ListViewItem tempLvItem in RPTInfoLV.Items)
+                        {
+                            if (numInRange(tempLvItem.Index, firstSelected, lastSelected) && (numInRange(tempLvItem.Index, lvItem.Index, firstClickItemIndex) || numInRange(tempLvItem.Index, firstClickItemIndex, lvItem.Index)))
+                            {
+                                tempLvItem.Selected = true;
+                            }
+                            else
+                            {
+                                tempLvItem.Selected = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
     }
 }

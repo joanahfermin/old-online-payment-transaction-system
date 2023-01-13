@@ -94,7 +94,7 @@ namespace SampleRPT1.FORMS
                     RetrieveRpt.PaymentDate = dtDateOfPayment.Value.Date;
                 }
 
-                RetrieveRpt.Bank = cboBankUsed.Text;
+                RetrieveRpt.Bank = cboBankUsed.Text.Trim();
 
                 RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
@@ -166,6 +166,11 @@ namespace SampleRPT1.FORMS
                         if (forVerification)
                         {
                             rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                        }
+
+                        if (rpt.Bank == null || rpt.Bank.Trim().Length == 0)
+                        {
+                            rpt.Bank = cboBankUsed.Text;
                         }
 
                         RPTDatabase.Update(rpt);

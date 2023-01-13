@@ -57,9 +57,9 @@ namespace SampleRPT1
             // clear muna natin lahat ng error from previous validation.
             errorProvider1.Clear();
 
-            //Validations.ValidateRequired(errorProvider1, textTransferredAmount, "Transferred amount");
+            Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
 
-            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
+            //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }
 
         /// <summary>
@@ -187,6 +187,13 @@ namespace SampleRPT1
         //Updates the record.
         private void btnUpdateRecord_Click(object sender, EventArgs e)
         {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
             foreach (var rpt in RptList)
             {
                 if (textTaxDec.Text != MULTIPLE_MARKER)
@@ -228,7 +235,7 @@ namespace SampleRPT1
 
                 if (cboBankUsed.Text != MULTIPLE_MARKER)
                 {
-                    rpt.Bank = cboBankUsed.Text;
+                    rpt.Bank = cboBankUsed.Text.Trim();
                 }
                 if (textYear.Text != MULTIPLE_MARKER)
                 {

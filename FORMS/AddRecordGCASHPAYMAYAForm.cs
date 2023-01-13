@@ -122,7 +122,7 @@ namespace SampleRPT1
         private bool isRPTTaxDecFormat(string taxDec)
         {
             //format of taxdec number.
-            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}( / [D|E|F|G]-[0-9]{3}-[0-9]{5})*$"); 
             return re.IsMatch(taxDec.Trim());
         }
 
@@ -358,85 +358,124 @@ namespace SampleRPT1
                 return;
             }
 
-            if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
+            if (FirstLVGcashPaymaya.Items.Count > 0)
             {
                 //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
-                for (int i = 0; i < FirstLVGcashPaymaya.SelectedItems.Count; i++)
+                for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
                 {
-                    string ServiceProvider = FirstLVGcashPaymaya.SelectedItems[i].Text;
-                    string TaxDec = FirstLVGcashPaymaya.SelectedItems[i].SubItems[1].Text;
-                    string YearQuarter = FirstLVGcashPaymaya.SelectedItems[i].SubItems[2].Text;
-                    string TaxpayersName = FirstLVGcashPaymaya.SelectedItems[i].SubItems[3].Text;
-                    string RequestingParty = FirstLVGcashPaymaya.SelectedItems[i].SubItems[4].Text;
-                    decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.SelectedItems[i].SubItems[5].Text);
-                    string TransactionDate = FirstLVGcashPaymaya.SelectedItems[i].SubItems[6].Text;
+                    string ServiceProvider = FirstLVGcashPaymaya.Items[i].Text;
+                    string TaxDec = FirstLVGcashPaymaya.Items[i].SubItems[1].Text;
+                    string YearQuarter = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
+                    string TaxpayersName = FirstLVGcashPaymaya.Items[i].SubItems[3].Text;
+                    string RequestingParty = FirstLVGcashPaymaya.Items[i].SubItems[4].Text;
+                    decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.Items[i].SubItems[5].Text);
+                    string TransactionDate = FirstLVGcashPaymaya.Items[i].SubItems[6].Text;
 
                     RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
 
-                    //Existing record, year/quarter will have a suffix of date and time. 
+                    RealPropertyTax rpt = new RealPropertyTax();
+
+                    rpt.TaxDec = TaxDec;
+                    //rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
+                    rpt.TaxPayerName = TaxpayersName;
+                    rpt.AmountToPay = AmountDue;
+                    rpt.AmountTransferred = AmountDue;
+                    rpt.Bank = ServiceProvider;
+                    rpt.YearQuarter = YearQuarter;
+                    rpt.Quarter = cboQuarter.Text;
+
+                    ////TO DO
+                    //rpt.Quarter = "1-4";
+                    rpt.BillCount = textBillQuantity.Text;
+                    rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                    rpt.RequestingParty = textEmailAddress.Text;
+
+                    rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+
+                    rpt.EncodedBy = loginUser.DisplayName;
+                    rpt.EncodedDate = DateTime.Now;
+
+                    rpt.RequestingParty = RequestingParty;
+                    rpt.BilledBy = loginUser.DisplayName;
+                    rpt.BilledDate = DateTime.Now;
+                    rpt.RefNum = refNo;
+
                     if (RetrievedRpt != null)
                     {
-                        RetrievedRpt.TaxPayerName = TaxpayersName;
-                        RetrievedRpt.AmountToPay = AmountDue;
-                        RetrievedRpt.AmountTransferred = AmountDue;
-                        RetrievedRpt.Bank = ServiceProvider;
-                        RetrievedRpt.BillCount = textBillQuantity.Text;
-                        RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
-
-                        RetrievedRpt.PaymentDate = Convert.ToDateTime(TransactionDate);
-
-                        RetrievedRpt.BilledBy = loginUser.DisplayName;
-                        RetrievedRpt.BilledDate = DateTime.Now;
-                        RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
-                        RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
-                        RetrievedRpt.Quarter = cboQuarter.Text;
-
-                        ////TO DO
-                        //RetrievedRpt.Quarter = "1-4";
-                        RetrievedRpt.RefNum = refNo;
-
-                        RPTDatabase.Insert(RetrievedRpt);
+                        rpt.YearQuarter = YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+                        rpt.RPTremarks = DuplicateRecordRemarks;
                     }
-                    //Saves the records with Taxpayer's Name regardless of what year.
-                    else
-                    {
-                        RealPropertyTax rpt = new RealPropertyTax();
 
-                        rpt.TaxDec = TaxDec;
-                        //rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
-                        rpt.TaxPayerName = TaxpayersName;
-                        rpt.AmountToPay = AmountDue;
-                        rpt.AmountTransferred = AmountDue;
-                        rpt.Bank = ServiceProvider;
-                        rpt.YearQuarter = YearQuarter;
-                        rpt.Quarter = cboQuarter.Text;
+                    RPTDatabase.Insert(rpt);
 
-                        ////TO DO
-                        //rpt.Quarter = "1-4";
-                        rpt.BillCount = textBillQuantity.Text;
-                        rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
-                        rpt.RequestingParty = textEmailAddress.Text;
 
-                        rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+                    //Existing record, year/quarter will have a suffix of date and time. 
+                    //if (RetrievedRpt != null)
+                    //{
+                    //    RetrievedRpt.TaxPayerName = TaxpayersName;
+                    //    RetrievedRpt.AmountToPay = AmountDue;
+                    //    RetrievedRpt.AmountTransferred = AmountDue;
+                    //    RetrievedRpt.Bank = ServiceProvider;
+                    //    RetrievedRpt.BillCount = textBillQuantity.Text;
+                    //    RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
-                        rpt.EncodedBy = loginUser.DisplayName;
-                        rpt.EncodedDate = DateTime.Now;
+                    //    RetrievedRpt.PaymentDate = Convert.ToDateTime(TransactionDate);
 
-                        rpt.RequestingParty = RequestingParty;
-                        rpt.BilledBy = loginUser.DisplayName;
-                        rpt.BilledDate = DateTime.Now;
-                        rpt.RefNum = refNo;
+                    //    RetrievedRpt.BilledBy = loginUser.DisplayName;
+                    //    RetrievedRpt.BilledDate = DateTime.Now;
+                    //    RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
+                    //    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+                    //    RetrievedRpt.Quarter = cboQuarter.Text;
 
-                        RPTDatabase.Insert(rpt);
-                    }
+                    //    ////TO DO
+                    //    //RetrievedRpt.Quarter = "1-4";
+                    //    RetrievedRpt.RefNum = refNo;
+
+                    //    RPTDatabase.Insert(RetrievedRpt);
+                    //}
+                    ////Saves the records with Taxpayer's Name regardless of what year.
+                    //else
+                    //{
+                    //    RealPropertyTax rpt = new RealPropertyTax();
+
+                    //    rpt.TaxDec = TaxDec;
+                    //    //rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
+                    //    rpt.TaxPayerName = TaxpayersName;
+                    //    rpt.AmountToPay = AmountDue;
+                    //    rpt.AmountTransferred = AmountDue;
+                    //    rpt.Bank = ServiceProvider;
+                    //    rpt.YearQuarter = YearQuarter;
+                    //    rpt.Quarter = cboQuarter.Text;
+
+                    //    ////TO DO
+                    //    //rpt.Quarter = "1-4";
+                    //    rpt.BillCount = textBillQuantity.Text;
+                    //    rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                    //    rpt.RequestingParty = textEmailAddress.Text;
+
+                    //    rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+
+                    //    rpt.EncodedBy = loginUser.DisplayName;
+                    //    rpt.EncodedDate = DateTime.Now;
+
+                    //    rpt.RequestingParty = RequestingParty;
+                    //    rpt.BilledBy = loginUser.DisplayName;
+                    //    rpt.BilledDate = DateTime.Now;
+                    //    rpt.RefNum = refNo;
+
+                    //    RPTDatabase.Insert(rpt);
+                    //}
                 }
 
                 //Removes multiple processed records.
-                for (int i = FirstLVGcashPaymaya.SelectedItems.Count - 1; i >= 0; i--)
-                {
-                    int Index = FirstLVGcashPaymaya.SelectedIndices[i];
-                    FirstLVGcashPaymaya.Items.RemoveAt(Index);
-                }
+                //for (int i = FirstLVGcashPaymaya.SelectedItems.Count - 1; i >= 0; i--)
+                //{
+                //    int Index = FirstLVGcashPaymaya.SelectedIndices[i];
+                //    FirstLVGcashPaymaya.Items.RemoveAt(Index);
+                //}
+
+                FirstLVGcashPaymaya.Items.Clear();
+
                 RefreshMainListviewStatus();
 
                 textRPTID.Clear();

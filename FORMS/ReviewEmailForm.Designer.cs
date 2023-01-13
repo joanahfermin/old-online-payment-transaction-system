@@ -40,6 +40,10 @@ namespace SampleRPT1.FORMS
             this.rdAssessment = new System.Windows.Forms.RadioButton();
             this.rdReceipt = new System.Windows.Forms.RadioButton();
             this.checkRefreshAll = new System.Windows.Forms.CheckBox();
+            this.textLocCode = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textRecSelected = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,6 +67,9 @@ namespace SampleRPT1.FORMS
             this.lvReview.View = System.Windows.Forms.View.Details;
             this.lvReview.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvReview_ItemSelectionChanged);
             this.lvReview.SelectedIndexChanged += new System.EventHandler(this.lvReview_SelectedIndexChanged);
+            this.lvReview.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvReview_KeyDown);
+            this.lvReview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lvReview_MouseDown);
+            this.lvReview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lvReview_MouseMove);
             // 
             // rptID
             // 
@@ -147,11 +154,50 @@ namespace SampleRPT1.FORMS
             this.checkRefreshAll.UseVisualStyleBackColor = true;
             this.checkRefreshAll.CheckedChanged += new System.EventHandler(this.checkRefreshAll_CheckedChanged);
             // 
+            // textLocCode
+            // 
+            this.textLocCode.Location = new System.Drawing.Point(635, 16);
+            this.textLocCode.Name = "textLocCode";
+            this.textLocCode.Size = new System.Drawing.Size(100, 20);
+            this.textLocCode.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(539, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Enter Loc. Code: ";
+            // 
+            // textRecSelected
+            // 
+            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRecSelected.Enabled = false;
+            this.textRecSelected.Location = new System.Drawing.Point(462, 16);
+            this.textRecSelected.Name = "textRecSelected";
+            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.TabIndex = 61;
+            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(358, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 60;
+            this.label8.Text = "Records Selected: ";
+            // 
             // ReviewEmailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 974);
+            this.Controls.Add(this.textRecSelected);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textLocCode);
             this.Controls.Add(this.checkRefreshAll);
             this.Controls.Add(this.rdReceipt);
             this.Controls.Add(this.rdAssessment);
@@ -180,5 +226,9 @@ namespace SampleRPT1.FORMS
         private System.Windows.Forms.RadioButton rdReceipt;
         private System.Windows.Forms.CheckBox checkRefreshAll;
         private System.Windows.Forms.ColumnHeader uploadedby;
+        private System.Windows.Forms.TextBox textLocCode;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textRecSelected;
+        private System.Windows.Forms.Label label8;
     }
 }

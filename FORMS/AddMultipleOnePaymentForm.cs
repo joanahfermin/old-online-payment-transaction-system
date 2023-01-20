@@ -99,7 +99,10 @@ namespace SampleRPT1
             {
                 int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
                 textYearQuarter.Text = (yearQuarter + 1).ToString();
-                textAmount2Pay.Focus();
+                textAmount2Pay.Focus(); //INTEGER AND STRING?
+                
+                //YEAR: 2023ADJ
+
             }
             else
             {
@@ -148,13 +151,34 @@ namespace SampleRPT1
             decimal TotalAmountDeposited = Convert.ToDecimal(textTotalAmountDeposited.Text);
 
             decimal TotalAmount2Pay = 0;
+
             foreach (ListViewItem item in lvMultipleRecord.Items)
             {
                 string Amount2Pay = item.SubItems[2].Text;
                 TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
             }
 
+            List<ListViewItem> rptListToInsert = new List<ListViewItem>();
+
+            SortedSet<string> YearSet = new SortedSet<string>();
+
             foreach (ListViewItem item in lvMultipleRecord.Items)
+            {
+                YearSet.Add(item.SubItems[3].Text);
+            }
+
+            foreach (string year in YearSet)
+            {
+                foreach (ListViewItem item in lvMultipleRecord.Items)
+                {
+                    if (year == item.SubItems[3].Text)
+                    {
+                        rptListToInsert.Add(item);
+                    }
+                }
+            }
+
+            foreach (ListViewItem item in rptListToInsert)
             {
                 string TaxDec = item.Text;
                 string TaxPayerName = item.SubItems[1].Text;
@@ -191,6 +215,7 @@ namespace SampleRPT1
                     rpt.AmountTransferred = TotalAmountDeposited;
                     TotalAmountDeposited = 0;
                 }
+
                 rpt.YearQuarter = YearQuarter;
                 rpt.Bank = cboBankUsed.Text.Trim();
 

@@ -167,9 +167,9 @@ namespace SampleRPT1
 
         private void textAmountToBePay_TextChanged(object sender, EventArgs e)
         {
-            double amounttobepaid;
-            double.TryParse(textAmountToBePay.Text, out amounttobepaid);
-            textAmountToBePay.Text = amounttobepaid.ToString("N2");
+            //double amounttobepaid;
+            //double.TryParse(textAmountToBePay.Text, out amounttobepaid);
+            //textAmountToBePay.Text = amounttobepaid.ToString("N2");
         }
 
         private void textAmountToBePay_KeyDown(object sender, KeyEventArgs e)
@@ -288,6 +288,13 @@ namespace SampleRPT1
             {
                 lvMultipleRecord.Items[0].Selected = true;
             }
+        }
+
+        private void textAmountToBePay_Leave(object sender, EventArgs e)
+        {
+            double amounttobepaid;
+            double.TryParse(textAmountToBePay.Text, out amounttobepaid);
+            textAmountToBePay.Text = amounttobepaid.ToString("N2");
         }
     }
 }

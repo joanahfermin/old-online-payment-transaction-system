@@ -55,7 +55,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeStatus()
         {
-            cboStatus.Items.Add(RPTStatus.OR_PICKUP);
+            cboStatus.Items.Add(RPTStatus.OR_PICKUP/*, RPTStatus.OR_UPLOAD*/);
         }
 
         public void InitializeAction()
@@ -110,14 +110,6 @@ namespace SampleRPT1.FORMS
         private void btnSearchDateStatus_Click(object sender, EventArgs e)
         {
             RefreshListView();
-        }
-
-        /// <summary>
-        /// Filter records based on taxdec number, it will display if taxdec has other related taxdec with same reference number.
-        /// </summary>
-        private void textTDN_TextChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void HighlightRecord()
@@ -192,6 +184,7 @@ namespace SampleRPT1.FORMS
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 List<RealPropertyTax> SelectedRPTList = GetSelectedRPTByStatus(RPTStatus.OR_PICKUP);
+                SelectedRPTList.AddRange(GetSelectedRPTByStatus(RPTStatus.OR_UPLOAD));
 
                 foreach (var rpt in SelectedRPTList)
                 {
@@ -209,8 +202,9 @@ namespace SampleRPT1.FORMS
 
                     RPTDatabase.Update(rpt);
 
-                    MessageBox.Show("Receipt successfully released.");
+                    //MessageBox.Show("Receipt successfully released.");
                 }
+                MessageBox.Show("Receipt successfully released.");
 
             }
             textRepName.Clear();
@@ -340,10 +334,12 @@ namespace SampleRPT1.FORMS
         {
             RPTAttachPicture RetrievePicture = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(RptID, DocumentType.OR_RELEASING);
 
+            bool pictureSaved = false;
+
             for (int i = 0; i < RPTInfoLV.SelectedItems.Count; i++)
             {
-                if (checkAutLetter.Checked)
-                {
+                //if (checkAutLetter.Checked)
+                //{
                     string RptId = RPTInfoLV.SelectedItems[i].Text;
                     RptID = Convert.ToInt64(RptId);
 
@@ -359,8 +355,7 @@ namespace SampleRPT1.FORMS
                         rptAttachPicture.DocumentType = DocumentType.OR_RELEASING;
 
                         RPTAttachPictureDatabase.InsertPicture(rptAttachPicture);
-
-                        MessageBox.Show("Picture successfully saved.");
+                        pictureSaved = true;
                     }
                     else
                     {
@@ -369,13 +364,19 @@ namespace SampleRPT1.FORMS
                         RetrievePicture.FileData = resizeFileData;
 
                         RPTAttachPictureDatabase.Update(RetrievePicture);
-                        MessageBox.Show("Picture successfully saved.");
+                        pictureSaved = true;
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Kindly check if the claimant has an authorization letter.");
-                }
+                //}
+
+            }
+            if (pictureSaved)
+            {
+                MessageBox.Show("Picture successfully saved.");
+
+                //if (!checkAutLetter.Checked)
+                //{
+                //    MessageBox.Show("Kindly check if the claimant has an authorization letter.");
+                //}
             }
         }
 
@@ -532,7 +533,10 @@ namespace SampleRPT1.FORMS
             {
                 List<string> StatusList = new List<string>();
 
-                StatusList.Add(cboStatus.Text);
+                //StatusList.Add(cboStatus.Text);
+
+                StatusList.Add(RPTStatus.OR_PICKUP);
+                StatusList.Add(RPTStatus.OR_UPLOAD);
 
                 string taxdec = textTDN.Text;
 

@@ -159,7 +159,6 @@
             this.textTDN.Size = new System.Drawing.Size(276, 20);
             this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label1

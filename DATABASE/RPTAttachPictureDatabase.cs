@@ -19,7 +19,20 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                if (rptAttachPicture.FileName == null || rptAttachPicture.FileName.Trim().Length == 0)
+                {
+                    rptAttachPicture.FileName = "RECEIPT.jpg";
+                }
+
                 return conn.Insert<RPTAttachPicture>(rptAttachPicture);
+            }
+        }
+
+        public static void FixEmptyFileName()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                conn.Execute("UPDATE Jo_RPT_Pictures SET FileName = 'ATTACHEDPICTURE.jpg' WHERE FileName = NULL OR ltrim(rtrim(FileName)) =''");
             }
         }
 
@@ -30,6 +43,11 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
+                if (RptPicture.FileName == null || RptPicture.FileName.Trim().Length == 0)
+                {
+                    RptPicture.FileName = "RECEIPT.jpg";
+                }
+
                 return conn.Update<RPTAttachPicture>(RptPicture);
             }
         }

@@ -36,6 +36,7 @@ namespace SampleRPT1.JOBS
             }
             Console.WriteLine("RunAutoEmail");
 
+            RPTAttachPictureDatabase.FixEmptyFileName();
             SendORReceipt();
             SendAssessment();
         }
@@ -52,7 +53,7 @@ namespace SampleRPT1.JOBS
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.RECEIPT);
 
-                string body = ORUploadTemplate.Body + "\n\n" + rpt.UploadedBy + "-CTO";
+                string body = "ATTENTION: " + rpt.TaxPayerName + " ("  + rpt.TaxDec + ") \n" + ORUploadTemplate.Body + "\n\n" + rpt.UploadedBy + "-CTO";
                 string subject = ORUploadTemplate.Subject + " - " + rpt.TaxDec;
 
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);

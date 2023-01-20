@@ -65,10 +65,16 @@ namespace SampleRPT1
                         {
                             //attachImage.Save(pictureMemoryStream, ImageFormat.Jpeg); // prepare picture
 
+                            string fileName = attachPicture.FileName;
+                            if (fileName == null || fileName.Trim().Length == 0)
+                            {
+                                fileName = "ATTACHEDPICTURE.jpg";
+                            }
+
                             pictureMemoryStream.Position = 0;
 
                             message.AlternateViews.Add(altViewHtml);
-                            Attachment att = new Attachment(pictureMemoryStream, attachPicture.FileName);
+                            Attachment att = new Attachment(pictureMemoryStream, fileName);
                             message.Attachments.Add(att);
                             smtpClient.Send(message); // padala na kasi naka attach na ang pix
                         }

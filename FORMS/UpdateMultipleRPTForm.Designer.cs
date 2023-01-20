@@ -349,6 +349,7 @@
             this.textAmountToBePay.TextChanged += new System.EventHandler(this.textAmountToBePay_TextChanged);
             this.textAmountToBePay.Enter += new System.EventHandler(this.textAmountToBePay_Enter);
             this.textAmountToBePay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountToBePay_KeyDown);
+            this.textAmountToBePay.Leave += new System.EventHandler(this.textAmountToBePay_Leave);
             // 
             // labelAmountToBPay
             // 

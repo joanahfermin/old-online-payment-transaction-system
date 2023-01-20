@@ -670,6 +670,7 @@
             this.textTDN.TabIndex = 0;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
+            this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label2
             // 

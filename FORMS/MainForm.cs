@@ -181,19 +181,13 @@ namespace SampleRPT1
             textTDN.Text = taxDec;
         }
 
-        private void textTDN_TextChanged(object sender, EventArgs e)
-        {
-            SearchByTaxDec();
-            HighlightRecord();
-        }
-
         private void HighlightRecord()
         {
             string tdn = textTDN.Text;
 
             foreach (ListViewItem item in RPTInfoLV.Items)
             {
-                if (item.SubItems[1].Text == tdn)
+                if (item.SubItems[1].Text.Contains(tdn))
                 {
                     item.Selected = true;
                     RPTInfoLV.Focus();
@@ -343,6 +337,12 @@ namespace SampleRPT1
 
             mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
+
+            //if (RPTInfoLV.Items.Count > 0)
+            //{
+            //    RPTInfoLV.Focus();
+            //    RPTInfoLV.Items[0].Selected = true;
+            //}
         }
 
         private void btnAddRecord_Click(object sender, EventArgs e)
@@ -971,6 +971,7 @@ namespace SampleRPT1
             {
                 List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.PAYMENT_VERIFICATION);
 
+                //bool 
                 bool AllProcessed = true;
 
                 foreach (var rpt in SelectedRPTList)
@@ -993,7 +994,7 @@ namespace SampleRPT1
 
                 if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION) == false || AllProcessed == false)
                 {
-                    MessageBox.Show("Some selected records has not been processed.");
+                    MessageBox.Show("Some selected records has not been processed PAYMENT VERIFICATION.");
                     cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
                 }
 
@@ -1131,7 +1132,7 @@ namespace SampleRPT1
                     }
                 }
 
-                if (rpt.Status == RPTStatus.OR_UPLOAD && TabPicture.SelectedTab.Text == DocumentType.RECEIPT)
+                if ((rpt.Status == RPTStatus.OR_UPLOAD || rpt.Status == RPTStatus.OR_PICKUP) && TabPicture.SelectedTab.Text == DocumentType.RECEIPT)
                 {
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
@@ -1167,7 +1168,7 @@ namespace SampleRPT1
             {
                 RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
-                if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED || rpt.Status == RPTStatus.OR_UPLOAD)
+                if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED || rpt.Status == RPTStatus.OR_UPLOAD || rpt.Status == RPTStatus.OR_PICKUP)
                 {
                     string documentType;
 
@@ -1259,7 +1260,18 @@ namespace SampleRPT1
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (RPTInfoLV.Items.Count > 0)
+            {
+                RPTInfoLV.Focus();
+                RPTInfoLV.Items[0].Selected = true;
+            }
+
             textTDN.Select();
+
+            //if (loginUser.DisplayName == "OGIE")
+            //{
+            //    cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
+            //}
 
             textFileName.Visible = false;
 
@@ -1309,27 +1321,27 @@ namespace SampleRPT1
                 BillWithNoPayment();
             }
 
-            if (cboAction.Text == RPTAction.BILL_WITH_POP)
+            else if (cboAction.Text == RPTAction.BILL_WITH_POP)
             {
                 BillWithPayment();
             }
 
-            if (cboAction.Text == RPTAction.MANUAL_SEND_BILL)
+            else if (cboAction.Text == RPTAction.MANUAL_SEND_BILL)
             {
                 ManualSendBill();
             }
 
-            if (cboAction.Text == RPTAction.MANUAL_SEND_OR)
+            else if (cboAction.Text == RPTAction.MANUAL_SEND_OR)
             {
                 ManualUploadReceipt();
             }
 
-            if (cboAction.Text == RPTAction.VERIFY_PAYMENT)
+            else if (cboAction.Text == RPTAction.VERIFY_PAYMENT)
             {
                 VerifyPayment();
             }
 
-            if (cboAction.Text == RPTAction.VALIDATE_PAYMENT)
+            else if (cboAction.Text == RPTAction.VALIDATE_PAYMENT)
             {
                 ValidatePayment();
             }
@@ -1529,5 +1541,38 @@ namespace SampleRPT1
             }
         }
         //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
+
+        private void textTDN_TextChanged(object sender, EventArgs e)
+        {
+            //textTDN_KeyDown(sender, e);
+
+            //SearchByTaxDec();
+            //HighlightRecord();
+
+            //if (RPTInfoLV.SelectedItems.Count > 0)
+            //{
+            //    int index = RPTInfoLV.SelectedItems[0].Index;
+            //    RPTInfoLV.EnsureVisible(index);
+
+            //    VerAndValLV.EnsureVisible(index);
+            //}
+        }
+
+        private void textTDN_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchByTaxDec();
+                HighlightRecord();
+
+                if (RPTInfoLV.SelectedItems.Count > 0)
+                {
+                    int index = RPTInfoLV.SelectedItems[0].Index;
+                    RPTInfoLV.EnsureVisible(index);
+
+                    VerAndValLV.EnsureVisible(index);
+                }
+            }
+        }
     }
 }

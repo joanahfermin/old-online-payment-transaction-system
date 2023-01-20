@@ -225,8 +225,8 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
-                    $"order by RefNum desc, taxdec asc", new { TaxDec = TaxDec }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec LIKE @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec LIKE @TaxDec) and DeletedRecord != 1 " +
+                    $"order by RefNum desc, EncodedDate asc", new { TaxDec = "%" + TaxDec + "%" }).ToList();
             }
         }
 
@@ -243,8 +243,8 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 " +
-                    $"order by RefNum desc, EncodedDate asc", new { TaxDec = TaxDec }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec LIKE @TaxDec and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec LIKE @TaxDec) and DeletedRecord != 1 " +
+                    $"order by RefNum desc, EncodedDate asc", new { TaxDec = "%" + TaxDec + "%" }).ToList();
             }
         }
 
@@ -252,8 +252,8 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT where TaxDec = @TaxDec and status = @FORPAYMENTVALIDATION and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec = @TaxDec) and DeletedRecord != 1 AND status = @FORPAYMENTVALIDATION" +
-                    $" order by RefNum desc, VerifiedDate asc", new { TaxDec = TaxDec, FORPAYMENTVALIDATION = RPTStatus.PAYMENT_VALIDATION }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec LIKE @TaxDec and status = @FORPAYMENTVALIDATION and DeletedRecord != 1 UNION SELECT * FROM Jo_RPT where RefNum in (select RefNum FROM Jo_RPT where TaxDec LIKE @TaxDec) and DeletedRecord != 1 AND status = @FORPAYMENTVALIDATION" +
+                    $" order by RefNum desc, VerifiedDate asc", new { TaxDec = "%" + TaxDec + "%", FORPAYMENTVALIDATION = RPTStatus.PAYMENT_VALIDATION }).ToList();
             }
         }
 
@@ -282,7 +282,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec like @TaxDec and DeletedRecord != 1 and Status = @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec like @TaxDec) and DeletedRecord != 1 and Status = @Status " +
+                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec like @TaxDec and DeletedRecord != 1 and Status in @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec like @TaxDec) and DeletedRecord != 1 and Status in @Status " +
                     $"order by ValidatedDate desc", new { TaxDec = "%" + TaxDec + "%", Status = StatusList }).ToList();
            
             }

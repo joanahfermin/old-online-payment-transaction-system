@@ -158,6 +158,14 @@ namespace SampleRPT1
                 TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
             }
 
+            List<ListViewItem> TempList = new List<ListViewItem>();
+
+            foreach (ListViewItem item in lvMultipleRecord.Items)
+            {
+                TempList.Add(item);
+            }
+            TempList.Reverse();
+
             List<ListViewItem> rptListToInsert = new List<ListViewItem>();
 
             SortedSet<string> YearSet = new SortedSet<string>();
@@ -169,7 +177,7 @@ namespace SampleRPT1
 
             foreach (string year in YearSet)
             {
-                foreach (ListViewItem item in lvMultipleRecord.Items)
+                foreach (ListViewItem item in TempList)
                 {
                     if (year == item.SubItems[3].Text)
                     {

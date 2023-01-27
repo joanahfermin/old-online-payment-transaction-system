@@ -22,6 +22,14 @@ namespace SampleRPT1
             }
         }
 
+        //public static RPTUser GetFullNameValidator(string fullName)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnection())
+        //    {
+        //        return conn.QuerySingleOrDefault<RPTUser>($"SELECT * FROM JO_RPT_Users where fullName = @fullName", new { fullName = fullName });
+        //    }
+        //}
+
         public static List<string> GenerateDisplayName()
         {
             using (SqlConnection conn = DbUtils.getConnection())

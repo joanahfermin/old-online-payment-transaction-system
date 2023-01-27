@@ -17,9 +17,17 @@ namespace SampleRPT1
     {
         private RPTUser loginUser = SecurityService.getLoginUser();
 
-        public AddRecordGCASHPAYMAYAForm()
+        public static AddRecordGCASHPAYMAYAForm INSTANCE;
+
+
+        public AddRecordGCASHPAYMAYAForm(Form parentForm)
         {
             InitializeComponent();
+
+            INSTANCE = this;
+            MdiParent = parentForm;
+            ControlBox = false;
+
             //This is essential to the FirstLVGcashPaymaya_KeyDown method.
             //Dagdag ng event Keyup.
             FirstLVGcashPaymaya.KeyUp += FirstLVGcashPaymaya_KeyDown;
@@ -103,6 +111,21 @@ namespace SampleRPT1
                     }
                 }
                 PopulateExistingColumn();
+
+                //AUTO-COMPUTE TOTAL AMOUNT UPON PASTING DATA.
+                if (FirstLVGcashPaymaya.SelectedItems.Count == 0)
+                {
+                    decimal ComputeTotalAmount = 0;
+
+                    foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
+                    {
+                        ComputeTotalAmount += decimal.Parse(item.SubItems[5].Text);
+                    }
+                    textTotalAmount.Text = ComputeTotalAmount.ToString("N2");
+                    textNumRec.Text = FirstLVGcashPaymaya.Items.Count.ToString();
+                }
+                textNumRec.Text = FirstLVGcashPaymaya.Items.Count.ToString();
+
             }
 
             //CTRL + A to select all the rows.
@@ -113,8 +136,6 @@ namespace SampleRPT1
                 foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
                     item.Selected = true;
-
-                    //textTotalAmount.Text += decimal.Parse(FirstLVGcashPaymaya.Items[item].SubItems[5].Text);
                 }
             }
         }
@@ -133,6 +154,8 @@ namespace SampleRPT1
         {
             List<string> ProcessedList = new List<string>();
 
+            bool duplicateDetected = false;
+
             for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
             {
                 ListViewItem item = FirstLVGcashPaymaya.Items[i];
@@ -146,6 +169,7 @@ namespace SampleRPT1
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightBlue;
+                    duplicateDetected = true;
                 }
                 else
                 {
@@ -159,6 +183,7 @@ namespace SampleRPT1
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightCoral;
+                    duplicateDetected = true;
                 }
                 else
                 {
@@ -167,6 +192,11 @@ namespace SampleRPT1
                 }
                 ProcessedList.Add(TaxDecAndYearQuarter);
             }
+
+            if (duplicateDetected)
+            { 
+                MessageBox.Show("There is a DUPLICATE RECORD detected!");
+            } 
         }
 
         /// <summary>
@@ -328,7 +358,7 @@ namespace SampleRPT1
                     rpt.RefNum = refNo;
 
                     //RPTDatabase.Insert(rpt);
-                    RPTDatabase.Update(rpt);
+                    //RPTDatabase.Update(rpt);
                 }
 
                 //Removes processed record from the listview.
@@ -349,14 +379,14 @@ namespace SampleRPT1
         {
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
 
-            validateForm();
+            //validateForm();
 
             string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-            if (Validations.HaveErrors(errorProvider1))
-            {
-                return;
-            }
+            //if (Validations.HaveErrors(errorProvider1))
+            //{
+            //    return;
+            //}
 
             if (FirstLVGcashPaymaya.Items.Count > 0)
             {
@@ -490,6 +520,12 @@ namespace SampleRPT1
             }
         }
 
+        public void Show()
+        {
+            base.Show();
+            WindowState = FormWindowState.Maximized;
+        }
+
         //Integer only.
         private void textBillQuantity_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -544,12 +580,13 @@ namespace SampleRPT1
             {
                 totalAmount = 0;
             }
-            else if (FirstLVGcashPaymaya.SelectedItems.Count == 1)
+            
+            if (FirstLVGcashPaymaya.SelectedItems.Count == 1)
             {
                 totalAmount = Convert.ToDecimal(FirstLVGcashPaymaya.SelectedItems[0].SubItems[5].Text);
             }
 
-            else
+            else if (FirstLVGcashPaymaya.SelectedItems.Count > 1)
             {
                 int index = e.ItemIndex;
                 totalAmount += Convert.ToDecimal(FirstLVGcashPaymaya.Items[index].SubItems[5].Text);
@@ -557,6 +594,14 @@ namespace SampleRPT1
 
             textTotalAmount.Text = totalAmount.ToString("N2");
 
+        }
+
+        private void checkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
+            {
+                item.Selected = checkSelectAll.Checked;
+            }
         }
     }
 } 

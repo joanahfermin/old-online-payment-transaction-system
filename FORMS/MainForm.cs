@@ -13,6 +13,7 @@ using System.IO;
 using SampleRPT1.MODEL;
 using SampleRPT1.Service;
 using SampleRPT1.DATABASE;
+using System.Text.RegularExpressions;
 
 namespace SampleRPT1
 {
@@ -33,6 +34,7 @@ namespace SampleRPT1
         public MainForm(Form parentForm)
         {
             InitializeComponent();
+
             mainFormListViewHelper = new MainFormListViewHelper(RPTInfoLV, VerAndValLV);
 
             // Set instance and mdi related properties
@@ -80,6 +82,8 @@ namespace SampleRPT1
             // Show content of list view
             RefreshListView();
             ShowPicture();
+
+            
         }
 
         public void Show()
@@ -175,12 +179,6 @@ namespace SampleRPT1
             cboValidator.DroppedDown = false;
         }
 
-
-        public void SearchByTaxDec(String taxDec)
-        {
-            textTDN.Text = taxDec;
-        }
-
         private void HighlightRecord()
         {
             string tdn = textTDN.Text;
@@ -202,11 +200,17 @@ namespace SampleRPT1
                 if (lastSearchAction == SEARCH_BY_TAXDEC)
                 {
                     SearchByTaxDec();
-                } else if (lastSearchAction == SEARCH_BY_DATE_STATUS)
+                } 
+                else if (lastSearchAction == SEARCH_BY_DATE_STATUS)
                 {
                     RefreshListView();
                 }
             }
+        }
+
+        public void SearchByTaxDec(String taxDec)
+        {
+            textTDN.Text = taxDec;
         }
 
         /// <summary>
@@ -223,17 +227,10 @@ namespace SampleRPT1
             {
                 rptList = RPTDatabase.SelectByVerifiedDate(taxdec);
             }
-            else
-
-            if (loginUser.isVerifier)
+            else if (loginUser.isVerifier)
             {
                 rptList = RPTDatabase.SelectByEncodedDate(taxdec);
             }
-            //else
-            //if (loginUser.isValidator)
-            //{
-            //    rptList = RPTDatabase.SelectByDateFromToAndStatusAndVerifiedDate(taxdec);
-            //}
             else
             {
                 rptList = RPTDatabase.SelectBySameGroup(taxdec);
@@ -241,6 +238,17 @@ namespace SampleRPT1
             mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
         }
+
+        //public void SearchByEmailAdd()
+        //{
+        //    string EmailAdd = textTDN.Text;
+        //    List<RealPropertyTax> rptList = null;
+
+        //    rptList = RPTDatabase.SelectBySameGroup(EmailAdd);
+
+        //    mainFormListViewHelper.PopulateListView(rptList);
+        //    ShowPicture();
+        //}
 
         private List<string> getBankList()
         {
@@ -648,6 +656,7 @@ namespace SampleRPT1
 
                 ShowRepsInfo();
 
+                //Task.Delay(1000).ContinueWith(t => SelectAll());
             }
 
             if (RPTInfoLV.SelectedItems.Count > 1)
@@ -666,7 +675,6 @@ namespace SampleRPT1
             }
             textTotalAmount2Pay.Text = totalAmount2Pay.ToString();
             textTotalAmountTransferred.Text = totalAmountTrans.ToString();
-
         }
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
@@ -676,6 +684,7 @@ namespace SampleRPT1
                 RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
                 Clipboard.SetText(rpt.TaxDec);
+
                 string Status = rpt.Status;
             }
                 /*
@@ -971,7 +980,7 @@ namespace SampleRPT1
             {
                 List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.PAYMENT_VERIFICATION);
 
-                //bool 
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION);
                 bool AllProcessed = true;
 
                 foreach (var rpt in SelectedRPTList)
@@ -992,9 +1001,9 @@ namespace SampleRPT1
                     }
                 }
 
-                if (mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION) == false || AllProcessed == false)
+                if (SameStatus == false || AllProcessed == false)
                 {
-                    MessageBox.Show("Some selected records has not been processed PAYMENT VERIFICATION.");
+                    MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
                 }
 
@@ -1026,12 +1035,12 @@ namespace SampleRPT1
                 //    MessageBox.Show("Some selected records has not been processed.");
                 //    cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
                 //}
+
                 MessageBox.Show("Successfully Validated.");
 
                 RefreshListView();
             }
             textRemarks.Visible = false;
-
         }
 
         private void textTotalAmount2Pay_TextChanged(object sender, EventArgs e)
@@ -1449,6 +1458,11 @@ namespace SampleRPT1
         {
             RealPropertyTax RetrieveRPT = mainFormListViewHelper.getSelectedRpt();
 
+            if (RetrieveRPT == null)
+            {
+                return;
+            }
+
             if (RetrieveRPT.ExcessShortAmount < 0)
             {
                 if (e.Button == MouseButtons.Right)
@@ -1542,24 +1556,11 @@ namespace SampleRPT1
         }
         //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
 
-        private void textTDN_TextChanged(object sender, EventArgs e)
-        {
-            //textTDN_KeyDown(sender, e);
-
-            //SearchByTaxDec();
-            //HighlightRecord();
-
-            //if (RPTInfoLV.SelectedItems.Count > 0)
-            //{
-            //    int index = RPTInfoLV.SelectedItems[0].Index;
-            //    RPTInfoLV.EnsureVisible(index);
-
-            //    VerAndValLV.EnsureVisible(index);
-            //}
-        }
 
         private void textTDN_KeyDown(object sender, KeyEventArgs e)
         {
+            string taxDec = textTDN.Text;
+
             if (e.KeyCode == Keys.Enter)
             {
                 SearchByTaxDec();
@@ -1574,5 +1575,12 @@ namespace SampleRPT1
                 }
             }
         }
+
+        //private bool isRPTTaxDecFormat(string taxDec)
+        //{
+        //    //format of taxdec number.
+        //    Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}( / [D|E|F|G]-[0-9]{3}-[0-9]{5})*$");
+        //    return re.IsMatch(taxDec.Trim());
+        //}
     }
 }

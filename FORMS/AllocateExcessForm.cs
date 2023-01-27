@@ -80,6 +80,7 @@ namespace SampleRPT1.FORMS
 
             RetrieveRpt.TaxDec = textTDN.Text;
             RetrieveRpt.YearQuarter = textYearQuarter.Text;
+            RetrieveRpt.Quarter = cboQuarter.Text;
             RetrieveRpt.AmountToPay = Convert.ToDecimal(textAmount2Pay.Text);
             RetrieveRpt.AmountTransferred = ExcessShortAmount;
             RetrieveRpt.ExcessShortAmount = ExcessShortAmount - RetrieveRpt.AmountToPay;

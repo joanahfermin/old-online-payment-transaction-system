@@ -104,6 +104,7 @@ namespace SampleRPT1
             {
                 rpt.PaymentDate = dtDateOfPayment.Value.Date;
             }
+                
             rpt.YearQuarter = textYear.Text.Trim();
             rpt.Quarter = cboQuarter.Text.Trim();
             rpt.Status = textStatForAssessment.Text;

@@ -73,7 +73,7 @@
             // 
             // btnUpdateRecord
             // 
-            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 481);
+            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 505);
             this.btnUpdateRecord.Name = "btnUpdateRecord";
             this.btnUpdateRecord.Size = new System.Drawing.Size(253, 23);
             this.btnUpdateRecord.TabIndex = 12;
@@ -93,7 +93,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(86, 338);
+            this.label10.Location = new System.Drawing.Point(86, 339);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 21;
@@ -110,7 +110,7 @@
             "FOR O.R UPLOAD",
             "FOR O.R PICK UP",
             "RELEASED"});
-            this.cbStatus.Location = new System.Drawing.Point(152, 254);
+            this.cbStatus.Location = new System.Drawing.Point(152, 249);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(253, 21);
             this.cbStatus.TabIndex = 9;
@@ -121,7 +121,7 @@
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(152, 331);
+            this.textRemarks.Location = new System.Drawing.Point(152, 332);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 132);
@@ -133,7 +133,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 300);
+            this.label9.Location = new System.Drawing.Point(47, 295);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 20;
@@ -142,7 +142,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(99, 262);
+            this.label8.Location = new System.Drawing.Point(99, 257);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 19;
@@ -151,7 +151,7 @@
             // textRequestingParty
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRequestingParty.Location = new System.Drawing.Point(152, 293);
+            this.textRequestingParty.Location = new System.Drawing.Point(152, 288);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
             this.textRequestingParty.TabIndex = 10;
@@ -306,7 +306,7 @@
             this.panel1.Controls.Add(this.textYear);
             this.panel1.Location = new System.Drawing.Point(15, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(432, 526);
+            this.panel1.Size = new System.Drawing.Size(432, 551);
             this.panel1.TabIndex = 25;
             // 
             // cboQuarter
@@ -347,7 +347,7 @@
             // 
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 215);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 212);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(112, 20);
@@ -358,7 +358,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 222);
+            this.label2.Location = new System.Drawing.Point(47, 219);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 18;
@@ -382,7 +382,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 554);
+            this.ClientSize = new System.Drawing.Size(466, 579);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textTransferredAmount);

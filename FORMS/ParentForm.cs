@@ -47,8 +47,15 @@ namespace SampleRPT1
 
         private void MenuItemGcashPaymaya_Click(object sender, EventArgs e)
         {
-            AddRecordGCASHPAYMAYAForm addRecordGcashPaymaya = new AddRecordGCASHPAYMAYAForm();
-            addRecordGcashPaymaya.ShowDialog();
+            //AddRecordGCASHPAYMAYAForm addRecordGcashPaymaya = new AddRecordGCASHPAYMAYAForm();
+            //addRecordGcashPaymaya.Show();
+            //addRecordGcashPaymaya.ShowDialog();
+
+            if (AddRecordGCASHPAYMAYAForm.INSTANCE == null)
+            {
+                new AddRecordGCASHPAYMAYAForm(this);
+            }
+            AddRecordGCASHPAYMAYAForm.INSTANCE.Show();
         }
 
         private void MenuItemAllocateExcess_Click(object sender, EventArgs e)
@@ -128,5 +135,15 @@ namespace SampleRPT1
             }
             ReportForm.INSTANCE.Show();
         }
+
+        private void reorderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ReorderEncodeDateForm.INSTANCE == null)
+            {
+                new ReorderEncodeDateForm(this);
+            }
+            ReorderEncodeDateForm.INSTANCE.Show();
+        }
+
     }
 }

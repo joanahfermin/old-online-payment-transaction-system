@@ -93,6 +93,7 @@ namespace SampleRPT1
 
                     cboBankUsed.Text = rpt.Bank;
                     textYear.Text = rpt.YearQuarter;
+
                     cboQuarter.Text = rpt.Quarter;
                     if (rpt.PaymentDate != null)
                     {
@@ -229,7 +230,6 @@ namespace SampleRPT1
                     else
                     {
                         rpt.PaymentDate = null;
-                        
                     }
                 }
 
@@ -237,10 +237,12 @@ namespace SampleRPT1
                 {
                     rpt.Bank = cboBankUsed.Text.Trim();
                 }
+
                 if (textYear.Text != MULTIPLE_MARKER)
                 {
-                    rpt.YearQuarter = textYear.Text;
+                    rpt.YearQuarter = textYear.Text.Trim();
                 }
+
                 if (cboQuarter.Text != MULTIPLE_MARKER)
                 {
                     rpt.Quarter = cboQuarter.Text;

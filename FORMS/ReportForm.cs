@@ -32,8 +32,12 @@ namespace SampleRPT1.FORMS
             new { Name="Released", Width=100}};
 
         private static object[] REPORT_USER_RPT_COLUMN_NAMES = {
-            new { Name="TaxDec", Width=200}, new { Name="TaxPayerName", Width=200}, new { Name="Online Collection", Width=200}, new { Name="Billing", Width=100}, new { Name="Excess/Short", Width=100}};
-
+            new { Name="TaxDec", Width=200},
+            new { Name="TaxPayerName", Width=200},
+            new { Name="Online Collection", Width=200},
+            new { Name="Billing", Width=100},
+            new { Name="Excess/Short", Width=100},
+            new { Name="RPTRemarks", Width=250}};
 
         public ReportForm(Form parentForm)
         {
@@ -48,6 +52,8 @@ namespace SampleRPT1.FORMS
 
             cboReportName.Items.AddRange(REPORT_USER_ACTIVITY);
             cboReportName.SelectedIndex = 0;
+
+            btnValidate.Visible = false;
         }
 
         public void Show()
@@ -110,7 +116,7 @@ namespace SampleRPT1.FORMS
             }
             List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview<ReportCollection>(RPTList, LVreport, new List<string>
-            { "TaxDec", "TaxPayerName", "Collection", "Billing", "ExcessShort"});
+            { "TaxDec", "TaxPayerName", "Collection", "Billing", "ExcessShort", "RPTremarks"});
 
             //ShowExcelReport(RPTList);
         }
@@ -147,6 +153,7 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[6, 2] = "COLLECTION";
             worksheet.Cells[6, 3] = "BILLING";
             worksheet.Cells[6, 4] = "EXCESS/SHORT";
+            worksheet.Cells[6, 8] = "RPT REMARKS";
 
             worksheet.Cells[4, 5] = "POS-" + SecurityService.getLoginUser().MachNo;
             worksheet.Cells[5, 5] = DateTime.Now.ToString();
@@ -237,6 +244,27 @@ namespace SampleRPT1.FORMS
             decimal.TryParse(textShttc.Text, out shttc);
 
             textTotalBilling.Text = (totalBilling + shttc).ToString("N2");
+        }
+
+        private void btnValidate_Click(object sender, EventArgs e)
+        {
+            RPTUser loginUser = SecurityService.getLoginUser();
+
+            List<TagReceipt> tagReceiptList = TagReceiptDatabase.SelectByMachNo(loginUser.MachNo);
+
+            foreach (TagReceipt tagReceipt in tagReceiptList)
+            {
+                RealPropertyTax rpt = RPTDatabase.SearchByTagReceipt(tagReceipt);
+
+                if (rpt != null)
+                {
+                    rpt.ValidatedBy = loginUser.DisplayName;
+                    rpt.ValidatedDate = DateTime.Now;
+                    rpt.Status = RPTStatus.OR_UPLOAD;
+
+                    RPTDatabase.Update(rpt);
+                }
+            }
         }
     }
 }

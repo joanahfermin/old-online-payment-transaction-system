@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>61</ApplicationRevision>
+    <ApplicationRevision>65</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -325,6 +325,12 @@
       <DependentUpon>UpdateMultipleRPTForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MODEL\TagReceipt.cs" />
+    <Compile Include="ReorderEncodeDateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReorderEncodeDateForm.Designer.cs">
+      <DependentUpon>ReorderEncodeDateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service\SecurityService.cs" />
     <Compile Include="FORMS\UpdateValidationRemarksForm.cs">
       <SubType>Form</SubType>
@@ -442,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\UpdateValidationRemarksForm.resx">
       <DependentUpon>UpdateValidationRemarksForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReorderEncodeDateForm.resx">
+      <DependentUpon>ReorderEncodeDateForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

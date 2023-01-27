@@ -201,7 +201,7 @@
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRequestingParty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRequestingParty.Location = new System.Drawing.Point(153, 314);
+            this.textRequestingParty.Location = new System.Drawing.Point(153, 316);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 23);
             this.textRequestingParty.TabIndex = 9;
@@ -212,7 +212,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(100, 283);
+            this.label8.Location = new System.Drawing.Point(100, 285);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 1;
@@ -221,7 +221,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(48, 321);
+            this.label9.Location = new System.Drawing.Point(48, 323);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 1;
@@ -231,9 +231,10 @@
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemarks.Location = new System.Drawing.Point(153, 352);
+            this.textRemarks.Location = new System.Drawing.Point(153, 354);
+            this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
-            this.textRemarks.Size = new System.Drawing.Size(253, 23);
+            this.textRemarks.Size = new System.Drawing.Size(253, 105);
             this.textRemarks.TabIndex = 10;
             this.textRemarks.Click += new System.EventHandler(this.textRemarks_Click);
             this.textRemarks.Enter += new System.EventHandler(this.textRemarks_Enter);
@@ -242,7 +243,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(87, 359);
+            this.label10.Location = new System.Drawing.Point(87, 361);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 1;
@@ -259,7 +260,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(152, 399);
+            this.btnSave.Location = new System.Drawing.Point(152, 478);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(253, 23);
             this.btnSave.TabIndex = 11;
@@ -272,7 +273,7 @@
             this.textStatForAssessment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textStatForAssessment.Enabled = false;
             this.textStatForAssessment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textStatForAssessment.Location = new System.Drawing.Point(153, 280);
+            this.textStatForAssessment.Location = new System.Drawing.Point(153, 282);
             this.textStatForAssessment.Name = "textStatForAssessment";
             this.textStatForAssessment.Size = new System.Drawing.Size(253, 23);
             this.textStatForAssessment.TabIndex = 8;
@@ -315,7 +316,7 @@
             // checkRequestingParty
             // 
             this.checkRequestingParty.AutoSize = true;
-            this.checkRequestingParty.Location = new System.Drawing.Point(427, 316);
+            this.checkRequestingParty.Location = new System.Drawing.Point(427, 318);
             this.checkRequestingParty.Name = "checkRequestingParty";
             this.checkRequestingParty.Size = new System.Drawing.Size(57, 17);
             this.checkRequestingParty.TabIndex = 16;
@@ -325,7 +326,7 @@
             // 
             // btnAddClearAll
             // 
-            this.btnAddClearAll.Location = new System.Drawing.Point(152, 428);
+            this.btnAddClearAll.Location = new System.Drawing.Point(152, 507);
             this.btnAddClearAll.Name = "btnAddClearAll";
             this.btnAddClearAll.Size = new System.Drawing.Size(253, 23);
             this.btnAddClearAll.TabIndex = 12;
@@ -338,7 +339,7 @@
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(153, 241);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(153, 243);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(114, 23);
@@ -348,7 +349,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 247);
+            this.label2.Location = new System.Drawing.Point(50, 249);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 16;
@@ -396,7 +397,7 @@
             this.panel1.Controls.Add(this.textTotalTransferredAmount);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(526, 479);
+            this.panel1.Size = new System.Drawing.Size(526, 550);
             this.panel1.TabIndex = 4;
             // 
             // cboQuarter
@@ -435,7 +436,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 507);
+            this.ClientSize = new System.Drawing.Size(552, 574);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBankUsedRetain);

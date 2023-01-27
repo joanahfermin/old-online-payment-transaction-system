@@ -42,6 +42,7 @@
             this.textTotalBilling = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textShttc = new System.Windows.Forms.TextBox();
+            this.btnValidate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cboReportName
@@ -69,7 +70,7 @@
             this.LVreport.HideSelection = false;
             this.LVreport.Location = new System.Drawing.Point(23, 73);
             this.LVreport.Name = "LVreport";
-            this.LVreport.Size = new System.Drawing.Size(808, 742);
+            this.LVreport.Size = new System.Drawing.Size(1066, 876);
             this.LVreport.TabIndex = 2;
             this.LVreport.UseCompatibleStateImageBehavior = false;
             this.LVreport.View = System.Windows.Forms.View.Details;
@@ -117,7 +118,7 @@
             // 
             // btnReportCollector
             // 
-            this.btnReportCollector.Location = new System.Drawing.Point(731, 33);
+            this.btnReportCollector.Location = new System.Drawing.Point(989, 34);
             this.btnReportCollector.Name = "btnReportCollector";
             this.btnReportCollector.Size = new System.Drawing.Size(100, 23);
             this.btnReportCollector.TabIndex = 50;
@@ -128,7 +129,7 @@
             // textTotalCollection
             // 
             this.textTotalCollection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalCollection.Location = new System.Drawing.Point(863, 99);
+            this.textTotalCollection.Location = new System.Drawing.Point(521, 36);
             this.textTotalCollection.Name = "textTotalCollection";
             this.textTotalCollection.Size = new System.Drawing.Size(143, 20);
             this.textTotalCollection.TabIndex = 51;
@@ -137,7 +138,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(860, 73);
+            this.label3.Location = new System.Drawing.Point(518, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 48;
@@ -146,7 +147,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(860, 157);
+            this.label4.Location = new System.Drawing.Point(680, 20);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 48;
@@ -155,7 +156,7 @@
             // textTotalBilling
             // 
             this.textTotalBilling.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalBilling.Location = new System.Drawing.Point(863, 183);
+            this.textTotalBilling.Location = new System.Drawing.Point(683, 36);
             this.textTotalBilling.Name = "textTotalBilling";
             this.textTotalBilling.Size = new System.Drawing.Size(143, 20);
             this.textTotalBilling.TabIndex = 51;
@@ -163,7 +164,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(860, 250);
+            this.label5.Location = new System.Drawing.Point(843, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 48;
@@ -172,17 +173,28 @@
             // textShttc
             // 
             this.textShttc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textShttc.Location = new System.Drawing.Point(863, 276);
+            this.textShttc.Location = new System.Drawing.Point(846, 36);
             this.textShttc.Name = "textShttc";
-            this.textShttc.Size = new System.Drawing.Size(143, 20);
+            this.textShttc.Size = new System.Drawing.Size(131, 20);
             this.textShttc.TabIndex = 51;
             this.textShttc.TextChanged += new System.EventHandler(this.textShttc_TextChanged);
+            // 
+            // btnValidate
+            // 
+            this.btnValidate.Location = new System.Drawing.Point(1095, 34);
+            this.btnValidate.Name = "btnValidate";
+            this.btnValidate.Size = new System.Drawing.Size(121, 23);
+            this.btnValidate.TabIndex = 52;
+            this.btnValidate.Text = "Validate Payments";
+            this.btnValidate.UseVisualStyleBackColor = true;
+            this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
             // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1828, 924);
+            this.ClientSize = new System.Drawing.Size(1828, 971);
+            this.Controls.Add(this.btnValidate);
             this.Controls.Add(this.textShttc);
             this.Controls.Add(this.textTotalBilling);
             this.Controls.Add(this.textTotalCollection);
@@ -220,5 +232,6 @@
         private System.Windows.Forms.TextBox textTotalBilling;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textShttc;
+        private System.Windows.Forms.Button btnValidate;
     }
 }

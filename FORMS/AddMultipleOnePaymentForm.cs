@@ -99,10 +99,7 @@ namespace SampleRPT1
             {
                 int yearQuarter = Convert.ToInt32(textYearQuarter.Text);
                 textYearQuarter.Text = (yearQuarter + 1).ToString();
-                textAmount2Pay.Focus(); //INTEGER AND STRING?
-                
-                //YEAR: 2023ADJ
-
+                textAmount2Pay.Focus(); 
             }
             else
             {
@@ -166,6 +163,13 @@ namespace SampleRPT1
             }
             TempList.Reverse();
 
+            HashSet<string> taxdecList = new HashSet<string>();
+
+            foreach (ListViewItem item in TempList)
+            {
+                taxdecList.Add(item.Text);
+            }
+
             List<ListViewItem> rptListToInsert = new List<ListViewItem>();
 
             SortedSet<string> YearSet = new SortedSet<string>();
@@ -175,13 +179,16 @@ namespace SampleRPT1
                 YearSet.Add(item.SubItems[3].Text);
             }
 
-            foreach (string year in YearSet)
+            foreach (string taxdec in taxdecList)
             {
-                foreach (ListViewItem item in TempList)
+                foreach (string year in YearSet)
                 {
-                    if (year == item.SubItems[3].Text)
+                    foreach (ListViewItem item in TempList)
                     {
-                        rptListToInsert.Add(item);
+                        if (year == item.SubItems[3].Text && taxdec == item.Text)
+                        {
+                            rptListToInsert.Add(item);
+                        }
                     }
                 }
             }
@@ -529,6 +536,11 @@ namespace SampleRPT1
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
             textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+
+            //if (checkTaxNameRetain.Checked == false)
+            //{
+            //    textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+            //}
         }
     }
 }

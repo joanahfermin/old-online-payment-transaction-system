@@ -23,5 +23,14 @@ namespace SampleRPT1.DATABASE
                     $"@MachNoList order by ORDate asc", new { MachNoList = machNoList }).ToList();
             }
         }
+
+        public static List<TagReceipt> SelectByMachNo(string machno)
+        {
+            using (SqlConnection conn = DbUtils.getConnectionToMISCReportV())
+            {
+                return conn.Query<TagReceipt>($"Select * FROM V_RPTMaster WHERE CAST(OrDate AS Date) >= DATEADD(day, -1, CAST(GETDATE() AS date)) and MachNo = " +
+                    $"@MachNo order by ORDate asc", new { MachNo = machno }).ToList();
+            }
+        }
     }
 }

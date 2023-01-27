@@ -88,7 +88,7 @@
             this.lvMultipleRecord.HideSelection = false;
             this.lvMultipleRecord.Location = new System.Drawing.Point(513, 47);
             this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(1346, 488);
+            this.lvMultipleRecord.Size = new System.Drawing.Size(1346, 506);
             this.lvMultipleRecord.TabIndex = 1;
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
@@ -171,7 +171,7 @@
             this.cboBankUsed.ItemHeight = 13;
             this.cboBankUsed.Items.AddRange(new object[] {
             "Please select a bank..."});
-            this.cboBankUsed.Location = new System.Drawing.Point(168, 213);
+            this.cboBankUsed.Location = new System.Drawing.Point(168, 208);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(253, 21);
             this.cboBankUsed.TabIndex = 7;
@@ -179,7 +179,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(61, 221);
+            this.label13.Location = new System.Drawing.Point(61, 216);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(96, 13);
             this.label13.TabIndex = 20;
@@ -188,7 +188,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(65, 309);
+            this.label6.Location = new System.Drawing.Point(65, 304);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(92, 13);
             this.label6.TabIndex = 42;
@@ -198,7 +198,7 @@
             // 
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(168, 303);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(168, 298);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.Size = new System.Drawing.Size(102, 20);
             this.dtDateOfPayment.TabIndex = 8;
@@ -206,7 +206,7 @@
             // textRequestingParty
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRequestingParty.Location = new System.Drawing.Point(168, 257);
+            this.textRequestingParty.Location = new System.Drawing.Point(168, 252);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
             this.textRequestingParty.TabIndex = 4;
@@ -217,7 +217,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(66, 264);
+            this.label9.Location = new System.Drawing.Point(66, 259);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 17;
@@ -264,11 +264,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(82, 172);
+            this.label2.Location = new System.Drawing.Point(122, 172);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 210;
-            this.label2.Text = "Year/Quarter: ";
+            this.label2.Text = "Year: ";
             // 
             // textYearQuarter
             // 
@@ -316,13 +316,13 @@
             this.panel1.Controls.Add(this.label9);
             this.panel1.Location = new System.Drawing.Point(14, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(487, 513);
+            this.panel1.Size = new System.Drawing.Size(487, 531);
             this.panel1.TabIndex = 209;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(102, 353);
+            this.label10.Location = new System.Drawing.Point(102, 348);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 216;
@@ -331,7 +331,7 @@
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(168, 346);
+            this.textRemarks.Location = new System.Drawing.Point(168, 341);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 101);
@@ -380,7 +380,7 @@
             // 
             // btnSaveUpdate
             // 
-            this.btnSaveUpdate.Location = new System.Drawing.Point(295, 466);
+            this.btnSaveUpdate.Location = new System.Drawing.Point(295, 487);
             this.btnSaveUpdate.Name = "btnSaveUpdate";
             this.btnSaveUpdate.Size = new System.Drawing.Size(126, 23);
             this.btnSaveUpdate.TabIndex = 9;
@@ -412,7 +412,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1871, 553);
+            this.ClientSize = new System.Drawing.Size(1871, 570);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);

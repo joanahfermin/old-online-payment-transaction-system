@@ -41,6 +41,7 @@
             this.ReleasingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +55,8 @@
             this.emailToolStripMenuItem,
             this.ReleasingMenuItem,
             this.historyMenuItem,
-            this.ReportMenuItem});
+            this.ReportMenuItem,
+            this.reorderToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -152,6 +154,13 @@
             this.ReportMenuItem.Text = "Report";
             this.ReportMenuItem.Click += new System.EventHandler(this.ReportMenuItem_Click);
             // 
+            // reorderToolStripMenuItem
+            // 
+            this.reorderToolStripMenuItem.Name = "reorderToolStripMenuItem";
+            this.reorderToolStripMenuItem.Size = new System.Drawing.Size(60, 22);
+            this.reorderToolStripMenuItem.Text = "Reorder";
+            this.reorderToolStripMenuItem.Click += new System.EventHandler(this.reorderToolStripMenuItem_Click);
+            // 
             // ParentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,5 +195,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuItemReviewEmail;
         private System.Windows.Forms.ToolStripMenuItem historyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReportMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reorderToolStripMenuItem;
     }
 }

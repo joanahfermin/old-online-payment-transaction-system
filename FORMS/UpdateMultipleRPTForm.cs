@@ -154,6 +154,7 @@ namespace SampleRPT1
             rpt.Quarter = cboQuarter.Text;
             rpt.RPTremarks = textRemarks.Text;
 
+
             RPTDatabase.Update(rpt);
 
             MessageBox.Show("Information successfully updated.");

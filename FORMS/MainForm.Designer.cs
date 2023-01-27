@@ -127,6 +127,7 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.cboValidatedBy = new System.Windows.Forms.ComboBox();
             this.labelValiBy = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -141,6 +142,7 @@
             // 
             // RPTInfoLV
             // 
+            this.RPTInfoLV.BackColor = System.Drawing.SystemColors.Window;
             this.RPTInfoLV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.RPTId,
             this.TDNumber,
@@ -223,7 +225,7 @@
             // 
             // YearQuarter
             // 
-            this.YearQuarter.Text = "Year/Quarter";
+            this.YearQuarter.Text = "Year";
             this.YearQuarter.Width = 160;
             // 
             // qtr
@@ -669,7 +671,6 @@
             this.textTDN.Size = new System.Drawing.Size(276, 20);
             this.textTDN.TabIndex = 0;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label2
@@ -973,11 +974,23 @@
             this.labelValiBy.TabIndex = 48;
             this.labelValiBy.Text = "Validated By: ";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.DarkRed;
+            this.label9.Location = new System.Drawing.Point(1075, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(269, 13);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "After searching TDN, you can press CTRL + A";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1000);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
@@ -1137,6 +1150,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label labelValiBy;
         private System.Windows.Forms.ComboBox cboValidatedBy;
+        private System.Windows.Forms.Label label9;
     }
 }
 

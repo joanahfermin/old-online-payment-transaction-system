@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddMultipleOnePaymentForm));
             this.lvMultipleRecord = new System.Windows.Forms.ListView();
             this.taxDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.taxpayerName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.taxpayername = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Amount2Pay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,6 +69,7 @@
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -78,7 +79,7 @@
             // 
             this.lvMultipleRecord.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.taxDec,
-            this.taxpayerName,
+            this.taxpayername,
             this.Amount2Pay,
             this.YearQuarter,
             this.qtr,
@@ -93,16 +94,17 @@
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
             this.lvMultipleRecord.SelectedIndexChanged += new System.EventHandler(this.lvMultipleRecord_SelectedIndexChanged);
+            this.lvMultipleRecord.DoubleClick += new System.EventHandler(this.lvMultipleRecord_DoubleClick);
             // 
             // taxDec
             // 
             this.taxDec.Text = "Tax Dec Num.";
             this.taxDec.Width = 200;
             // 
-            // taxpayerName
+            // taxpayername
             // 
-            this.taxpayerName.Text = "Tax Payer Name";
-            this.taxpayerName.Width = 250;
+            this.taxpayername.Text = "Taxpayer Name";
+            this.taxpayername.Width = 250;
             // 
             // Amount2Pay
             // 
@@ -112,7 +114,7 @@
             // 
             // YearQuarter
             // 
-            this.YearQuarter.Text = "YearQuarter";
+            this.YearQuarter.Text = "Year";
             this.YearQuarter.Width = 120;
             // 
             // qtr
@@ -471,11 +473,28 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnUpdate.Location = new System.Drawing.Point(831, 10);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(101, 23);
+            this.btnUpdate.TabIndex = 202;
+            this.btnUpdate.Text = "Update/Save";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // AddMultipleOnePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1507, 576);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label3);
@@ -523,7 +542,7 @@
         private System.Windows.Forms.TextBox textTPName;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ColumnHeader taxpayerName;
+        private System.Windows.Forms.ColumnHeader taxpayername;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label3;
@@ -542,5 +561,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textRemarks;
         private System.Windows.Forms.ColumnHeader remarks;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

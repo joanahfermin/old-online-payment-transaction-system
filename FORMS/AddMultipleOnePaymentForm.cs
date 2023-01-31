@@ -536,11 +536,38 @@ namespace SampleRPT1
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
             textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+        }
 
-            //if (checkTaxNameRetain.Checked == false)
-            //{
-            //    textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
-            //}
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (lvMultipleRecord.SelectedItems.Count > 0)
+            {
+                var selectedRecord = lvMultipleRecord.SelectedItems[0];
+
+                selectedRecord.SubItems[0].Text = textTDN.Text;
+                selectedRecord.SubItems[1].Text = textTPName.Text;
+                selectedRecord.SubItems[2].Text = textAmount2Pay.Text;
+                selectedRecord.SubItems[3].Text = textYearQuarter.Text;
+                selectedRecord.SubItems[4].Text = cboQuarter.Text;
+                selectedRecord.SubItems[5].Text = textRemarks.Text;
+
+                MessageBox.Show("Record successfully updated.");
+            }
+        }
+
+        private void lvMultipleRecord_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvMultipleRecord.SelectedItems.Count > 0)
+            {
+                var selectedRecord = lvMultipleRecord.SelectedItems[0];
+
+                textTDN.Text = selectedRecord.SubItems[0].Text;
+                textTPName.Text = selectedRecord.SubItems[1].Text;
+                textAmount2Pay.Text = selectedRecord.SubItems[2].Text;
+                textYearQuarter.Text = selectedRecord.SubItems[3].Text;
+                cboQuarter.Text = selectedRecord.SubItems[4].Text;
+                textRemarks.Text = selectedRecord.SubItems[5].Text;
+            }
         }
     }
 }

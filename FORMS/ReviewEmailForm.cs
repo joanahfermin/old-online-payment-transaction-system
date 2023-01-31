@@ -60,12 +60,12 @@ namespace SampleRPT1.FORMS
             if (rdAssessment.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyAssessmentSendEmail();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty", "EncodedBy" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "YearQuarter", "Bank", "RequestingParty", "EncodedBy" });
             }
             else if (rdReceipt.Checked)
             {
                 List<RealPropertyTax> rptList = RPTDatabase.SelectReadyForORUpload();
-                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "RequestingParty", "UploadedBy" });
+                ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvReview, new List<string> { "RptID", "ContactNumber", "TaxDec", "YearQuarter", "Bank", "RequestingParty", "UploadedBy" });
             }
             else
             {
@@ -202,13 +202,7 @@ namespace SampleRPT1.FORMS
         {
             if (lvReview.SelectedItems.Count > 0)
             {
-                //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                //{
-                //    ChangeSelectedItemStatus();
-                //    RefreshReviewListView();
-                //}
-
-                if (textLocCode.Text.Trim().Length == 0)
+                if (textLocCode.Text.Trim().Length == 0 && lvReview.SelectedItems[0].SubItems[1].Text == "RECEIPT")
                 {
                     MessageBox.Show("Enter Loc. Code.");
                 }

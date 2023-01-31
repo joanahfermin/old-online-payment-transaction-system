@@ -153,7 +153,7 @@ namespace SampleRPT1
             rpt.Bank = cboBankUsed.Text.Trim();
             rpt.Quarter = cboQuarter.Text;
             rpt.RPTremarks = textRemarks.Text;
-
+            rpt.PaymentDate = dtDateOfPayment.Value;
 
             RPTDatabase.Update(rpt);
 

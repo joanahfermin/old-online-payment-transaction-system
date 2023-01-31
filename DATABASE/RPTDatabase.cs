@@ -62,7 +62,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT /*TOP 200*/ * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1 order by UploadedBy asc, /*ValidatedDate ASC*/ ORAttachedDate asc").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 0 and DeletedRecord != 1 order by UploadedBy asc, ORAttachedDate asc").ToList();
             }
         }
 
@@ -73,7 +73,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP 200 * FROM Jo_RPT rpt WHERE Status = 'ASSESSMENT PRINTED' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Assessment') and SendAssessmentReady = 0 and DeletedRecord != 1").ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT rpt WHERE Status = 'ASSESSMENT PRINTED' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Assessment') and SendAssessmentReady = 0 and DeletedRecord != 1").ToList();
             }
         }
 

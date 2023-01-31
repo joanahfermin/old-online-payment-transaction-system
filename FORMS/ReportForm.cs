@@ -171,6 +171,7 @@ namespace SampleRPT1.FORMS
                 worksheet.Cells[row, 2] = item.Collection.ToString();
                 worksheet.Cells[row, 3] = item.Billing.ToString();
                 worksheet.Cells[row, 4] = item.ExcessShort.ToString();
+                worksheet.Cells[row, 5] = item.RPTremarks;
 
                 totalCollection += item.Collection;
                 totalBilling += item.Billing;

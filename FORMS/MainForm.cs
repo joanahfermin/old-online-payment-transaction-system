@@ -71,6 +71,7 @@ namespace SampleRPT1
 
             labelValiBy.Visible = false;
             cboValidatedBy.Visible = false;
+            labelInstruction.Visible = false;
 
             // Load various supporting data
             InitializeStatus();
@@ -922,8 +923,8 @@ namespace SampleRPT1
                 {
                     if (rpt.AmountTransferred == 0)
                     {
-                        rpt.BilledBy = loginUser.DisplayName;
-                        rpt.BilledDate = DateTime.Now;
+                        rpt.SentBy = loginUser.DisplayName;
+                        rpt.SentDate = DateTime.Now;
                         rpt.Status = RPTStatus.BILL_SENT;
 
                         RPTDatabase.Update(rpt);

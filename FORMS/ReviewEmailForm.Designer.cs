@@ -33,6 +33,7 @@ namespace SampleRPT1.FORMS
             this.rptID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.docType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxdec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.email = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.uploadedby = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pbAttachedPicture = new System.Windows.Forms.PictureBox();
@@ -44,6 +45,7 @@ namespace SampleRPT1.FORMS
             this.label1 = new System.Windows.Forms.Label();
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.Bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,6 +55,8 @@ namespace SampleRPT1.FORMS
             this.rptID,
             this.docType,
             this.taxdec,
+            this.year,
+            this.Bank,
             this.email,
             this.uploadedby});
             this.lvReview.FullRowSelect = true;
@@ -74,22 +78,27 @@ namespace SampleRPT1.FORMS
             // rptID
             // 
             this.rptID.Text = "RPTID";
-            this.rptID.Width = 100;
+            this.rptID.Width = 80;
             // 
             // docType
             // 
             this.docType.Text = "Document Type";
-            this.docType.Width = 180;
+            this.docType.Width = 100;
             // 
             // taxdec
             // 
             this.taxdec.Text = "Tax Dec";
-            this.taxdec.Width = 280;
+            this.taxdec.Width = 180;
+            // 
+            // year
+            // 
+            this.year.Text = "Year";
+            this.year.Width = 80;
             // 
             // email
             // 
             this.email.Text = "Requesting Party";
-            this.email.Width = 330;
+            this.email.Width = 200;
             // 
             // uploadedby
             // 
@@ -189,6 +198,11 @@ namespace SampleRPT1.FORMS
             this.label8.TabIndex = 60;
             this.label8.Text = "Records Selected: ";
             // 
+            // Bank
+            // 
+            this.Bank.Text = "Bank";
+            this.Bank.Width = 150;
+            // 
             // ReviewEmailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,5 +244,7 @@ namespace SampleRPT1.FORMS
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textRecSelected;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ColumnHeader year;
+        private System.Windows.Forms.ColumnHeader Bank;
     }
 }

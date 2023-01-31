@@ -13,6 +13,7 @@ namespace SampleRPT1.MODEL
         public decimal Collection { get; set; }
         public decimal Billing { get; set; }
         public decimal ExcessShort { get; set; }
+        public string RPTremarks { get; set; }
 
     }
 }

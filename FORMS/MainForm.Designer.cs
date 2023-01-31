@@ -127,7 +127,7 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.cboValidatedBy = new System.Windows.Forms.ComboBox();
             this.labelValiBy = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.labelInstruction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -542,10 +542,10 @@
             // Receipt
             // 
             this.Receipt.Controls.Add(this.pictureBoxReceipt);
-            this.Receipt.Location = new System.Drawing.Point(4, 22);
+            this.Receipt.Location = new System.Drawing.Point(4, 23);
             this.Receipt.Name = "Receipt";
             this.Receipt.Padding = new System.Windows.Forms.Padding(3);
-            this.Receipt.Size = new System.Drawing.Size(455, 328);
+            this.Receipt.Size = new System.Drawing.Size(455, 327);
             this.Receipt.TabIndex = 1;
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;
@@ -564,10 +564,10 @@
             // OR_Release
             // 
             this.OR_Release.Controls.Add(this.pictureBoxORrelease);
-            this.OR_Release.Location = new System.Drawing.Point(4, 22);
+            this.OR_Release.Location = new System.Drawing.Point(4, 23);
             this.OR_Release.Name = "OR_Release";
             this.OR_Release.Padding = new System.Windows.Forms.Padding(3);
-            this.OR_Release.Size = new System.Drawing.Size(455, 328);
+            this.OR_Release.Size = new System.Drawing.Size(455, 327);
             this.OR_Release.TabIndex = 2;
             this.OR_Release.Text = "O.R Release";
             this.OR_Release.UseVisualStyleBackColor = true;
@@ -974,23 +974,24 @@
             this.labelValiBy.TabIndex = 48;
             this.labelValiBy.Text = "Validated By: ";
             // 
-            // label9
+            // labelInstruction
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.DarkRed;
-            this.label9.Location = new System.Drawing.Point(1075, 10);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(269, 13);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "After searching TDN, you can press CTRL + A";
+            this.labelInstruction.AutoSize = true;
+            this.labelInstruction.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInstruction.ForeColor = System.Drawing.Color.DarkRed;
+            this.labelInstruction.Location = new System.Drawing.Point(851, 106);
+            this.labelInstruction.Name = "labelInstruction";
+            this.labelInstruction.Size = new System.Drawing.Size(543, 18);
+            this.labelInstruction.TabIndex = 60;
+            this.labelInstruction.Text = "*After searching TDN, you can press CTRL + A to select all records in the listvie" +
+    "w";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1902, 1000);
-            this.Controls.Add(this.label9);
+            this.ClientSize = new System.Drawing.Size(1902, 985);
+            this.Controls.Add(this.labelInstruction);
             this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
@@ -1031,6 +1032,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.labelValidatedBy);
             this.Controls.Add(this.cboValidator);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MainForm";
             this.Text = "RPT";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -1150,7 +1152,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label labelValiBy;
         private System.Windows.Forms.ComboBox cboValidatedBy;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labelInstruction;
     }
 }
 

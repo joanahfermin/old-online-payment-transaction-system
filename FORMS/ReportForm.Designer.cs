@@ -70,7 +70,7 @@
             this.LVreport.HideSelection = false;
             this.LVreport.Location = new System.Drawing.Point(23, 73);
             this.LVreport.Name = "LVreport";
-            this.LVreport.Size = new System.Drawing.Size(1066, 876);
+            this.LVreport.Size = new System.Drawing.Size(1193, 876);
             this.LVreport.TabIndex = 2;
             this.LVreport.UseCompatibleStateImageBehavior = false;
             this.LVreport.View = System.Windows.Forms.View.Details;

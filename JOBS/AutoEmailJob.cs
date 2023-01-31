@@ -78,14 +78,16 @@ namespace SampleRPT1.JOBS
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.ASSESSMENT);
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, AssessmentTemplate.Subject, AssessmentTemplate.Body, RetrieveIdAndImage);
+                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") \n" + AssessmentTemplate.Body + "\n\n" + rpt.SentBy + "-CTO";
+                string subject = AssessmentTemplate.Subject + " - " + rpt.TaxDec;
+
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 
                 if (result == true)
                 {
                     rpt.Status = RPTStatus.BILL_SENT;
-                    rpt.UploadedBy = loginUser.UserName;
-                    rpt.UploadedDate = DateTime.Now;
-                    //rpt.LocCode = LocationCodeUtil.GetNextLocationCode();
+                    rpt.SentBy = loginUser.DisplayName;
+                    rpt.SentDate = DateTime.Now;
 
                     RPTDatabase.Update(rpt);
                 }

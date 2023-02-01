@@ -109,7 +109,6 @@ namespace SampleRPT1
             textRequestingParty.Clear();
             textRemarks.Clear();
 
-
             checkTaxDecRetain_CheckedChanged(sender, e);
             checkTaxNameRetain_CheckedChanged(sender, e);
         }
@@ -286,7 +285,11 @@ namespace SampleRPT1
 
             Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
-            //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
+
+            if (Convert.ToDecimal(textTotalAmountDeposited.Text) > 0)
+            {
+                Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
+            }
         }
 
         private void checkTaxDecRetain_CheckedChanged(object sender, EventArgs e)

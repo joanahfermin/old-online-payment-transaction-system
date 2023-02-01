@@ -76,6 +76,7 @@ namespace SampleRPT1
                 {
                     textTaxDec.Text = rpt.TaxDec;
                     textTPName.Text = rpt.TaxPayerName;
+                    textTotalTransferredAmount.Text = Convert.ToDecimal(rpt.TotalAmountTransferred).ToString();
 
                     if (rpt.Status != RPTStatus.FOR_ASSESSMENT)
                     {
@@ -231,6 +232,25 @@ namespace SampleRPT1
                     {
                         rpt.PaymentDate = null;
                     }
+                }
+
+                if (textTotalTransferredAmount.Text != MULTIPLE_MARKER)
+                {
+                    rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
+                }
+
+                if (rpt.TotalAmountTransferred > 0)
+                {
+                    rpt.ExcessShortAmount = rpt.TotalAmountTransferred - rpt.AmountToPay;
+                }
+
+                if (rpt.TotalAmountTransferred >= rpt.AmountToPay)
+                {
+                    rpt.AmountTransferred = rpt.AmountToPay;
+                }
+                else
+                {
+                    rpt.AmountTransferred = rpt.TotalAmountTransferred;
                 }
 
                 if (cboBankUsed.Text != MULTIPLE_MARKER)
@@ -581,14 +601,28 @@ namespace SampleRPT1
             EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
-        private void textAmountToBePaid_TextChanged(object sender, EventArgs e)
+
+        private bool textTotalTransferredAmountJustEntered = false;
+        private void textTotalTransferredAmount_Enter(object sender, EventArgs e)
         {
-            if (textAmountToBePaid.Text != MULTIPLE_MARKER)
+            textTotalTransferredAmount.SelectAll();
+            textTotalTransferredAmountJustEntered = true;
+
+        }
+
+        private void textTotalTransferredAmount_Click(object sender, EventArgs e)
+        {
+            if (textTotalTransferredAmountJustEntered)
             {
-                double amounttobepaid;
-                double.TryParse(textAmountToBePaid.Text, out amounttobepaid);
-                textAmountToBePaid.Text = amounttobepaid.ToString("N2");
+                textTotalTransferredAmount.SelectAll();
             }
+
+            textTotalTransferredAmountJustEntered = false;
+        }
+
+        private void textTotalTransferredAmount_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
     }
 }

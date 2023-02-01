@@ -48,13 +48,12 @@ namespace SampleRPT1.JOBS
 
             EmailTemplate ORUploadTemplate = EmailTemplateDatabase.SelectORUploadTemplate();
 
-
             foreach (RealPropertyTax rpt in ListOfretrieveORSsendEmail)
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.RECEIPT);
 
-                string body = "ATTENTION: " + rpt.TaxPayerName + " ("  + rpt.TaxDec + ") \n" + ORUploadTemplate.Body + "\n\n" + rpt.UploadedBy + "-CTO";
-                string subject = ORUploadTemplate.Subject + " - " + rpt.TaxDec;
+                string body = "ATTENTION: " + rpt.TaxPayerName + " ("  + rpt.TaxDec + ") " + rpt.YearQuarter + " \n" + ORUploadTemplate.Body + "\n\n" + rpt.UploadedBy + "-CTO";
+                string subject = ORUploadTemplate.Subject + " - " + rpt.TaxDec + "(" + rpt.YearQuarter + ")";
 
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 
@@ -78,8 +77,8 @@ namespace SampleRPT1.JOBS
             {
                 RPTAttachPicture RetrieveIdAndImage = RPTAttachPictureDatabase.SelectByRPTAndDocumentType(rpt.RptID, DocumentType.ASSESSMENT);
 
-                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") \n" + AssessmentTemplate.Body + "\n\n" + rpt.SentBy + "-CTO";
-                string subject = AssessmentTemplate.Subject + " - " + rpt.TaxDec;
+                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") " + rpt.YearQuarter + " \n" + AssessmentTemplate.Body + "\n\n" + rpt.SentBy + "-CTO";
+                string subject = AssessmentTemplate.Subject + " - " + rpt.TaxDec + "(" + rpt.YearQuarter + ")";
 
                 bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 

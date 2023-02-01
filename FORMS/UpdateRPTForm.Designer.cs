@@ -58,6 +58,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelAmountToBPay = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label14 = new System.Windows.Forms.Label();
+            this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +75,7 @@
             // 
             // btnUpdateRecord
             // 
-            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 505);
+            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 519);
             this.btnUpdateRecord.Name = "btnUpdateRecord";
             this.btnUpdateRecord.Size = new System.Drawing.Size(253, 23);
             this.btnUpdateRecord.TabIndex = 12;
@@ -93,7 +95,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(86, 339);
+            this.label10.Location = new System.Drawing.Point(86, 377);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 21;
@@ -110,7 +112,7 @@
             "FOR O.R UPLOAD",
             "FOR O.R PICK UP",
             "RELEASED"});
-            this.cbStatus.Location = new System.Drawing.Point(152, 249);
+            this.cbStatus.Location = new System.Drawing.Point(152, 291);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(253, 21);
             this.cbStatus.TabIndex = 9;
@@ -121,7 +123,7 @@
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(152, 332);
+            this.textRemarks.Location = new System.Drawing.Point(152, 370);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 132);
@@ -133,7 +135,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 295);
+            this.label9.Location = new System.Drawing.Point(47, 337);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 20;
@@ -142,7 +144,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(99, 257);
+            this.label8.Location = new System.Drawing.Point(99, 299);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 19;
@@ -151,7 +153,7 @@
             // textRequestingParty
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRequestingParty.Location = new System.Drawing.Point(152, 288);
+            this.textRequestingParty.Location = new System.Drawing.Point(152, 330);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
             this.textRequestingParty.TabIndex = 10;
@@ -184,7 +186,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(67, 183);
+            this.label7.Location = new System.Drawing.Point(67, 225);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 17;
@@ -202,7 +204,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 146);
+            this.label6.Location = new System.Drawing.Point(76, 188);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 16;
@@ -218,7 +220,6 @@
             this.textAmountToBePaid.Text = "0.00";
             this.textAmountToBePaid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmountToBePaid.Click += new System.EventHandler(this.textAmountToBePaid_Click);
-            this.textAmountToBePaid.TextChanged += new System.EventHandler(this.textAmountToBePaid_TextChanged);
             this.textAmountToBePaid.Enter += new System.EventHandler(this.textAmountToBePaid_Enter);
             this.textAmountToBePaid.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textAmountToBePaid_KeyDown);
             this.textAmountToBePaid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textAmountToBePaid_KeyPress);
@@ -227,7 +228,7 @@
             // textYear
             // 
             this.textYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textYear.Location = new System.Drawing.Point(152, 176);
+            this.textYear.Location = new System.Drawing.Point(152, 218);
             this.textYear.Name = "textYear";
             this.textYear.Size = new System.Drawing.Size(80, 20);
             this.textYear.TabIndex = 6;
@@ -282,6 +283,8 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.textTotalTransferredAmount);
             this.panel1.Controls.Add(this.cboQuarter);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.cboBankUsed);
@@ -306,14 +309,14 @@
             this.panel1.Controls.Add(this.textYear);
             this.panel1.Location = new System.Drawing.Point(15, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(432, 551);
+            this.panel1.Size = new System.Drawing.Size(432, 563);
             this.panel1.TabIndex = 25;
             // 
             // cboQuarter
             // 
             this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboQuarter.FormattingEnabled = true;
-            this.cboQuarter.Location = new System.Drawing.Point(291, 175);
+            this.cboQuarter.Location = new System.Drawing.Point(291, 217);
             this.cboQuarter.Name = "cboQuarter";
             this.cboQuarter.Size = new System.Drawing.Size(114, 21);
             this.cboQuarter.TabIndex = 7;
@@ -324,7 +327,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(238, 183);
+            this.label13.Location = new System.Drawing.Point(238, 225);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 13);
             this.label13.TabIndex = 22;
@@ -335,7 +338,7 @@
             this.cboBankUsed.FormattingEnabled = true;
             this.cboBankUsed.Items.AddRange(new object[] {
             "Please select a bank..."});
-            this.cboBankUsed.Location = new System.Drawing.Point(152, 138);
+            this.cboBankUsed.Location = new System.Drawing.Point(152, 180);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(253, 21);
             this.cboBankUsed.TabIndex = 5;
@@ -347,7 +350,7 @@
             // 
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 212);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 254);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(112, 20);
@@ -358,7 +361,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 219);
+            this.label2.Location = new System.Drawing.Point(47, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 18;
@@ -378,11 +381,34 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 148);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 13);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Total Transferred Amount: ";
+            // 
+            // textTotalTransferredAmount
+            // 
+            this.textTotalTransferredAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalTransferredAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalTransferredAmount.Location = new System.Drawing.Point(152, 141);
+            this.textTotalTransferredAmount.Name = "textTotalTransferredAmount";
+            this.textTotalTransferredAmount.Size = new System.Drawing.Size(112, 20);
+            this.textTotalTransferredAmount.TabIndex = 4;
+            this.textTotalTransferredAmount.Text = "0.00";
+            this.textTotalTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalTransferredAmount.Click += new System.EventHandler(this.textTotalTransferredAmount_Click);
+            this.textTotalTransferredAmount.Enter += new System.EventHandler(this.textTotalTransferredAmount_Enter);
+            this.textTotalTransferredAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTotalTransferredAmount_KeyDown);
+            // 
             // UpdateRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 579);
+            this.ClientSize = new System.Drawing.Size(466, 595);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textTransferredAmount);
@@ -429,5 +455,7 @@
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labelAmountToBPay;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textTotalTransferredAmount;
     }
 }

@@ -60,6 +60,7 @@ namespace SampleRPT1.FORMS
 
             Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, " Total amount deposited");
             //Validations.ValidateRequired(errorProvider1, textRefNum, "Reference Num.");
+            Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
         }
 
         /// <summary>

@@ -73,7 +73,7 @@ namespace SampleRPT1.FORMS
             if (template != null)
             {
                 textSubject.Text = template.Subject;
-                richTextBox1.Text = template.Body + "\n\n\n" + loginUser.DisplayName + "-CTO";
+                richTextBox1.Text = template.Body/* + "\n\n\n" + loginUser.DisplayName + "-CTO"*/;
 
                 btnSendAssessment.Enabled = false;
                 btnSendReceipt.Enabled = false;
@@ -114,7 +114,10 @@ namespace SampleRPT1.FORMS
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, null);
+                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") \n" + richTextBox1.Text + "\n\n" + SecurityService.getLoginUser().DisplayName + "-CTO";
+                string subject = textSubject.Text + " - " + rpt.TaxDec;
+
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, null);
 
                 if (result == true)
                 {
@@ -156,7 +159,7 @@ namespace SampleRPT1.FORMS
             {
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
 
-                if (rpt.Status != RPTStatus.ASSESSMENT_PRINTED)
+                if (rpt.Status != RPTStatus.ASSESSMENT_PRINTED && rpt.Status != RPTStatus.BILL_SENT)
                 {
                     SkipEmailToTaxdec = SkipEmailToTaxdec + rpt.TaxDec;
                     continue;
@@ -170,17 +173,23 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
+                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") " + rpt.YearQuarter + " \n" + richTextBox1.Text + "\n\n" + rpt.SentBy + "-CTO";
+                string subject = textSubject.Text + " - " + rpt.TaxDec + "(" + rpt.YearQuarter + ")";
+
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 
                 if (result == true)
                 {
-                    rpt.Status = RPTStatus.BILL_SENT;
-                    rpt.SentBy = loginUser.DisplayName;
-                    rpt.SentDate = DateTime.Now;
-                    SentTo = SentTo + rpt.RequestingParty + " ";
+                    if (rpt.Status == RPTStatus.ASSESSMENT_PRINTED)
+                    {
+                        rpt.Status = RPTStatus.BILL_SENT;
+                        rpt.SentBy = loginUser.DisplayName;
+                        rpt.SentDate = DateTime.Now;
+                        SentTo = SentTo + rpt.RequestingParty + " ";
 
-                    RPTDatabase.Update(rpt);
-                    RefreshMainListviewStatusBillSent();
+                        RPTDatabase.Update(rpt);
+                        RefreshMainListviewStatusBillSent();
+                    }
                 }
                 else
                 {
@@ -234,7 +243,7 @@ namespace SampleRPT1.FORMS
                 RealPropertyTax rpt = RPTDatabase.Get(RptId);
 
                 //checking if the record is for upload status.
-                if (rpt.Status != RPTStatus.OR_UPLOAD)
+                if (rpt.Status != RPTStatus.OR_UPLOAD && rpt.Status != RPTStatus.OR_PICKUP)
                 {
                     SkipEmailToTaxdec = SkipEmailToTaxdec + rpt.TaxDec;
                     continue;
@@ -249,14 +258,21 @@ namespace SampleRPT1.FORMS
                     continue;
                 }
 
-                bool result = GmailUtil.SendMail(rpt.RequestingParty, textSubject.Text, richTextBox1.Text, RetrieveIdAndImage);
+                string body = "ATTENTION: " + rpt.TaxPayerName + " (" + rpt.TaxDec + ") " + rpt.YearQuarter + " \n" + richTextBox1.Text + "\n\n" + rpt.UploadedBy + "-CTO";
+                string subject = textSubject.Text + " - " + rpt.TaxDec + "(" + rpt.YearQuarter + ")";
+
+
+                bool result = GmailUtil.SendMail(rpt.RequestingParty, subject, body, RetrieveIdAndImage);
 
                 if (result == true)
                 {
-                    RPTDatabase.ChangeStatusForORPickUp(rpt);
-                    
-                    SentTo = SentTo + rpt.RequestingParty + " ";
-                    RefreshMainListviewStatusORPickup();
+                    if (rpt.Status == RPTStatus.OR_UPLOAD)
+                    {
+                        RPTDatabase.ChangeStatusForORPickUp(rpt);
+
+                        SentTo = SentTo + rpt.RequestingParty + " ";
+                        RefreshMainListviewStatusORPickup();
+                    }   
                 }
                 else
                 {

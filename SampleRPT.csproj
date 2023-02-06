@@ -228,6 +228,12 @@
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
     <Compile Include="DATABASE\SystemSettingDatabase.cs" />
     <Compile Include="DATABASE\TagReceiptDatabase.cs" />
+    <Compile Include="FORMS\AddMISCrecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\AddMISCrecord.Designer.cs">
+      <DependentUpon>AddMISCrecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\AddMultipleOnePaymentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -391,10 +397,14 @@
     <Compile Include="MODEL\RealPropertyTax.cs" />
     <Compile Include="DATABASE\RPTDatabase.cs" />
     <Compile Include="UTILITIES\LocationCodeUtil.cs" />
+    <Compile Include="UTILITIES\MISCtype.cs" />
     <Compile Include="UTILITIES\RPTAction.cs" />
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />
     <Compile Include="UTILITIES\Validations.cs" />
+    <EmbeddedResource Include="FORMS\AddMISCrecord.resx">
+      <DependentUpon>AddMISCrecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\AddMultipleOnePaymentForm.resx">
       <DependentUpon>AddMultipleOnePaymentForm.cs</DependentUpon>
     </EmbeddedResource>

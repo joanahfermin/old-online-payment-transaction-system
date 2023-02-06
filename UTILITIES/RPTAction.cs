@@ -18,6 +18,5 @@ namespace SampleRPT1
         public const string VALIDATE_PAYMENT = "VALIDATE PAYMENT";
         public const string MANUAL_SEND_OR = "MANUAL SEND RECEIPT";
         public const string RELEASE_OR = "RELEASE O.R";
-
     }
 }

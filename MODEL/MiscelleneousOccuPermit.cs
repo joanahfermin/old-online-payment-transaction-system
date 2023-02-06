@@ -7,12 +7,13 @@ using Dapper.Contrib.Extensions;
 
 namespace SampleRPT1
 {
-    [Table("Jo_MISC_OccuPermit")]
+    [Table("Jo_MISC")]
 
     internal class MiscelleneousOccuPermit
     {
         [Key]
         public long MiscID { get; set; }
+        public string MiscType { get; set; }
         public string TaxpayersName { get; set; }
         public string OrderOfPaymentNum { get; set; }
         public string ModeOfPayment { get; set; }
@@ -26,6 +27,8 @@ namespace SampleRPT1
         public string VerifiedBy { get; set; }
         public DateTime? VerifiedDate { get; set; }
         public DateTime? LBPDate { get; set; }
+        public string ValidatedBy { get; set; }
+        public DateTime? ValidatedDate { get; set; }
         public string EncodedBy { get; set; }
         public DateTime? EncodedDate { get; set; }
 

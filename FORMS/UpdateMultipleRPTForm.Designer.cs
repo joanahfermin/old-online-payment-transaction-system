@@ -35,6 +35,7 @@
             this.taxDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxpayerName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Amount2Pay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.totalAmountTrans = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.paymentChannel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -68,9 +69,9 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
-            this.totalAmountTrans = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -93,9 +94,9 @@
             this.lvMultipleRecord.FullRowSelect = true;
             this.lvMultipleRecord.GridLines = true;
             this.lvMultipleRecord.HideSelection = false;
-            this.lvMultipleRecord.Location = new System.Drawing.Point(513, 47);
+            this.lvMultipleRecord.Location = new System.Drawing.Point(454, 47);
             this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(1346, 518);
+            this.lvMultipleRecord.Size = new System.Drawing.Size(1381, 518);
             this.lvMultipleRecord.TabIndex = 1;
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
@@ -120,6 +121,11 @@
             this.Amount2Pay.Text = "Amount To Pay";
             this.Amount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.Amount2Pay.Width = 120;
+            // 
+            // totalAmountTrans
+            // 
+            this.totalAmountTrans.Text = "Total Amount Transferred";
+            this.totalAmountTrans.Width = 100;
             // 
             // YearQuarter
             // 
@@ -155,7 +161,7 @@
             // 
             this.textTotalAmountToPay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountToPay.Enabled = false;
-            this.textTotalAmountToPay.Location = new System.Drawing.Point(631, 15);
+            this.textTotalAmountToPay.Location = new System.Drawing.Point(573, 15);
             this.textTotalAmountToPay.Name = "textTotalAmountToPay";
             this.textTotalAmountToPay.Size = new System.Drawing.Size(153, 20);
             this.textTotalAmountToPay.TabIndex = 47;
@@ -166,7 +172,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(512, 22);
+            this.label8.Location = new System.Drawing.Point(454, 22);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 13);
             this.label8.TabIndex = 46;
@@ -302,6 +308,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.textRemarks);
             this.panel1.Controls.Add(this.textAmountToBePay);
@@ -316,7 +323,7 @@
             this.panel1.Controls.Add(this.label12);
             this.panel1.Location = new System.Drawing.Point(14, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(487, 242);
+            this.panel1.Size = new System.Drawing.Size(425, 242);
             this.panel1.TabIndex = 209;
             // 
             // label10
@@ -402,7 +409,7 @@
             this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDelete.Location = new System.Drawing.Point(1790, 12);
+            this.btnDelete.Location = new System.Drawing.Point(743, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(69, 23);
             this.btnDelete.TabIndex = 214;
@@ -430,11 +437,6 @@
             this.textTotalTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalTransferredAmount.Leave += new System.EventHandler(this.textTotalTransferredAmount_Leave);
             // 
-            // totalAmountTrans
-            // 
-            this.totalAmountTrans.Text = "Total Amount Transferred";
-            this.totalAmountTrans.Width = 100;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -458,14 +460,24 @@
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(13, 308);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(487, 257);
+            this.panel2.Size = new System.Drawing.Size(426, 257);
             this.panel2.TabIndex = 220;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(140, 204);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(126, 23);
+            this.btnUpdate.TabIndex = 217;
+            this.btnUpdate.Text = "Update/Save";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // UpdateMultipleRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1871, 578);
+            this.ClientSize = new System.Drawing.Size(1847, 578);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnDelete);
@@ -530,5 +542,6 @@
         private System.Windows.Forms.ColumnHeader totalAmountTrans;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

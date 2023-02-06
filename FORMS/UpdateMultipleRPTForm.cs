@@ -125,29 +125,75 @@ namespace SampleRPT1
 
         private void btnSaveUpdate_Click(object sender, EventArgs e)
         {
+            bool FirstRecord = true;
+            decimal TotalAmountDeposited = Convert.ToDecimal(textTotalTransferredAmount.Text);
 
-            validateForm();
+            decimal TotalAmount2Pay = 0;
 
-            if (Validations.HaveErrors(errorProvider1))
+            foreach (ListViewItem item in lvMultipleRecord.Items)
             {
-                return;
+                string Amount2Pay = item.SubItems[3].Text;
+                TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
             }
 
-            RealPropertyTax rpt = RPTDatabase.Get(RptiD);
+            foreach (ListViewItem item in lvMultipleRecord.Items)
+            {
+                long RPTid = Convert.ToInt64(item.SubItems[0].Text);
 
-            rpt.TaxDec = textTDN.Text;
-            rpt.TaxPayerName = textTPName.Text;
-            rpt.AmountToPay = Convert.ToDecimal(textAmountToBePay.Text);
-            rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalAmountToPay.Text);
-            rpt.YearQuarter = textYearQuarter.Text;
+                string TaxDec = item.SubItems[1].Text;
+                string TaxPayerName = item.SubItems[2].Text;
 
-            rpt.RequestingParty = textRequestingParty.Text;
-            rpt.Bank = cboBankUsed.Text.Trim();
-            rpt.Quarter = cboQuarter.Text;
-            rpt.RPTremarks = textRemarks.Text;
-            rpt.PaymentDate = dtDateOfPayment.Value;
+                string Amount2Pay = item.SubItems[3].Text;
+                string YearQuarter = item.SubItems[5].Text;
+                string Quarter = item.SubItems[6].Text;
+                string Remarks = item.SubItems[10].Text;
 
-            RPTDatabase.Update(rpt);
+                RealPropertyTax rpt = RPTDatabase.Get(RPTid);
+
+                rpt.TaxDec = TaxDec;
+                rpt.TaxPayerName = TaxPayerName;
+                rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
+                rpt.YearQuarter = YearQuarter;
+                rpt.Quarter = Quarter;
+                rpt.RPTremarks = Remarks;
+
+                //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
+                if (FirstRecord)
+                {
+                    rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
+                    rpt.ExcessShortAmount = rpt.TotalAmountTransferred - TotalAmount2Pay;
+                }
+
+                //first record: amount to pay = 50.
+                // 150 > 50, so AmountTransferred = 50.
+                if (TotalAmountDeposited >= rpt.AmountToPay)
+                {
+                    rpt.AmountTransferred = rpt.AmountToPay;
+                    //150 - 50 = 100. Balik ulit hanggang meron pang excess.
+                    TotalAmountDeposited = TotalAmountDeposited - rpt.AmountToPay;
+                }
+                else
+                {
+                    rpt.AmountTransferred = TotalAmountDeposited;
+                    TotalAmountDeposited = 0;
+                }
+
+                rpt.YearQuarter = YearQuarter;
+                rpt.Bank = cboBankUsed.Text.Trim();
+
+                rpt.PaymentDate = dtDateOfPayment.Value.Date;
+
+                rpt.RequestingParty = textRequestingParty.Text.Trim();
+
+                RPTDatabase.Update(rpt);
+
+                FirstRecord = false;
+            }
+
+            if (textTotalAmountToPay.Text != textTotalTransferredAmount.Text)
+            {
+                MessageBox.Show("Please be advised that the record/s have insufficient or excess payment.");
+            }
 
             MessageBox.Show("Information successfully updated.");
 
@@ -295,6 +341,23 @@ namespace SampleRPT1
             decimal totalTransferredAmount;
             decimal.TryParse(textTotalTransferredAmount.Text, out totalTransferredAmount);
             textTotalTransferredAmount.Text = totalTransferredAmount.ToString("N2");
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (lvMultipleRecord.SelectedItems.Count > 0)
+            {
+                var selectedRecord = lvMultipleRecord.SelectedItems[0];
+
+                selectedRecord.SubItems[1].Text = textTDN.Text;
+                selectedRecord.SubItems[2].Text = textTPName.Text;
+                selectedRecord.SubItems[3].Text = textAmountToBePay.Text;
+                selectedRecord.SubItems[5].Text = textYearQuarter.Text;
+                selectedRecord.SubItems[6].Text = cboQuarter.Text;
+                selectedRecord.SubItems[10].Text = textRemarks.Text;
+
+                MessageBox.Show("Record successfully updated.");
+            }
         }
     }
 }

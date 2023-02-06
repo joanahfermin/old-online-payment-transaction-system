@@ -542,10 +542,10 @@
             // Receipt
             // 
             this.Receipt.Controls.Add(this.pictureBoxReceipt);
-            this.Receipt.Location = new System.Drawing.Point(4, 23);
+            this.Receipt.Location = new System.Drawing.Point(4, 22);
             this.Receipt.Name = "Receipt";
             this.Receipt.Padding = new System.Windows.Forms.Padding(3);
-            this.Receipt.Size = new System.Drawing.Size(455, 327);
+            this.Receipt.Size = new System.Drawing.Size(455, 328);
             this.Receipt.TabIndex = 1;
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;
@@ -564,10 +564,10 @@
             // OR_Release
             // 
             this.OR_Release.Controls.Add(this.pictureBoxORrelease);
-            this.OR_Release.Location = new System.Drawing.Point(4, 23);
+            this.OR_Release.Location = new System.Drawing.Point(4, 22);
             this.OR_Release.Name = "OR_Release";
             this.OR_Release.Padding = new System.Windows.Forms.Padding(3);
-            this.OR_Release.Size = new System.Drawing.Size(455, 327);
+            this.OR_Release.Size = new System.Drawing.Size(455, 328);
             this.OR_Release.TabIndex = 2;
             this.OR_Release.Text = "O.R Release";
             this.OR_Release.UseVisualStyleBackColor = true;

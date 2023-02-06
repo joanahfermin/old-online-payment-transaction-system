@@ -46,11 +46,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
             this.textYear = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textTransferredAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
@@ -58,8 +57,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelAmountToBPay = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label14 = new System.Windows.Forms.Label();
-            this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -236,32 +233,6 @@
             this.textYear.Enter += new System.EventHandler(this.textYear_Enter);
             this.textYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textYear_KeyDown);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(510, 147);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Amount To Be Paid: ";
-            // 
-            // textTransferredAmount
-            // 
-            this.textTransferredAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTransferredAmount.Enabled = false;
-            this.textTransferredAmount.Location = new System.Drawing.Point(625, 176);
-            this.textTransferredAmount.Name = "textTransferredAmount";
-            this.textTransferredAmount.Size = new System.Drawing.Size(112, 20);
-            this.textTransferredAmount.TabIndex = 4;
-            this.textTransferredAmount.Text = "0.00";
-            this.textTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textTransferredAmount.Click += new System.EventHandler(this.textTransferredAmount_Click);
-            this.textTransferredAmount.TextChanged += new System.EventHandler(this.textTransferredAmount_TextChanged);
-            this.textTransferredAmount.Enter += new System.EventHandler(this.textTransferredAmount_Enter);
-            this.textTransferredAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTransferredAmount_KeyDown);
-            this.textTransferredAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textTransferredAmount_KeyPress);
-            this.textTransferredAmount.Leave += new System.EventHandler(this.textTransferredAmount_Leave);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -270,15 +241,6 @@
             this.label11.Size = new System.Drawing.Size(80, 13);
             this.label11.TabIndex = 22;
             this.label11.Text = "Update Record";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(509, 183);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Transferred Amount: ";
             // 
             // panel1
             // 
@@ -311,6 +273,29 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(432, 563);
             this.panel1.TabIndex = 25;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 148);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 13);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Total Transferred Amount: ";
+            // 
+            // textTotalTransferredAmount
+            // 
+            this.textTotalTransferredAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalTransferredAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textTotalTransferredAmount.Location = new System.Drawing.Point(152, 141);
+            this.textTotalTransferredAmount.Name = "textTotalTransferredAmount";
+            this.textTotalTransferredAmount.Size = new System.Drawing.Size(112, 20);
+            this.textTotalTransferredAmount.TabIndex = 4;
+            this.textTotalTransferredAmount.Text = "0.00";
+            this.textTotalTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalTransferredAmount.Click += new System.EventHandler(this.textTotalTransferredAmount_Click);
+            this.textTotalTransferredAmount.Enter += new System.EventHandler(this.textTotalTransferredAmount_Enter);
+            this.textTotalTransferredAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTotalTransferredAmount_KeyDown);
             // 
             // cboQuarter
             // 
@@ -381,42 +366,15 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 148);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(133, 13);
-            this.label14.TabIndex = 23;
-            this.label14.Text = "Total Transferred Amount: ";
-            // 
-            // textTotalTransferredAmount
-            // 
-            this.textTotalTransferredAmount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalTransferredAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textTotalTransferredAmount.Location = new System.Drawing.Point(152, 141);
-            this.textTotalTransferredAmount.Name = "textTotalTransferredAmount";
-            this.textTotalTransferredAmount.Size = new System.Drawing.Size(112, 20);
-            this.textTotalTransferredAmount.TabIndex = 4;
-            this.textTotalTransferredAmount.Text = "0.00";
-            this.textTotalTransferredAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textTotalTransferredAmount.Click += new System.EventHandler(this.textTotalTransferredAmount_Click);
-            this.textTotalTransferredAmount.Enter += new System.EventHandler(this.textTotalTransferredAmount_Enter);
-            this.textTotalTransferredAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTotalTransferredAmount_KeyDown);
-            // 
             // UpdateRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 595);
+            this.ClientSize = new System.Drawing.Size(465, 595);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textTransferredAmount);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label5);
             this.Name = "UpdateRPTForm";
             this.Text = "UpdateRPTForm";
-            this.Load += new System.EventHandler(this.UpdateRPTForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -443,10 +401,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textAmountToBePaid;
         private System.Windows.Forms.TextBox textYear;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textTransferredAmount;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;

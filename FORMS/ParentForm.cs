@@ -47,10 +47,6 @@ namespace SampleRPT1
 
         private void MenuItemGcashPaymaya_Click(object sender, EventArgs e)
         {
-            //AddRecordGCASHPAYMAYAForm addRecordGcashPaymaya = new AddRecordGCASHPAYMAYAForm();
-            //addRecordGcashPaymaya.Show();
-            //addRecordGcashPaymaya.ShowDialog();
-
             if (AddRecordGCASHPAYMAYAForm.INSTANCE == null)
             {
                 new AddRecordGCASHPAYMAYAForm(this);
@@ -145,5 +141,13 @@ namespace SampleRPT1
             ReorderEncodeDateForm.INSTANCE.Show();
         }
 
+        private void mISCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MiscelleneousTaxForm.INSTANCE == null)
+            {
+                new MiscelleneousTaxForm(this);
+            }
+            MiscelleneousTaxForm.INSTANCE.Show();
+        }
     }
 }

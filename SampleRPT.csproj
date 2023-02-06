@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>66</ApplicationRevision>
+    <ApplicationRevision>68</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -222,6 +222,7 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
+    <Compile Include="DATABASE\MISCDatabase.cs" />
     <Compile Include="DATABASE\ReportDatabase.cs" />
     <Compile Include="DATABASE\RPTAttachPictureDatabase.cs" />
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
@@ -314,6 +315,13 @@
       <DependentUpon>ViewImageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="JOBS\AutoTagRPTValidationJob.cs" />
+    <Compile Include="FORMS\MiscelleneousTaxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\MiscelleneousTaxForm.Designer.cs">
+      <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\MiscelleneousOccuPermit.cs" />
     <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
     <Compile Include="MODEL\ReportCollection.cs" />
     <Compile Include="MODEL\ReportUserActivity.cs" />
@@ -407,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\MiscelleneousTaxForm.resx">
+      <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReleasingForm.resx">
       <DependentUpon>ReleasingForm.cs</DependentUpon>

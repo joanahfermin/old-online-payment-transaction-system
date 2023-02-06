@@ -17,6 +17,8 @@ namespace SampleRPT1.FORMS
         private RPTUser loginUser = SecurityService.getLoginUser();
 
         long RptId;
+        string RefNum;
+        string RPTremarks;
 
         public AllocateExcessForm()
         {
@@ -31,10 +33,21 @@ namespace SampleRPT1.FORMS
         {
             this.RptId = RptId;
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
-            textRefNum.Text = RetrieveRpt.RefNum;
+
+            if (RetrieveRpt.RefNum == null || RetrieveRpt.RefNum == "")
+            {
+                string refNo = BusinessUtil.GenerateRefNo();
+                RefNum = refNo;
+            }
+            else
+            {
+                textRefNum.Text = RetrieveRpt.RefNum;
+            }
+
             textTDN.Text = RetrieveRpt.TaxDec;
             textYearQuarter.Text = RetrieveRpt.YearQuarter;
             textAmount2Pay.Text = RetrieveRpt.ExcessShortAmount.ToString();
+            RPTremarks = RetrieveRpt.RPTremarks;
         }
 
         public void InitializeQuarter()
@@ -76,6 +89,11 @@ namespace SampleRPT1.FORMS
             RetrieveRpt.ExcessShortAmount = 0;
             RetrieveRpt.TotalAmountTransferred = RetrieveRpt.TotalAmountTransferred - Convert.ToDecimal(textAmount2Pay.Text);
 
+            if (RetrieveRpt.RefNum == null || RetrieveRpt.RefNum == "")
+            {
+                RetrieveRpt.RefNum = RefNum;
+            }
+
             RPTDatabase.Update(RetrieveRpt);
 
             RetrieveRpt.TaxDec = textTDN.Text;
@@ -88,6 +106,16 @@ namespace SampleRPT1.FORMS
             RetrieveRpt.Status = RPTStatus.FOR_ASSESSMENT;
             RetrieveRpt.EncodedBy = loginUser.DisplayName;
             RetrieveRpt.EncodedDate = DateTime.Now;
+            RetrieveRpt.RPTremarks = RPTremarks + " " + textRemarks.Text;
+
+            if (textRefNum.Text.Length > 0)
+            {
+                RetrieveRpt.RefNum = textRefNum.Text;
+            }
+            else
+            {
+                RetrieveRpt.RefNum = RefNum;
+            }
 
             RPTDatabase.Insert(RetrieveRpt);
 

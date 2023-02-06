@@ -486,8 +486,8 @@ namespace SampleRPT1
                 }
                 else
                 {
-                    List<long> RptIDList = mainFormListViewHelper.getSelectedRptIDList();
-                    UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptIDList);
+                    long RptID = mainFormListViewHelper.getSelectedRptID();
+                    UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptID);
                     updateRPTForm.ShowDialog();
                 }
             }
@@ -1273,7 +1273,7 @@ namespace SampleRPT1
             if (RPTInfoLV.Items.Count > 0)
             {
                 RPTInfoLV.Focus();
-                RPTInfoLV.Items[0].Selected = true;
+                //RPTInfoLV.Items[0].Selected = true;
             }
 
             textTDN.Select();

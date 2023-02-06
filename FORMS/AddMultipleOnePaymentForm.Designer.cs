@@ -170,11 +170,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(59, 99);
+            this.label2.Location = new System.Drawing.Point(98, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 200;
-            this.label2.Text = "Year/Quarter: ";
+            this.label2.Text = "Year: ";
             // 
             // textTotalAmountDeposited
             // 
@@ -194,7 +194,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 142);
+            this.label4.Location = new System.Drawing.Point(8, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 13);
             this.label4.TabIndex = 201;
@@ -235,7 +235,7 @@
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtDateOfPayment.Location = new System.Drawing.Point(144, 55);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
-            this.dtDateOfPayment.Size = new System.Drawing.Size(126, 20);
+            this.dtDateOfPayment.Size = new System.Drawing.Size(97, 20);
             this.dtDateOfPayment.TabIndex = 9;
             this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
@@ -391,11 +391,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 37);
+            this.label1.Location = new System.Drawing.Point(19, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Information";
+            this.label1.Text = "RPT Information";
             // 
             // panel2
             // 

@@ -15,6 +15,7 @@ namespace SampleRPT1.FORMS
     public partial class BalanceShort : Form
     {
         long RptId;
+        string RPTremarks;
         public BalanceShort()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace SampleRPT1.FORMS
             this.RptId = RptId;
             RealPropertyTax RetrieveRpt = RPTDatabase.Get(RptId);
             textRefNum.Text = RetrieveRpt.RefNum;
+            RPTremarks = RetrieveRpt.RPTremarks;
 
             if (RetrieveRpt.ExcessShortAmount < 0)
             {
@@ -99,7 +101,8 @@ namespace SampleRPT1.FORMS
 
                 RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
-                RetrieveRpt.RPTremarks = RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString() + " using " + RetrieveRpt.Bank + ". ";
+                RetrieveRpt.RPTremarks = RPTremarks + " " + RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString() + " using " + RetrieveRpt.Bank + ". ";
+
                 MessageBox.Show("Payment successfully saved.");
 
                 RPTDatabase.Update(RetrieveRpt);

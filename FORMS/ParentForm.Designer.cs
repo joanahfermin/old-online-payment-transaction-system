@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.MenuItemRPT = new System.Windows.Forms.ToolStripMenuItem();
+            this.MiscMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemGcashPaymaya = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemExcessShort = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemAllocateExcess = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,10 +68,19 @@
             // 
             // MenuItemRPT
             // 
+            this.MenuItemRPT.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MiscMenuItem});
             this.MenuItemRPT.Name = "MenuItemRPT";
             this.MenuItemRPT.Size = new System.Drawing.Size(39, 22);
             this.MenuItemRPT.Text = "RPT";
             this.MenuItemRPT.Click += new System.EventHandler(this.MenuItemHome_Click);
+            // 
+            // MiscMenuItem
+            // 
+            this.MiscMenuItem.Name = "MiscMenuItem";
+            this.MiscMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MiscMenuItem.Text = "MISC";
+            this.MiscMenuItem.Click += new System.EventHandler(this.mISCToolStripMenuItem_Click);
             // 
             // MenuItemGcashPaymaya
             // 
@@ -196,5 +206,6 @@
         private System.Windows.Forms.ToolStripMenuItem historyMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReportMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reorderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MiscMenuItem;
     }
 }

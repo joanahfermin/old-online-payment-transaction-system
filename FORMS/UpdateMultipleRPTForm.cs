@@ -58,7 +58,7 @@ namespace SampleRPT1
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvMultipleRecord, new List<string>
-            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
+            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "TotalAmountTransferred", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
         }
 
         private void ComputeAllPayment()
@@ -86,17 +86,8 @@ namespace SampleRPT1
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptiD);
 
-                if (rpt.Status != RPTStatus.FOR_ASSESSMENT)
-                {
-                    textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
-                    labelAmountToBPay.Enabled = false;
-                    textAmountToBePay.Enabled = false;
-                }
-                else
-                {
-                    textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
-                }
-
+                textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
+                textTotalTransferredAmount.Text = Convert.ToDecimal(rpt.TotalAmountTransferred).ToString();
                 textTDN.Text = rpt.TaxDec.ToString();
                 textTPName.Text = rpt.TaxPayerName;
                 textYearQuarter.Text = rpt.YearQuarter;
@@ -147,6 +138,7 @@ namespace SampleRPT1
             rpt.TaxDec = textTDN.Text;
             rpt.TaxPayerName = textTPName.Text;
             rpt.AmountToPay = Convert.ToDecimal(textAmountToBePay.Text);
+            rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalAmountToPay.Text);
             rpt.YearQuarter = textYearQuarter.Text;
 
             rpt.RequestingParty = textRequestingParty.Text;
@@ -293,9 +285,16 @@ namespace SampleRPT1
 
         private void textAmountToBePay_Leave(object sender, EventArgs e)
         {
-            double amounttobepaid;
-            double.TryParse(textAmountToBePay.Text, out amounttobepaid);
+            decimal amounttobepaid;
+            decimal.TryParse(textAmountToBePay.Text, out amounttobepaid);
             textAmountToBePay.Text = amounttobepaid.ToString("N2");
+        }
+
+        private void textTotalTransferredAmount_Leave(object sender, EventArgs e)
+        {
+            decimal totalTransferredAmount;
+            decimal.TryParse(textTotalTransferredAmount.Text, out totalTransferredAmount);
+            textTotalTransferredAmount.Text = totalTransferredAmount.ToString("N2");
         }
     }
 }

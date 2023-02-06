@@ -39,7 +39,7 @@ namespace SampleRPT1.UTILITIES
             {
                 return;
             }
-            Regex re = new Regex("^[A|B|C|D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            Regex re = new Regex("^[A|B|C|D|E|F|G]-[0-9]{3}-[0-9]{5}( / [A|B|C|D|E|F|G]-[0-9]{3}-[0-9]{5})*$");
             if (!re.IsMatch(tb.Text.Trim()))
             {
                 ep.SetError(tb, $"{propertyName} is not in correct format.");

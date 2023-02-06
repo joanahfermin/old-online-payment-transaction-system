@@ -158,7 +158,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                String query = $"SELECT * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
                     "AND CAST(ValidatedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND Bank in @BankList AND ValidatedBy = @ValidatedBy and DeletedRecord != 1 " +
                     "ORDER BY ValidatedDate ASC";
                 return conn.Query<RealPropertyTax>(query, new

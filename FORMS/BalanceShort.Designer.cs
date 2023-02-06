@@ -42,15 +42,17 @@
             this.labelBank = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textYearQuarter = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textRemarks = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // textTotalAmountDeposited
             // 
             this.textTotalAmountDeposited.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalAmountDeposited.Location = new System.Drawing.Point(190, 168);
+            this.textTotalAmountDeposited.Location = new System.Drawing.Point(144, 122);
             this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
-            this.textTotalAmountDeposited.Size = new System.Drawing.Size(163, 20);
+            this.textTotalAmountDeposited.Size = new System.Drawing.Size(117, 20);
             this.textTotalAmountDeposited.TabIndex = 1;
             this.textTotalAmountDeposited.Text = "0.00";
             this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -63,17 +65,17 @@
             // 
             this.textRefNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRefNum.Enabled = false;
-            this.textRefNum.Location = new System.Drawing.Point(190, 24);
+            this.textRefNum.Location = new System.Drawing.Point(144, 23);
             this.textRefNum.Name = "textRefNum";
-            this.textRefNum.Size = new System.Drawing.Size(163, 20);
+            this.textRefNum.Size = new System.Drawing.Size(201, 20);
             this.textRefNum.TabIndex = 22;
             this.textRefNum.TextChanged += new System.EventHandler(this.textRefNum_TextChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(190, 393);
+            this.btnSave.Location = new System.Drawing.Point(270, 399);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(163, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -82,7 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 175);
+            this.label1.Location = new System.Drawing.Point(15, 124);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 21;
@@ -91,7 +93,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(78, 31);
+            this.label2.Location = new System.Drawing.Point(60, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 2;
@@ -105,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(78, 234);
+            this.label3.Location = new System.Drawing.Point(46, 176);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 23;
@@ -116,7 +118,7 @@
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(190, 227);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(144, 166);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.Size = new System.Drawing.Size(163, 23);
             this.dtDateOfPayment.TabIndex = 2;
@@ -126,7 +128,7 @@
             this.cboBankUsed.FormattingEnabled = true;
             this.cboBankUsed.Items.AddRange(new object[] {
             "Please select a bank..."});
-            this.cboBankUsed.Location = new System.Drawing.Point(190, 290);
+            this.cboBankUsed.Location = new System.Drawing.Point(144, 216);
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(163, 21);
             this.cboBankUsed.TabIndex = 24;
@@ -134,7 +136,7 @@
             // labelBank
             // 
             this.labelBank.AutoSize = true;
-            this.labelBank.Location = new System.Drawing.Point(96, 298);
+            this.labelBank.Location = new System.Drawing.Point(72, 224);
             this.labelBank.Name = "labelBank";
             this.labelBank.Size = new System.Drawing.Size(66, 13);
             this.labelBank.TabIndex = 25;
@@ -143,26 +145,47 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(86, 80);
+            this.label4.Location = new System.Drawing.Point(103, 87);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 26;
-            this.label4.Text = "Year/Quarter: ";
+            this.label4.Text = "Year: ";
             // 
             // textYearQuarter
             // 
             this.textYearQuarter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textYearQuarter.Enabled = false;
-            this.textYearQuarter.Location = new System.Drawing.Point(190, 73);
+            this.textYearQuarter.Location = new System.Drawing.Point(144, 80);
             this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(163, 20);
+            this.textYearQuarter.Size = new System.Drawing.Size(117, 20);
             this.textYearQuarter.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(83, 268);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(55, 13);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Remarks: ";
+            // 
+            // textRemarks
+            // 
+            this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textRemarks.Location = new System.Drawing.Point(144, 268);
+            this.textRemarks.Multiline = true;
+            this.textRemarks.Name = "textRemarks";
+            this.textRemarks.Size = new System.Drawing.Size(201, 105);
+            this.textRemarks.TabIndex = 29;
             // 
             // BalanceShort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 491);
+            this.ClientSize = new System.Drawing.Size(403, 453);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textRemarks);
             this.Controls.Add(this.textYearQuarter);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cboBankUsed);
@@ -196,5 +219,7 @@
         private System.Windows.Forms.Label labelBank;
         private System.Windows.Forms.TextBox textYearQuarter;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textRemarks;
     }
 }

@@ -192,7 +192,7 @@ namespace SampleRPT1.FORMS
         {
             btnConfirm.Visible = false;
 
-            if (loginUser.isAutomatedEmailSender)
+            if (loginUser.isConfirmEmail)
             {
                 btnConfirm.Visible = true;
             }

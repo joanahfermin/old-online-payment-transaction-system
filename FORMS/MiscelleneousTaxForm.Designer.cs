@@ -55,6 +55,7 @@
             this.MISCinfoLV.TabIndex = 1;
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
+            this.MISCinfoLV.DoubleClick += new System.EventHandler(this.MISCinfoLV_DoubleClick);
             // 
             // cboMiscType
             // 
@@ -63,6 +64,7 @@
             this.cboMiscType.Name = "cboMiscType";
             this.cboMiscType.Size = new System.Drawing.Size(221, 21);
             this.cboMiscType.TabIndex = 2;
+            this.cboMiscType.SelectedIndexChanged += new System.EventHandler(this.cboMiscType_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -84,7 +86,6 @@
             this.Controls.Add(this.btnAddRecord);
             this.Name = "MiscelleneousTaxForm";
             this.Text = "MiscelleneousTax";
-            this.Load += new System.EventHandler(this.MiscelleneousTaxForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

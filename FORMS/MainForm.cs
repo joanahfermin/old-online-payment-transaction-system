@@ -71,7 +71,7 @@ namespace SampleRPT1
 
             labelValiBy.Visible = false;
             cboValidatedBy.Visible = false;
-            labelInstruction.Visible = false;
+            //labelInstruction.Visible = false;
 
             // Load various supporting data
             InitializeStatus();
@@ -352,6 +352,11 @@ namespace SampleRPT1
             //    RPTInfoLV.Focus();
             //    RPTInfoLV.Items[0].Selected = true;
             //}
+
+            //RPTInfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //RPTInfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+
         }
 
         private void btnAddRecord_Click(object sender, EventArgs e)

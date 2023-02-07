@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>68</ApplicationRevision>
+    <ApplicationRevision>69</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -397,7 +397,7 @@
     <Compile Include="MODEL\RealPropertyTax.cs" />
     <Compile Include="DATABASE\RPTDatabase.cs" />
     <Compile Include="UTILITIES\LocationCodeUtil.cs" />
-    <Compile Include="UTILITIES\MISCtype.cs" />
+    <Compile Include="UTILITIES\MISCtypeUtil.cs" />
     <Compile Include="UTILITIES\RPTAction.cs" />
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />

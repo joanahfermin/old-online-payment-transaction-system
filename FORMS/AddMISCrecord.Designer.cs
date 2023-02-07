@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cboMiscType = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
@@ -55,14 +57,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBankUsedRetain = new System.Windows.Forms.CheckBox();
-            this.cboMiscType = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.cboMiscType);
             this.panel1.Controls.Add(this.label14);
@@ -93,6 +95,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(526, 595);
             this.panel1.TabIndex = 16;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(76, 38);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Misc. Type:";
+            // 
+            // cboMiscType
+            // 
+            this.cboMiscType.FormattingEnabled = true;
+            this.cboMiscType.Location = new System.Drawing.Point(151, 30);
+            this.cboMiscType.Name = "cboMiscType";
+            this.cboMiscType.Size = new System.Drawing.Size(254, 21);
+            this.cboMiscType.TabIndex = 22;
             // 
             // label14
             // 
@@ -211,7 +230,7 @@
             // 
             this.btnSave.Location = new System.Drawing.Point(152, 549);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(253, 23);
+            this.btnSave.Size = new System.Drawing.Size(114, 23);
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save Record";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -372,22 +391,15 @@
             this.checkBankUsedRetain.Text = "Retain";
             this.checkBankUsedRetain.UseVisualStyleBackColor = true;
             // 
-            // cboMiscType
+            // btnUpdate
             // 
-            this.cboMiscType.FormattingEnabled = true;
-            this.cboMiscType.Location = new System.Drawing.Point(151, 30);
-            this.cboMiscType.Name = "cboMiscType";
-            this.cboMiscType.Size = new System.Drawing.Size(254, 21);
-            this.cboMiscType.TabIndex = 22;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(76, 38);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 13);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "Misc. Type:";
+            this.btnUpdate.Location = new System.Drawing.Point(291, 549);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(114, 23);
+            this.btnUpdate.TabIndex = 24;
+            this.btnUpdate.Text = "Update Record";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // AddMISCrecord
             // 
@@ -438,5 +450,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cboMiscType;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

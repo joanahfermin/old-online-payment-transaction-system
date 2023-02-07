@@ -26,15 +26,30 @@ namespace SampleRPT1
             ControlBox = false;
         }
 
+        public void InitializeData()
+        {
+            List<MiscelleneousOccuPermit> miscList;
+
+            string miscType = cboMiscType.Text;
+            miscList = MISCDatabase.SelectLatest(miscType);
+            PopulateLVMISC(miscList);
+        }
+
         public void InitializeMiscType()
         {
             cboMiscType.Items.Clear();
 
-            foreach (string misc in MISCtype.ALL_MISC_TYPE)
+            foreach (string misc in MISCtypeUtil.ALL_MISC_TYPE)
             {
                 cboMiscType.Items.Add(misc);
             }
             cboMiscType.SelectedIndex = 0;
+        }
+
+        public void RefreshOccuPermit()
+        {
+            cboMiscType.Text = MISCtypeUtil.OCCUPATIONAL_PERMIT;
+            InitializeData();
         }
 
         public void Show()
@@ -49,8 +64,49 @@ namespace SampleRPT1
             addMISCrecord.ShowDialog();
         }
 
-        private void MiscelleneousTaxForm_Load(object sender, EventArgs e)
+        private void PopulateLVMISC(List<MiscelleneousOccuPermit> MiscList)
         {
+            ListViewUtil.copyFromListToListview<MiscelleneousOccuPermit>(MiscList, MISCinfoLV, MISCtypeUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
+
+            for (int i = 0; i < MiscList.Count; i++)
+            {
+                MiscelleneousOccuPermit misc = MiscList[i];
+                ListViewItem topItem = MISCinfoLV.Items[i];
+
+                if (misc.ExcessShort < 0)
+                {
+                    topItem.BackColor = Color.LightCoral;
+                }
+                else if (misc.ExcessShort > 0)
+                {
+                    topItem.BackColor = Color.LightGreen;
+                }
+            }
+        }
+
+        private void cboMiscType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MISCinfoLV.Columns.Clear();
+
+            if (cboMiscType.Text == MISCtypeUtil.OCCUPATIONAL_PERMIT)
+            {
+                foreach (string item in MISCtypeUtil.MISC_OCCPERMIT_COLUMN_NAMES)
+                {
+                    MISCinfoLV.Columns.Add(item);
+                }
+                InitializeData();
+            }
+            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void MISCinfoLV_DoubleClick(object sender, EventArgs e)
+        {
+            string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
+            long miscID = Convert.ToInt64(MiscIDString);
+
+            AddMISCrecord addMISCrecord = new AddMISCrecord(miscID);
+            addMISCrecord.ShowDialog();
 
         }
     }

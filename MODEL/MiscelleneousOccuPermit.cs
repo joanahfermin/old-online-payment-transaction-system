@@ -20,6 +20,7 @@ namespace SampleRPT1
         public string OPATrackingNum { get; set; }
         public decimal AmountToBePaid { get; set; }
         public decimal TransferredAmount { get; set; }
+        public decimal ExcessShort { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string Status { get; set; }
         public string RequestingParty { get; set; }
@@ -31,7 +32,9 @@ namespace SampleRPT1
         public DateTime? ValidatedDate { get; set; }
         public string EncodedBy { get; set; }
         public DateTime? EncodedDate { get; set; }
+        public string ReleasedBy { get; set; }
+        public DateTime? ReleasedDate { get; set; }
 
-
+        public int isDeleted { get; set; } = 0;
     }
 }

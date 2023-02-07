@@ -13,6 +13,14 @@ namespace SampleRPT1
 {
     internal class MISCDatabase
     {
+        public static MiscelleneousOccuPermit Get(long MiscID)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Get<MiscelleneousOccuPermit>(MiscID);
+            }
+        }
+
         public static void InsertMisc(MiscelleneousOccuPermit modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -21,12 +29,27 @@ namespace SampleRPT1
             }
         }
 
-        public static List<RPTBank> SelectAllBank()
+        /// <summary>
+        /// Updates entire row in the database. 
+        /// </summary>
+        public static bool UpdateMisc(MiscelleneousOccuPermit modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RPTBank>($"SELECT * FROM Jo_RPT_Banks order by BankName ASC").ToList();
+                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+                return result;
             }
         }
+
+        public static List<MiscelleneousOccuPermit> SelectLatest(string miscType)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE MiscType = @miscType order by MiscID asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new { MiscType = miscType }).ToList();
+            }
+        }
+
+
     }
 }

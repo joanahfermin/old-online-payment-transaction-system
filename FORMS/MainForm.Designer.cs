@@ -106,6 +106,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnGenerateRefNum = new System.Windows.Forms.Button();
             this.labelEncodedBy = new System.Windows.Forms.Label();
             this.cboEncodedBy = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -127,7 +128,6 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.cboValidatedBy = new System.Windows.Forms.ComboBox();
             this.labelValiBy = new System.Windows.Forms.Label();
-            this.labelInstruction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -767,6 +767,15 @@
             this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 33;
             // 
+            // btnGenerateRefNum
+            // 
+            this.btnGenerateRefNum.Location = new System.Drawing.Point(880, 102);
+            this.btnGenerateRefNum.Name = "btnGenerateRefNum";
+            this.btnGenerateRefNum.Size = new System.Drawing.Size(173, 23);
+            this.btnGenerateRefNum.TabIndex = 61;
+            this.btnGenerateRefNum.Text = "Generate Reference Number";
+            this.btnGenerateRefNum.UseVisualStyleBackColor = true;
+            // 
             // labelEncodedBy
             // 
             this.labelEncodedBy.AutoSize = true;
@@ -974,24 +983,12 @@
             this.labelValiBy.TabIndex = 48;
             this.labelValiBy.Text = "Validated By: ";
             // 
-            // labelInstruction
-            // 
-            this.labelInstruction.AutoSize = true;
-            this.labelInstruction.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelInstruction.ForeColor = System.Drawing.Color.DarkRed;
-            this.labelInstruction.Location = new System.Drawing.Point(851, 106);
-            this.labelInstruction.Name = "labelInstruction";
-            this.labelInstruction.Size = new System.Drawing.Size(543, 18);
-            this.labelInstruction.TabIndex = 60;
-            this.labelInstruction.Text = "*After searching TDN, you can press CTRL + A to select all records in the listvie" +
-    "w";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 985);
-            this.Controls.Add(this.labelInstruction);
+            this.Controls.Add(this.btnGenerateRefNum);
             this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
@@ -1152,7 +1149,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label labelValiBy;
         private System.Windows.Forms.ComboBox cboValidatedBy;
-        private System.Windows.Forms.Label labelInstruction;
+        private System.Windows.Forms.Button btnGenerateRefNum;
     }
 }
 

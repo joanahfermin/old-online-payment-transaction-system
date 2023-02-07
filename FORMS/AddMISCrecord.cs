@@ -16,17 +16,49 @@ namespace SampleRPT1.FORMS
     public partial class AddMISCrecord : Form
     {
         private RPTUser loginUser = SecurityService.getLoginUser();
+        MiscelleneousOccuPermit misc;
 
         public AddMISCrecord()
         {
             InitializeComponent();
             InitializeBank();
             InitializeMiscType();
+            cboBankUsed.SelectedIndex = 0;
+            btnUpdate.Enabled = false;
+        }
+
+        public AddMISCrecord(long miscId)
+        {
+            misc = MISCDatabase.Get(miscId);
+
+            InitializeComponent();
+            InitializeBank();
+            InitializeMiscType();
+            InitializeRetrieveMisc();
+        }
+
+        public void InitializeRetrieveMisc()
+        {
+            btnSave.Enabled = false;
+
+            cboMiscType.Text = misc.MiscType;
+            cboMiscType.Enabled = false;
+
+            textTPName.Text = misc.TaxpayersName;
+            textOPNum.Text = misc.OrderOfPaymentNum;
+            textOPAtrackingNum.Text = misc.OPATrackingNum;
+            textAmountToBePaid.Text = Convert.ToDecimal(misc.AmountToBePaid).ToString();
+            textTotalTransferredAmount.Text = Convert.ToDecimal(misc.TransferredAmount).ToString();
+            dtDateOfPayment.Value = misc.PaymentDate.Value;
+            cboBankUsed.Text = misc.ModeOfPayment;
+            textStatus.Text = misc.Status;
+            textRequestingParty.Text = misc.RequestingParty;
+            textRemarks.Text = misc.Remarks;
         }
 
         public void InitializeMiscType()
         {
-            foreach (string miscType in MISCtype.ALL_MISC_TYPE)
+            foreach (string miscType in MISCtypeUtil.ALL_MISC_TYPE)
             {
                 cboMiscType.Items.Add(miscType);
             }
@@ -34,7 +66,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeBank()
         {
-            List<RPTBank> bankList = MISCDatabase.SelectAllBank();
+            List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
 
             foreach (RPTBank bank in bankList)
             {
@@ -68,6 +100,8 @@ namespace SampleRPT1.FORMS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            decimal ComputeExcessShort;
+
             MiscelleneousOccuPermit misc = new MiscelleneousOccuPermit();
             misc.MiscType = cboMiscType.Text;
 
@@ -81,15 +115,22 @@ namespace SampleRPT1.FORMS
             misc.Status = textStatus.Text;
             misc.RequestingParty = textRequestingParty.Text;
             misc.Remarks = textRemarks.Text;
+            misc.EncodedBy = loginUser.DisplayName;
+            misc.EncodedDate = DateTime.Now;
+            
+            ComputeExcessShort = Convert.ToDecimal(textTotalTransferredAmount.Text) - Convert.ToDecimal(textAmountToBePaid.Text);
+            misc.ExcessShort = ComputeExcessShort;
 
             MISCDatabase.InsertMisc(misc);
             MessageBox.Show("Record successfully saved.");
             this.Close();
+
+            MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
         }
 
         private void AddMISCrecord_Load(object sender, EventArgs e)
         {
-            cboBankUsed.SelectedIndex = 0;
+            //cboBankUsed.SelectedIndex = 0;
             CheckUncheckDateOfPayment();
         }
 
@@ -295,6 +336,33 @@ namespace SampleRPT1.FORMS
             double AmountToBePaid;
             double.TryParse(textAmountToBePaid.Text, out AmountToBePaid);
             textAmountToBePaid.Text = AmountToBePaid.ToString("N2");
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            decimal ComputeExcessShort;
+
+            misc.TaxpayersName = textTPName.Text;
+            misc.OrderOfPaymentNum = textOPNum.Text;
+            misc.ModeOfPayment = cboBankUsed.Text;
+            misc.OPATrackingNum = textOPAtrackingNum.Text;
+            misc.AmountToBePaid = Convert.ToDecimal(textAmountToBePaid.Text);
+            misc.TransferredAmount = Convert.ToDecimal(textTotalTransferredAmount.Text);
+            misc.PaymentDate = dtDateOfPayment.Value.Date;
+            misc.Status = textStatus.Text;
+            misc.RequestingParty = textRequestingParty.Text;
+            misc.Remarks = textRemarks.Text;
+            misc.EncodedBy = loginUser.DisplayName;
+            misc.EncodedDate = DateTime.Now;
+
+            ComputeExcessShort = Convert.ToDecimal(textTotalTransferredAmount.Text) - Convert.ToDecimal(textAmountToBePaid.Text);
+            misc.ExcessShort = ComputeExcessShort;
+
+            MISCDatabase.UpdateMisc(misc);
+            MessageBox.Show("Record successfully saved.");
+            this.Close();
+
+            MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
         }
     }
 }

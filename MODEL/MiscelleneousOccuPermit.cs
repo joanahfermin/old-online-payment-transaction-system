@@ -30,6 +30,7 @@ namespace SampleRPT1
         public DateTime? LBPDate { get; set; }
         public string ValidatedBy { get; set; }
         public DateTime? ValidatedDate { get; set; }
+        public string RefNum { get; set; }
         public string EncodedBy { get; set; }
         public DateTime? EncodedDate { get; set; }
         public string ReleasedBy { get; set; }

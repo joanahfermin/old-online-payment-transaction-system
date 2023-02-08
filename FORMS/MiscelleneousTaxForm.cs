@@ -20,10 +20,21 @@ namespace SampleRPT1
         {
             InitializeComponent();
             InitializeMiscType();
+            InitializeStatus();
 
             INSTANCE = this;
             MdiParent = parentForm;
             ControlBox = false;
+            dtDate.Value = DateTime.Now;
+            dtDateTo.Value = DateTime.Now;
+        }
+
+        public void InitializeStatus()
+        {
+            foreach (string status in MISCtypeUtil.ALL_OCCU_PERMIT_STATUS)
+            {
+                cboStatus.Items.Add(status);
+            }
         }
 
         public void InitializeData()
@@ -50,6 +61,14 @@ namespace SampleRPT1
         {
             cboMiscType.Text = MISCtypeUtil.OCCUPATIONAL_PERMIT;
             InitializeData();
+        }
+
+        public void SearchOccuPermitRecord()
+        {
+            string miscRecord = textSearch.Text;
+            List<MiscelleneousOccuPermit> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
+
+            PopulateLVMISC(miscRecordList);
         }
 
         public void Show()
@@ -84,6 +103,20 @@ namespace SampleRPT1
             }
         }
 
+        private void HighlightRecord()
+        {
+            string miscRecord = textSearch.Text;
+
+            foreach (ListViewItem item in MISCinfoLV.Items)
+            {
+                if (item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[5].Text.Contains(miscRecord))
+                {
+                    //item.Selected = true;
+                    MISCinfoLV.Focus();
+                }
+            }
+        }
+
         private void cboMiscType_SelectedIndexChanged(object sender, EventArgs e)
         {
             MISCinfoLV.Columns.Clear();
@@ -108,6 +141,42 @@ namespace SampleRPT1
             AddMISCrecord addMISCrecord = new AddMISCrecord(miscID);
             addMISCrecord.ShowDialog();
 
+        }
+
+        private void textSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchOccuPermitRecord();
+                HighlightRecord();
+
+                if (MISCinfoLV.SelectedItems.Count > 0)
+                {
+                    int index = MISCinfoLV.SelectedItems[0].Index;
+                    MISCinfoLV.EnsureVisible(index);
+                }
+            }
+        }
+
+        private void btnExecute_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearchDateStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddGcashPaymaya_Click(object sender, EventArgs e)
+        {
+            AddGcashPaymayaOccuPermitForm addGcashPaymayaOccuPermit = new AddGcashPaymayaOccuPermitForm();
+            addGcashPaymayaOccuPermit.ShowDialog();
         }
     }
 }

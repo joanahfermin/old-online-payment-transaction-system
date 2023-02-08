@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cboMiscType = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.textRemarks = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textRequestingParty = new System.Windows.Forms.TextBox();
-            this.textStatus = new System.Windows.Forms.TextBox();
             this.textOPAtrackingNum = new System.Windows.Forms.TextBox();
             this.textOPNum = new System.Windows.Forms.TextBox();
             this.textTPName = new System.Windows.Forms.TextBox();
@@ -57,13 +57,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBankUsedRetain = new System.Windows.Forms.CheckBox();
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.cboStatus = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboStatus);
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.cboMiscType);
@@ -82,7 +83,6 @@
             this.panel1.Controls.Add(this.textRemarks);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.textRequestingParty);
-            this.panel1.Controls.Add(this.textStatus);
             this.panel1.Controls.Add(this.textOPAtrackingNum);
             this.panel1.Controls.Add(this.textOPNum);
             this.panel1.Controls.Add(this.textTPName);
@@ -95,6 +95,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(526, 595);
             this.panel1.TabIndex = 16;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(291, 549);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(114, 23);
+            this.btnUpdate.TabIndex = 24;
+            this.btnUpdate.Text = "Update Record";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // label7
             // 
@@ -279,18 +289,6 @@
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
             this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
             // 
-            // textStatus
-            // 
-            this.textStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textStatus.Location = new System.Drawing.Point(151, 364);
-            this.textStatus.Name = "textStatus";
-            this.textStatus.Size = new System.Drawing.Size(253, 23);
-            this.textStatus.TabIndex = 8;
-            this.textStatus.Click += new System.EventHandler(this.textStatus_Click);
-            this.textStatus.Enter += new System.EventHandler(this.textStatus_Enter);
-            this.textStatus.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textStatus_KeyDown);
-            // 
             // textOPAtrackingNum
             // 
             this.textOPAtrackingNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -391,15 +389,13 @@
             this.checkBankUsedRetain.Text = "Retain";
             this.checkBankUsedRetain.UseVisualStyleBackColor = true;
             // 
-            // btnUpdate
+            // cboStatus
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(291, 549);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(114, 23);
-            this.btnUpdate.TabIndex = 24;
-            this.btnUpdate.Text = "Update Record";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.cboStatus.FormattingEnabled = true;
+            this.cboStatus.Location = new System.Drawing.Point(151, 366);
+            this.cboStatus.Name = "cboStatus";
+            this.cboStatus.Size = new System.Drawing.Size(254, 21);
+            this.cboStatus.TabIndex = 25;
             // 
             // AddMISCrecord
             // 
@@ -446,10 +442,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textTotalTransferredAmount;
-        private System.Windows.Forms.TextBox textStatus;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cboMiscType;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ComboBox cboStatus;
     }
 }

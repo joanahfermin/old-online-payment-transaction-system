@@ -24,7 +24,11 @@ namespace SampleRPT1.FORMS
             InitializeBank();
             InitializeMiscType();
             cboBankUsed.SelectedIndex = 0;
+            cboStatus.Text = "FOR PAYMENT VERIFICATION";
+            cboStatus.Enabled = false;
             btnUpdate.Enabled = false;
+
+            
         }
 
         public AddMISCrecord(long miscId)
@@ -39,6 +43,8 @@ namespace SampleRPT1.FORMS
 
         public void InitializeRetrieveMisc()
         {
+            InitializeStatus();
+
             btnSave.Enabled = false;
 
             cboMiscType.Text = misc.MiscType;
@@ -51,7 +57,7 @@ namespace SampleRPT1.FORMS
             textTotalTransferredAmount.Text = Convert.ToDecimal(misc.TransferredAmount).ToString();
             dtDateOfPayment.Value = misc.PaymentDate.Value;
             cboBankUsed.Text = misc.ModeOfPayment;
-            textStatus.Text = misc.Status;
+            cboStatus.Text = misc.Status;
             textRequestingParty.Text = misc.RequestingParty;
             textRemarks.Text = misc.Remarks;
         }
@@ -71,6 +77,14 @@ namespace SampleRPT1.FORMS
             foreach (RPTBank bank in bankList)
             {
                 cboBankUsed.Items.Add(bank.BankName);
+            }
+        }
+
+        public void InitializeStatus()
+        {
+            foreach (string status in MISCtypeUtil.ALL_OCCU_PERMIT_STATUS)
+            {
+                cboStatus.Items.Add(status);
             }
         }
 
@@ -112,7 +126,7 @@ namespace SampleRPT1.FORMS
             misc.AmountToBePaid = Convert.ToDecimal(textAmountToBePaid.Text);
             misc.TransferredAmount = Convert.ToDecimal(textTotalTransferredAmount.Text);
             misc.PaymentDate = dtDateOfPayment.Value.Date;
-            misc.Status = textStatus.Text;
+            misc.Status = cboStatus.Text;
             misc.RequestingParty = textRequestingParty.Text;
             misc.Remarks = textRemarks.Text;
             misc.EncodedBy = loginUser.DisplayName;
@@ -241,7 +255,7 @@ namespace SampleRPT1.FORMS
         private bool textStatusJustEntered = false;
         private void textStatus_Enter(object sender, EventArgs e)
         {
-            textStatus.SelectAll();
+            cboStatus.SelectAll();
             textStatusJustEntered = true;
         }
 
@@ -249,7 +263,7 @@ namespace SampleRPT1.FORMS
         {
             if (textStatusJustEntered)
             {
-                textStatus.SelectAll();
+                cboStatus.SelectAll();
             }
             textStatusJustEntered = false;
         }
@@ -349,7 +363,7 @@ namespace SampleRPT1.FORMS
             misc.AmountToBePaid = Convert.ToDecimal(textAmountToBePaid.Text);
             misc.TransferredAmount = Convert.ToDecimal(textTotalTransferredAmount.Text);
             misc.PaymentDate = dtDateOfPayment.Value.Date;
-            misc.Status = textStatus.Text;
+            misc.Status = cboStatus.Text;
             misc.RequestingParty = textRequestingParty.Text;
             misc.Remarks = textRemarks.Text;
             misc.EncodedBy = loginUser.DisplayName;

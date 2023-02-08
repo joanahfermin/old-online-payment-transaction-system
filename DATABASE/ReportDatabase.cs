@@ -35,26 +35,26 @@ namespace SampleRPT1.DATABASE
             {
                 string UserName = SecurityService.getLoginUser().DisplayName;
                 return conn.Query<ReportCollection>(
-                "SELECT TaxDec, TaxPayerName, Collection, Billing, ExcessShort, RPTremarks " +
+                "SELECT TaxDec, TaxPayerName, Collection, Billing, ExcessShort, iif(rptremarks like '%SHORT%' or rptremarks like '%CASH%' or rptremarks like '%MC%' or rptremarks like '%EXCESS%', rptremarks, '' ) as rptremarks " +
                 "FROM ( " +
-                " SELECT TaxDec, TaxPayerName, AmountTransferred as Collection,  AmountToPay as Billing, 0 as ExcessShort, RPTremarks, ValidatedDate, RPTID " +
+                " SELECT TaxDec, TaxPayerName, AmountTransferred as Collection,  AmountToPay as Billing, 0 as ExcessShort, RPTremarks, ValidatedDate, RPTID, EncodedDate " +
                 " FROM Jo_RPT r " +
                 " WHERE Bank in @OnlinePaymentChannels " +
                 " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
                 " UNION " +
 
-                " SELECT TaxDec, TaxPayerName, TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, RPTremarks, (select min(ValidatedDate) from Jo_RPT r2 where r2.RefNum = r.RefNum ) as ValidatedDate, RPTID " +
+                " SELECT TaxDec, TaxPayerName, TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, RPTremarks, (select min(ValidatedDate) from Jo_RPT r2 where r2.RefNum = r.RefNum ) as ValidatedDate, RPTID, EncodedDate " +
                 " FROM Jo_RPT r " +
                 " WHERE Bank not in @OnlinePaymentChannels and RefNum is not null " +
                 " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
                 " UNION " +
 
-                " SELECT TaxDec, TaxPayerName, TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, RPTremarks, ValidatedDate, RPTID " +
+                " SELECT TaxDec, TaxPayerName, TotalAmountTransferred as Collection, AmountToPay as Billing, ExcessShortAmount as ExcessShort, RPTremarks, ValidatedDate, RPTID, EncodedDate " +
                 " FROM Jo_RPT r " +
                 " WHERE Bank not in @OnlinePaymentChannels and RefNum is null " +
                 " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
                 ") AS ReportView " +
-                "order by ValidatedDate, RPTID ", 
+                "order by ValidatedDate, EncodedDate ", 
                 
                 new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
             }

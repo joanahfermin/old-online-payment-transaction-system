@@ -153,7 +153,7 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[6, 2] = "COLLECTION";
             worksheet.Cells[6, 3] = "BILLING";
             worksheet.Cells[6, 4] = "EXCESS/SHORT";
-            worksheet.Cells[6, 8] = "RPT REMARKS";
+            worksheet.Cells[6, 5] = "RPT REMARKS";
 
             worksheet.Cells[4, 5] = "POS-" + SecurityService.getLoginUser().MachNo;
             worksheet.Cells[5, 5] = DateTime.Now.ToString();

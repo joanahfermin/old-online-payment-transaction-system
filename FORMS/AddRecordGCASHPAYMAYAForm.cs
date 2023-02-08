@@ -19,7 +19,6 @@ namespace SampleRPT1
 
         public static AddRecordGCASHPAYMAYAForm INSTANCE;
 
-
         public AddRecordGCASHPAYMAYAForm(Form parentForm)
         {
             InitializeComponent();
@@ -260,11 +259,6 @@ namespace SampleRPT1
                 RefreshMainListviewTaxDec();
                 Clipboard.SetText(textTaxDec.Text);
             }
-        }
-
-        private void FirstLVGcashPaymaya_MouseClick(object sender, MouseEventArgs e)
-        {
-            //textYearQuarter.Focus();
         }
 
         private void textYearQuarter_TextChanged(object sender, EventArgs e)

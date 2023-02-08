@@ -41,12 +41,30 @@ namespace SampleRPT1
             }
         }
 
+        //DISPLAY RECORDS BASED ON MISC TYPE COMBOBOX.
         public static List<MiscelleneousOccuPermit> SelectLatest(string miscType)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE MiscType = @miscType order by MiscID asc";
                 return conn.Query<MiscelleneousOccuPermit>(query, new { MiscType = miscType }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousOccuPermit> SearchOccuPermitRecord(string occuPermitRecord)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @occuPermitRecord OR OPATrackingNum LIKE @occuPermitRecord order by MiscID asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new { occuPermitRecord = "%" + occuPermitRecord + "%", OPATrackingNum = "%" + occuPermitRecord + "%", }).ToList();
+            }
+        }
+
+        public static MiscelleneousOccuPermit SelectByOPAtrackingAndOPNum(string OPA_Tracking, string OP_Num)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.QuerySingleOrDefault<MiscelleneousOccuPermit>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking and OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
             }
         }
 

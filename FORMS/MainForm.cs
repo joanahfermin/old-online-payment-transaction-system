@@ -346,17 +346,6 @@ namespace SampleRPT1
 
             mainFormListViewHelper.PopulateListView(rptList);
             ShowPicture();
-
-            //if (RPTInfoLV.Items.Count > 0)
-            //{
-            //    RPTInfoLV.Focus();
-            //    RPTInfoLV.Items[0].Selected = true;
-            //}
-
-            //RPTInfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            //RPTInfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-
         }
 
         private void btnAddRecord_Click(object sender, EventArgs e)

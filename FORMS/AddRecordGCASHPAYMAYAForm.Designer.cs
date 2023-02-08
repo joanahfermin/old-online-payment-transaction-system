@@ -97,7 +97,6 @@
             this.FirstLVGcashPaymaya.View = System.Windows.Forms.View.Details;
             this.FirstLVGcashPaymaya.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.FirstLVGcashPaymaya_ItemSelectionChanged);
             this.FirstLVGcashPaymaya.SelectedIndexChanged += new System.EventHandler(this.FirstLVGcashPaymaya_SelectedIndexChanged);
-            this.FirstLVGcashPaymaya.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FirstLVGcashPaymaya_MouseClick);
             // 
             // serviceProv
             // 

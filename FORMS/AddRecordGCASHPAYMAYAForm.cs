@@ -249,7 +249,6 @@ namespace SampleRPT1
                 textPropertyName.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[4].Text;
                 textEmailAddress.Text = FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text;
 
-
                 dtTransactionPayment.Value = Convert.ToDateTime(FirstLVGcashPaymaya.SelectedItems[0].SubItems[6].Text);
 
                 textYearQuarter.SelectAll();
@@ -292,78 +291,78 @@ namespace SampleRPT1
         /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            validateForm();
+            //validateForm();
 
-            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            //string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-            if (Validations.HaveErrors(errorProvider1))
-            {
-                return;
-            }
+            //if (Validations.HaveErrors(errorProvider1))
+            //{
+            //    return;
+            //}
 
-            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                //Saves a duplicate record with a remarks of DUPLICATE RECORD. Else, inserts a new record. 
-                if (textRPTID.Text.Length > 0)
-                {
-                    long RPTid = Convert.ToInt64(textRPTID.Text);
-                    string DuplicateRecordRemarks = "DUPLICATE RECORD";
+            //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //{
+            //    //Saves a duplicate record with a remarks of DUPLICATE RECORD. Else, inserts a new record. 
+            //    if (textRPTID.Text.Length > 0)
+            //    {
+            //        long RPTid = Convert.ToInt64(textRPTID.Text);
+            //        string duplicateRecordRemarks = "DUPLICATE RECORD";
 
-                    RealPropertyTax RetrievedRpt = RPTDatabase.Get(RPTid);
-                    RetrievedRpt.TaxPayerName = textPropertyName.Text.Trim();
-                    RetrievedRpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
-                    RetrievedRpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
-                    RetrievedRpt.Bank = textServiceProvider.Text;
-                    RetrievedRpt.BillCount = textBillQuantity.Text.Trim();
-                    RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+            //        RealPropertyTax RetrievedRpt = RPTDatabase.Get(RPTid);
+            //        RetrievedRpt.TaxPayerName = textPropertyName.Text.Trim();
+            //        RetrievedRpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
+            //        RetrievedRpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
+            //        RetrievedRpt.Bank = textServiceProvider.Text;
+            //        RetrievedRpt.BillCount = textBillQuantity.Text.Trim();
+            //        RetrievedRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
-                    RetrievedRpt.PaymentDate = dtTransactionPayment.Value;
+            //        RetrievedRpt.PaymentDate = dtTransactionPayment.Value;
 
-                    RetrievedRpt.BilledBy = loginUser.DisplayName;
-                    RetrievedRpt.BilledDate = DateTime.Now;
-                    RetrievedRpt.RPTremarks = DuplicateRecordRemarks;
-                    RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")".Trim();
+            //        RetrievedRpt.BilledBy = loginUser.DisplayName;
+            //        RetrievedRpt.BilledDate = DateTime.Now;
+            //        RetrievedRpt.RPTremarks = duplicateRecordRemarks;
+            //        RetrievedRpt.YearQuarter = RetrievedRpt.YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")".Trim();
 
-                    RetrievedRpt.RefNum = refNo;
+            //        RetrievedRpt.RefNum = refNo;
 
-                    RPTDatabase.Insert(RetrievedRpt);
-                }
-                else
-                {
-                    RealPropertyTax rpt = new RealPropertyTax();
+            //        RPTDatabase.Insert(RetrievedRpt);
+            //    }
+            //    else
+            //    {
+            //        RealPropertyTax rpt = new RealPropertyTax();
 
-                    rpt.TaxDec = textTaxDec.Text;
-                    rpt.TaxPayerName = textPropertyName.Text.Trim();
-                    rpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
-                    rpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
-                    rpt.Bank = textServiceProvider.Text;
-                    rpt.YearQuarter = textYearQuarter.Text.Trim();
-                    rpt.BillCount = textBillQuantity.Text.Trim();
-                    rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
-                    rpt.RequestingParty = textEmailAddress.Text;
+            //        rpt.TaxDec = textTaxDec.Text;
+            //        rpt.TaxPayerName = textPropertyName.Text.Trim();
+            //        rpt.AmountToPay = Convert.ToDecimal(textAmountDue.Text);
+            //        rpt.AmountTransferred = Convert.ToDecimal(textAmountDue.Text);
+            //        rpt.Bank = textServiceProvider.Text;
+            //        rpt.YearQuarter = textYearQuarter.Text.Trim();
+            //        rpt.BillCount = textBillQuantity.Text.Trim();
+            //        rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+            //        rpt.RequestingParty = textEmailAddress.Text;
 
-                    rpt.PaymentDate = dtTransactionPayment.Value;
+            //        rpt.PaymentDate = dtTransactionPayment.Value;
 
-                    rpt.EncodedBy = loginUser.DisplayName;
-                    rpt.EncodedDate = DateTime.Now;
+            //        rpt.EncodedBy = loginUser.DisplayName;
+            //        rpt.EncodedDate = DateTime.Now;
 
-                    rpt.BilledBy = loginUser.DisplayName;
-                    rpt.BilledDate = DateTime.Now;
-                    rpt.RefNum = refNo;
+            //        rpt.BilledBy = loginUser.DisplayName;
+            //        rpt.BilledDate = DateTime.Now;
+            //        rpt.RefNum = refNo;
 
-                    //RPTDatabase.Insert(rpt);
-                    //RPTDatabase.Update(rpt);
-                }
+            //        //RPTDatabase.Insert(rpt);
+            //        //RPTDatabase.Update(rpt);
+            //    }
 
-                //Removes processed record from the listview.
-                if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
-                {
-                    int Index = FirstLVGcashPaymaya.SelectedIndices[0];
-                    FirstLVGcashPaymaya.Items.RemoveAt(Index);
-                }
+            //    //Removes processed record from the listview.
+            //    if (FirstLVGcashPaymaya.SelectedItems.Count > 0)
+            //    {
+            //        int Index = FirstLVGcashPaymaya.SelectedIndices[0];
+            //        FirstLVGcashPaymaya.Items.RemoveAt(Index);
+            //    }
 
-                RefreshMainListviewTaxDec();
-            } 
+            //    RefreshMainListviewTaxDec();
+            //} 
         }
 
         /// <summary>
@@ -499,6 +498,7 @@ namespace SampleRPT1
                 //}
 
                 FirstLVGcashPaymaya.Items.Clear();
+                MessageBox.Show("All records have been successfully saved.");
 
                 RefreshMainListviewStatus();
 

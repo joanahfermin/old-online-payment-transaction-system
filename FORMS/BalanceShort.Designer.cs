@@ -52,7 +52,7 @@
             this.textTotalAmountDeposited.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountDeposited.Location = new System.Drawing.Point(144, 122);
             this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
-            this.textTotalAmountDeposited.Size = new System.Drawing.Size(117, 20);
+            this.textTotalAmountDeposited.Size = new System.Drawing.Size(95, 20);
             this.textTotalAmountDeposited.TabIndex = 1;
             this.textTotalAmountDeposited.Text = "0.00";
             this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -73,9 +73,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(270, 399);
+            this.btnSave.Location = new System.Drawing.Point(250, 403);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(95, 23);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtDateOfPayment.Location = new System.Drawing.Point(144, 166);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
-            this.dtDateOfPayment.Size = new System.Drawing.Size(163, 23);
+            this.dtDateOfPayment.Size = new System.Drawing.Size(95, 23);
             this.dtDateOfPayment.TabIndex = 2;
             // 
             // cboBankUsed
@@ -130,7 +130,7 @@
             "Please select a bank..."});
             this.cboBankUsed.Location = new System.Drawing.Point(144, 216);
             this.cboBankUsed.Name = "cboBankUsed";
-            this.cboBankUsed.Size = new System.Drawing.Size(163, 21);
+            this.cboBankUsed.Size = new System.Drawing.Size(201, 21);
             this.cboBankUsed.TabIndex = 24;
             // 
             // labelBank
@@ -157,7 +157,7 @@
             this.textYearQuarter.Enabled = false;
             this.textYearQuarter.Location = new System.Drawing.Point(144, 80);
             this.textYearQuarter.Name = "textYearQuarter";
-            this.textYearQuarter.Size = new System.Drawing.Size(117, 20);
+            this.textYearQuarter.Size = new System.Drawing.Size(95, 20);
             this.textYearQuarter.TabIndex = 27;
             // 
             // label10
@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 453);
+            this.ClientSize = new System.Drawing.Size(403, 452);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textRemarks);
             this.Controls.Add(this.textYearQuarter);

@@ -1571,6 +1571,58 @@ namespace SampleRPT1
             }
         }
 
+        private void btnGenerateRefNum_Click(object sender, EventArgs e)
+        {
+            List<long> rptIdList = mainFormListViewHelper.getSelectedRptIDList();
+
+            foreach (long rptId in rptIdList)
+            {
+                RealPropertyTax rpt = RPTDatabase.Get(rptId);
+                if (rpt.RefNum != null && rpt.RefNum.Length > 0)
+                {
+                    MessageBox.Show("Invalid Action.");
+                    return;
+                }
+            }
+
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string RefNum = BusinessUtil.GenerateRefNo();
+                decimal excessShort = 0;
+                decimal initialPayment = 0;
+
+                foreach (long rptId in rptIdList)
+                {
+                    RealPropertyTax rpt = RPTDatabase.Get(rptId);
+                    initialPayment += rpt.TotalAmountTransferred;
+                    excessShort += rpt.ExcessShortAmount;
+                }
+
+                foreach (long rptId in rptIdList)
+                {
+                    RealPropertyTax rpt = RPTDatabase.Get(rptId);
+                    rpt.RefNum = RefNum;
+
+                    if (rptId == rptIdList[0])
+                    {
+                        rpt.TotalAmountTransferred = initialPayment;
+                        rpt.ExcessShortAmount = excessShort;
+                    }
+                    else
+                    {
+                        rpt.ExcessShortAmount = 0;
+                        rpt.TotalAmountTransferred = 0;
+                    }
+                    RPTDatabase.Update(rpt);
+                }
+                RefreshListView();
+
+                BalanceShort balanceShort = new BalanceShort();
+                balanceShort.setRptId(rptIdList[0]);
+                balanceShort.Show();
+            }
+        }
+
         //private bool isRPTTaxDecFormat(string taxDec)
         //{
         //    //format of taxdec number.

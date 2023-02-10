@@ -49,6 +49,12 @@
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnAddGcashPaymaya = new System.Windows.Forms.Button();
+            this.textRecSelected = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -68,9 +74,9 @@
             this.MISCinfoLV.FullRowSelect = true;
             this.MISCinfoLV.GridLines = true;
             this.MISCinfoLV.HideSelection = false;
-            this.MISCinfoLV.Location = new System.Drawing.Point(12, 108);
+            this.MISCinfoLV.Location = new System.Drawing.Point(12, 139);
             this.MISCinfoLV.Name = "MISCinfoLV";
-            this.MISCinfoLV.Size = new System.Drawing.Size(1774, 480);
+            this.MISCinfoLV.Size = new System.Drawing.Size(1895, 835);
             this.MISCinfoLV.TabIndex = 1;
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
@@ -254,7 +260,7 @@
             // 
             // btnAddGcashPaymaya
             // 
-            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(1386, 47);
+            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(1386, 49);
             this.btnAddGcashPaymaya.Name = "btnAddGcashPaymaya";
             this.btnAddGcashPaymaya.Size = new System.Drawing.Size(134, 23);
             this.btnAddGcashPaymaya.TabIndex = 58;
@@ -262,11 +268,74 @@
             this.btnAddGcashPaymaya.UseVisualStyleBackColor = true;
             this.btnAddGcashPaymaya.Click += new System.EventHandler(this.btnAddGcashPaymaya_Click);
             // 
+            // textRecSelected
+            // 
+            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRecSelected.Enabled = false;
+            this.textRecSelected.Location = new System.Drawing.Point(775, 106);
+            this.textRecSelected.Name = "textRecSelected";
+            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.TabIndex = 65;
+            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(671, 113);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 63;
+            this.label8.Text = "Records Selected: ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(333, 113);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(130, 13);
+            this.label11.TabIndex = 64;
+            this.label11.Text = "Total Amount Transferred:";
+            // 
+            // textTotalAmountTransferred
+            // 
+            this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalAmountTransferred.Enabled = false;
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(469, 106);
+            this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
+            this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmountTransferred.TabIndex = 60;
+            this.textTotalAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(113, 13);
+            this.label10.TabIndex = 62;
+            this.label10.Text = "Total Amount To Pay: ";
+            // 
+            // textTotalAmount2Pay
+            // 
+            this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textTotalAmount2Pay.Enabled = false;
+            this.textTotalAmount2Pay.Location = new System.Drawing.Point(136, 106);
+            this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
+            this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmount2Pay.TabIndex = 61;
+            this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // MiscelleneousTaxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1798, 805);
+            this.ClientSize = new System.Drawing.Size(1919, 1014);
+            this.Controls.Add(this.textRecSelected);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textTotalAmountTransferred);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textTotalAmount2Pay);
             this.Controls.Add(this.btnAddGcashPaymaya);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.cboAction);
@@ -310,5 +379,11 @@
         private System.Windows.Forms.ComboBox cboAction;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAddGcashPaymaya;
+        private System.Windows.Forms.TextBox textRecSelected;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textTotalAmountTransferred;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textTotalAmount2Pay;
     }
 }

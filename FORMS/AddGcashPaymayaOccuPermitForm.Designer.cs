@@ -58,6 +58,7 @@
             this.checkSelectAll.TabIndex = 34;
             this.checkSelectAll.Text = "Select All";
             this.checkSelectAll.UseVisualStyleBackColor = true;
+            this.checkSelectAll.CheckedChanged += new System.EventHandler(this.checkSelectAll_CheckedChanged);
             // 
             // textTotalAmount
             // 
@@ -130,6 +131,7 @@
             this.btnSaveAll.TabIndex = 26;
             this.btnSaveAll.Text = "Save All";
             this.btnSaveAll.UseVisualStyleBackColor = true;
+            this.btnSaveAll.Click += new System.EventHandler(this.btnSaveAll_Click);
             // 
             // MISCGcashPaymayaLV
             // 

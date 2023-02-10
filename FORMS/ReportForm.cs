@@ -146,7 +146,7 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[2, 4] = "EXCESS/SHORT";
 
 
-            worksheet.Cells[3, 5] = SecurityService.getLoginUser().DisplayName;
+            worksheet.Cells[3, 5] = SecurityService.getLoginUser().FullName;
             worksheet.Cells[4, 2] = "with shttc";
             worksheet.Cells[5, 2] = textShttc.Text;
 
@@ -183,10 +183,9 @@ namespace SampleRPT1.FORMS
             decimal shttc = 0;
             decimal.TryParse(textShttc.Text, out shttc);
 
-
-            worksheet.Cells[3, 2] =totalCollection.ToString();
-            worksheet.Cells[3, 3] = (totalBilling + shttc).ToString();
-            worksheet.Cells[3, 4] = totalExcessShort.ToString();
+            worksheet.Cells[3, 2] = $"=sum(B7:B{row-1})";
+            worksheet.Cells[3, 3] = $"=sum(C7:C{row - 1}) + B5";
+            worksheet.Cells[3, 4] = $"=sum(D7:D{row - 1})";
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "Collections.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,12 @@ namespace SampleRPT1.FORMS
 {
     public partial class AddGcashPaymayaOccuPermitForm : Form
     {
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
         public AddGcashPaymayaOccuPermitForm()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
 
             //This is essential to the FirstLVGcashPaymaya_KeyDown method.
             //Dagdag ng event Keyup.
@@ -73,9 +77,10 @@ namespace SampleRPT1.FORMS
                             }
                         }
 
-                        string misc = item.SubItems[1].Text;
+                        //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
+                        string misc = item.SubItems[2].Text;
 
-                        if (isRPTTaxDecFormat(misc))
+                        if (isOPnumberFormat(misc))
                         {
                             MISCGcashPaymayaLV.Items.Add(item);
                         }
@@ -110,10 +115,11 @@ namespace SampleRPT1.FORMS
             }
         }
 
-        private bool isRPTTaxDecFormat(string misc)
+        //M-2023-02-02-BPLO-A176-000665 SAMPLE FORMAT OF O.P NUMBER OF OCCU PERMIT.
+        private bool isOPnumberFormat(string misc)
         {
             //format of misc number.
-            Regex re = new Regex("^[O][P][A]-[0-9]{8}-[0-9]{6}$");
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[B][P][L][O]-[A-Z,0-9]{4}-[0-9]{6}$");
             return re.IsMatch(misc.Trim());
         }
 
@@ -155,7 +161,6 @@ namespace SampleRPT1.FORMS
                 else
                 {
                     item.SubItems.Add("NO");
-
                 }
                 ProcessedList.Add(OPAtrackingAndOPNum);
             }
@@ -189,6 +194,68 @@ namespace SampleRPT1.FORMS
             }
 
             textTotalAmount.Text = totalAmount.ToString("N2");
+        }
+
+        private void checkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
+            {
+                item.Selected = checkSelectAll.Checked;
+            }
+        }
+
+        private void btnSaveAll_Click(object sender, EventArgs e)
+        {
+            string DuplicateRecordRemarks = "DUPLICATE RECORD";
+
+            string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+            if (MISCGcashPaymayaLV.Items.Count > 0)
+            {
+                //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
+                for (int i = 0; i < MISCGcashPaymayaLV.Items.Count; i++)
+                {
+                    string ServiceProvider = MISCGcashPaymayaLV.Items[i].Text;
+                    string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
+                    string OPnumber = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
+                    string TaxpayersName = MISCGcashPaymayaLV.Items[i].SubItems[3].Text;
+                    string RequestingParty = MISCGcashPaymayaLV.Items[i].SubItems[4].Text;
+                    decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
+                    string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
+
+                    MiscelleneousOccuPermit retrieveMisc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPnumber);
+
+                    MiscelleneousOccuPermit misc = new MiscelleneousOccuPermit();
+
+                    misc.OPATrackingNum = OPAtrackingNum;
+                    misc.OrderOfPaymentNum = OPnumber;
+                    misc.TaxpayersName = TaxpayersName;
+                    misc.AmountToBePaid = AmountDue;
+                    misc.TransferredAmount = AmountDue;
+                    misc.ModeOfPayment = ServiceProvider;
+                    misc.Status = RPTStatus.PAYMENT_VERIFICATION;
+                    misc.PaymentDate = Convert.ToDateTime(TransactionDate);
+                    misc.RequestingParty = RequestingParty;
+
+                    misc.EncodedBy = loginUser.DisplayName;
+                    misc.EncodedDate = DateTime.Now;
+                    misc.RefNum = refNo;
+
+                    if (retrieveMisc != null)
+                    {
+                        misc.Remarks = DuplicateRecordRemarks;
+                    }
+
+                    misc.MiscType = MISCtypeUtil.OCCUPATIONAL_PERMIT;
+
+                    MISCDatabase.Insert(misc);
+                }
+
+                MISCGcashPaymayaLV.Items.Clear();
+                MessageBox.Show("All records have been successfully saved.");
+
+                MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
+            }
         }
     }
 }

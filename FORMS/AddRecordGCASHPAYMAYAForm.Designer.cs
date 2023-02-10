@@ -91,7 +91,7 @@
             this.FirstLVGcashPaymaya.HideSelection = false;
             this.FirstLVGcashPaymaya.Location = new System.Drawing.Point(12, 48);
             this.FirstLVGcashPaymaya.Name = "FirstLVGcashPaymaya";
-            this.FirstLVGcashPaymaya.Size = new System.Drawing.Size(1898, 923);
+            this.FirstLVGcashPaymaya.Size = new System.Drawing.Size(1898, 945);
             this.FirstLVGcashPaymaya.TabIndex = 0;
             this.FirstLVGcashPaymaya.UseCompatibleStateImageBehavior = false;
             this.FirstLVGcashPaymaya.View = System.Windows.Forms.View.Details;
@@ -454,7 +454,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1922, 742);
+            this.ClientSize = new System.Drawing.Size(1922, 1005);
             this.Controls.Add(this.checkSelectAll);
             this.Controls.Add(this.textTotalAmount);
             this.Controls.Add(this.label11);

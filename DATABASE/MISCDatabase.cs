@@ -8,6 +8,7 @@ using Dapper.Contrib.Extensions;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 
 namespace SampleRPT1
 {
@@ -64,10 +65,32 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<MiscelleneousOccuPermit>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking and OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
+                return conn.QuerySingleOrDefault<MiscelleneousOccuPermit>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
             }
         }
 
+        public static long Insert(MiscelleneousOccuPermit modelInstance)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                RPTUser loginUser = SecurityService.getLoginUser();
+                ////Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
+                //modelInstance.CreatedBy = loginUser.DisplayName;
+                //modelInstance.CreatedDate = DateTime.Now;
+                //modelInstance.LastUpdateBy = loginUser.DisplayName;
+                //modelInstance.LastUpdateDate = DateTime.Now;
 
+                //lilinisin yung bank.
+                //BeforeInsertOrUpdate(modelInstance);
+
+                //Insert record in Jo_RPT.
+                long result = conn.Insert<MiscelleneousOccuPermit>(modelInstance);
+
+                //Insert record in Jo_RPT_Audit.
+                //AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
+
+                return result;
+            }
+        }
     }
 }

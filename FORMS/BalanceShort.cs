@@ -16,6 +16,9 @@ namespace SampleRPT1.FORMS
     {
         long RptId;
         string RPTremarks;
+        decimal ComputedTotalAmountTransferred;
+        List<RealPropertyTax> RptList = new List<RealPropertyTax>();
+
         public BalanceShort()
         {
             InitializeComponent();
@@ -38,7 +41,6 @@ namespace SampleRPT1.FORMS
 
                 textTotalAmountDeposited.Text = Convert.ToDecimal(test).ToString();
             }
-
             textYearQuarter.Text = RetrieveRpt.YearQuarter;
         }
 

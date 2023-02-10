@@ -82,9 +82,7 @@ namespace SampleRPT1
 
             // Show content of list view
             RefreshListView();
-            ShowPicture();
-
-            
+            ShowPicture();            
         }
 
         public void Show()

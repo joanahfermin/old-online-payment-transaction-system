@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>71</ApplicationRevision>
+    <ApplicationRevision>72</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -296,12 +296,6 @@
     <Compile Include="FORMS\ReviewEmailForm.Designer.cs">
       <DependentUpon>ReviewEmailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\RPTgenerateRefNumWithPayment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FORMS\RPTgenerateRefNumWithPayment.Designer.cs">
-      <DependentUpon>RPTgenerateRefNumWithPayment.cs</DependentUpon>
-    </Compile>
     <Compile Include="FORMS\SendEmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -409,7 +403,7 @@
     <Compile Include="MODEL\RealPropertyTax.cs" />
     <Compile Include="DATABASE\RPTDatabase.cs" />
     <Compile Include="UTILITIES\LocationCodeUtil.cs" />
-    <Compile Include="UTILITIES\MISCtypeUtil.cs" />
+    <Compile Include="UTILITIES\MISCUtil.cs" />
     <Compile Include="UTILITIES\RPTAction.cs" />
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />
@@ -452,9 +446,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReviewEmailForm.resx">
       <DependentUpon>ReviewEmailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\RPTgenerateRefNumWithPayment.resx">
-      <DependentUpon>RPTgenerateRefNumWithPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\SendEmailForm.resx">
       <DependentUpon>SendEmailForm.cs</DependentUpon>

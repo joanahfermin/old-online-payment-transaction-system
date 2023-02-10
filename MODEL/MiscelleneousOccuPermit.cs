@@ -36,6 +36,6 @@ namespace SampleRPT1
         public string ReleasedBy { get; set; }
         public DateTime? ReleasedDate { get; set; }
 
-        public int isDeleted { get; set; } = 0;
+        public int DeletedRecord { get; set; } = 0;
     }
 }

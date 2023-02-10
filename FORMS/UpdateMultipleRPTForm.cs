@@ -95,7 +95,7 @@ namespace SampleRPT1
                 cboBankUsed.Text = rpt.Bank;
                 dtDateOfPayment.Value = rpt.PaymentDate.Value;
                 textRequestingParty.Text = rpt.RequestingParty;
-                textRemarks.Text = rpt.RPTremarks;
+                //textRemarks.Text = rpt.RPTremarks;
 
                 Clipboard.SetText(textTDN.Text);
             }

@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1
 {
-    internal class MISCtypeUtil
+    internal class MISCUtil
     {
         public const string OCCUPATIONAL_PERMIT = "OCCUPATIONAL PERMIT";
         public const string PTR = "PTR";
         public const string HEALTH_CERTIFICATE = "HEALTH CERTIFICATE";
         public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, PTR, HEALTH_CERTIFICATE };
+
+        //ACTIONS.
+        public const string VERIFY_PAYMENT = "VERIFY PAYMENT";
+        public const string VALIDATE_PAYMENT = "VALIDATE PAYMENT";
+        public const string TRANMITTED = "TRANSMITTED";
+        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANMITTED };
+
 
         //OCCUPATIONAL PERMIT STATUS.
         public const string FOR_PAYMENT_VERIFICATION = "FOR PAYMENT VERIFICATION";
@@ -36,8 +43,7 @@ namespace SampleRPT1
         public static List<string> MISC_OCCPERMIT_PROPERTY_NAMES = new List<string>
         { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "ModeOfPayment", "OPATrackingNum"};
 
-
-        static MISCtypeUtil()
+        static MISCUtil()
         {
             MISC_OCCPERMIT_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
             MISC_OCCPERMIT_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);

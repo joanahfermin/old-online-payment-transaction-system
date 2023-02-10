@@ -44,6 +44,11 @@
             this.textYearQuarter = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textRemarks = new System.Windows.Forms.TextBox();
+            this.rdCash = new System.Windows.Forms.RadioButton();
+            this.rdExcess = new System.Windows.Forms.RadioButton();
+            this.rdShort = new System.Windows.Forms.RadioButton();
+            this.rdMC = new System.Windows.Forms.RadioButton();
+            this.rdNone = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,7 +78,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(250, 403);
+            this.btnSave.Location = new System.Drawing.Point(250, 448);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(95, 23);
             this.btnSave.TabIndex = 3;
@@ -163,7 +168,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(83, 268);
+            this.label10.Location = new System.Drawing.Point(83, 264);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 28;
@@ -173,17 +178,74 @@
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemarks.Location = new System.Drawing.Point(144, 268);
+            this.textRemarks.Location = new System.Drawing.Point(144, 264);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(201, 105);
             this.textRemarks.TabIndex = 29;
             // 
+            // rdCash
+            // 
+            this.rdCash.AutoSize = true;
+            this.rdCash.Location = new System.Drawing.Point(142, 412);
+            this.rdCash.Name = "rdCash";
+            this.rdCash.Size = new System.Drawing.Size(54, 17);
+            this.rdCash.TabIndex = 30;
+            this.rdCash.Text = "CASH";
+            this.rdCash.UseVisualStyleBackColor = true;
+            // 
+            // rdExcess
+            // 
+            this.rdExcess.AutoSize = true;
+            this.rdExcess.Location = new System.Drawing.Point(211, 389);
+            this.rdExcess.Name = "rdExcess";
+            this.rdExcess.Size = new System.Drawing.Size(67, 17);
+            this.rdExcess.TabIndex = 31;
+            this.rdExcess.Text = "EXCESS";
+            this.rdExcess.UseVisualStyleBackColor = true;
+            // 
+            // rdShort
+            // 
+            this.rdShort.AutoSize = true;
+            this.rdShort.Location = new System.Drawing.Point(284, 389);
+            this.rdShort.Name = "rdShort";
+            this.rdShort.Size = new System.Drawing.Size(63, 17);
+            this.rdShort.TabIndex = 31;
+            this.rdShort.Text = "SHORT";
+            this.rdShort.UseVisualStyleBackColor = true;
+            // 
+            // rdMC
+            // 
+            this.rdMC.AutoSize = true;
+            this.rdMC.Location = new System.Drawing.Point(211, 412);
+            this.rdMC.Name = "rdMC";
+            this.rdMC.Size = new System.Drawing.Size(61, 17);
+            this.rdMC.TabIndex = 31;
+            this.rdMC.Text = "CHECK";
+            this.rdMC.UseVisualStyleBackColor = true;
+            // 
+            // rdNone
+            // 
+            this.rdNone.AutoSize = true;
+            this.rdNone.Checked = true;
+            this.rdNone.Location = new System.Drawing.Point(142, 389);
+            this.rdNone.Name = "rdNone";
+            this.rdNone.Size = new System.Drawing.Size(56, 17);
+            this.rdNone.TabIndex = 31;
+            this.rdNone.TabStop = true;
+            this.rdNone.Text = "NONE";
+            this.rdNone.UseVisualStyleBackColor = true;
+            // 
             // BalanceShort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 452);
+            this.ClientSize = new System.Drawing.Size(421, 491);
+            this.Controls.Add(this.rdNone);
+            this.Controls.Add(this.rdMC);
+            this.Controls.Add(this.rdShort);
+            this.Controls.Add(this.rdExcess);
+            this.Controls.Add(this.rdCash);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textRemarks);
             this.Controls.Add(this.textYearQuarter);
@@ -199,6 +261,7 @@
             this.Controls.Add(this.textTotalAmountDeposited);
             this.Name = "BalanceShort";
             this.Text = "BalanceShort";
+            this.Load += new System.EventHandler(this.BalanceShort_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -221,5 +284,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textRemarks;
+        private System.Windows.Forms.RadioButton rdNone;
+        private System.Windows.Forms.RadioButton rdMC;
+        private System.Windows.Forms.RadioButton rdShort;
+        private System.Windows.Forms.RadioButton rdExcess;
+        private System.Windows.Forms.RadioButton rdCash;
     }
 }

@@ -92,5 +92,32 @@ namespace SampleRPT1
                 return result;
             }
         }
+
+        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannel(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(PaymentDate as DATE) >= CAST(@PaymentDateFrom as DATE) " +
+                    "AND CAST(PaymentDate as DATE) <= CAST(@PaymentDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                "ORDER BY PaymentDate asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new
+                {
+                    PaymentDateFrom = paymentDateFrom,
+                    PaymentDateTo = paymentDateTo,
+                    Status = Status,
+                    BankList = BankList
+                }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousOccuPermit> SelectByStatus(string Status)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status and DeletedRecord != 1 ORDER BY EncodedDate ASC";
+                return conn.Query<MiscelleneousOccuPermit>(query, new { Status = Status }).ToList();
+            }
+        }
+
     }
 }

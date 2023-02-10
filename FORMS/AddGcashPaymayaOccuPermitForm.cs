@@ -32,6 +32,7 @@ namespace SampleRPT1.FORMS
         private void MISCGcashPaymayaLV_KeyDown(object sender, KeyEventArgs e)
         {
             List<int> IgnoredColumnList = new List<int>();
+            //IgnoredColumnList.Add(5);
             IgnoredColumnList.Add(6);
             IgnoredColumnList.Add(8);
             IgnoredColumnList.Add(9);
@@ -219,7 +220,7 @@ namespace SampleRPT1.FORMS
                     string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
                     string OPnumber = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
                     string TaxpayersName = MISCGcashPaymayaLV.Items[i].SubItems[3].Text;
-                    string RequestingParty = MISCGcashPaymayaLV.Items[i].SubItems[4].Text;
+                    //string RequestingParty = MISCGcashPaymayaLV.Items[i].SubItems[4].Text;
                     decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
                     string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
 
@@ -235,7 +236,7 @@ namespace SampleRPT1.FORMS
                     misc.ModeOfPayment = ServiceProvider;
                     misc.Status = RPTStatus.PAYMENT_VERIFICATION;
                     misc.PaymentDate = Convert.ToDateTime(TransactionDate);
-                    misc.RequestingParty = RequestingParty;
+                    //misc.RequestingParty = RequestingParty;
 
                     misc.EncodedBy = loginUser.DisplayName;
                     misc.EncodedDate = DateTime.Now;
@@ -246,7 +247,7 @@ namespace SampleRPT1.FORMS
                         misc.Remarks = DuplicateRecordRemarks;
                     }
 
-                    misc.MiscType = MISCtypeUtil.OCCUPATIONAL_PERMIT;
+                    misc.MiscType = MISCUtil.OCCUPATIONAL_PERMIT;
 
                     MISCDatabase.Insert(misc);
                 }

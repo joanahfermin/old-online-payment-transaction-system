@@ -64,7 +64,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeMiscType()
         {
-            foreach (string miscType in MISCtypeUtil.ALL_MISC_TYPE)
+            foreach (string miscType in MISCUtil.ALL_MISC_TYPE)
             {
                 cboMiscType.Items.Add(miscType);
             }
@@ -82,7 +82,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeStatus()
         {
-            foreach (string status in MISCtypeUtil.ALL_OCCU_PERMIT_STATUS)
+            foreach (string status in MISCUtil.ALL_OCCU_PERMIT_STATUS)
             {
                 cboStatus.Items.Add(status);
             }

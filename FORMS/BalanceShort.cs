@@ -16,7 +16,7 @@ namespace SampleRPT1.FORMS
     {
         long RptId;
         string RPTremarks;
-        decimal ComputedTotalAmountTransferred;
+
         List<RealPropertyTax> RptList = new List<RealPropertyTax>();
 
         public BalanceShort()
@@ -42,6 +42,7 @@ namespace SampleRPT1.FORMS
                 textTotalAmountDeposited.Text = Convert.ToDecimal(test).ToString();
             }
             textYearQuarter.Text = RetrieveRpt.YearQuarter;
+            textRemarks.Text = RetrieveRpt.RPTremarks;
         }
 
         public void InitializeBank()
@@ -103,7 +104,26 @@ namespace SampleRPT1.FORMS
 
                 RetrieveRpt.Status = RPTStatus.PAYMENT_VERIFICATION;
 
-                RetrieveRpt.RPTremarks = RPTremarks + " " + RetrieveRpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString() + " using " + RetrieveRpt.Bank + ". ";
+                string reason = "";
+
+                if (rdCash.Checked)
+                {
+                    reason = rdCash.Text;
+                }
+                if (rdExcess.Checked)
+                {
+                    reason = rdExcess.Text;
+                }
+                if (rdShort.Checked)
+                {
+                    reason = rdShort.Text;
+                }
+                if (rdMC.Checked)
+                {
+                    reason = rdMC.Text;
+                }
+
+                RetrieveRpt.RPTremarks = textRemarks.Text + " " + reason + ": " + " Added payment of " + TotalAmountTransferredUser + " on " + dtDateOfPayment.Value.Date.ToShortDateString() + " using " + RetrieveRpt.Bank + ". ";
 
                 MessageBox.Show("Payment successfully saved.");
 
@@ -229,6 +249,11 @@ namespace SampleRPT1.FORMS
                 labelBank.Visible = true;
                 cboBankUsed.Visible = true;
             }
+        }
+
+        private void BalanceShort_Load(object sender, EventArgs e)
+        {
+            rdNone.Select();
         }
     }
 }

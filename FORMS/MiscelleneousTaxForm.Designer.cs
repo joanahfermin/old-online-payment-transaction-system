@@ -55,6 +55,8 @@
             this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
+            this.labelPaymentChannel = new System.Windows.Forms.Label();
+            this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -174,6 +176,7 @@
             this.dtDate.Size = new System.Drawing.Size(95, 20);
             this.dtDate.TabIndex = 3;
             this.dtDate.Value = new System.DateTime(2022, 8, 25, 0, 0, 0, 0);
+            this.dtDate.ValueChanged += new System.EventHandler(this.btnSearchDateStatus_Click);
             // 
             // cboStatus
             // 
@@ -260,7 +263,7 @@
             // 
             // btnAddGcashPaymaya
             // 
-            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(1386, 49);
+            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(856, 103);
             this.btnAddGcashPaymaya.Name = "btnAddGcashPaymaya";
             this.btnAddGcashPaymaya.Size = new System.Drawing.Size(134, 23);
             this.btnAddGcashPaymaya.TabIndex = 58;
@@ -325,11 +328,30 @@
             this.textTotalAmount2Pay.TabIndex = 61;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // labelPaymentChannel
+            // 
+            this.labelPaymentChannel.AutoSize = true;
+            this.labelPaymentChannel.Location = new System.Drawing.Point(1387, 31);
+            this.labelPaymentChannel.Name = "labelPaymentChannel";
+            this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
+            this.labelPaymentChannel.TabIndex = 67;
+            this.labelPaymentChannel.Text = "Payment Channel:";
+            // 
+            // cboPaymentChannel
+            // 
+            this.cboPaymentChannel.FormattingEnabled = true;
+            this.cboPaymentChannel.Location = new System.Drawing.Point(1390, 49);
+            this.cboPaymentChannel.Name = "cboPaymentChannel";
+            this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
+            this.cboPaymentChannel.TabIndex = 66;
+            // 
             // MiscelleneousTaxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1919, 1014);
+            this.Controls.Add(this.labelPaymentChannel);
+            this.Controls.Add(this.cboPaymentChannel);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label11);
@@ -385,5 +407,7 @@
         private System.Windows.Forms.TextBox textTotalAmountTransferred;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textTotalAmount2Pay;
+        private System.Windows.Forms.Label labelPaymentChannel;
+        private System.Windows.Forms.ComboBox cboPaymentChannel;
     }
 }

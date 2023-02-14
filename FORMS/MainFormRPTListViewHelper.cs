@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace SampleRPT1.FORMS
 {
-    class MainFormListViewHelper
+    class MainFormRPTListViewHelper
     {
         private ListView RPTInfoLV;
         private ListView VerAndValLV;
 
-        public MainFormListViewHelper(ListView RPTInfoLV, ListView VerAndValLV)
+        public MainFormRPTListViewHelper(ListView RPTInfoLV, ListView VerAndValLV)
         {
             this.RPTInfoLV = RPTInfoLV;
             this.VerAndValLV = VerAndValLV;
@@ -187,7 +187,6 @@ namespace SampleRPT1.FORMS
             }
             return SelectedRPTByStatus;
         }
-
 
         /// <summary>
         /// Retrieve from the database all the selected items in the list view, but with the same Status as ExpectedStatus.

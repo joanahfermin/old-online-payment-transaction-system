@@ -34,6 +34,11 @@ namespace SampleRPT1
 
             ComputeAllPayment();
             InitializeQuarter();
+
+            cboBankUsed.Text = rptList[0].Bank;
+            dtDateOfPayment.Value = rptList[0].PaymentDate.Value;
+            textRequestingParty.Text = rptList[0].RequestingParty;
+            textTotalTransferredAmount.Text = rptList[0].TotalAmountTransferred.ToString("N2");
         }
 
         public void InitializeBank()
@@ -57,7 +62,7 @@ namespace SampleRPT1
 
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
-            ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, lvMultipleRecord, new List<string>
+            ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, labelTotalAmountDep, new List<string>
             { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "TotalAmountTransferred", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
         }
 
@@ -65,7 +70,7 @@ namespace SampleRPT1
         {
             decimal total = 0;
 
-            foreach (ListViewItem item in lvMultipleRecord.Items)
+            foreach (ListViewItem item in labelTotalAmountDep.Items)
             {
                 total += decimal.Parse(item.SubItems[3].Text, System.Globalization.NumberStyles.Currency);
             }
@@ -79,31 +84,31 @@ namespace SampleRPT1
 
         private void lvMultipleRecord_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lvMultipleRecord.SelectedItems.Count > 0)
+            if (labelTotalAmountDep.SelectedItems.Count > 0)
             {
-                string RptId = lvMultipleRecord.SelectedItems[0].Text;
-                RptiD = Convert.ToInt32(RptId);
+                var selectedRecord = labelTotalAmountDep.SelectedItems[0];
 
-                RealPropertyTax rpt = RPTDatabase.Get(RptiD);
+                textTDN.Text = selectedRecord.SubItems[1].Text;
+                textTPName.Text = selectedRecord.SubItems[2].Text;
+                textAmountToBePay.Text = selectedRecord.SubItems[3].Text;
+                textYearQuarter.Text = selectedRecord.SubItems[5].Text;
+                cboQuarter.Text = selectedRecord.SubItems[6].Text;
+                textRemarks.Text = selectedRecord.SubItems[10].Text;
 
-                textAmountToBePay.Text = Convert.ToDecimal(rpt.AmountToPay).ToString();
-                textTotalTransferredAmount.Text = Convert.ToDecimal(rpt.TotalAmountTransferred).ToString();
-                textTDN.Text = rpt.TaxDec.ToString();
-                textTPName.Text = rpt.TaxPayerName;
-                textYearQuarter.Text = rpt.YearQuarter;
-                cboQuarter.SelectedIndex = 3;
-                cboBankUsed.Text = rpt.Bank;
-                dtDateOfPayment.Value = rpt.PaymentDate.Value;
-                textRequestingParty.Text = rpt.RequestingParty;
-                //textRemarks.Text = rpt.RPTremarks;
-
-                Clipboard.SetText(textTDN.Text);
+                if (labelTotalAmountDep.SelectedItems[0].Index > 0)
+                {
+                    textTotalTransferredAmount.Enabled = false;
+                }
+                else
+                {
+                    textTotalTransferredAmount.Enabled = true;
+                }
             }
         }
 
         private void RefreshListview()
         {
-            lvMultipleRecord.Items.Clear();
+            labelTotalAmountDep.Items.Clear();
 
             //RealPropertyTax rpt = RPTDatabase.Get(RptiD);
             //string refNum = rpt.RefNum.ToString();
@@ -130,13 +135,13 @@ namespace SampleRPT1
 
             decimal TotalAmount2Pay = 0;
 
-            foreach (ListViewItem item in lvMultipleRecord.Items)
+            foreach (ListViewItem item in labelTotalAmountDep.Items)
             {
                 string Amount2Pay = item.SubItems[3].Text;
                 TotalAmount2Pay = TotalAmount2Pay + Convert.ToDecimal(Amount2Pay);
             }
 
-            foreach (ListViewItem item in lvMultipleRecord.Items)
+            foreach (ListViewItem item in labelTotalAmountDep.Items)
             {
                 long RPTid = Convert.ToInt64(item.SubItems[0].Text);
 
@@ -323,9 +328,9 @@ namespace SampleRPT1
 
         private void UpdateMultipleRPTForm_Load(object sender, EventArgs e)
         {
-            if (lvMultipleRecord.Items.Count > 0)
+            if (labelTotalAmountDep.Items.Count > 0)
             {
-                lvMultipleRecord.Items[0].Selected = true;
+                labelTotalAmountDep.Items[0].Selected = true;
             }
         }
 
@@ -345,9 +350,9 @@ namespace SampleRPT1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (lvMultipleRecord.SelectedItems.Count > 0)
+            if (labelTotalAmountDep.SelectedItems.Count > 0)
             {
-                var selectedRecord = lvMultipleRecord.SelectedItems[0];
+                var selectedRecord = labelTotalAmountDep.SelectedItems[0];
 
                 selectedRecord.SubItems[1].Text = textTDN.Text;
                 selectedRecord.SubItems[2].Text = textTPName.Text;

@@ -19,6 +19,10 @@ namespace SampleRPT1
         private const String SEARCH_BY_DATE_STATUS = "SEARCH_BY_DATE_STATUS";
         private String lastSearchAction = "";
 
+        private RPTUser loginUser = SecurityService.getLoginUser();
+
+        MainFormMISCListViewHelper mainFormListViewHelper;
+
         public MiscelleneousTaxForm(Form parentForm)
         {
             InitializeComponent();
@@ -34,6 +38,8 @@ namespace SampleRPT1
             ControlBox = false;
             dtDate.Value = DateTime.Now;
             dtDateTo.Value = DateTime.Now;
+
+            mainFormListViewHelper = new MainFormMISCListViewHelper(MISCinfoLV);
         }
 
         public void InitializeStatus()
@@ -199,9 +205,71 @@ namespace SampleRPT1
             }
         }
 
+        private void VerifyPayment()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
+
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousOccuPermit misc in SelectedMISCList)
+                {
+                    misc.VerifiedBy = loginUser.DisplayName;
+                    misc.VerifiedDate = DateTime.Now;
+                    misc.Status = MISCUtil.FOR_PAYMENT_VALIDATION;
+
+                    if (misc.TransferredAmount >= misc.AmountToBePaid)
+                    {
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
+                }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+                }
+
+                cboStatus.Text = MISCUtil.FOR_PAYMENT_VALIDATION;
+                RefreshLV();
+            }
+        }
+
+        private void ValidatePayment()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
+
+                foreach (var misc in SelectedMISCList)
+                {
+                    misc.ValidatedBy = loginUser.DisplayName;
+                    misc.ValidatedDate = DateTime.Now;
+                    misc.Status = MISCUtil.FOR_TRANSMITTAL;
+
+                    MISCDatabase.Update(misc);
+                }
+                MessageBox.Show("Record/s successfully Validated.");
+                RefreshLV();
+            }
+        }
+
         private void btnExecute_Click(object sender, EventArgs e)
         {
-
+            if (cboAction.Text == MISCUtil.VERIFY_PAYMENT)
+            {
+                VerifyPayment();
+            }
+            if (cboAction.Text == MISCUtil.VALIDATE_PAYMENT)
+            {
+                ValidatePayment();
+            }
         }
 
         private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -265,8 +333,8 @@ namespace SampleRPT1
             List<MiscelleneousOccuPermit> miscList = new List<MiscelleneousOccuPermit>();
 
             string Status = cboStatus.Text;
-            DateTime paymentDateFrom = dtDate.Value;
-            DateTime paymentDateTo = dtDateTo.Value;
+            DateTime DateFrom = dtDate.Value;
+            DateTime DateTo = dtDateTo.Value;
             string Action = cboAction.Text;
             //string EncodedBy = cboEncodedBy.Text;
             //string ValidatedBy = cboValidatedBy.Text;
@@ -275,9 +343,32 @@ namespace SampleRPT1
             if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
             {
                 List<string> BankList = getBankList();
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannel(paymentDateFrom, paymentDateTo, Status, BankList);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateFrom, DateTo, Status, BankList);
             }
+
+            else if (Status == MISCUtil.FOR_PAYMENT_VALIDATION && Action == MISCUtil.VALIDATE_PAYMENT)
+            {
+                List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateFrom, DateTo, Status, BankList);
+            }
+
+            else if (Status == MISCUtil.FOR_TRANSMITTAL)
+            {
+                List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndForTransmittal(DateFrom, DateTo, Status);
+            }
+
             return miscList;
+        }
+
+        private void cboPaymentChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshLV();
+        }
+
+        private void cboStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshLV();
         }
     }
 }

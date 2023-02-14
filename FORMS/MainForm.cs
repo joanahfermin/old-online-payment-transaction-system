@@ -30,12 +30,12 @@ namespace SampleRPT1
 
         private Timer AutoRefreshListViewTimer;
 
-        MainFormListViewHelper mainFormListViewHelper;
+        MainFormRPTListViewHelper mainFormListViewHelper;
         public MainForm(Form parentForm)
         {
             InitializeComponent();
 
-            mainFormListViewHelper = new MainFormListViewHelper(RPTInfoLV, VerAndValLV);
+            mainFormListViewHelper = new MainFormRPTListViewHelper(RPTInfoLV, VerAndValLV);
 
             // Set instance and mdi related properties
             INSTANCE = this;

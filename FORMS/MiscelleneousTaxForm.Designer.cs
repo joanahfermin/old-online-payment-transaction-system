@@ -185,6 +185,7 @@
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(181, 21);
             this.cboStatus.TabIndex = 5;
+            this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             // 
             // dtDateTo
             // 
@@ -344,6 +345,7 @@
             this.cboPaymentChannel.Name = "cboPaymentChannel";
             this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
             this.cboPaymentChannel.TabIndex = 66;
+            this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
             // 
             // MiscelleneousTaxForm
             // 

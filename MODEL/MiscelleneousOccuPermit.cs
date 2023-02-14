@@ -35,6 +35,8 @@ namespace SampleRPT1
         public DateTime? EncodedDate { get; set; }
         public string ReleasedBy { get; set; }
         public DateTime? ReleasedDate { get; set; }
+        public string LastUpdateBy { get; set; }
+        public DateTime? LastUpdateDate { get; set; }
 
         public int DeletedRecord { get; set; } = 0;
     }

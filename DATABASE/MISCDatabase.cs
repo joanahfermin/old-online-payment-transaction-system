@@ -93,7 +93,27 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannel(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
+        /// <summary>
+        /// Updates entire row in the database. 
+        /// </summary>
+        public static bool Update(MiscelleneousOccuPermit modelInstance)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
+
+                //BeforeInsertOrUpdate(modelInstance);
+
+                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+
+                //AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
+                return result;
+            }
+        }
+
+
+        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
@@ -110,6 +130,39 @@ namespace SampleRPT1
             }
         }
 
+        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime verifiedDateFrom, DateTime verifiedDateTo, string Status, List<string> BankList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(VerifiedDate as DATE) >= CAST(@VerifiedDateFrom as DATE) " +
+                    "AND CAST(VerifiedDate as DATE) <= CAST(@VerifiedDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                "ORDER BY VerifiedDate asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new
+                {
+                    VerifiedDateFrom = verifiedDateFrom,
+                    VerifiedDateTo = verifiedDateTo,
+                    Status = Status,
+                    BankList = BankList
+                }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(ValidatedDate as DATE) >= CAST(@ValidatedDateFrom as DATE) " +
+                    "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                "ORDER BY ValidateDate asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new
+                {
+                    ValidatedDateFrom = validatedDateFrom,
+                    ValidatedDateTo = validatedDateTo,
+                    Status = Status,
+                }).ToList();
+            }
+        }
+
         public static List<MiscelleneousOccuPermit> SelectByStatus(string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -118,6 +171,5 @@ namespace SampleRPT1
                 return conn.Query<MiscelleneousOccuPermit>(query, new { Status = Status }).ToList();
             }
         }
-
     }
 }

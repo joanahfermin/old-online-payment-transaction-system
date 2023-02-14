@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateMultipleRPTForm));
-            this.lvMultipleRecord = new System.Windows.Forms.ListView();
+            this.labelTotalAmountDep = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxDec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxpayerName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,6 +58,7 @@
             this.textYearQuarter = new System.Windows.Forms.TextBox();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textRemarks = new System.Windows.Forms.TextBox();
             this.textAmountToBePay = new System.Windows.Forms.TextBox();
@@ -71,15 +72,14 @@
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lvMultipleRecord
+            // labelTotalAmountDep
             // 
-            this.lvMultipleRecord.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.labelTotalAmountDep.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.taxDec,
             this.taxpayerName,
@@ -91,16 +91,16 @@
             this.paymentDate,
             this.email,
             this.remarks});
-            this.lvMultipleRecord.FullRowSelect = true;
-            this.lvMultipleRecord.GridLines = true;
-            this.lvMultipleRecord.HideSelection = false;
-            this.lvMultipleRecord.Location = new System.Drawing.Point(454, 47);
-            this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(1381, 518);
-            this.lvMultipleRecord.TabIndex = 1;
-            this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
-            this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
-            this.lvMultipleRecord.SelectedIndexChanged += new System.EventHandler(this.lvMultipleRecord_SelectedIndexChanged);
+            this.labelTotalAmountDep.FullRowSelect = true;
+            this.labelTotalAmountDep.GridLines = true;
+            this.labelTotalAmountDep.HideSelection = false;
+            this.labelTotalAmountDep.Location = new System.Drawing.Point(454, 47);
+            this.labelTotalAmountDep.Name = "labelTotalAmountDep";
+            this.labelTotalAmountDep.Size = new System.Drawing.Size(1381, 518);
+            this.labelTotalAmountDep.TabIndex = 1;
+            this.labelTotalAmountDep.UseCompatibleStateImageBehavior = false;
+            this.labelTotalAmountDep.View = System.Windows.Forms.View.Details;
+            this.labelTotalAmountDep.SelectedIndexChanged += new System.EventHandler(this.lvMultipleRecord_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -326,6 +326,16 @@
             this.panel1.Size = new System.Drawing.Size(425, 242);
             this.panel1.TabIndex = 209;
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(140, 204);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(126, 23);
+            this.btnUpdate.TabIndex = 217;
+            this.btnUpdate.Text = "Update/Save";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -463,16 +473,6 @@
             this.panel2.Size = new System.Drawing.Size(426, 257);
             this.panel2.TabIndex = 220;
             // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(140, 204);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(126, 23);
-            this.btnUpdate.TabIndex = 217;
-            this.btnUpdate.Text = "Update/Save";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
             // UpdateMultipleRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,7 +483,7 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lvMultipleRecord);
+            this.Controls.Add(this.labelTotalAmountDep);
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label8);
             this.Name = "UpdateMultipleRPTForm";
@@ -501,7 +501,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView lvMultipleRecord;
+        private System.Windows.Forms.ListView labelTotalAmountDep;
         private System.Windows.Forms.ColumnHeader taxDec;
         private System.Windows.Forms.ColumnHeader taxpayerName;
         private System.Windows.Forms.ColumnHeader Amount2Pay;

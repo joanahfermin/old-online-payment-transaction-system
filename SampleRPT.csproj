@@ -277,7 +277,8 @@
     <Compile Include="FORMS\EmailTemplateForm.Designer.cs">
       <DependentUpon>EmailTemplateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\MainFormListViewHelper.cs" />
+    <Compile Include="FORMS\MainFormMISCListViewHelper.cs" />
+    <Compile Include="FORMS\MainFormRPTListViewHelper.cs" />
     <Compile Include="FORMS\ReleasingForm.cs">
       <SubType>Form</SubType>
     </Compile>

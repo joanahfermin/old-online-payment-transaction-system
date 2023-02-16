@@ -260,6 +260,26 @@ namespace SampleRPT1
             }
         }
 
+        private void TransmitPayment()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
+
+                foreach (var misc in SelectedMISCList)
+                {
+                    misc.TransmittedBy = loginUser.DisplayName;
+                    misc.TransmittedDate = DateTime.Now;
+                    misc.Status = MISCUtil.TRANSMITTED;
+
+                    MISCDatabase.Update(misc);
+                }
+
+                MessageBox.Show("Record/s successfully transmitted.");
+                RefreshLV();
+            }
+        }
+
         private void btnExecute_Click(object sender, EventArgs e)
         {
             if (cboAction.Text == MISCUtil.VERIFY_PAYMENT)
@@ -270,11 +290,15 @@ namespace SampleRPT1
             {
                 ValidatePayment();
             }
+            if (cboAction.Text == MISCUtil.TRANSMIT)
+            {
+                TransmitPayment();
+            }
         }
 
         private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboAction.Text == RPTAction.VERIFY_PAYMENT)
+            if (cboAction.Text == RPTAction.VERIFY_PAYMENT && cboAction.Text == RPTAction.VALIDATE_PAYMENT)
             {
                 //PAYMENT CHANNEL COMBOBOX AND LABEL.
                 cboPaymentChannel.Visible = true;
@@ -356,6 +380,12 @@ namespace SampleRPT1
             {
                 List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndForTransmittal(DateFrom, DateTo, Status);
+            }
+
+            else if (Status == MISCUtil.TRANSMITTED)
+            {
+                //List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndTransmitted(DateFrom, DateTo, Status);
             }
 
             return miscList;

@@ -165,8 +165,15 @@ namespace SampleRPT1
                 //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
                 if (FirstRecord)
                 {
-                    rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
-                    rpt.ExcessShortAmount = rpt.TotalAmountTransferred - TotalAmount2Pay;
+                    if (RPTGcashPaymaya.isElectronicBankName(rpt.Bank) && rpt.TotalAmountTransferred == 0)
+                    {
+                        rpt.ExcessShortAmount = 0;
+                    }
+                    else
+                    {
+                        rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
+                        rpt.ExcessShortAmount = rpt.TotalAmountTransferred - TotalAmount2Pay;
+                    }
                 }
 
                 //first record: amount to pay = 50.
@@ -179,7 +186,14 @@ namespace SampleRPT1
                 }
                 else
                 {
-                    rpt.AmountTransferred = TotalAmountDeposited;
+                    if (RPTGcashPaymaya.isElectronicBankName(rpt.Bank))
+                    {
+                        rpt.AmountTransferred = Convert.ToDecimal(rpt.AmountToPay);
+                    }
+                    else
+                    {
+                        rpt.AmountTransferred = TotalAmountDeposited;
+                    }
                     TotalAmountDeposited = 0;
                 }
 

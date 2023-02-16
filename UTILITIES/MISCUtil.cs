@@ -16,20 +16,21 @@ namespace SampleRPT1
         //ACTIONS.
         public const string VERIFY_PAYMENT = "VERIFY PAYMENT";
         public const string VALIDATE_PAYMENT = "VALIDATE PAYMENT";
-        public const string TRANMITTED = "TRANSMITTED";
-        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANMITTED };
+        public const string TRANSMIT = "TRANSMIT";
+        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT };
 
 
         //OCCUPATIONAL PERMIT STATUS.
         public const string FOR_PAYMENT_VERIFICATION = "FOR PAYMENT VERIFICATION";
         public const string FOR_PAYMENT_VALIDATION = "FOR PAYMENT VALIDATION";
         public const string FOR_TRANSMITTAL = "FOR TRANSMITTAL";
-        public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL };
+        public const string TRANSMITTED = "TRANSMITTED";
+        public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, TRANSMITTED };
 
         //SIMILAR COLUMNS IN MISCELLENEOUS
         public static List<string> MISC_COMMON_COLUMN_NAMES = new List<string>
         { "Amount To Pay", "Transferred Amount", "ExcessShort", "Date of Payment", "Status", "Requesting Party", "Remarks", "Verified By", 
-            "Verified Date", "LBP Date", "Validated By", "Validated Date", "Reference Number", "EncodedBy", "EncodedDate", "Released By", "Released Date" };
+            "Verified Date", "LBP Date", "Validated By", "Validated Date", "Reference Number", "Transmitted By", "Transmitted Date", "Encoded By", "Encoded Date", "Released By", "Released Date" };
 
         //COLUMN NAMES OF THE OCCUPATIONAL PERMIT
         public static List<string> MISC_OCCPERMIT_COLUMN_NAMES = new List<string> 
@@ -37,7 +38,7 @@ namespace SampleRPT1
 
         public static List<string> MISC_COMMON_PROPERTY_NAMES = new List<string>
         { "AmountToBePaid", "TransferredAmount", "ExcessShort", "PaymentDate", "Status", "RequestingParty", "Remarks", "VerifiedBy", 
-            "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate" };
+            "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "TransmittedBy", "TransmittedDate", "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate" };
 
         //COLUMN NAMES OF THE OCCUPATIONAL PERMIT
         public static List<string> MISC_OCCPERMIT_PROPERTY_NAMES = new List<string>

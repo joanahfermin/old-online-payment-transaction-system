@@ -96,18 +96,18 @@ namespace SampleRPT1.UTILITIES
         }
 
         /// <summary>
-        /// Validate if a given textbox contains a number
+        /// Validate if a given year is in a correct format.
         /// </summary>
-        public static void ValidateNumber(ErrorProvider ep, TextBox tb, string propertyName)
+        public static void ValidateYearFormat(ErrorProvider ep, TextBox tb, string propertyName)
         {
             if (hasExistingError(ep, tb))
             {
                 return;
             }
-            long temp;
-            if (!long.TryParse(tb.Text.Trim(), out temp))
+            Regex re = new Regex("^[2-9]{4}$");
+            if (!re.IsMatch(tb.Text.Trim()))
             {
-                ep.SetError(tb, $"{propertyName} must be numeric.");
+                ep.SetError(tb, $"{propertyName} is not in correct format.");
             }
         }
 

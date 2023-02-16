@@ -44,6 +44,14 @@ namespace SampleRPT1
             }
         }
 
+        public static int EmailSendingCount()
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.ExecuteScalar<int>($"SELECT count(*) FROM Jo_RPT rpt WHERE Status = 'FOR O.R UPLOAD' AND exists(select 1 from Jo_RPT_Pictures pic where rpt.RptID = pic.RptId and pic.DocumentType = 'Receipt') and SendReceiptReady = 1 and DeletedRecord != 1");
+            }
+        }
+
         /// <summary>
         /// Returns all records of ASSESSMENT PRINTED which has attachments to it. 
         /// </summary>
@@ -548,17 +556,17 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER: for o.r pickup status.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT /*TOP {GlobalConstants.LISTVIEW_MAX_ROWS}*/ * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
-                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                String query = $"SELECT * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@validatedDateFrom as DATE) " +
+                    "AND CAST(ValidatedDate as DATE) <= CAST(@validatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                     "ORDER BY ValidatedDate ASC";
                 return conn.Query<RealPropertyTax>(query, new
                 {
-                    EncodedDateFrom = encodedDateFrom,
-                    EncodedDateTo = encodedDateTo,
+                    ValidatedDateFrom = validatedDateFrom,
+                    ValidatedDateTo = validatedDateTo,
                     Status = Status,
                     //UploadedDate = UploadedDate
                 }).ToList();

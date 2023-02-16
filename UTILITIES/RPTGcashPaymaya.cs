@@ -36,8 +36,8 @@ namespace SampleRPT1
 
         public static bool isElectronicBankName(String BankName)
         {
-            if (BankName != RPTGcashPaymaya.GCASH && BankName != RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
-                    && BankName != RPTGcashPaymaya.PAYMAYA_EWALLET && BankName != RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
+            if (BankName == RPTGcashPaymaya.GCASH || BankName == RPTGcashPaymaya.PAYMAYA_VISTAMASTERCARD
+                    || BankName == RPTGcashPaymaya.PAYMAYA_EWALLET || BankName == RPTGcashPaymaya.PAYGATE_ONLINE_BANKING)
             {
                 return true;
             }

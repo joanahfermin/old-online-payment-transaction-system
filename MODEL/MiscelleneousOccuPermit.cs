@@ -33,6 +33,8 @@ namespace SampleRPT1
         public string RefNum { get; set; }
         public string EncodedBy { get; set; }
         public DateTime? EncodedDate { get; set; }
+        public string TransmittedBy { get; set; }
+        public DateTime? TransmittedDate { get; set; }
         public string ReleasedBy { get; set; }
         public DateTime? ReleasedDate { get; set; }
         public string LastUpdateBy { get; set; }

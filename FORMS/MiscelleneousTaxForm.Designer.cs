@@ -154,6 +154,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.labelPaymentChannel);
+            this.panel2.Controls.Add(this.cboPaymentChannel);
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
             this.panel2.Controls.Add(this.dtDateTo);
@@ -163,7 +165,7 @@
             this.panel2.Controls.Add(this.label13);
             this.panel2.Location = new System.Drawing.Point(567, 16);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(528, 75);
+            this.panel2.Size = new System.Drawing.Size(760, 75);
             this.panel2.TabIndex = 54;
             // 
             // dtDate
@@ -236,7 +238,7 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1295, 49);
+            this.btnExecute.Location = new System.Drawing.Point(1528, 47);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 57;
@@ -247,7 +249,7 @@
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1110, 51);
+            this.cboAction.Location = new System.Drawing.Point(1343, 49);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(179, 21);
             this.cboAction.TabIndex = 56;
@@ -256,7 +258,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1107, 32);
+            this.label6.Location = new System.Drawing.Point(1340, 30);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 46;
@@ -332,7 +334,7 @@
             // labelPaymentChannel
             // 
             this.labelPaymentChannel.AutoSize = true;
-            this.labelPaymentChannel.Location = new System.Drawing.Point(1387, 31);
+            this.labelPaymentChannel.Location = new System.Drawing.Point(537, 14);
             this.labelPaymentChannel.Name = "labelPaymentChannel";
             this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
             this.labelPaymentChannel.TabIndex = 67;
@@ -341,7 +343,7 @@
             // cboPaymentChannel
             // 
             this.cboPaymentChannel.FormattingEnabled = true;
-            this.cboPaymentChannel.Location = new System.Drawing.Point(1390, 49);
+            this.cboPaymentChannel.Location = new System.Drawing.Point(540, 32);
             this.cboPaymentChannel.Name = "cboPaymentChannel";
             this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
             this.cboPaymentChannel.TabIndex = 66;
@@ -352,8 +354,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1919, 1014);
-            this.Controls.Add(this.labelPaymentChannel);
-            this.Controls.Add(this.cboPaymentChannel);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label11);

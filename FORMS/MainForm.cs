@@ -205,6 +205,8 @@ namespace SampleRPT1
                     RefreshListView();
                 }
             }
+            int email_sending_count = RPTDatabase.EmailSendingCount();
+            textEmailSender.Text = email_sending_count.ToString();
         }
 
         public void SearchByTaxDec(String taxDec)

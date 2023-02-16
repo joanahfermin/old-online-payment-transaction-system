@@ -83,8 +83,11 @@
             this.btnUpload = new System.Windows.Forms.Button();
             this.TabPicture = new System.Windows.Forms.TabControl();
             this.Assessment = new System.Windows.Forms.TabPage();
+            this.pictureBoxAssessment = new System.Windows.Forms.PictureBox();
             this.Receipt = new System.Windows.Forms.TabPage();
+            this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
             this.OR_Release = new System.Windows.Forms.TabPage();
+            this.pictureBoxORrelease = new System.Windows.Forms.PictureBox();
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
@@ -125,19 +128,18 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.cboValidatedBy = new System.Windows.Forms.ComboBox();
             this.labelValiBy = new System.Windows.Forms.Label();
-            this.pictureBoxAssessment = new System.Windows.Forms.PictureBox();
-            this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
-            this.pictureBoxORrelease = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textEmailSender = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).BeginInit();
             this.Receipt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
             this.OR_Release.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).BeginInit();
             this.SuspendLayout();
             // 
             // RPTInfoLV
@@ -226,7 +228,7 @@
             // YearQuarter
             // 
             this.YearQuarter.Text = "Year";
-            this.YearQuarter.Width = 160;
+            this.YearQuarter.Width = 100;
             // 
             // qtr
             // 
@@ -395,7 +397,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(1766, 90);
+            this.btnDelete.Location = new System.Drawing.Point(1746, 58);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(127, 23);
             this.btnDelete.TabIndex = 29;
@@ -528,6 +530,17 @@
             this.Assessment.Text = "Assessment";
             this.Assessment.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxAssessment
+            // 
+            this.pictureBoxAssessment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxAssessment.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxAssessment.Name = "pictureBoxAssessment";
+            this.pictureBoxAssessment.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxAssessment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxAssessment.TabIndex = 21;
+            this.pictureBoxAssessment.TabStop = false;
+            this.pictureBoxAssessment.Click += new System.EventHandler(this.pictureBoxAssessment_Click);
+            // 
             // Receipt
             // 
             this.Receipt.Controls.Add(this.pictureBoxReceipt);
@@ -539,6 +552,17 @@
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxReceipt
+            // 
+            this.pictureBoxReceipt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxReceipt.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxReceipt.Name = "pictureBoxReceipt";
+            this.pictureBoxReceipt.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxReceipt.TabIndex = 21;
+            this.pictureBoxReceipt.TabStop = false;
+            this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
+            // 
             // OR_Release
             // 
             this.OR_Release.Controls.Add(this.pictureBoxORrelease);
@@ -549,6 +573,16 @@
             this.OR_Release.TabIndex = 2;
             this.OR_Release.Text = "O.R Release";
             this.OR_Release.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxORrelease
+            // 
+            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -2);
+            this.pictureBoxORrelease.Name = "pictureBoxORrelease";
+            this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
+            this.pictureBoxORrelease.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxORrelease.TabIndex = 54;
+            this.pictureBoxORrelease.TabStop = false;
+            this.pictureBoxORrelease.Click += new System.EventHandler(this.pictureBoxORrelease_Click);
             // 
             // cboAction
             // 
@@ -756,9 +790,9 @@
             // 
             // btnGenerateRefNum
             // 
-            this.btnGenerateRefNum.Location = new System.Drawing.Point(880, 102);
+            this.btnGenerateRefNum.Location = new System.Drawing.Point(1608, 102);
             this.btnGenerateRefNum.Name = "btnGenerateRefNum";
-            this.btnGenerateRefNum.Size = new System.Drawing.Size(173, 23);
+            this.btnGenerateRefNum.Size = new System.Drawing.Size(159, 23);
             this.btnGenerateRefNum.TabIndex = 61;
             this.btnGenerateRefNum.Text = "Generate Reference Number";
             this.btnGenerateRefNum.UseVisualStyleBackColor = true;
@@ -778,7 +812,7 @@
             this.cbAutoRefresh.AutoSize = true;
             this.cbAutoRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAutoRefresh.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cbAutoRefresh.Location = new System.Drawing.Point(1652, 94);
+            this.cbAutoRefresh.Location = new System.Drawing.Point(1785, 106);
             this.cbAutoRefresh.Name = "cbAutoRefresh";
             this.cbAutoRefresh.Size = new System.Drawing.Size(108, 19);
             this.cbAutoRefresh.TabIndex = 34;
@@ -952,43 +986,31 @@
             this.labelValiBy.TabIndex = 48;
             this.labelValiBy.Text = "Validated By: ";
             // 
-            // pictureBoxAssessment
+            // label9
             // 
-            this.pictureBoxAssessment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxAssessment.Location = new System.Drawing.Point(-2, -2);
-            this.pictureBoxAssessment.Name = "pictureBoxAssessment";
-            this.pictureBoxAssessment.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxAssessment.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxAssessment.TabIndex = 21;
-            this.pictureBoxAssessment.TabStop = false;
-            this.pictureBoxAssessment.Click += new System.EventHandler(this.pictureBoxAssessment_Click);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(877, 112);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(100, 13);
+            this.label9.TabIndex = 62;
+            this.label9.Text = "Emails for Sending: ";
             // 
-            // pictureBoxReceipt
+            // textEmailSender
             // 
-            this.pictureBoxReceipt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxReceipt.Location = new System.Drawing.Point(-2, -2);
-            this.pictureBoxReceipt.Name = "pictureBoxReceipt";
-            this.pictureBoxReceipt.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxReceipt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxReceipt.TabIndex = 21;
-            this.pictureBoxReceipt.TabStop = false;
-            this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
-            // 
-            // pictureBoxORrelease
-            // 
-            this.pictureBoxORrelease.Location = new System.Drawing.Point(-2, -2);
-            this.pictureBoxORrelease.Name = "pictureBoxORrelease";
-            this.pictureBoxORrelease.Size = new System.Drawing.Size(459, 333);
-            this.pictureBoxORrelease.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxORrelease.TabIndex = 54;
-            this.pictureBoxORrelease.TabStop = false;
-            this.pictureBoxORrelease.Click += new System.EventHandler(this.pictureBoxORrelease_Click);
+            this.textEmailSender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textEmailSender.Enabled = false;
+            this.textEmailSender.Location = new System.Drawing.Point(983, 105);
+            this.textEmailSender.Name = "textEmailSender";
+            this.textEmailSender.Size = new System.Drawing.Size(70, 20);
+            this.textEmailSender.TabIndex = 63;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 985);
+            this.Controls.Add(this.textEmailSender);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.btnGenerateRefNum);
             this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
@@ -1037,15 +1059,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.TabPicture.ResumeLayout(false);
             this.Assessment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).EndInit();
             this.Receipt.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.OR_Release.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAssessment)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxORrelease)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1151,6 +1173,8 @@
         private System.Windows.Forms.Label labelValiBy;
         private System.Windows.Forms.ComboBox cboValidatedBy;
         private System.Windows.Forms.Button btnGenerateRefNum;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textEmailSender;
     }
 }
 

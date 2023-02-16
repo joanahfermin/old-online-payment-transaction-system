@@ -153,11 +153,27 @@ namespace SampleRPT1
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(ValidatedDate as DATE) >= CAST(@ValidatedDateFrom as DATE) " +
                     "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
-                "ORDER BY ValidateDate asc";
+                "ORDER BY ValidatedDate asc";
                 return conn.Query<MiscelleneousOccuPermit>(query, new
                 {
                     ValidatedDateFrom = validatedDateFrom,
                     ValidatedDateTo = validatedDateTo,
+                    Status = Status,
+                }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string Status)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(TransmittedDate as DATE) >= CAST(@TransmittedDateFrom as DATE) " +
+                    "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                "ORDER BY TransmittedDate asc";
+                return conn.Query<MiscelleneousOccuPermit>(query, new
+                {
+                    TransmittedDateFrom = transmittedDateFrom,
+                    TransmittedDateTo = transmittedDateTo,
                     Status = Status,
                 }).ToList();
             }

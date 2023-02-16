@@ -160,7 +160,9 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTaxDec, "Tax Dec. Number");
-            Validations.ValidateRequired(errorProvider1, textYear, "Year/Quarter");
+            Validations.ValidateRequired(errorProvider1, textYear, "Year");
+            Validations.ValidateYearFormat(errorProvider1, textYear, "Year");
+
             Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declaration number");
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
         }

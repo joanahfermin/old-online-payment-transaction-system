@@ -71,6 +71,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textTotalAmount = new System.Windows.Forms.TextBox();
             this.checkSelectAll = new System.Windows.Forms.CheckBox();
+            this.rptRemarks = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,6 +85,7 @@
             this.emailadd,
             this.amountdue,
             this.paymentdate,
+            this.rptRemarks,
             this.duplicateindb,
             this.duplicateinlist});
             this.FirstLVGcashPaymaya.FullRowSelect = true;
@@ -111,22 +113,22 @@
             // year
             // 
             this.year.Text = "Year";
-            this.year.Width = 150;
+            this.year.Width = 130;
             // 
             // taxpayername
             // 
             this.taxpayername.Text = "Taxpayer Name";
-            this.taxpayername.Width = 400;
+            this.taxpayername.Width = 320;
             // 
             // emailadd
             // 
             this.emailadd.Text = "Requesting Party ";
-            this.emailadd.Width = 350;
+            this.emailadd.Width = 280;
             // 
             // amountdue
             // 
             this.amountdue.Text = "Amount Due";
-            this.amountdue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.amountdue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.amountdue.Width = 250;
             // 
             // paymentdate
@@ -450,6 +452,11 @@
             this.checkSelectAll.UseVisualStyleBackColor = true;
             this.checkSelectAll.CheckedChanged += new System.EventHandler(this.checkSelectAll_CheckedChanged);
             // 
+            // rptRemarks
+            // 
+            this.rptRemarks.Text = "Remarks";
+            this.rptRemarks.Width = 180;
+            // 
             // AddRecordGCASHPAYMAYAForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -537,5 +544,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkSelectAll;
+        private System.Windows.Forms.ColumnHeader rptRemarks;
     }
 }

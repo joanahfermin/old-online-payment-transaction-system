@@ -271,7 +271,9 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
-            Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year/Quarter");
+            Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year");
+            Validations.ValidateYearFormat(errorProvider1, textYearQuarter, "Year");
+
             Validations.ValidateRequiredAmountToPay(errorProvider1, textAmount2Pay, "Amount to pay");
             Validations.ValidateTaxDecFormat(errorProvider1, textTDN, "Tax dec num. ");
         }

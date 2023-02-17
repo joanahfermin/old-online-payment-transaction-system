@@ -10,7 +10,7 @@ namespace SampleRPT1
     [Table("Jo_RPT")]
 
     ///These are all objects of the table Jo_RPT.
-    internal class RealPropertyTax
+    public class RealPropertyTax
     {
         [Key]
         public long RptID { get; set; }
@@ -53,9 +53,9 @@ namespace SampleRPT1
         public bool WithAuthorizationLetter { get; set; } = false;
         public bool is_Released { get; set; } = false;
         public int DeletedRecord { get; set; } = 0;
+        public int DuplicateRecord { get; set; } = 0;
         public bool SendAssessmentReady { get; set; } = false;
         public bool SendReceiptReady { get; set; } = false;
-
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string LastUpdateBy { get; set; }

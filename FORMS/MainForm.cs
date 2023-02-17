@@ -1466,14 +1466,14 @@ namespace SampleRPT1
                 }
             }
 
-            else if (RetrieveRPT.RefNum != null && RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(RetrieveRPT.Bank))
-            {
-                if (e.Button == MouseButtons.Right)
-                {
-                    SplitPaymentForm splitPayment = new SplitPaymentForm(RetrieveRPT.RptID);
-                    splitPayment.ShowDialog();
-                }
-            }
+            //else if (RetrieveRPT.RefNum != null && RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(RetrieveRPT.Bank))
+            //{
+            //    if (e.Button == MouseButtons.Right)
+            //    {
+            //        SplitPaymentForm splitPayment = new SplitPaymentForm(RetrieveRPT.RptID);
+            //        splitPayment.ShowDialog();
+            //    }
+            //}
         }
         
         //Press CTRL + O for Browse button.

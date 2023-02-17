@@ -456,6 +456,8 @@ namespace SampleRPT1.FORMS
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
 
                 string locCodePrefix = DateTime.Now.ToString("yy-MM ADV");
+
+                //if receipt is for o.r pick up and has existing advance folder
                 string locCode = RPTDatabase.GetAdvancePickExistingSequence(locCodePrefix, rpt.RequestingParty);
 
                 if (locCode == null)

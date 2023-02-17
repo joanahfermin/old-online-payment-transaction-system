@@ -1,4 +1,5 @@
-﻿using SampleRPT1.MODEL;
+﻿using SampleRPT1.FORMS;
+using SampleRPT1.MODEL;
 using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
@@ -70,6 +71,10 @@ namespace SampleRPT1
         /// </summary>
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string TdNumber = textTaxDec.Text.Trim();
+            string RPTyear = textYear.Text.Trim();
+            string RPTquarter = cboQuarter.Text;
+
             validateForm();
 
             if (Validations.HaveErrors(errorProvider1))
@@ -104,9 +109,13 @@ namespace SampleRPT1
             {
                 rpt.PaymentDate = dtDateOfPayment.Value.Date;
             }
-                
-            rpt.YearQuarter = textYear.Text.Trim();
-            rpt.Quarter = cboQuarter.Text.Trim();
+
+            RPTyear = textYear.Text.Trim();
+            rpt.YearQuarter = RPTyear;
+
+            RPTquarter = cboQuarter.Text.Trim();
+            rpt.Quarter = RPTquarter;
+
             rpt.Status = textStatForAssessment.Text;
             rpt.RequestingParty = textRequestingParty.Text.Trim();
             rpt.RPTremarks = textRemarks.Text.Trim();
@@ -119,6 +128,15 @@ namespace SampleRPT1
             {
                 string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 rpt.RefNum = refNo;
+            }
+
+            List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TdNumber, RPTyear, RPTquarter);
+
+            if (Duplicate_Record.Count > 0)
+            {
+                RPTDuplicateRecordForm rptDuplicateForm = new RPTDuplicateRecordForm(Duplicate_Record);
+                rptDuplicateForm.ShowDialog();
+                return;
             }
 
             RPTDatabase.Insert(rpt);

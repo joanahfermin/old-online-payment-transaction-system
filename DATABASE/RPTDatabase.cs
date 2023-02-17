@@ -624,66 +624,6 @@ namespace SampleRPT1
             rpt.UploadedBy = UploadedBy;
 
             RPTDatabase.Update(rpt);
-
-            //    if (!RPTGcashPaymaya.E_PAYMENT_CHANNEL.Contains(rpt.Bank))
-            //    {
-            //        //regular payment
-            //        //string LocCode = LocationCodeUtil.GetNextLocationCode_RegPayment();
-
-            //        if (rpt.RefNum != null && rpt.RefNum.Length > 0)
-            //        {
-            //            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndORUpload(rpt.RefNum);
-
-            //            foreach (var item in rptList)
-            //            {
-            //                //item.LocCode = LocCode;
-            //                item.UploadedBy = UploadedBy;
-            //                item.Status = RPTStatus.OR_PICKUP;
-            //                item.UploadedDate = DateTime.Now;
-
-            //                RPTDatabase.Update(item);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            //rpt.LocCode = LocCode;
-            //            rpt.Status = RPTStatus.OR_PICKUP;
-            //            rpt.UploadedDate = DateTime.Now;
-            //            rpt.UploadedBy = UploadedBy;
-
-            //            RPTDatabase.Update(rpt);
-            //        }
-            //    }
-            //    //electronic payment
-            //    else
-            //    {
-            //        //string LocCode = LocationCodeUtil.GetNextLocationCode_EPayment();
-
-            //        if (rpt.RefNum != null && rpt.RefNum.Length > 0)
-            //        {
-            //            List<RealPropertyTax> rptList = RPTDatabase.SelectByRefNumAndEmail(rpt.RefNum, rpt.RequestingParty);
-
-            //            foreach (var item in rptList)
-            //            {
-            //                //item.LocCode = LocCode;
-            //                item.UploadedBy = UploadedBy;
-            //                item.Status = RPTStatus.OR_PICKUP;
-            //                item.UploadedDate = DateTime.Now;
-
-            //                RPTDatabase.Update(item);
-            //            }
-
-            //        }
-            //        else
-            //        {
-            //            //rpt.LocCode = LocCode;
-            //            rpt.Status = RPTStatus.OR_PICKUP;
-            //            rpt.UploadedDate = DateTime.Now;
-            //            rpt.UploadedBy = UploadedBy;
-
-            //            RPTDatabase.Update(rpt);
-            //        }
-            //    }
         }
 
         public static RealPropertyTax SearchByTagReceipt(TagReceipt tagReceipt)
@@ -702,7 +642,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String LocCodePattern = LocCodePrefix + "%";
-                return conn.ExecuteScalar<string>($"select top 1 LocCode from Jo_RPT Where LocCode like @LocCodePattern and RequestingParty=@RequestingParty and DeletedRecord != 1", new { LocCodePattern = LocCodePattern, RequestingParty = RequestingParty });
+                return conn.ExecuteScalar<string>($"select top 1 LocCode from Jo_RPT Where LocCode like @LocCodePattern and RequestingParty=@RequestingParty and Status = @Status and DeletedRecord != 1", new { LocCodePattern = LocCodePattern, RequestingParty = RequestingParty, Status = RPTStatus.OR_PICKUP });
             }
         }
 
@@ -721,6 +661,14 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnectionToMISCReportV())
             {
                 return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [ONAME] FROM V_TaxBills where pstdn = @tdn order by billdate desc", new { tdn = tdn });
+            }
+        }
+
+        public static List<RealPropertyTax> SelectBy_TaxDec_Year_Quarter(string TaxDec, string Year, string Quarter)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter }).ToList();
             }
         }
     }

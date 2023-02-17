@@ -104,7 +104,7 @@ namespace SampleRPT1.UTILITIES
             {
                 return;
             }
-            Regex re = new Regex("^[2-9]{4}$");
+            Regex re = new Regex("^[0-9]{4}$");
             if (!re.IsMatch(tb.Text.Trim()))
             {
                 ep.SetError(tb, $"{propertyName} is not in correct format.");

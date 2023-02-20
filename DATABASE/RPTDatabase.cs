@@ -229,11 +229,11 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on taxdec and year/quarter.
         /// </summary>
-        public static RealPropertyTax SelectByTaxDecAndYear(string TaxDec, string YearQtr)
+        public static RealPropertyTax SelectByTaxDecAndYear(string TaxDec, string Year, string Qtr)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and DeletedRecord != 1", new { TaxDec = TaxDec, YearQtr = YearQtr });
+                return conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @Year and Quarter = @Qtr and DeletedRecord != 1 and DuplicateRecord = 0", new { TaxDec = TaxDec, Year = Year, Qtr = Qtr });
             }
         }
 

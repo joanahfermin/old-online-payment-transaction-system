@@ -130,6 +130,7 @@
             this.labelValiBy = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textEmailSender = new System.Windows.Forms.TextBox();
+            this.btnDuplicateRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -1004,11 +1005,23 @@
             this.textEmailSender.Size = new System.Drawing.Size(70, 20);
             this.textEmailSender.TabIndex = 63;
             // 
+            // btnDuplicateRecord
+            // 
+            this.btnDuplicateRecord.Location = new System.Drawing.Point(1443, 102);
+            this.btnDuplicateRecord.Name = "btnDuplicateRecord";
+            this.btnDuplicateRecord.Size = new System.Drawing.Size(159, 23);
+            this.btnDuplicateRecord.TabIndex = 64;
+            this.btnDuplicateRecord.Text = "Change Duplicate Record";
+            this.btnDuplicateRecord.UseVisualStyleBackColor = true;
+            this.btnDuplicateRecord.Visible = false;
+            this.btnDuplicateRecord.Click += new System.EventHandler(this.btnDuplicateRecord_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 985);
+            this.Controls.Add(this.btnDuplicateRecord);
             this.Controls.Add(this.textEmailSender);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnGenerateRefNum);
@@ -1175,6 +1188,7 @@
         private System.Windows.Forms.Button btnGenerateRefNum;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textEmailSender;
+        private System.Windows.Forms.Button btnDuplicateRecord;
     }
 }
 

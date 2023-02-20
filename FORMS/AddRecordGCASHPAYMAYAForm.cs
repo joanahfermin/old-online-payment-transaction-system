@@ -1,4 +1,5 @@
-﻿using SampleRPT1.Service;
+﻿using SampleRPT1.FORMS;
+using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -158,9 +159,10 @@ namespace SampleRPT1
             {
                 ListViewItem item = FirstLVGcashPaymaya.Items[i];
                 string TaxDec = item.SubItems[1].Text;
-                string YearQuarter = item.SubItems[2].Text;
+                string Year = item.SubItems[2].Text;
+                string Quarter = "1-4";
 
-                RealPropertyTax rpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
+                RealPropertyTax rpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, Quarter);
 
                 //if selected record is existing in the database with same Tax Dec and same Year/quarter.
                 if (rpt != null)
@@ -168,16 +170,25 @@ namespace SampleRPT1
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightBlue;
                     duplicateDetected = true;
+
+                    //List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, Year, Quarter);
+
+                    //if (Duplicate_Record.Count > 0)
+                    //{
+                    //    RPTDuplicateRecordForm rptDuplicateForm = new RPTDuplicateRecordForm(Duplicate_Record);
+                    //    rptDuplicateForm.ShowDialog();
+                    //    return;
+                    //}
                 }
                 else
                 {
                     item.SubItems.Add("NO");
                 }
 
-                string TaxDecAndYearQuarter = TaxDec + YearQuarter;
+                string TaxDecAndYearAndQuarter = TaxDec + Year + Quarter;
 
                 //if selected record has duplicate in the form's listview with same Tax Dec and same Year/quarter.
-                if (ProcessedList.Contains(TaxDecAndYearQuarter))
+                if (ProcessedList.Contains(TaxDecAndYearAndQuarter))
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightCoral;
@@ -188,7 +199,7 @@ namespace SampleRPT1
                     item.SubItems.Add("NO");
 
                 }
-                ProcessedList.Add(TaxDecAndYearQuarter);
+                ProcessedList.Add(TaxDecAndYearAndQuarter);
             }
 
             if (duplicateDetected)
@@ -223,29 +234,44 @@ namespace SampleRPT1
                     }
                 }
 
+                foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
+                {
+                    string TaxDec = item.SubItems[1].Text;
+                    string Year = item.SubItems[2].Text;
+                    string Quarter = "1-4";
+
+                    List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, Year, Quarter);
+
+                    if (Duplicate_Record.Count > 0)
+                    {
+                        RPTDuplicateRecordForm rptDuplicateForm = new RPTDuplicateRecordForm(Duplicate_Record);
+                        rptDuplicateForm.ShowDialog();
+                        return;
+                    }
+                }
+
                 //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
                 for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
                 {
                     string ServiceProvider = FirstLVGcashPaymaya.Items[i].Text;
                     string TaxDec = FirstLVGcashPaymaya.Items[i].SubItems[1].Text;
-                    string YearQuarter = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
+                    string Year = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
                     string TaxpayersName = FirstLVGcashPaymaya.Items[i].SubItems[3].Text;
                     string RequestingParty = FirstLVGcashPaymaya.Items[i].SubItems[4].Text;
                     decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.Items[i].SubItems[5].Text);
                     string TransactionDate = FirstLVGcashPaymaya.Items[i].SubItems[6].Text;
                     Remarks = FirstLVGcashPaymaya.Items[i].SubItems[7].Text;
 
-                    RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, YearQuarter);
+                    RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, "1-4");
 
                     RealPropertyTax rpt = new RealPropertyTax();
 
                     rpt.TaxDec = TaxDec;
-                    //rpt.TaxPayerName = SearchExistingTaxpayerName(TaxDec);
                     rpt.TaxPayerName = TaxpayersName;
                     rpt.AmountToPay = AmountDue;
                     rpt.AmountTransferred = AmountDue;
                     rpt.Bank = ServiceProvider;
-                    rpt.YearQuarter = YearQuarter;
+                    rpt.YearQuarter = Year;
                     rpt.Quarter = "1-4";
                     rpt.RPTremarks = Remarks;
 
@@ -267,7 +293,7 @@ namespace SampleRPT1
 
                     if (RetrievedRpt != null)
                     {
-                        rpt.YearQuarter = YearQuarter + " (" + DateTime.Now.ToString("yyyy") + ")";
+                        rpt.YearQuarter = Year + " (" + DateTime.Now.ToString("yyyy") + ")";
                         rpt.RPTremarks = Remarks + " " + DuplicateRecordRemarks;
                     }
 

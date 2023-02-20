@@ -43,7 +43,7 @@ namespace SampleRPT1.FORMS
 
         private void RPTDuplicateRecordForm_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("You are adding a DUPLICATE/EXISTING record.");
+            MessageBox.Show("You are adding a DUPLICATE/EXISTING record. Please go to Sir Ogie for verification.");
         }
 
         private void RPTDuplicateLV_SelectedIndexChanged(object sender, EventArgs e)

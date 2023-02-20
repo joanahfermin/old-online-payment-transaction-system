@@ -1,4 +1,5 @@
-﻿using SampleRPT1.MODEL;
+﻿using SampleRPT1.FORMS;
+using SampleRPT1.MODEL;
 using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
@@ -189,6 +190,23 @@ namespace SampleRPT1
                             rptListToInsert.Add(item);
                         }
                     }
+                }
+            }
+
+            //DETECT IF ONE OF THE RECORDS IS DUPLICATE.
+            foreach (ListViewItem item in rptListToInsert)
+            {
+                string TaxDec = item.Text;
+                string Year = item.SubItems[3].Text;
+                string Quarter = item.SubItems[4].Text;
+
+                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, Year, Quarter);
+
+                if (Duplicate_Record.Count > 0)
+                {
+                    RPTDuplicateRecordForm rptDuplicateForm = new RPTDuplicateRecordForm(Duplicate_Record);
+                    rptDuplicateForm.ShowDialog();
+                    return;
                 }
             }
 

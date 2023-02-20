@@ -63,6 +63,11 @@ namespace SampleRPT1
             LabelRemarks.Visible = false;
             btnDelete.Visible = false;
 
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS"))
+            {
+                btnDuplicateRecord.Visible = true;
+            }
+
             labelRepName.Visible = false;
             textRepName.Visible = false;
             labelContactNumber.Visible = false;
@@ -504,6 +509,16 @@ namespace SampleRPT1
             {
                 cboAction.Text = NewAction;
             }
+        }
+
+        private void ChangeisDuplicateRecord()
+        {
+            RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
+
+            rpt.DuplicateRecord = 1;
+            RPTDatabase.Update(rpt);
+
+            MessageBox.Show("Successfully reverted status as non-duplicate record.");
         }
 
         private void ChangeAction()
@@ -1573,6 +1588,12 @@ namespace SampleRPT1
 
         private void btnGenerateRefNum_Click(object sender, EventArgs e)
         {
+            if (RPTInfoLV.SelectedItems.Count < 0)
+            {
+                MessageBox.Show("Invalid action.");
+                return;
+            }
+
             List<long> rptIdList = mainFormListViewHelper.getSelectedRptIDList();
 
             foreach (long rptId in rptIdList)
@@ -1580,7 +1601,7 @@ namespace SampleRPT1
                 RealPropertyTax rpt = RPTDatabase.Get(rptId);
                 if (rpt.RefNum != null && rpt.RefNum.Length > 0)
                 {
-                    MessageBox.Show("Invalid Action.");
+                    MessageBox.Show("Invalid action.");
                     return;
                 }
             }
@@ -1621,6 +1642,11 @@ namespace SampleRPT1
                 balanceShort.setRptId(rptIdList[0]);
                 balanceShort.Show();
             }
+        }
+
+        private void btnDuplicateRecord_Click(object sender, EventArgs e)
+        {
+            ChangeisDuplicateRecord();
         }
 
         //private bool isRPTTaxDecFormat(string taxDec)

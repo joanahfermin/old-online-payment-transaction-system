@@ -52,6 +52,30 @@ namespace SampleRPT1
             }
         }
 
+        public static void copyFromListToListview_With_Row_Number<T>(List<T> listOfDataClass, ListView listView, List<String> propertyNames)
+        {
+            listView.Items.Clear();
+
+            // foreach (RealPropertyTax rpt in rptList)
+            // isa-isahin ang rows ng laman ng database. 
+            int Row_Number = 1;
+
+            foreach (T dataClassInstance in listOfDataClass)
+            {
+                //ListViewItem item = new ListViewItem(rpt.RptID.ToString());
+                ListViewItem item = new ListViewItem(Row_Number.ToString());
+
+                item.SubItems.Add(GetPropValue(dataClassInstance, propertyNames[0]));
+
+                for (int i = 1; i < propertyNames.Count; i++)
+                {
+                    item.SubItems.Add(GetPropValue(dataClassInstance, propertyNames[i]));
+                }
+                listView.Items.Add(item);
+                Row_Number++;
+            }
+        }
+
         //rpt.TaxDec?.ToString()
         //thousand separator. 
         private static string GetPropValue(object src, string propName)

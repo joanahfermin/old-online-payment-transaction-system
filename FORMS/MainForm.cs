@@ -513,12 +513,15 @@ namespace SampleRPT1
 
         private void ChangeisDuplicateRecord()
         {
-            RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                RealPropertyTax rpt = mainFormListViewHelper.getSelectedRpt();
 
-            rpt.DuplicateRecord = 1;
-            RPTDatabase.Update(rpt);
+                rpt.DuplicateRecord = 1;
+                RPTDatabase.Update(rpt);
 
-            MessageBox.Show("Successfully reverted status as non-duplicate record.");
+                MessageBox.Show("Successfully reverted status as non-duplicate record.");
+            }
         }
 
         private void ChangeAction()
@@ -1000,7 +1003,7 @@ namespace SampleRPT1
                     rpt.Status = RPTStatus.PAYMENT_VALIDATION;
                     rpt.VerRemarks = textRemarks.Text;
 
-                    if (rpt.AmountTransferred >= rpt.AmountToPay)
+                    if (rpt.AmountTransferred > 0)
                     {
                         RPTDatabase.Update(rpt);
                         cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
@@ -1046,9 +1049,8 @@ namespace SampleRPT1
                 //    cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
                 //}
 
-                MessageBox.Show("Successfully Validated.");
-
                 RefreshListView();
+                MessageBox.Show("Successfully Validated.");
             }
             textRemarks.Visible = false;
         }
@@ -1638,9 +1640,9 @@ namespace SampleRPT1
                 }
                 RefreshListView();
 
-                BalanceShort balanceShort = new BalanceShort();
-                balanceShort.setRptId(rptIdList[0]);
-                balanceShort.Show();
+                //BalanceShort balanceShort = new BalanceShort();
+                //balanceShort.setRptId(rptIdList[0]);
+                //balanceShort.Show();
             }
         }
 

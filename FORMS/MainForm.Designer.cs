@@ -398,7 +398,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(1746, 58);
+            this.btnDelete.Location = new System.Drawing.Point(1636, 102);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(127, 23);
             this.btnDelete.TabIndex = 29;
@@ -413,6 +413,7 @@
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(202, 20);
             this.textRemarks.TabIndex = 11;
+            this.textRemarks.Visible = false;
             // 
             // textNumOfBills
             // 
@@ -622,6 +623,7 @@
             this.LabelRemarks.Size = new System.Drawing.Size(55, 13);
             this.LabelRemarks.TabIndex = 37;
             this.LabelRemarks.Text = "Remarks: ";
+            this.LabelRemarks.Visible = false;
             // 
             // btnMultipleRecordOnePayment
             // 
@@ -791,7 +793,7 @@
             // 
             // btnGenerateRefNum
             // 
-            this.btnGenerateRefNum.Location = new System.Drawing.Point(1608, 102);
+            this.btnGenerateRefNum.Location = new System.Drawing.Point(1124, 102);
             this.btnGenerateRefNum.Name = "btnGenerateRefNum";
             this.btnGenerateRefNum.Size = new System.Drawing.Size(159, 23);
             this.btnGenerateRefNum.TabIndex = 61;
@@ -1007,7 +1009,7 @@
             // 
             // btnDuplicateRecord
             // 
-            this.btnDuplicateRecord.Location = new System.Drawing.Point(1443, 102);
+            this.btnDuplicateRecord.Location = new System.Drawing.Point(1304, 102);
             this.btnDuplicateRecord.Name = "btnDuplicateRecord";
             this.btnDuplicateRecord.Size = new System.Drawing.Size(159, 23);
             this.btnDuplicateRecord.TabIndex = 64;

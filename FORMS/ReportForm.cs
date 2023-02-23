@@ -32,6 +32,7 @@ namespace SampleRPT1.FORMS
             new { Name="Released", Width=100}};
 
         private static object[] REPORT_USER_RPT_COLUMN_NAMES = {
+            new { Name="", Width=50},
             new { Name="TaxDec", Width=200},
             new { Name="TaxPayerName", Width=200},
             new { Name="Online Collection", Width=200},
@@ -115,7 +116,7 @@ namespace SampleRPT1.FORMS
                 lastHeader.Width = column.Width;
             }
             List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
-            ListViewUtil.copyFromListToListview<ReportCollection>(RPTList, LVreport, new List<string>
+            ListViewUtil.copyFromListToListview_With_Row_Number<ReportCollection>(RPTList, LVreport, new List<string>
             { "TaxDec", "TaxPayerName", "Collection", "Billing", "ExcessShort", "RPTremarks"});
 
             //ShowExcelReport(RPTList);
@@ -186,6 +187,7 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[3, 2] = $"=sum(B7:B{row-1})";
             worksheet.Cells[3, 3] = $"=sum(C7:C{row - 1}) + B5";
             worksheet.Cells[3, 4] = $"=sum(D7:D{row - 1})";
+            //worksheet.Cells[3, 5] = "= IF(B3 + B5 - C3 = D3, \"BALANCE\", \"NOT BALANCE\")";
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "Collections.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();

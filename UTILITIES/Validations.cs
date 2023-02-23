@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -43,6 +44,27 @@ namespace SampleRPT1.UTILITIES
             if (!re.IsMatch(tb.Text.Trim()))
             {
                 ep.SetError(tb, $"{propertyName} is not in correct format.");
+            }
+        }
+
+        //EMAIL ADDRESS FORMAT VALIDATION
+        public static void ValidateEmailAddressFormat(ErrorProvider ep, TextBox tb, string propertyName)
+        {
+            if (hasExistingError(ep, tb))
+            {
+                return;
+            }
+            if (tb.Text.Trim() == "")
+            {
+                return;
+            }
+            try
+            {
+                MailAddress m = new MailAddress(tb.Text.Trim());
+            }
+            catch (FormatException)
+            {
+                ep.SetError(tb, $"{propertyName} is not a valid email address.");
             }
         }
 

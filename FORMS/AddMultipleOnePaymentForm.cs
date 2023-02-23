@@ -289,6 +289,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textTDN, "Tax dec. number");
+            Validations.ValidateRequired(errorProvider1, textTPName, "Taxpayer name");
             Validations.ValidateRequired(errorProvider1, textYearQuarter, "Year");
             Validations.ValidateYearFormat(errorProvider1, textYearQuarter, "Year");
 
@@ -305,6 +306,7 @@ namespace SampleRPT1
 
             Validations.ValidateRequired(errorProvider1, textTotalAmountDeposited, "Total Amount Deposited");
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
 
             if (Convert.ToDecimal(textTotalAmountDeposited.Text) > 0)
             {

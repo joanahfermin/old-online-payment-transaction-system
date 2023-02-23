@@ -183,6 +183,7 @@ namespace SampleRPT1
 
             Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declaration number");
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
         }
 
         //Thousand separator.

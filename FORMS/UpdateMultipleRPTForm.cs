@@ -124,12 +124,20 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
 
             //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }
 
         private void btnSaveUpdate_Click(object sender, EventArgs e)
         {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
             bool FirstRecord = true;
             decimal TotalAmountDeposited = Convert.ToDecimal(textTotalTransferredAmount.Text);
 

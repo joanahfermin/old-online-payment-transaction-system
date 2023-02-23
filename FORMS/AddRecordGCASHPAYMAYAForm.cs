@@ -277,7 +277,7 @@ namespace SampleRPT1
 
                     ////TO DO
                     //rpt.Quarter = "1-4";
-                    rpt.BillCount = textBillQuantity.Text;
+                    rpt.BillCount = "1";
                     rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
                     rpt.RequestingParty = RequestingParty;
 

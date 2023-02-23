@@ -75,12 +75,12 @@
             this.FirstLVGcashPaymaya.HideSelection = false;
             this.FirstLVGcashPaymaya.Location = new System.Drawing.Point(12, 48);
             this.FirstLVGcashPaymaya.Name = "FirstLVGcashPaymaya";
-            this.FirstLVGcashPaymaya.Size = new System.Drawing.Size(1898, 945);
+            this.FirstLVGcashPaymaya.Size = new System.Drawing.Size(1898, 932);
             this.FirstLVGcashPaymaya.TabIndex = 0;
             this.FirstLVGcashPaymaya.UseCompatibleStateImageBehavior = false;
             this.FirstLVGcashPaymaya.View = System.Windows.Forms.View.Details;
             this.FirstLVGcashPaymaya.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.FirstLVGcashPaymaya_ItemSelectionChanged);
-
+            // 
             // serviceProv
             // 
             this.serviceProv.Text = "Service Provider";
@@ -108,13 +108,13 @@
             // 
             // amountdue
             // 
-            this.amountdue.Text = "Amount Due";
+            this.amountdue.Text = "Amount Due / Total Amount Deposited";
             this.amountdue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.amountdue.Width = 250;
             // 
             // paymentdate
             // 
-            this.paymentdate.Text = "Transaction Payment Date";
+            this.paymentdate.Text = "Payment Date";
             this.paymentdate.Width = 150;
             // 
             // rptRemarks

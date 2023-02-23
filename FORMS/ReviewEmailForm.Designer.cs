@@ -34,6 +34,7 @@ namespace SampleRPT1.FORMS
             this.docType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.taxdec = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.year = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.email = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.uploadedby = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pbAttachedPicture = new System.Windows.Forms.PictureBox();
@@ -45,7 +46,6 @@ namespace SampleRPT1.FORMS
             this.label1 = new System.Windows.Forms.Label();
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.Bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,6 +95,11 @@ namespace SampleRPT1.FORMS
             this.year.Text = "Year";
             this.year.Width = 80;
             // 
+            // Bank
+            // 
+            this.Bank.Text = "Bank";
+            this.Bank.Width = 150;
+            // 
             // email
             // 
             this.email.Text = "Requesting Party";
@@ -119,12 +124,12 @@ namespace SampleRPT1.FORMS
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(740, 8);
+            this.btnConfirm.Location = new System.Drawing.Point(835, 8);
             this.btnConfirm.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(181, 30);
+            this.btnConfirm.Size = new System.Drawing.Size(86, 30);
             this.btnConfirm.TabIndex = 4;
-            this.btnConfirm.Text = "Confirm Selected for Sending Email";
+            this.btnConfirm.Text = "Confirm Send";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
@@ -165,7 +170,8 @@ namespace SampleRPT1.FORMS
             // 
             // textLocCode
             // 
-            this.textLocCode.Location = new System.Drawing.Point(635, 16);
+            this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textLocCode.Location = new System.Drawing.Point(638, 16);
             this.textLocCode.Name = "textLocCode";
             this.textLocCode.Size = new System.Drawing.Size(100, 20);
             this.textLocCode.TabIndex = 8;
@@ -173,7 +179,7 @@ namespace SampleRPT1.FORMS
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(539, 23);
+            this.label1.Location = new System.Drawing.Point(542, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 9;
@@ -197,11 +203,6 @@ namespace SampleRPT1.FORMS
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 60;
             this.label8.Text = "Records Selected: ";
-            // 
-            // Bank
-            // 
-            this.Bank.Text = "Bank";
-            this.Bank.Width = 150;
             // 
             // ReviewEmailForm
             // 

@@ -25,6 +25,9 @@ namespace SampleRPT1.FORMS
             InitializeComponent();
             this.RptiDList = RptIDList;
             InitializeTemplates();
+
+            //labelLocCode.Visible = false;
+            //textLocCode.Visible = false;
         }
 
         /// <summary>
@@ -92,8 +95,16 @@ namespace SampleRPT1.FORMS
                     if (RPTAttachPictureDatabase.HasDocumentType(RptiDList, DocumentType.RECEIPT))
                     {
                         btnSendReceipt.Enabled = true;
+                        labelLocCode.Visible = true;
+                        textLocCode.Visible = true;
                     }
                 }
+                else
+                {
+                    labelLocCode.Visible = false;
+                    textLocCode.Visible = false;
+                }
+
 
                 if (!template.isAssessment && !template.isReceipt)
                 {
@@ -237,6 +248,12 @@ namespace SampleRPT1.FORMS
             string SentTo = "";
             string FailedSend = "";
             string SkipEmailToTaxdec = " ";
+
+            if (textLocCode.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Enter Loc. Code.");
+                return;
+            }
 
             foreach (var RptId in RptiDList)
             {

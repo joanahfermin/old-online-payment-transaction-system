@@ -37,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.richTextBox1 = new DG.MiniHTMLTextBox.MiniHTMLTextBox();
+            this.labelLocCode = new System.Windows.Forms.Label();
+            this.textLocCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cboTemplates
@@ -128,11 +130,30 @@
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = null;
             // 
+            // labelLocCode
+            // 
+            this.labelLocCode.AutoSize = true;
+            this.labelLocCode.Location = new System.Drawing.Point(16, 728);
+            this.labelLocCode.Name = "labelLocCode";
+            this.labelLocCode.Size = new System.Drawing.Size(90, 13);
+            this.labelLocCode.TabIndex = 11;
+            this.labelLocCode.Text = "Enter Loc. Code: ";
+            // 
+            // textLocCode
+            // 
+            this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textLocCode.Location = new System.Drawing.Point(112, 721);
+            this.textLocCode.Name = "textLocCode";
+            this.textLocCode.Size = new System.Drawing.Size(100, 20);
+            this.textLocCode.TabIndex = 10;
+            // 
             // SendEmailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 756);
+            this.Controls.Add(this.labelLocCode);
+            this.Controls.Add(this.textLocCode);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -160,5 +181,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private DG.MiniHTMLTextBox.MiniHTMLTextBox richTextBox1;
+        private System.Windows.Forms.Label labelLocCode;
+        private System.Windows.Forms.TextBox textLocCode;
     }
 }

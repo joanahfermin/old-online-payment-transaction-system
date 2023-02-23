@@ -53,6 +53,7 @@ namespace SampleRPT1
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
 
             //Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank used");
         }

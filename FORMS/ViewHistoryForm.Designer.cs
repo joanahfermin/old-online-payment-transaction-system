@@ -76,8 +76,9 @@ namespace SampleRPT1.FORMS
             this.label4 = new System.Windows.Forms.Label();
             this.textAction = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.dtLastUpdateDate = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +94,7 @@ namespace SampleRPT1.FORMS
             this.excessShortAmount,
             this.bank,
             this.YearQuarter,
+            this.qtr,
             this.Status,
             this.EncodedBy,
             this.EncodedDate,
@@ -408,6 +410,14 @@ namespace SampleRPT1.FORMS
             this.panel1.Size = new System.Drawing.Size(809, 65);
             this.panel1.TabIndex = 7;
             // 
+            // dtLastUpdateDate
+            // 
+            this.dtLastUpdateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtLastUpdateDate.Location = new System.Drawing.Point(407, 18);
+            this.dtLastUpdateDate.Name = "dtLastUpdateDate";
+            this.dtLastUpdateDate.Size = new System.Drawing.Size(107, 20);
+            this.dtLastUpdateDate.TabIndex = 7;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -417,13 +427,9 @@ namespace SampleRPT1.FORMS
             this.label7.TabIndex = 47;
             this.label7.Text = "Record History Information";
             // 
-            // dtLastUpdateDate
+            // qtr
             // 
-            this.dtLastUpdateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtLastUpdateDate.Location = new System.Drawing.Point(407, 18);
-            this.dtLastUpdateDate.Name = "dtLastUpdateDate";
-            this.dtLastUpdateDate.Size = new System.Drawing.Size(107, 20);
-            this.dtLastUpdateDate.TabIndex = 7;
+            this.qtr.Text = "Quarter";
             // 
             // ViewHistoryForm
             // 
@@ -496,5 +502,6 @@ namespace SampleRPT1.FORMS
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtLastUpdateDate;
+        private System.Windows.Forms.ColumnHeader qtr;
     }
 }

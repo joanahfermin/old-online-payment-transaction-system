@@ -29,7 +29,7 @@ namespace SampleRPT1.DATABASE
             }
         }
 
-        public static List<ReportCollection> SelectUserRPT(DateTime _DateFrom, DateTime _DateTo)
+        public static List<ReportCollection> Select_Collector_RPT(DateTime _DateFrom, DateTime _DateTo)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
@@ -57,6 +57,22 @@ namespace SampleRPT1.DATABASE
                 "order by ValidatedDate, EncodedDate ", 
                 
                 new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
+            }
+        }
+
+        public static List<ReportCollection_OccuPermit> Select_Collector_MISC(DateTime _DateFrom, DateTime _DateTo)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                string UserName = SecurityService.getLoginUser().DisplayName;
+                return conn.Query<ReportCollection_OccuPermit>(
+                " SELECT OrderOfPaymentNum, OPATrackingNum, TransferredAmount, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%', Remarks, '' )" +
+                " as Remarks  FROM Jo_MISC " +
+                " where DeletedRecord = 0 and MiscType = 'OCCUPATIONAL PERMIT' " +
+                " and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                " order by ValidatedDate, EncodedDate ",
+
+                new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName }).ToList();
             }
         }
     }

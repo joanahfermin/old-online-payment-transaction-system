@@ -68,10 +68,6 @@
             this.VerRema = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ValRema = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.textRemarks = new System.Windows.Forms.TextBox();
-            this.textNumOfBills = new System.Windows.Forms.TextBox();
-            this.LabelNumBills = new System.Windows.Forms.Label();
             this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
@@ -91,7 +87,6 @@
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
-            this.LabelRemarks = new System.Windows.Forms.Label();
             this.btnMultipleRecordOnePayment = new System.Windows.Forms.Button();
             this.btnAddRecord = new System.Windows.Forms.Button();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
@@ -108,7 +103,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelEncodedBy = new System.Windows.Forms.Label();
             this.cboEncodedBy = new System.Windows.Forms.ComboBox();
-            this.btnGenerateRefNum = new System.Windows.Forms.Button();
+            this.labelValiBy = new System.Windows.Forms.Label();
+            this.cboValidatedBy = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbAutoRefresh = new System.Windows.Forms.CheckBox();
             this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
@@ -126,11 +122,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textRecSelected = new System.Windows.Forms.TextBox();
-            this.cboValidatedBy = new System.Windows.Forms.ComboBox();
-            this.labelValiBy = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textEmailSender = new System.Windows.Forms.TextBox();
-            this.btnDuplicateRecord = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -396,51 +389,13 @@
             this.rr.Text = "Released Remarks";
             this.rr.Width = 250;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(1636, 102);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(127, 23);
-            this.btnDelete.TabIndex = 29;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // textRemarks
-            // 
-            this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(1400, 60);
-            this.textRemarks.Name = "textRemarks";
-            this.textRemarks.Size = new System.Drawing.Size(202, 20);
-            this.textRemarks.TabIndex = 11;
-            this.textRemarks.Visible = false;
-            // 
-            // textNumOfBills
-            // 
-            this.textNumOfBills.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textNumOfBills.Location = new System.Drawing.Point(1124, 60);
-            this.textNumOfBills.Name = "textNumOfBills";
-            this.textNumOfBills.Size = new System.Drawing.Size(66, 20);
-            this.textNumOfBills.TabIndex = 9;
-            this.textNumOfBills.Text = "1";
-            this.textNumOfBills.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LabelNumBills
-            // 
-            this.LabelNumBills.AutoSize = true;
-            this.LabelNumBills.Location = new System.Drawing.Point(1075, 67);
-            this.LabelNumBills.Name = "LabelNumBills";
-            this.LabelNumBills.Size = new System.Drawing.Size(45, 13);
-            this.LabelNumBills.TabIndex = 22;
-            this.LabelNumBills.Text = "Bill Qty.:";
-            // 
             // textTotalAmount2Pay
             // 
             this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmount2Pay.Enabled = false;
             this.textTotalAmount2Pay.Location = new System.Drawing.Point(136, 105);
             this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
-            this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmount2Pay.Size = new System.Drawing.Size(92, 20);
             this.textTotalAmount2Pay.TabIndex = 16;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmount2Pay.TextChanged += new System.EventHandler(this.textTotalAmount2Pay_TextChanged);
@@ -458,9 +413,9 @@
             // 
             this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
-            this.textTotalAmountTransferred.Location = new System.Drawing.Point(469, 105);
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(375, 105);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
-            this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmountTransferred.Size = new System.Drawing.Size(92, 20);
             this.textTotalAmountTransferred.TabIndex = 16;
             this.textTotalAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmountTransferred.TextChanged += new System.EventHandler(this.textTotalAmountTransferred_TextChanged);
@@ -468,7 +423,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(333, 112);
+            this.label11.Location = new System.Drawing.Point(239, 112);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
             this.label11.TabIndex = 18;
@@ -589,9 +544,10 @@
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1124, 30);
+            this.cboAction.Location = new System.Drawing.Point(956, 104);
             this.cboAction.Name = "cboAction";
-            this.cboAction.Size = new System.Drawing.Size(159, 21);
+            this.cboAction.Size = new System.Drawing.Size(202, 21);
+            this.cboAction.Sorted = true;
             this.cboAction.TabIndex = 8;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
             this.cboAction.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboAction_KeyPress);
@@ -599,7 +555,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1075, 34);
+            this.label15.Location = new System.Drawing.Point(907, 112);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(43, 13);
             this.label15.TabIndex = 50;
@@ -607,23 +563,13 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1208, 60);
+            this.btnExecute.Location = new System.Drawing.Point(1172, 102);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 10;
             this.btnExecute.Text = "Execute";
             this.btnExecute.UseVisualStyleBackColor = true;
             this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
-            // 
-            // LabelRemarks
-            // 
-            this.LabelRemarks.AutoSize = true;
-            this.LabelRemarks.Location = new System.Drawing.Point(1330, 67);
-            this.LabelRemarks.Name = "LabelRemarks";
-            this.LabelRemarks.Size = new System.Drawing.Size(55, 13);
-            this.LabelRemarks.TabIndex = 37;
-            this.LabelRemarks.Text = "Remarks: ";
-            this.LabelRemarks.Visible = false;
             // 
             // btnMultipleRecordOnePayment
             // 
@@ -762,20 +708,22 @@
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
             this.panel2.Controls.Add(this.cboEncodedBy);
+            this.panel2.Controls.Add(this.labelValiBy);
             this.panel2.Controls.Add(this.dtDateTo);
             this.panel2.Controls.Add(this.btnSearchDateStatus);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.cboValidatedBy);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Location = new System.Drawing.Point(418, 17);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(635, 75);
+            this.panel2.Size = new System.Drawing.Size(969, 75);
             this.panel2.TabIndex = 33;
             // 
             // labelEncodedBy
             // 
             this.labelEncodedBy.AutoSize = true;
-            this.labelEncodedBy.Location = new System.Drawing.Point(283, 49);
+            this.labelEncodedBy.Location = new System.Drawing.Point(283, 50);
             this.labelEncodedBy.Name = "labelEncodedBy";
             this.labelEncodedBy.Size = new System.Drawing.Size(70, 13);
             this.labelEncodedBy.TabIndex = 48;
@@ -791,24 +739,33 @@
             this.cboEncodedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
             this.cboEncodedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
             // 
-            // btnGenerateRefNum
+            // labelValiBy
             // 
-            this.btnGenerateRefNum.Location = new System.Drawing.Point(1124, 102);
-            this.btnGenerateRefNum.Name = "btnGenerateRefNum";
-            this.btnGenerateRefNum.Size = new System.Drawing.Size(159, 23);
-            this.btnGenerateRefNum.TabIndex = 61;
-            this.btnGenerateRefNum.Text = "Generate Reference Number";
-            this.btnGenerateRefNum.UseVisualStyleBackColor = true;
-            this.btnGenerateRefNum.Click += new System.EventHandler(this.btnGenerateRefNum_Click);
+            this.labelValiBy.AutoSize = true;
+            this.labelValiBy.Location = new System.Drawing.Point(677, 48);
+            this.labelValiBy.Name = "labelValiBy";
+            this.labelValiBy.Size = new System.Drawing.Size(72, 13);
+            this.labelValiBy.TabIndex = 48;
+            this.labelValiBy.Text = "Validated By: ";
+            // 
+            // cboValidatedBy
+            // 
+            this.cboValidatedBy.FormattingEnabled = true;
+            this.cboValidatedBy.Location = new System.Drawing.Point(753, 41);
+            this.cboValidatedBy.Name = "cboValidatedBy";
+            this.cboValidatedBy.Size = new System.Drawing.Size(202, 21);
+            this.cboValidatedBy.TabIndex = 7;
+            this.cboValidatedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
+            this.cboValidatedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(428, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(136, 13);
+            this.label4.Size = new System.Drawing.Size(224, 13);
             this.label4.TabIndex = 53;
-            this.label4.Text = "Search by Date And Status";
+            this.label4.Text = "Search by Date, Status and Payment Channel";
             // 
             // cbAutoRefresh
             // 
@@ -825,7 +782,7 @@
             // cboPaymentChannel
             // 
             this.cboPaymentChannel.FormattingEnabled = true;
-            this.cboPaymentChannel.Location = new System.Drawing.Point(1400, 30);
+            this.cboPaymentChannel.Location = new System.Drawing.Point(1172, 29);
             this.cboPaymentChannel.Name = "cboPaymentChannel";
             this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
             this.cboPaymentChannel.TabIndex = 10;
@@ -835,7 +792,7 @@
             // labelPaymentChannel
             // 
             this.labelPaymentChannel.AutoSize = true;
-            this.labelPaymentChannel.Location = new System.Drawing.Point(1301, 34);
+            this.labelPaymentChannel.Location = new System.Drawing.Point(1073, 33);
             this.labelPaymentChannel.Name = "labelPaymentChannel";
             this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
             this.labelPaymentChannel.TabIndex = 36;
@@ -954,7 +911,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(671, 112);
+            this.label8.Location = new System.Drawing.Point(487, 112);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 18;
@@ -964,35 +921,16 @@
             // 
             this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(775, 105);
+            this.textRecSelected.Location = new System.Drawing.Point(581, 105);
             this.textRecSelected.Name = "textRecSelected";
-            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.Size = new System.Drawing.Size(49, 20);
             this.textRecSelected.TabIndex = 59;
             this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // cboValidatedBy
-            // 
-            this.cboValidatedBy.FormattingEnabled = true;
-            this.cboValidatedBy.Location = new System.Drawing.Point(1692, 30);
-            this.cboValidatedBy.Name = "cboValidatedBy";
-            this.cboValidatedBy.Size = new System.Drawing.Size(181, 21);
-            this.cboValidatedBy.TabIndex = 7;
-            this.cboValidatedBy.SelectedIndexChanged += new System.EventHandler(this.cboEncodedBy_SelectedIndexChanged);
-            this.cboValidatedBy.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboEncodedBy_KeyPress);
-            // 
-            // labelValiBy
-            // 
-            this.labelValiBy.AutoSize = true;
-            this.labelValiBy.Location = new System.Drawing.Point(1616, 37);
-            this.labelValiBy.Name = "labelValiBy";
-            this.labelValiBy.Size = new System.Drawing.Size(72, 13);
-            this.labelValiBy.TabIndex = 48;
-            this.labelValiBy.Text = "Validated By: ";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(877, 112);
+            this.label9.Location = new System.Drawing.Point(1729, 79);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 13);
             this.label9.TabIndex = 62;
@@ -1002,36 +940,21 @@
             // 
             this.textEmailSender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textEmailSender.Enabled = false;
-            this.textEmailSender.Location = new System.Drawing.Point(983, 105);
+            this.textEmailSender.Location = new System.Drawing.Point(1835, 72);
             this.textEmailSender.Name = "textEmailSender";
-            this.textEmailSender.Size = new System.Drawing.Size(70, 20);
+            this.textEmailSender.Size = new System.Drawing.Size(49, 20);
             this.textEmailSender.TabIndex = 63;
-            // 
-            // btnDuplicateRecord
-            // 
-            this.btnDuplicateRecord.Location = new System.Drawing.Point(1304, 102);
-            this.btnDuplicateRecord.Name = "btnDuplicateRecord";
-            this.btnDuplicateRecord.Size = new System.Drawing.Size(159, 23);
-            this.btnDuplicateRecord.TabIndex = 64;
-            this.btnDuplicateRecord.Text = "Change Duplicate Record";
-            this.btnDuplicateRecord.UseVisualStyleBackColor = true;
-            this.btnDuplicateRecord.Visible = false;
-            this.btnDuplicateRecord.Click += new System.EventHandler(this.btnDuplicateRecord_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 985);
-            this.Controls.Add(this.btnDuplicateRecord);
             this.Controls.Add(this.textEmailSender);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.btnGenerateRefNum);
-            this.Controls.Add(this.labelValiBy);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.textFileName);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.cboValidatedBy);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnRotate);
@@ -1046,19 +969,14 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnExecute);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cboAction);
             this.Controls.Add(this.TabPicture);
-            this.Controls.Add(this.textRemarks);
             this.Controls.Add(this.btnUpload);
-            this.Controls.Add(this.LabelRemarks);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.textNumOfBills);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textTotalAmountTransferred);
-            this.Controls.Add(this.LabelNumBills);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textTotalAmount2Pay);
             this.Controls.Add(this.VerAndValLV);
@@ -1116,11 +1034,8 @@
         private System.Windows.Forms.ColumnHeader RelesedBy;
         private System.Windows.Forms.ColumnHeader relesedDate;
         private System.Windows.Forms.ColumnHeader rr;
-        private System.Windows.Forms.TextBox textRemarks;
         private System.Windows.Forms.ColumnHeader billed;
         private System.Windows.Forms.ColumnHeader billedby;
-        private System.Windows.Forms.TextBox textNumOfBills;
-        private System.Windows.Forms.Label LabelNumBills;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader reqParty;
         private System.Windows.Forms.ColumnHeader VerRema;
@@ -1143,12 +1058,10 @@
         private System.Windows.Forms.TabPage Assessment;
         private System.Windows.Forms.TabPage Receipt;
         private System.Windows.Forms.PictureBox pictureBoxReceipt;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ComboBox cboAction;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnExecute;
-        private System.Windows.Forms.Label LabelRemarks;
         private System.Windows.Forms.ComboBox cboStatus;
         private System.Windows.Forms.Button btnSearchDateStatus;
         private System.Windows.Forms.Label label13;
@@ -1187,10 +1100,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label labelValiBy;
         private System.Windows.Forms.ComboBox cboValidatedBy;
-        private System.Windows.Forms.Button btnGenerateRefNum;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textEmailSender;
-        private System.Windows.Forms.Button btnDuplicateRecord;
     }
 }
 

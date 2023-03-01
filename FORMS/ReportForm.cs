@@ -21,9 +21,9 @@ namespace SampleRPT1.FORMS
         private static string USER_ACTIVITY = "USER ACTIVITY";
         private static string USER_RPT = "RPT";
         private static string USER_BUS = "BUSINESS";
-        private static string USER_MISC = "MISCELLANEOUS FEES";
+        private static string USER_MISC_OCCPERMIT = "MISCELLANEOUS FEES: OCCUPATIONAL PERMIT";
 
-        private static string[] REPORT_USER_ACTIVITY = { USER_ACTIVITY, USER_RPT, USER_BUS, USER_MISC };
+        private static string[] REPORT_USER_ACTIVITY = { USER_ACTIVITY, USER_RPT, USER_BUS, USER_MISC_OCCPERMIT };
 
         private static object[] REPORT_USER_ACTIVITY_COLUMN_NAMES = {
             new { Name="User", Width=200}, new { Name="Encoded", Width=100},
@@ -34,11 +34,18 @@ namespace SampleRPT1.FORMS
         private static object[] REPORT_USER_RPT_COLUMN_NAMES = {
             new { Name="", Width=50},
             new { Name="TaxDec", Width=200},
-            new { Name="TaxPayerName", Width=200},
+            new { Name="TaxPayer Name", Width=200},
             new { Name="Online Collection", Width=200},
             new { Name="Billing", Width=100},
             new { Name="Excess/Short", Width=100},
-            new { Name="RPTRemarks", Width=250}};
+            new { Name="RPT Remarks", Width=250}};
+
+        private static object[] REPORT_MISC_COLUMN_NAMES = {
+            new { Name="", Width=50},
+            new { Name="OP Number", Width=200},
+            new { Name="OPA Tracking Number", Width=200},
+            new { Name="TransferredAmount", Width=200},
+            new { Name="Remarks", Width=250}};
 
         public ReportForm(Form parentForm)
         {
@@ -70,9 +77,14 @@ namespace SampleRPT1.FORMS
                 ShowReportUserActivity();
             }
 
-            if (cboReportName.Text == USER_RPT)
+            else if (cboReportName.Text == USER_RPT)
             {
-                ShowReportUserRPT();
+                ShowReportRPT();
+            }
+
+            else if (cboReportName.Text == USER_MISC_OCCPERMIT)
+            {
+                ShowReport_Misc_OccuPermit();
             }
         }
 
@@ -101,7 +113,7 @@ namespace SampleRPT1.FORMS
             { "DisplayName", "EncodedCount", "BilledCount", "VerifiedCount", "ValidatedCount", "UploadCount", "ReleasedCount"});
         }
 
-        private void ShowReportUserRPT()
+        private void ShowReportRPT()
         {
             DateTime DateFrom = dtDate.Value;
             DateTime DateTo = dtDateTo.Value;
@@ -115,11 +127,30 @@ namespace SampleRPT1.FORMS
                 ColumnHeader lastHeader = LVreport.Columns[lastHeaderIndex];
                 lastHeader.Width = column.Width;
             }
-            List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
+            List<ReportCollection> RPTList = ReportDatabase.Select_Collector_RPT(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview_With_Row_Number<ReportCollection>(RPTList, LVreport, new List<string>
             { "TaxDec", "TaxPayerName", "Collection", "Billing", "ExcessShort", "RPTremarks"});
 
             //ShowExcelReport(RPTList);
+        }
+
+        private void ShowReport_Misc_OccuPermit()
+        {
+            DateTime DateFrom = dtDate.Value;
+            DateTime DateTo = dtDateTo.Value;
+
+            LVreport.Columns.Clear();
+
+            foreach (dynamic column in REPORT_MISC_COLUMN_NAMES)
+            {
+                LVreport.Columns.Add(column.Name);
+                int lastHeaderIndex = LVreport.Columns.Count - 1;
+                ColumnHeader lastHeader = LVreport.Columns[lastHeaderIndex];
+                lastHeader.Width = column.Width;
+            }
+            List<ReportCollection_OccuPermit> MiscList_OccuPermit = ReportDatabase.Select_Collector_MISC(DateFrom, DateTo);
+            ListViewUtil.copyFromListToListview_With_Row_Number<ReportCollection_OccuPermit>(MiscList_OccuPermit, LVreport, new List<string>
+            { "OrderOfPaymentNum", "OPATrackingNum", "TransferredAmount", "Remarks"});
         }
 
         private void dtDate_ValueChanged(object sender, EventArgs e)
@@ -187,7 +218,6 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[3, 2] = $"=sum(B7:B{row-1})";
             worksheet.Cells[3, 3] = $"=sum(C7:C{row - 1}) + B5";
             worksheet.Cells[3, 4] = $"=sum(D7:D{row - 1})";
-            //worksheet.Cells[3, 5] = "= IF(B3 + B5 - C3 = D3, \"BALANCE\", \"NOT BALANCE\")";
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "Collections.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();
@@ -234,7 +264,7 @@ namespace SampleRPT1.FORMS
         {
             DateTime DateFrom = dtDate.Value;
             DateTime DateTo = dtDateTo.Value;
-            List<ReportCollection> RPTList = ReportDatabase.SelectUserRPT(DateFrom, DateTo);
+            List<ReportCollection> RPTList = ReportDatabase.Select_Collector_RPT(DateFrom, DateTo);
 
             ShowExcelReport(RPTList);
         }

@@ -184,6 +184,11 @@ namespace SampleRPT1
             Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declaration number");
             Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
             Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
+
+            if (Convert.ToDecimal(textTotalTransferredAmount.Text) != 0)
+            {
+                Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
+            }
         }
 
         //Thousand separator.

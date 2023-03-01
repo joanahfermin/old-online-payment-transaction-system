@@ -25,6 +25,7 @@ namespace SampleRPT1
         public decimal ExcessShortAmount { get; set; }
         public string Bank { get; set; }
         public string YearQuarter { get; set; }
+        public string Quarter { get; set; }
         public string Status { get; set; }
         public string RequestingParty { get; set; }
         public string EncodedBy { get; set; }
@@ -63,6 +64,5 @@ namespace SampleRPT1
         public DateTime? CreatedDate { get; set; }
         public string LastUpdateBy { get; set; }
         public DateTime? LastUpdateDate { get; set; }
-
     }
 }

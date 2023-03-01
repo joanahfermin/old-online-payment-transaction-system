@@ -336,19 +336,27 @@ namespace SampleRPT1
             worksheet.Name = "WorkSheet";
 
             int row = 5;
+            int counter = 1;
 
             foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
             {
-                worksheet.Cells[row, 1] = item.Text;
-                worksheet.Cells[row, 2] = item.SubItems[1].Text;
-                worksheet.Cells[row, 3] = item.SubItems[2].Text;
-                worksheet.Cells[row, 4] = item.SubItems[3].Text;
-                worksheet.Cells[row, 5] = item.SubItems[4].Text;
-                worksheet.Cells[row, 6] = item.SubItems[5].Text;
-                worksheet.Cells[row, 7] = item.SubItems[6].Text;
-
+                worksheet.Cells[row, 1] = counter.ToString(); //service provider
+                worksheet.Cells[row, 2] = item.Text; //service provider
+                worksheet.Cells[row, 3] = item.SubItems[1].Text; //taxdec
+                worksheet.Cells[row, 4] = item.SubItems[2].Text; //year
+                worksheet.Cells[row, 5] = item.SubItems[3].Text; //tpn
+                //worksheet.Cells[row, 5] = item.SubItems[4].Text; //email
+                worksheet.Cells[row, 6] = item.SubItems[5].Text; //amount
+                worksheet.Cells[row, 6].NumberFormat = "#,##0.00"; //THOUSAND SEPARATOR OF AMOUNT.
+                worksheet.Cells[row, 7] = item.SubItems[6].Text; //payment date
                 row++;
+                counter++;
             }
+
+            worksheet.Cells[row, 5] = "Net Amount:";
+            worksheet.Cells[row, 5].Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignRight;
+
+            worksheet.Cells[row, 6] = $"=sum(F5:F{row - 1})";
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();

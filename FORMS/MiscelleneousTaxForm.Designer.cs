@@ -38,6 +38,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelPaymentChannel = new System.Windows.Forms.Label();
+            this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.cboStatus = new System.Windows.Forms.ComboBox();
             this.dtDateTo = new System.Windows.Forms.DateTimePicker();
@@ -55,8 +57,6 @@
             this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
-            this.labelPaymentChannel = new System.Windows.Forms.Label();
-            this.cboPaymentChannel = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +83,9 @@
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
             this.MISCinfoLV.DoubleClick += new System.EventHandler(this.MISCinfoLV_DoubleClick);
+            this.MISCinfoLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MISCinfoLV_KeyDown);
+            this.MISCinfoLV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MISCinfoLV_MouseDown);
+            this.MISCinfoLV.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MISCinfoLV_MouseMove);
             // 
             // cboMiscType
             // 
@@ -167,6 +170,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(760, 75);
             this.panel2.TabIndex = 54;
+            // 
+            // labelPaymentChannel
+            // 
+            this.labelPaymentChannel.AutoSize = true;
+            this.labelPaymentChannel.Location = new System.Drawing.Point(537, 14);
+            this.labelPaymentChannel.Name = "labelPaymentChannel";
+            this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
+            this.labelPaymentChannel.TabIndex = 67;
+            this.labelPaymentChannel.Text = "Payment Channel:";
+            // 
+            // cboPaymentChannel
+            // 
+            this.cboPaymentChannel.FormattingEnabled = true;
+            this.cboPaymentChannel.Location = new System.Drawing.Point(540, 32);
+            this.cboPaymentChannel.Name = "cboPaymentChannel";
+            this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
+            this.cboPaymentChannel.TabIndex = 66;
+            this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
             // 
             // dtDate
             // 
@@ -330,24 +351,6 @@
             this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmount2Pay.TabIndex = 61;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // labelPaymentChannel
-            // 
-            this.labelPaymentChannel.AutoSize = true;
-            this.labelPaymentChannel.Location = new System.Drawing.Point(537, 14);
-            this.labelPaymentChannel.Name = "labelPaymentChannel";
-            this.labelPaymentChannel.Size = new System.Drawing.Size(93, 13);
-            this.labelPaymentChannel.TabIndex = 67;
-            this.labelPaymentChannel.Text = "Payment Channel:";
-            // 
-            // cboPaymentChannel
-            // 
-            this.cboPaymentChannel.FormattingEnabled = true;
-            this.cboPaymentChannel.Location = new System.Drawing.Point(540, 32);
-            this.cboPaymentChannel.Name = "cboPaymentChannel";
-            this.cboPaymentChannel.Size = new System.Drawing.Size(202, 21);
-            this.cboPaymentChannel.TabIndex = 66;
-            this.cboPaymentChannel.SelectedIndexChanged += new System.EventHandler(this.cboPaymentChannel_SelectedIndexChanged);
             // 
             // MiscelleneousTaxForm
             // 

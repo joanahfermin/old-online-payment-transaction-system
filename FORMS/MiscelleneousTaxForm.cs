@@ -29,6 +29,7 @@ namespace SampleRPT1
             InitializeMiscType();
             InitializeStatus();
             InitializeAction();
+            InitializePaymentChannel();
 
             cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
             cboAction.Text = MISCUtil.VERIFY_PAYMENT;
@@ -92,16 +93,12 @@ namespace SampleRPT1
         private void InitializePaymentChannel()
         {
             cboPaymentChannel.Items.Clear();
+            cboPaymentChannel.Visible = true;
 
-            //if (loginUser.isVerifier || loginUser.isValidator || loginUser.isUploader)
-            //{
-                cboPaymentChannel.Visible = true;
-
-                foreach (string banks in RPTGcashPaymaya.ALL_PAYMENT_CHANNEL)
-                {
-                    cboPaymentChannel.Items.Add(banks);
-                }
-            //}
+            foreach (string banks in RPTGcashPaymaya.ALL_PAYMENT_CHANNEL)
+            {
+                cboPaymentChannel.Items.Add(banks);
+            }
         }
 
         public void RefreshOccuPermit()
@@ -158,7 +155,6 @@ namespace SampleRPT1
             {
                 if (item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[5].Text.Contains(miscRecord))
                 {
-                    //item.Selected = true;
                     MISCinfoLV.Focus();
                 }
             }
@@ -187,7 +183,6 @@ namespace SampleRPT1
 
             AddMISCrecord addMISCrecord = new AddMISCrecord(miscID);
             addMISCrecord.ShowDialog();
-
         }
 
         private void textSearch_KeyDown(object sender, KeyEventArgs e)
@@ -309,20 +304,17 @@ namespace SampleRPT1
 
         private void btnSearchDateStatus_Click(object sender, EventArgs e)
         {
-            dtDateTo.Enabled = dtDate.Checked;
+            if (dtDateTo.Enabled = dtDate.Checked)
+            {
+                labelPaymentChannel.Enabled = true;
+                cboPaymentChannel.Enabled = true;
+            }
+            else
+            {
+                labelPaymentChannel.Enabled = false;
+                cboPaymentChannel.Enabled = false;
+            }
 
-            //List<MiscelleneousOccuPermit> miscList;
-
-            //// If date range is checked, search by date range and status. Otherwise, just search by status.
-            //if (dtDate.Checked)
-            //{
-            //    miscList = SearchByDateRangeAndStatus();
-            //}
-            //else
-            //{
-            //    string Status = cboStatus.Text;
-            //    miscList = MISCDatabase.SelectByStatus(Status);
-            //}
             RefreshLV();
         }
 
@@ -360,8 +352,6 @@ namespace SampleRPT1
             DateTime DateFrom = dtDate.Value;
             DateTime DateTo = dtDateTo.Value;
             string Action = cboAction.Text;
-            //string EncodedBy = cboEncodedBy.Text;
-            //string ValidatedBy = cboValidatedBy.Text;
 
             // filter by verification of payment and payment channel.
             if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
@@ -384,7 +374,6 @@ namespace SampleRPT1
 
             else if (Status == MISCUtil.TRANSMITTED)
             {
-                //List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndTransmitted(DateFrom, DateTo, Status);
             }
 
@@ -400,5 +389,53 @@ namespace SampleRPT1
         {
             RefreshLV();
         }
+
+        //START: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
+        Int32 firstClickItemIndex = 0;
+        public Boolean numInRange(Int32 num, Int32 first, Int32 last)
+        {
+            return first <= num && num <= last;
+        }
+        private void MISCinfoLV_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left && MISCinfoLV.HitTest(e.Location).Item != null)
+                firstClickItemIndex = MISCinfoLV.HitTest(e.Location).Item.Index;
+        }
+        private void MISCinfoLV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                foreach (ListViewItem lvItem in MISCinfoLV.Items)
+                    lvItem.Selected = true;
+            }
+        }
+        private void MISCinfoLV_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons == MouseButtons.Left)
+            {
+                ListViewItem lvItem = MISCinfoLV.HitTest(e.Location).Item;
+                if (lvItem != null)
+                {
+                    lvItem.Selected = true;
+                    if (MISCinfoLV.SelectedItems.Count > 1)
+                    {
+                        Int32 firstSelected = MISCinfoLV.SelectedItems[0].Index;
+                        Int32 lastSelected = MISCinfoLV.SelectedItems[MISCinfoLV.SelectedItems.Count - 1].Index;
+                        foreach (ListViewItem tempLvItem in MISCinfoLV.Items)
+                        {
+                            if (numInRange(tempLvItem.Index, firstSelected, lastSelected) && (numInRange(tempLvItem.Index, lvItem.Index, firstClickItemIndex) || numInRange(tempLvItem.Index, firstClickItemIndex, lvItem.Index)))
+                            {
+                                tempLvItem.Selected = true;
+                            }
+                            else
+                            {
+                                tempLvItem.Selected = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
     }
 }

@@ -43,6 +43,12 @@ namespace SampleRPT1
         private void MenuItemHome_Click(object sender, EventArgs e)
         {
             CreateOrShowMainForm();
+
+            MenuItemGcashPaymaya.Visible = true;
+            MenuItemExcessShort.Visible = true;
+            emailToolStripMenuItem.Visible = true;
+            ReleasingMenuItem.Visible = true;
+            reorderToolStripMenuItem.Visible = true;
         }
 
         private void MenuItemGcashPaymaya_Click(object sender, EventArgs e)
@@ -148,6 +154,12 @@ namespace SampleRPT1
                 new MiscelleneousTaxForm(this);
             }
             MiscelleneousTaxForm.INSTANCE.Show();
+
+            MenuItemGcashPaymaya.Visible = false;
+            MenuItemExcessShort.Visible = false;
+            emailToolStripMenuItem.Visible = false;
+            ReleasingMenuItem.Visible = false;
+            reorderToolStripMenuItem.Visible = false;
         }
     }
 }

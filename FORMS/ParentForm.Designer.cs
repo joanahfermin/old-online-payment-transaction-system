@@ -101,14 +101,14 @@
             // MenuItemAllocateExcess
             // 
             this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
-            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(180, 22);
             this.MenuItemAllocateExcess.Text = "Allocate Excess";
             this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
             // 
             // MenuItemAllocateBalance
             // 
             this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
-            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(154, 22);
+            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(180, 22);
             this.MenuItemAllocateBalance.Text = "Balance Short";
             this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
             // 

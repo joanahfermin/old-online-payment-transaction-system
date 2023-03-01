@@ -43,6 +43,7 @@ namespace SampleRPT1.Service
             if (LOGIN_USER.isEncoder)
             {
                 AllowedRptActions.Add(RPTAction.MANUAL_SEND_BILL);
+                AllowedRptActions.Add(RPTAction.GENERATE_REFERENCE_NUMBER);
             }
 
             if (LOGIN_USER.isUploader)
@@ -53,12 +54,17 @@ namespace SampleRPT1.Service
             if (LOGIN_USER.isVerifier)
             {
                 AllowedRptActions.Add(RPTAction.VERIFY_PAYMENT);
+                AllowedRptActions.Add(RPTAction.CHANGE_DUPLICATE_RECORD);
             }
 
             if (LOGIN_USER.isValidator)
             {
                 AllowedRptActions.Add(RPTAction.VALIDATE_PAYMENT);
-                //cboAction.SelectedIndex = 0; ;
+            }
+
+            if (LOGIN_USER.canDelete)
+            {
+                AllowedRptActions.Add(RPTAction.DELETE_RECORD);
             }
 
             return AllowedRptActions;

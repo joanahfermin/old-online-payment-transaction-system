@@ -14,6 +14,13 @@ namespace SampleRPT1.MODEL
         public decimal Billing { get; set; }
         public decimal ExcessShort { get; set; }
         public string RPTremarks { get; set; }
+    }
 
+    internal class ReportCollection_OccuPermit
+    {
+        public string OrderOfPaymentNum { get; set; }
+        public string OPATrackingNum { get; set; }
+        public decimal TransferredAmount { get; set; }
+        public string Remarks { get; set; }
     }
 }

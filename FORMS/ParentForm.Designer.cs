@@ -62,7 +62,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1071, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,7 +78,7 @@
             // MiscMenuItem
             // 
             this.MiscMenuItem.Name = "MiscMenuItem";
-            this.MiscMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MiscMenuItem.Size = new System.Drawing.Size(102, 22);
             this.MiscMenuItem.Text = "MISC";
             this.MiscMenuItem.Click += new System.EventHandler(this.mISCToolStripMenuItem_Click);
             // 
@@ -101,14 +101,14 @@
             // MenuItemAllocateExcess
             // 
             this.MenuItemAllocateExcess.Name = "MenuItemAllocateExcess";
-            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateExcess.Size = new System.Drawing.Size(154, 22);
             this.MenuItemAllocateExcess.Text = "Allocate Excess";
             this.MenuItemAllocateExcess.Click += new System.EventHandler(this.MenuItemAllocateExcess_Click);
             // 
             // MenuItemAllocateBalance
             // 
             this.MenuItemAllocateBalance.Name = "MenuItemAllocateBalance";
-            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemAllocateBalance.Size = new System.Drawing.Size(154, 22);
             this.MenuItemAllocateBalance.Text = "Balance Short";
             this.MenuItemAllocateBalance.Click += new System.EventHandler(this.MenuItemAllocateBalance_Click);
             // 
@@ -175,7 +175,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1071, 450);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;

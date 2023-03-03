@@ -1,4 +1,5 @@
 ﻿using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -86,6 +87,8 @@ namespace SampleRPT1.FORMS
                             MISCGcashPaymayaLV.Items.Add(item);
                         }
                     }
+
+                    btnRetrieveName_Click(sender, e);
                 }
                 PopulateExistingColumn();
 
@@ -197,16 +200,28 @@ namespace SampleRPT1.FORMS
             textTotalAmount.Text = totalAmount.ToString("N2");
         }
 
-        private void checkSelectAll_CheckedChanged(object sender, EventArgs e)
+        private bool validateForm()
         {
             foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
             {
-                item.Selected = checkSelectAll.Checked;
+                string s = item.SubItems[3].Text;
+
+                if (s == string.Empty)
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         private void btnSaveAll_Click(object sender, EventArgs e)
         {
+            if (!validateForm())
+            {
+                MessageBox.Show("error");
+                return;
+            }
+
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
 
             string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -257,6 +272,55 @@ namespace SampleRPT1.FORMS
 
                 MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
             }
+        }
+
+        private void btnRetrieveName_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
+            {
+                string TP_Name = MISCDatabase.SelectBy_TaxpayerName(item.SubItems[2].Text);
+                item.SubItems[3].Text = TP_Name.ToUpper();
+            }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            object Nothing = System.Reflection.Missing.Value;
+            var app = new Microsoft.Office.Interop.Excel.Application();
+            app.Visible = false;
+            Microsoft.Office.Interop.Excel.Workbook workBook = app.Workbooks.Add(Nothing);
+            Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workBook.Sheets[1];
+            worksheet.Name = "WorkSheet";
+
+            int row = 5;
+            int counter = 1;
+
+            foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
+            {
+                worksheet.Cells[row, 1] = counter.ToString(); 
+                worksheet.Cells[row, 2] = item.Text; //SProvider
+                worksheet.Cells[row, 3] = item.SubItems[1].Text; //OPA num
+                worksheet.Cells[row, 4] = item.SubItems[2].Text; //OPnum
+                worksheet.Cells[row, 5] = item.SubItems[3].Text; //TPNAme
+                worksheet.Cells[row, 6] = item.SubItems[5].Text; //AMOUNT.
+                worksheet.Cells[row, 6].NumberFormat = "#,##0.00"; //format AMOUNT.
+                worksheet.Cells[row, 7] = item.SubItems[6].Text; //payment date
+                row++;
+                counter++;
+            }
+
+            worksheet.Cells[row, 5] = "Net Amount:";
+            worksheet.Cells[row, 6] = $"=sum(F5:F{row - 1})";
+
+            String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
+            String folder = FileUtils.GetDownloadFolderPath();
+            String fullpath = folder + "\\" + filename;
+
+            worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
+            workBook.Close(false, Type.Missing, Type.Missing);
+            app.Quit();
+
+            System.Diagnostics.Process.Start(fullpath);
         }
     }
 }

@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 namespace SampleRPT1.FORMS
 {
-    public partial class ViewHistoryForm : Form
+    public partial class RPT_ViewHistoryForm : Form
     {
-        public static ViewHistoryForm INSTANCE;
+        public static RPT_ViewHistoryForm INSTANCE;
 
         private long RptID;
         private long AuditID;
         private List<RealPropertyTaxAudit> auditList;
 
-        public ViewHistoryForm(Form parentForm)
+        public RPT_ViewHistoryForm(Form parentForm)
         {
             InitializeComponent();
 
@@ -80,13 +80,15 @@ namespace SampleRPT1.FORMS
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
+            int numberOFitems = RPTInfoLV.Items.Count;
+
             if (RPTInfoLV.SelectedItems.Count == 0)
             {
                 MessageBox.Show("No record selected");
                 return;
             }
 
-            if (RPTInfoLV.Items[0].Selected)
+            if (RPTInfoLV.Items[numberOFitems - 1].Selected)
             {
                 MessageBox.Show("Cannot restore a latest updated record.");
                 return;

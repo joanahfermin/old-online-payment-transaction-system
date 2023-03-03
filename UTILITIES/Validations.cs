@@ -84,6 +84,22 @@ namespace SampleRPT1.UTILITIES
         }
 
         /// <summary>
+        /// Validate if a given combobox is not empty
+        /// </summary>
+        public static void ValidateRequired(ErrorProvider ep, ComboBox cb, string propertyName)
+        {
+            if (hasExistingErrorForBank(ep, cb))
+            {
+                return;
+            }
+            if (cb.Text.Trim() == "please")
+            {
+                ep.SetError(cb, $"{propertyName} is required.");
+            }
+        }
+
+
+        /// <summary>
         /// Validate if total amount deposited is 0.
         /// </summary>
         /// <param name="ep"></param>
@@ -157,9 +173,42 @@ namespace SampleRPT1.UTILITIES
         {
             return ep.GetError(tb).Length > 0;
         }
+
         private static bool hasExistingErrorForBank(ErrorProvider ep, ComboBox tb)
         {
             return ep.GetError(tb).Length > 0;
         }
+
+        ///// <summary>
+        ///// Check if a column in listview contains error.
+        ///// </summary>
+        //private static bool hasExistingError_inLV(ErrorProvider ep, ListView lv)
+        //{
+        //    foreach (ListView item in lv.Items)
+        //    {
+        //        string s = item.Items[0].SubItems[3].Text;
+
+        //        if (s == string.Empty)
+        //        {
+        //            return ep.GetError(lv).Length < 0;
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Validate if a column in listview is not empty
+        ///// </summary>
+        //public static void ValidateRequired_RetrieveName_MiscOccuPerm(ErrorProvider ep, ListView lv, string propertyName)
+        //{
+        //    if (hasExistingError_inLV(ep, lv))
+        //    {
+        //        return;
+        //    }
+        //    if (lv.Text.Trim() == "")
+        //    {
+        //        ep.SetError(lv, $"{propertyName} is required.");
+        //    }
+        //}
+
     }
 }

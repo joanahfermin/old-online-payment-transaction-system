@@ -15,6 +15,11 @@ namespace SampleRPT1
     {
         public static ParentForm INSTANCE;
 
+        private const int RPT = 1;
+        private const int MISC = 2;
+
+        private int current_Record = RPT;
+
         public ParentForm()
         {
             InitializeComponent();
@@ -42,6 +47,8 @@ namespace SampleRPT1
 
         private void MenuItemHome_Click(object sender, EventArgs e)
         {
+            current_Record = RPT;
+
             CreateOrShowMainForm();
 
             MenuItemGcashPaymaya.Visible = true;
@@ -110,22 +117,45 @@ namespace SampleRPT1
 
         private void historyMenuItem_Click(object sender, EventArgs e)
         {
-            long RptID = MainForm.INSTANCE.getSelectedRptID();
-
-            if (RptID == 0)
+            if (current_Record == RPT)
             {
-                MessageBox.Show("Please select a record");
+                long RptID = MainForm.INSTANCE.getSelectedRptID();
+
+                if (RptID == 0)
+                {
+                    MessageBox.Show("Please select a record");
+                }
+                else
+                {
+                    if (RPT_ViewHistoryForm.INSTANCE == null)
+                    {
+                        new RPT_ViewHistoryForm(this);
+                    }
+
+                    RPT_ViewHistoryForm.INSTANCE.Show();
+                    RPT_ViewHistoryForm.INSTANCE.setRpdID(RptID);
+                }
             }
 
-            else
+            else if (current_Record == MISC)
             {
-                if (ViewHistoryForm.INSTANCE == null)
+                long MiscID = MiscelleneousTaxForm.INSTANCE.getSelectedMiscID();
+
+                if (MiscID == 0)
                 {
-                    new ViewHistoryForm(this);
+                    MessageBox.Show("Please select a record");
                 }
 
-                ViewHistoryForm.INSTANCE.Show();
-                ViewHistoryForm.INSTANCE.setRpdID(RptID);
+                else
+                {
+                    if (MISC_ViewHistoryForm.INSTANCE == null)
+                    {
+                        new MISC_ViewHistoryForm(this);
+                    }
+
+                    MISC_ViewHistoryForm.INSTANCE.Show();
+                    MISC_ViewHistoryForm.INSTANCE.setMiscID(MiscID);
+                }
             }
         }
 
@@ -149,6 +179,8 @@ namespace SampleRPT1
 
         private void mISCToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            current_Record = MISC;
+
             if (MiscelleneousTaxForm.INSTANCE == null)
             {
                 new MiscelleneousTaxForm(this);
@@ -160,6 +192,7 @@ namespace SampleRPT1
             emailToolStripMenuItem.Visible = false;
             ReleasingMenuItem.Visible = false;
             reorderToolStripMenuItem.Visible = false;
+            //historyMenuItem.Visible = false;
         }
     }
 }

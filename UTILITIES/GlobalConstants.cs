@@ -16,6 +16,9 @@ namespace SampleRPT1
 
         public static string DATABASE_CONNECTION_STRING_TO_MISCREPORT = ConfigurationManager.AppSettings["ConnectionStringToMiscServer"];
 
+        public static string DATABASE_CONNECTION_STRING_TO_MISCREPORT_OCCUPERMIT_NAME = ConfigurationManager.AppSettings["ConnectionStringToMiscServer1"];
+
+
 
         public static int GMAIL_PORT;
 
@@ -32,6 +35,9 @@ namespace SampleRPT1
         public static int LOC_CODE_ADJUSTMENT_REGULAR;
 
         public static int LOC_CODE_ADJUSTMENT_ELECTRONIC;
+
+        public static string AUTHORIZE_EDIT_DATA;
+
 
     }
 }

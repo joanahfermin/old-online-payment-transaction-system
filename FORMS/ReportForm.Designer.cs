@@ -50,7 +50,7 @@
             this.cboReportName.FormattingEnabled = true;
             this.cboReportName.Location = new System.Drawing.Point(23, 36);
             this.cboReportName.Name = "cboReportName";
-            this.cboReportName.Size = new System.Drawing.Size(236, 21);
+            this.cboReportName.Size = new System.Drawing.Size(373, 21);
             this.cboReportName.TabIndex = 0;
             this.cboReportName.SelectedIndexChanged += new System.EventHandler(this.cboReportName_SelectedIndexChanged);
             // 
@@ -80,7 +80,7 @@
             this.dtDate.Checked = false;
             this.dtDate.CustomFormat = "MM/dd/yyyy";
             this.dtDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDate.Location = new System.Drawing.Point(294, 36);
+            this.dtDate.Location = new System.Drawing.Point(421, 36);
             this.dtDate.Name = "dtDate";
             this.dtDate.Size = new System.Drawing.Size(95, 20);
             this.dtDate.TabIndex = 46;
@@ -91,7 +91,7 @@
             // 
             this.dtDateTo.CustomFormat = "MM/dd/yyyy";
             this.dtDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateTo.Location = new System.Drawing.Point(408, 36);
+            this.dtDateTo.Location = new System.Drawing.Point(535, 36);
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 47;
@@ -101,7 +101,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(291, 20);
+            this.label2.Location = new System.Drawing.Point(418, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 48;
@@ -110,7 +110,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(405, 20);
+            this.label13.Location = new System.Drawing.Point(532, 20);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 49;
@@ -118,7 +118,7 @@
             // 
             // btnReportCollector
             // 
-            this.btnReportCollector.Location = new System.Drawing.Point(989, 34);
+            this.btnReportCollector.Location = new System.Drawing.Point(1116, 34);
             this.btnReportCollector.Name = "btnReportCollector";
             this.btnReportCollector.Size = new System.Drawing.Size(100, 23);
             this.btnReportCollector.TabIndex = 50;
@@ -129,16 +129,17 @@
             // textTotalCollection
             // 
             this.textTotalCollection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalCollection.Location = new System.Drawing.Point(521, 36);
+            this.textTotalCollection.Location = new System.Drawing.Point(648, 36);
             this.textTotalCollection.Name = "textTotalCollection";
             this.textTotalCollection.Size = new System.Drawing.Size(143, 20);
             this.textTotalCollection.TabIndex = 51;
+            this.textTotalCollection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalCollection.TextChanged += new System.EventHandler(this.textTotalCollection_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(518, 20);
+            this.label3.Location = new System.Drawing.Point(645, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 48;
@@ -147,7 +148,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(680, 20);
+            this.label4.Location = new System.Drawing.Point(807, 20);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 48;
@@ -156,15 +157,16 @@
             // textTotalBilling
             // 
             this.textTotalBilling.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textTotalBilling.Location = new System.Drawing.Point(683, 36);
+            this.textTotalBilling.Location = new System.Drawing.Point(810, 36);
             this.textTotalBilling.Name = "textTotalBilling";
             this.textTotalBilling.Size = new System.Drawing.Size(143, 20);
             this.textTotalBilling.TabIndex = 51;
+            this.textTotalBilling.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(843, 20);
+            this.label5.Location = new System.Drawing.Point(970, 20);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 48;
@@ -173,15 +175,16 @@
             // textShttc
             // 
             this.textShttc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textShttc.Location = new System.Drawing.Point(846, 36);
+            this.textShttc.Location = new System.Drawing.Point(973, 36);
             this.textShttc.Name = "textShttc";
             this.textShttc.Size = new System.Drawing.Size(131, 20);
             this.textShttc.TabIndex = 51;
+            this.textShttc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textShttc.TextChanged += new System.EventHandler(this.textShttc_TextChanged);
             // 
             // btnValidate
             // 
-            this.btnValidate.Location = new System.Drawing.Point(1095, 34);
+            this.btnValidate.Location = new System.Drawing.Point(1222, 73);
             this.btnValidate.Name = "btnValidate";
             this.btnValidate.Size = new System.Drawing.Size(121, 23);
             this.btnValidate.TabIndex = 52;

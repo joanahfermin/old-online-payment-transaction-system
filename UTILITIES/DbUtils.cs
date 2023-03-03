@@ -28,5 +28,12 @@ namespace SampleRPT1
             cnn.Open();
             return cnn;
         }
+
+        public static SqlConnection getConnectionToMISCReportV_OccuPerm_Name()
+        {
+            SqlConnection cnn = new SqlConnection(GlobalConstants.DATABASE_CONNECTION_STRING_TO_MISCREPORT_OCCUPERMIT_NAME);
+            cnn.Open();
+            return cnn;
+        }
     }
 }

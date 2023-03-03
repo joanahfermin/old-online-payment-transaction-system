@@ -14,6 +14,7 @@ using SampleRPT1.MODEL;
 using SampleRPT1.Service;
 using SampleRPT1.DATABASE;
 using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
 
 namespace SampleRPT1
 {
@@ -477,6 +478,25 @@ namespace SampleRPT1
             }
         }
 
+        private void Update_Record_Info()
+        {
+            RealPropertyTax RetrieveRPT = mainFormListViewHelper.getSelectedRpt();
+
+            if (RetrieveRPT.RefNum != null)
+            {
+                string Refnum = RetrieveRPT.RefNum;
+                string ReqParty = RetrieveRPT.RequestingParty;
+                UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(Refnum, ReqParty);
+                updateMultipleRPTForm.ShowDialog();
+            }
+            else
+            {
+                long RptID = mainFormListViewHelper.getSelectedRptID();
+                UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptID);
+                updateRPTForm.ShowDialog();
+            }
+        }
+
         private void RPTInfoLV_DoubleClick(object sender, EventArgs e)
         {
             RealPropertyTax RetrieveRPT = mainFormListViewHelper.getSelectedRpt();
@@ -484,25 +504,20 @@ namespace SampleRPT1
             if (loginUser.isBiller && RetrieveRPT.Status == RPTStatus.FOR_ASSESSMENT ||
                 RetrieveRPT.Status == RPTStatus.ASSESSMENT_PRINTED || RetrieveRPT.Status == RPTStatus.BILL_SENT || RetrieveRPT.Status == RPTStatus.PAYMENT_VERIFICATION)
             {
-                if (RetrieveRPT.RefNum != null)
+                Update_Record_Info();
+            }
+            else
+            {
+                string input = Interaction.InputBox("Enter Password:", "Authorize Edit Data", "", 760, 440);
+
+                if (GlobalConstants.AUTHORIZE_EDIT_DATA == input)
                 {
-                    string Refnum = RetrieveRPT.RefNum;
-                    string ReqParty = RetrieveRPT.RequestingParty;
-                    UpdateMultipleRPTForm updateMultipleRPTForm = new UpdateMultipleRPTForm(Refnum, ReqParty);
-                    updateMultipleRPTForm.ShowDialog();
+                    Update_Record_Info();
                 }
                 else
                 {
-                    long RptID = mainFormListViewHelper.getSelectedRptID();
-                    UpdateRPTForm updateRPTForm = new UpdateRPTForm(RptID);
-                    updateRPTForm.ShowDialog();
+                    MessageBox.Show("Invalid password.");
                 }
-            }
-
-            if (loginUser.isVerifier && RetrieveRPT.Status == RPTStatus.PAYMENT_VALIDATION)
-            {
-                UpdateValidationRemarksForm updateRemarksVal = new UpdateValidationRemarksForm(RetrieveRPT.RptID);
-                updateRemarksVal.ShowDialog();
             }
         }
 
@@ -665,7 +680,7 @@ namespace SampleRPT1
                 totalAmount2Pay = rpt.AmountToPay;
                 totalAmountTrans = rpt.TotalAmountTransferred;
 
-                string Status = rpt.Status;
+                //string Status = rpt.Status;
 
                 //if (Status == RPTStatus.FOR_ASSESSMENT)
                 //{

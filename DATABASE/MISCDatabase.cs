@@ -69,25 +69,59 @@ namespace SampleRPT1
             }
         }
 
+        private static void AfterInsertOrUpdateOrDelete(SqlConnection conn, MiscelleneousOccuPermit misc, String action)
+        {
+            //Create audit object.
+            MiscOccuPermit_Audit audit = new MiscOccuPermit_Audit();
+
+            //copy the whole record to audit object.
+            copyRptToAudit(misc, audit);
+
+            //populates action.
+            audit.Action = action;
+
+            //Insert audit sa Jo_RPT_Audit.
+            conn.Insert<MiscOccuPermit_Audit>(audit);
+        }
+
+        /// <summary>
+        /// copy the entire row from Jo_RPT to Jo_RPT_Audit.
+        /// </summary>
+        private static void copyRptToAudit(MiscelleneousOccuPermit misc, MiscOccuPermit_Audit audit)
+        {
+            //kukunin pa lang yung lahat ng property from RealPropertyTax at RealPropertyTaxAudit.
+            var miscProperties = typeof(MiscelleneousOccuPermit).GetProperties();
+            var auditProperties = typeof(MiscOccuPermit_Audit).GetProperties();
+
+            foreach (var miscProperty in miscProperties)
+            {
+                foreach (var auditProperty in auditProperties)
+                {
+                    if (miscProperty.Name == auditProperty.Name)
+                    {
+                        //kung ano makukuha nyang value sa param rpt, ita-transfer nya sa param audit.
+                        auditProperty.SetValue(audit, miscProperty.GetValue(misc));
+                        break;
+                    }
+                }
+            }
+        }
+
         public static long Insert(MiscelleneousOccuPermit modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 RPTUser loginUser = SecurityService.getLoginUser();
-                ////Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
-                //modelInstance.CreatedBy = loginUser.DisplayName;
-                //modelInstance.CreatedDate = DateTime.Now;
-                //modelInstance.LastUpdateBy = loginUser.DisplayName;
-                //modelInstance.LastUpdateDate = DateTime.Now;
 
-                //lilinisin yung bank.
-                //BeforeInsertOrUpdate(modelInstance);
+                ////Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
+                modelInstance.LastUpdateBy = loginUser.DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
 
                 //Insert record in Jo_RPT.
                 long result = conn.Insert<MiscelleneousOccuPermit>(modelInstance);
 
                 //Insert record in Jo_RPT_Audit.
-                //AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
 
                 return result;
             }
@@ -103,11 +137,28 @@ namespace SampleRPT1
                 modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
 
-                //BeforeInsertOrUpdate(modelInstance);
+                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Tagging of deleted record in the database.
+        /// </summary>
+        public static bool Delete(MiscelleneousOccuPermit modelInstance)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                modelInstance.DeletedRecord = 1;
+                modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
 
                 bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
 
-                //AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
+                AfterInsertOrUpdateOrDelete(conn, modelInstance, "DELETE");
+
                 return result;
             }
         }
@@ -185,6 +236,64 @@ namespace SampleRPT1
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status and DeletedRecord != 1 ORDER BY EncodedDate ASC";
                 return conn.Query<MiscelleneousOccuPermit>(query, new { Status = Status }).ToList();
+            }
+        }
+
+        /// <summary>
+        /// return a list of record from misc_audit.
+        /// </summary>
+        public static List<MiscOccuPermit_Audit> SelectAudits(long MiscID)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<MiscOccuPermit_Audit>($"SELECT * FROM Jo_MISC_Audit where MiscID = @MiscID order by AuditID asc", new { MiscID = MiscID }).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Restore from previous status.
+        /// </summary>
+        public static void Revert(MiscOccuPermit_Audit audit)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                MiscelleneousOccuPermit misc = Get(audit.MiscID);
+                copyAuditToMisc(audit, misc);
+
+                misc.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
+                misc.LastUpdateDate = DateTime.Now;
+                conn.Update<MiscelleneousOccuPermit>(misc);
+                AfterInsertOrUpdateOrDelete(conn, misc, "REVERT");
+            }
+        }
+
+        /// <summary>
+        /// copy the entire row from Jo_RPT_Audit to Jo_RPT.
+        /// </summary>
+        private static void copyAuditToMisc(MiscOccuPermit_Audit audit, MiscelleneousOccuPermit misc)
+        {
+            var miscProperties = typeof(MiscelleneousOccuPermit).GetProperties();
+            var auditProperties = typeof(MiscOccuPermit_Audit).GetProperties();
+            foreach (var miscProperty in miscProperties)
+            {
+                foreach (var auditProperty in auditProperties)
+                {
+                    if (miscProperty.Name == auditProperty.Name)
+                    {
+                        miscProperty.SetValue(misc, auditProperty.GetValue(audit));
+                        break;
+                    }
+                }
+            }
+        }
+
+        public static string SelectBy_TaxpayerName(string OPNumber)
+        {
+            using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
+            {
+                //return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [BillNumber] FROM [TaxpayerLName] where BillNumber = @OPNumber order by billdate desc", new { OPNumber = OPNumber });
+                return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [TaxpayerLName] FROM MiscDetailsBillingSTAGE where BillNumber = @OPNumber", new { OPNumber = OPNumber });
+
             }
         }
     }

@@ -17,6 +17,20 @@ namespace SampleRPT1.FORMS
         }
 
         /// <summary>
+        /// Get the MiscID from the first selected record in the list view
+        /// </summary>
+        public long getSelectedMiscID()
+        {
+            long MiscID = 0;
+            if (haveSelectedRow())
+            {
+                string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
+                MiscID = Convert.ToInt64(MiscIDString);
+            }
+            return MiscID;
+        }
+
+        /// <summary>
         /// Retrieve from the database all the selected items in the list view, but with the same Status as ExpectedStatus.
         /// </summary>
         public List<MiscelleneousOccuPermit> GetSelectedMISCByStatus(string ExpectedStatus)
@@ -58,6 +72,21 @@ namespace SampleRPT1.FORMS
             return MiscIDList;
         }
 
+        public MiscelleneousOccuPermit getSelectedMisc()
+        {
+            MiscelleneousOccuPermit misc = null;
+
+            if (haveSelectedRow())
+            {
+                string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
+                long MiscID = Convert.ToInt64(MiscIDString);
+                misc = MISCDatabase.Get(MiscID);
+            }
+
+            return misc;
+        }
+
+
         public bool CheckSameStatus(string ExpectedStatus)
         {
             bool SameStatus = true;
@@ -70,6 +99,21 @@ namespace SampleRPT1.FORMS
                 }
             }
             return SameStatus;
+        }
+
+        /// <summary>
+        /// Check if there is a row selected from the list view.
+        /// </summary>
+        public bool haveSelectedRow()
+        {
+            if (MISCinfoLV.SelectedItems.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

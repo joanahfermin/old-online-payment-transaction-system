@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkSelectAll = new System.Windows.Forms.CheckBox();
+            this.components = new System.ComponentModel.Container();
             this.textTotalAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textNumRec = new System.Windows.Forms.TextBox();
@@ -47,18 +47,10 @@
             this.paymentdate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateindb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateinlist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnRetrieveName = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // checkSelectAll
-            // 
-            this.checkSelectAll.AutoSize = true;
-            this.checkSelectAll.Location = new System.Drawing.Point(1686, 23);
-            this.checkSelectAll.Name = "checkSelectAll";
-            this.checkSelectAll.Size = new System.Drawing.Size(70, 17);
-            this.checkSelectAll.TabIndex = 34;
-            this.checkSelectAll.Text = "Select All";
-            this.checkSelectAll.UseVisualStyleBackColor = true;
-            this.checkSelectAll.CheckedChanged += new System.EventHandler(this.checkSelectAll_CheckedChanged);
             // 
             // textTotalAmount
             // 
@@ -122,6 +114,7 @@
             this.btnPrint.TabIndex = 27;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnSaveAll
             // 
@@ -201,12 +194,27 @@
             this.duplicateinlist.Text = "Duplicate in Gcash/Paymaya";
             this.duplicateinlist.Width = 150;
             // 
+            // btnRetrieveName
+            // 
+            this.btnRetrieveName.Location = new System.Drawing.Point(377, 12);
+            this.btnRetrieveName.Name = "btnRetrieveName";
+            this.btnRetrieveName.Size = new System.Drawing.Size(93, 23);
+            this.btnRetrieveName.TabIndex = 35;
+            this.btnRetrieveName.Text = "Retrieve Name";
+            this.btnRetrieveName.UseVisualStyleBackColor = true;
+            this.btnRetrieveName.Visible = false;
+            this.btnRetrieveName.Click += new System.EventHandler(this.btnRetrieveName_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AddGcashPaymayaOccuPermitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 988);
-            this.Controls.Add(this.checkSelectAll);
+            this.Controls.Add(this.btnRetrieveName);
             this.Controls.Add(this.textTotalAmount);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textNumRec);
@@ -218,14 +226,13 @@
             this.Controls.Add(this.MISCGcashPaymayaLV);
             this.Name = "AddGcashPaymayaOccuPermitForm";
             this.Text = "AddGcashPaymayaOccuPermit";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox checkSelectAll;
         private System.Windows.Forms.TextBox textTotalAmount;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textNumRec;
@@ -244,5 +251,7 @@
         private System.Windows.Forms.ColumnHeader paymentdate;
         private System.Windows.Forms.ColumnHeader duplicateindb;
         private System.Windows.Forms.ColumnHeader duplicateinlist;
+        private System.Windows.Forms.Button btnRetrieveName;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

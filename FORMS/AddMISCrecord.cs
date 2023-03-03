@@ -98,7 +98,7 @@ namespace SampleRPT1.FORMS
                 dtDateOfPayment.Checked = true;
                 dtDateOfPayment.Enabled = true;
                 cboBankUsed.Enabled = true;
-                checkBankUsedRetain.Enabled = true;
+                //checkBankUsedRetain.Enabled = true;
             }
             else if (textTotalTransferredAmount.Text == "0.00")
             {
@@ -108,12 +108,34 @@ namespace SampleRPT1.FORMS
                 dtDateOfPayment.Checked = false;
                 dtDateOfPayment.Enabled = false;
                 cboBankUsed.Enabled = false;
-                checkBankUsedRetain.Enabled = false;
+                //checkBankUsedRetain.Enabled = false;
+            }
+        }
+
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, cboMiscType, "Misc type");
+            Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
+
+            if (Convert.ToDecimal(textTotalTransferredAmount.Text) != 0)
+            {
+                Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
             decimal ComputeExcessShort;
 
             MiscelleneousOccuPermit misc = new MiscelleneousOccuPermit();
@@ -354,6 +376,13 @@ namespace SampleRPT1.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
             decimal ComputeExcessShort;
 
             misc.TaxpayersName = textTPName.Text;

@@ -66,7 +66,7 @@ namespace SampleRPT1.DATABASE
             {
                 string UserName = SecurityService.getLoginUser().DisplayName;
                 return conn.Query<ReportCollection_OccuPermit>(
-                " SELECT OrderOfPaymentNum, OPATrackingNum, TransferredAmount, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%', Remarks, '' )" +
+                " SELECT OrderOfPaymentNum, OPATrackingNum, AmountToBePaid, TransferredAmount, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%', Remarks, '' )" +
                 " as Remarks  FROM Jo_MISC " +
                 " where DeletedRecord = 0 and MiscType = 'OCCUPATIONAL PERMIT' " +
                 " and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +

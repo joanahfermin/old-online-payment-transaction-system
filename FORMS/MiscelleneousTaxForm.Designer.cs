@@ -82,6 +82,7 @@
             this.MISCinfoLV.TabIndex = 1;
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
+            this.MISCinfoLV.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.MISCinfoLV_ItemSelectionChanged);
             this.MISCinfoLV.DoubleClick += new System.EventHandler(this.MISCinfoLV_DoubleClick);
             this.MISCinfoLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MISCinfoLV_KeyDown);
             this.MISCinfoLV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MISCinfoLV_MouseDown);
@@ -259,7 +260,7 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1528, 47);
+            this.btnExecute.Location = new System.Drawing.Point(1049, 103);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 57;
@@ -270,7 +271,7 @@
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1343, 49);
+            this.cboAction.Location = new System.Drawing.Point(864, 105);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(179, 21);
             this.cboAction.TabIndex = 56;
@@ -279,7 +280,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1340, 30);
+            this.label6.Location = new System.Drawing.Point(818, 113);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 46;
@@ -287,7 +288,7 @@
             // 
             // btnAddGcashPaymaya
             // 
-            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(856, 103);
+            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(1176, 103);
             this.btnAddGcashPaymaya.Name = "btnAddGcashPaymaya";
             this.btnAddGcashPaymaya.Size = new System.Drawing.Size(134, 23);
             this.btnAddGcashPaymaya.TabIndex = 58;
@@ -299,7 +300,7 @@
             // 
             this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(775, 106);
+            this.textRecSelected.Location = new System.Drawing.Point(722, 106);
             this.textRecSelected.Name = "textRecSelected";
             this.textRecSelected.Size = new System.Drawing.Size(63, 20);
             this.textRecSelected.TabIndex = 65;
@@ -308,7 +309,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(671, 113);
+            this.label8.Location = new System.Drawing.Point(618, 113);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 63;
@@ -317,7 +318,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(333, 113);
+            this.label11.Location = new System.Drawing.Point(308, 113);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
             this.label11.TabIndex = 64;
@@ -327,7 +328,7 @@
             // 
             this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
-            this.textTotalAmountTransferred.Location = new System.Drawing.Point(469, 106);
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(444, 106);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
             this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmountTransferred.TabIndex = 60;

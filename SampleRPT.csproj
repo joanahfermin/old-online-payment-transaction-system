@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>87</ApplicationRevision>
+    <ApplicationRevision>89</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -109,6 +109,7 @@
       <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MiniHTMLTextBox, Version=1.0.25907.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DG.MiniHTMLTextBox.1.0.25907.4\lib\net40\MiniHTMLTextBox.dll</HintPath>
     </Reference>
@@ -223,6 +224,7 @@
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
     <Compile Include="DATABASE\MISCDatabase.cs" />
+    <Compile Include="DATABASE\Misc_OccuPermit_TagNameDB.cs" />
     <Compile Include="DATABASE\ReportDatabase.cs" />
     <Compile Include="DATABASE\RPTAttachPictureDatabase.cs" />
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
@@ -279,6 +281,12 @@
     </Compile>
     <Compile Include="FORMS\MainFormMISCListViewHelper.cs" />
     <Compile Include="FORMS\MainFormRPTListViewHelper.cs" />
+    <Compile Include="FORMS\MISC_ViewHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\MISC_ViewHistoryForm.Designer.cs">
+      <DependentUpon>MISC_ViewHistoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\ReleasingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,11 +329,11 @@
     <Compile Include="FORMS\UpdateRPTForm.Designer.cs">
       <DependentUpon>UpdateRPTForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\ViewHistoryForm.cs">
+    <Compile Include="FORMS\RPT_ViewHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\ViewHistoryForm.Designer.cs">
-      <DependentUpon>ViewHistoryForm.cs</DependentUpon>
+    <Compile Include="FORMS\RPT_ViewHistoryForm.Designer.cs">
+      <DependentUpon>RPT_ViewHistoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\ViewImageForm.cs">
       <SubType>Form</SubType>
@@ -341,6 +349,8 @@
       <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MODEL\MiscelleneousOccuPermit.cs" />
+    <Compile Include="MODEL\MiscOccuPermit_Audit.cs" />
+    <Compile Include="MODEL\Misc_OccuPermit_TagName.cs" />
     <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
     <Compile Include="MODEL\ReportCollection.cs" />
     <Compile Include="MODEL\ReportUserActivity.cs" />
@@ -445,6 +455,9 @@
     <EmbeddedResource Include="FORMS\MiscelleneousTaxForm.resx">
       <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\MISC_ViewHistoryForm.resx">
+      <DependentUpon>MISC_ViewHistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ReleasingForm.resx">
       <DependentUpon>ReleasingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -463,8 +476,8 @@
     <EmbeddedResource Include="FORMS\SplitPaymentForm.resx">
       <DependentUpon>SplitPaymentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\ViewHistoryForm.resx">
-      <DependentUpon>ViewHistoryForm.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\RPT_ViewHistoryForm.resx">
+      <DependentUpon>RPT_ViewHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\ViewImageForm.resx">
       <DependentUpon>ViewImageForm.cs</DependentUpon>

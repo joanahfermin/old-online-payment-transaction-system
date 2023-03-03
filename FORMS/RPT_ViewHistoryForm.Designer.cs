@@ -1,7 +1,7 @@
 ﻿
 namespace SampleRPT1.FORMS
 {
-    partial class ViewHistoryForm
+    partial class RPT_ViewHistoryForm
     {
         /// <summary>
         /// Required designer variable.

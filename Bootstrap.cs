@@ -34,6 +34,8 @@ namespace SampleRPT1
 
             GlobalConstants.LOC_CODE_ADJUSTMENT_ELECTRONIC = getSystemSettingAsInt("LOC_CODE_ADJUSTMENT_ELECTRONIC");
 
+            GlobalConstants.AUTHORIZE_EDIT_DATA = getSystemSettingAsString("AUTHORIZE_EDIT_DATA");
+
             autoEmailJob = new AutoEmailJob();
             autoEmailJob.Initialize();
 

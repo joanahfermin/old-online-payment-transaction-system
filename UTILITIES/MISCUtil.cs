@@ -17,7 +17,9 @@ namespace SampleRPT1
         public const string VERIFY_PAYMENT = "VERIFY PAYMENT";
         public const string VALIDATE_PAYMENT = "VALIDATE PAYMENT";
         public const string TRANSMIT = "TRANSMIT";
-        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT };
+        public const string DELETED_RECORD = "DELETE";
+
+        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, DELETED_RECORD };
 
 
         //OCCUPATIONAL PERMIT STATUS.

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboStatus = new System.Windows.Forms.ComboBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cboMiscType = new System.Windows.Forms.ComboBox();
@@ -40,8 +42,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
-            this.checkRequestingParty = new System.Windows.Forms.CheckBox();
-            this.checkTaxNameRetain = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textRemarks = new System.Windows.Forms.TextBox();
@@ -56,9 +56,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.checkBankUsedRetain = new System.Windows.Forms.CheckBox();
-            this.cboStatus = new System.Windows.Forms.ComboBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,8 +76,6 @@
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.dtDateOfPayment);
-            this.panel1.Controls.Add(this.checkRequestingParty);
-            this.panel1.Controls.Add(this.checkTaxNameRetain);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.textRemarks);
@@ -93,8 +91,16 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(526, 595);
+            this.panel1.Size = new System.Drawing.Size(492, 595);
             this.panel1.TabIndex = 16;
+            // 
+            // cboStatus
+            // 
+            this.cboStatus.FormattingEnabled = true;
+            this.cboStatus.Location = new System.Drawing.Point(151, 366);
+            this.cboStatus.Name = "cboStatus";
+            this.cboStatus.Size = new System.Drawing.Size(254, 21);
+            this.cboStatus.TabIndex = 25;
             // 
             // btnUpdate
             // 
@@ -215,26 +221,6 @@
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(114, 23);
             this.dtDateOfPayment.TabIndex = 6;
-            // 
-            // checkRequestingParty
-            // 
-            this.checkRequestingParty.AutoSize = true;
-            this.checkRequestingParty.Location = new System.Drawing.Point(424, 404);
-            this.checkRequestingParty.Name = "checkRequestingParty";
-            this.checkRequestingParty.Size = new System.Drawing.Size(57, 17);
-            this.checkRequestingParty.TabIndex = 16;
-            this.checkRequestingParty.Text = "Retain";
-            this.checkRequestingParty.UseVisualStyleBackColor = true;
-            // 
-            // checkTaxNameRetain
-            // 
-            this.checkTaxNameRetain.AutoSize = true;
-            this.checkTaxNameRetain.Location = new System.Drawing.Point(426, 84);
-            this.checkTaxNameRetain.Name = "checkTaxNameRetain";
-            this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 14;
-            this.checkTaxNameRetain.Text = "Retain";
-            this.checkTaxNameRetain.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
@@ -379,37 +365,23 @@
             this.label11.TabIndex = 17;
             this.label11.Text = "Add New Record";
             // 
-            // checkBankUsedRetain
+            // errorProvider1
             // 
-            this.checkBankUsedRetain.AutoSize = true;
-            this.checkBankUsedRetain.Location = new System.Drawing.Point(439, 183);
-            this.checkBankUsedRetain.Name = "checkBankUsedRetain";
-            this.checkBankUsedRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkBankUsedRetain.TabIndex = 18;
-            this.checkBankUsedRetain.Text = "Retain";
-            this.checkBankUsedRetain.UseVisualStyleBackColor = true;
-            // 
-            // cboStatus
-            // 
-            this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Location = new System.Drawing.Point(151, 366);
-            this.cboStatus.Name = "cboStatus";
-            this.cboStatus.Size = new System.Drawing.Size(254, 21);
-            this.cboStatus.TabIndex = 25;
+            this.errorProvider1.ContainerControl = this;
             // 
             // AddMISCrecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 619);
+            this.ClientSize = new System.Drawing.Size(519, 619);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkBankUsedRetain);
             this.Name = "AddMISCrecord";
             this.Text = "AddMISCrecord";
             this.Load += new System.EventHandler(this.AddMISCrecord_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,8 +394,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtDateOfPayment;
-        private System.Windows.Forms.CheckBox checkRequestingParty;
-        private System.Windows.Forms.CheckBox checkTaxNameRetain;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textRemarks;
@@ -435,7 +405,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.CheckBox checkBankUsedRetain;
         private System.Windows.Forms.TextBox textOPAtrackingNum;
         private System.Windows.Forms.TextBox textOPNum;
         private System.Windows.Forms.TextBox textAmountToBePaid;
@@ -447,5 +416,6 @@
         private System.Windows.Forms.ComboBox cboMiscType;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.ComboBox cboStatus;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

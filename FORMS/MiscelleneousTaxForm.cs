@@ -1,4 +1,5 @@
-﻿using SampleRPT1.FORMS;
+﻿using Microsoft.VisualBasic;
+using SampleRPT1.FORMS;
 using SampleRPT1.MODEL;
 using SampleRPT1.Service;
 using System;
@@ -51,6 +52,12 @@ namespace SampleRPT1
             }
         }
 
+        public long getSelectedMiscID()
+        {
+            return mainFormListViewHelper.getSelectedMiscID();
+        }
+
+
         public void RefreshLV()
         {
             lastSearchAction = SEARCH_BY_DATE_STATUS;
@@ -69,6 +76,10 @@ namespace SampleRPT1
             }
 
             PopulateLVMISC(miscList);
+
+            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
 
         public void InitializeMiscType()
@@ -113,6 +124,10 @@ namespace SampleRPT1
             List<MiscelleneousOccuPermit> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
 
             PopulateLVMISC(miscRecordList);
+
+            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
 
         public void Show()
@@ -174,15 +189,60 @@ namespace SampleRPT1
             }
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            //AutoResizeLV_Column(MISCinfoLV, -2);
+            //AutoResizeLV_ColumnContent(MISCinfoLV, -2);
+        }
+
+        static void AutoResizeLV_Column(ListView MISCinfoLV, int width)
+        {
+            foreach (ColumnHeader col in MISCinfoLV.Columns)
+            {
+                col.Width = width;
+            }
+        }
+
+        static void AutoResizeLV_ColumnContent(ListView MISCinfoLV, int width)
+        {
+            //foreach (ListView item in MISCinfoLV.Columns)
+            //{
+            //    item.Columns.s= width;
+            //}
+        }
+
+        private void CallUpdateForm()
+        {
+            long RetrieveMiscID = mainFormListViewHelper.getSelectedMiscID();
+
+            AddMISCrecord addMISCrecord = new AddMISCrecord(RetrieveMiscID);
+            addMISCrecord.ShowDialog();
         }
 
         private void MISCinfoLV_DoubleClick(object sender, EventArgs e)
         {
-            string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
-            long miscID = Convert.ToInt64(MiscIDString);
+            //string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
+            //long miscID = Convert.ToInt64(MiscIDString);
 
-            AddMISCrecord addMISCrecord = new AddMISCrecord(miscID);
-            addMISCrecord.ShowDialog();
+            MiscelleneousOccuPermit RetrieveMisc = mainFormListViewHelper.getSelectedMisc();
+
+            if (RetrieveMisc.Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
+            {
+                CallUpdateForm();
+            }
+            else
+            {
+                string input = Interaction.InputBox("Enter Password:", "Authorize Edit Data", "", 760, 440);
+
+                if (GlobalConstants.AUTHORIZE_EDIT_DATA == input)
+                {
+                    CallUpdateForm();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid password.");
+                }
+
+            }
         }
 
         private void textSearch_KeyDown(object sender, KeyEventArgs e)
@@ -230,7 +290,7 @@ namespace SampleRPT1
                     MessageBox.Show("Some selected records has not been processed.");
                     cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
                 }
-
+                MessageBox.Show("Record/s successfully verified.");
                 cboStatus.Text = MISCUtil.FOR_PAYMENT_VALIDATION;
                 RefreshLV();
             }
@@ -250,7 +310,8 @@ namespace SampleRPT1
 
                     MISCDatabase.Update(misc);
                 }
-                MessageBox.Show("Record/s successfully Validated.");
+                MessageBox.Show("Record/s successfully validated.");
+                cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
                 RefreshLV();
             }
         }
@@ -271,9 +332,69 @@ namespace SampleRPT1
                 }
 
                 MessageBox.Show("Record/s successfully transmitted.");
+                //cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
                 RefreshLV();
             }
         }
+
+        private void Delete_Record()
+        {
+            if (loginUser.canDelete)
+            {
+                if (mainFormListViewHelper.haveSelectedRow())
+                {
+                    var Confirmation = MessageBox.Show("Are you sure you want to delete record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (Confirmation == DialogResult.Yes)
+                    {
+                        MiscelleneousOccuPermit Misc_Record = mainFormListViewHelper.getSelectedMisc();
+                        MISCDatabase.Delete(Misc_Record);
+                    }
+                }
+
+                else
+                {
+                    MessageBox.Show("Invalid action.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                RefreshLV();
+            }
+            else
+            {
+                MessageBox.Show("You are not allowed to delete a record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SetAction(string NewAction)
+        {
+            if (cboAction.Items.Contains(NewAction))
+            {
+                cboAction.Text = NewAction;
+            }
+        }
+
+        private void ChangeAction()
+        {
+            if (mainFormListViewHelper.haveSelectedRow())
+            {
+                MiscelleneousOccuPermit misc = mainFormListViewHelper.getSelectedMisc();
+                string Status = misc.Status;
+
+                if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
+                {
+                    SetAction(MISCUtil.VERIFY_PAYMENT);
+                }
+
+                else if (Status == MISCUtil.FOR_PAYMENT_VALIDATION)
+                {
+                    SetAction(MISCUtil.VALIDATE_PAYMENT);
+                }
+
+                else if(Status == MISCUtil.FOR_TRANSMITTAL)
+                {
+                    SetAction(MISCUtil.TRANSMIT);
+                }
+            }
+        }
+
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
@@ -281,13 +402,17 @@ namespace SampleRPT1
             {
                 VerifyPayment();
             }
-            if (cboAction.Text == MISCUtil.VALIDATE_PAYMENT)
+            else if (cboAction.Text == MISCUtil.VALIDATE_PAYMENT)
             {
                 ValidatePayment();
             }
-            if (cboAction.Text == MISCUtil.TRANSMIT)
+            else if (cboAction.Text == MISCUtil.TRANSMIT)
             {
                 TransmitPayment();
+            }
+            else if (cboAction.Text == MISCUtil.DELETED_RECORD)
+            {
+                Delete_Record();
             }
         }
 
@@ -437,5 +562,10 @@ namespace SampleRPT1
             }
         }
         //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
+
+        private void MISCinfoLV_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            ChangeAction();
+        }
     }
 }

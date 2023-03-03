@@ -20,7 +20,9 @@ namespace SampleRPT1.MODEL
     {
         public string OrderOfPaymentNum { get; set; }
         public string OPATrackingNum { get; set; }
+        public decimal AmountToBePaid { get; set; }
         public decimal TransferredAmount { get; set; }
+        public decimal ExcessShort { get; set; }
         public string Remarks { get; set; }
     }
 }

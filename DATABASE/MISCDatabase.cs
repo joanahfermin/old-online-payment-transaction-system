@@ -14,6 +14,8 @@ namespace SampleRPT1
 {
     internal class MISCDatabase
     {
+        private static List<MiscelleneousTax> allmisc = new List<MiscelleneousTax>();
+
         public static MiscelleneousTax Get(long MiscID)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -58,6 +60,33 @@ namespace SampleRPT1
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @occuPermitRecord OR OPATrackingNum LIKE @occuPermitRecord order by MiscID asc";
                 return conn.Query<MiscelleneousTax>(query, new { occuPermitRecord = "%" + occuPermitRecord + "%", OPATrackingNum = "%" + occuPermitRecord + "%", }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> Search_PTR_Record(string search)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE PRC_IBP_No LIKE @search OR TaxpayersName LIKE @search order by MiscID asc";
+                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> Search_HealthCert_Record(string search)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @search order by MiscID asc";
+                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> Search_TaxClearance_Record(string search)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @search order by MiscID asc";
+                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
             }
         }
 
@@ -164,78 +193,82 @@ namespace SampleRPT1
         }
 
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string MiscType, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(PaymentDate as DATE) >= CAST(@PaymentDateFrom as DATE) " +
-                    "AND CAST(PaymentDate as DATE) <= CAST(@PaymentDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                    "AND CAST(PaymentDate as DATE) <= CAST(@PaymentDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY PaymentDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
                     PaymentDateFrom = paymentDateFrom,
                     PaymentDateTo = paymentDateTo,
                     Status = Status,
+                    MiscType = MiscType,
                     BankList = BankList
                 }).ToList();
             }
         }
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime verifiedDateFrom, DateTime verifiedDateTo, string Status, List<string> BankList)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime verifiedDateFrom, DateTime verifiedDateTo, string MiscType, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(VerifiedDate as DATE) >= CAST(@VerifiedDateFrom as DATE) " +
-                    "AND CAST(VerifiedDate as DATE) <= CAST(@VerifiedDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                    "AND CAST(VerifiedDate as DATE) <= CAST(@VerifiedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY VerifiedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
                     VerifiedDateFrom = verifiedDateFrom,
                     VerifiedDateTo = verifiedDateTo,
                     Status = Status,
+                    MiscType = MiscType,
                     BankList = BankList
                 }).ToList();
             }
         }
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string MiscType, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(ValidatedDate as DATE) >= CAST(@ValidatedDateFrom as DATE) " +
-                    "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                    "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND DeletedRecord != 1 " +
                 "ORDER BY ValidatedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
                     ValidatedDateFrom = validatedDateFrom,
                     ValidatedDateTo = validatedDateTo,
                     Status = Status,
+                    MiscType = MiscType,
                 }).ToList();
             }
         }
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string MiscType, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(TransmittedDate as DATE) >= CAST(@TransmittedDateFrom as DATE) " +
-                    "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                    "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND DeletedRecord != 1 " +
                 "ORDER BY TransmittedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
                     TransmittedDateFrom = transmittedDateFrom,
                     TransmittedDateTo = transmittedDateTo,
                     Status = Status,
+                    MiscType = MiscType,
                 }).ToList();
             }
         }
 
-        public static List<MiscelleneousTax> SelectByStatus(string Status)
+        public static List<MiscelleneousTax> SelectByStatus(string MiscType, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status and DeletedRecord != 1 ORDER BY EncodedDate ASC";
-                return conn.Query<MiscelleneousTax>(query, new { Status = Status }).ToList();
+                String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status AND MiscType = @MiscType and DeletedRecord != 1 ORDER BY EncodedDate desc";
+                return conn.Query<MiscelleneousTax>(query, new { Status = Status, MiscType = MiscType }).ToList();
             }
         }
 
@@ -287,14 +320,10 @@ namespace SampleRPT1
             }
         }
 
-        //public static string SelectBy_TaxpayerName(string OPNumber)
-        //{
-        //    using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
-        //    {
-        //        return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [TaxpayerLName] FROM MiscDetailsBillingSTAGE where BillNumber = @OPNumber", new { OPNumber = OPNumber });
-
-        //    }
-        //}
+        public static void CreateMisc(MiscelleneousTax misc)
+        {
+            allmisc.Add(misc);
+        }
 
         public static List<Misc_OccuPermit_TagName> SelectBy_TaxpayerName_Bulk(List<string> OPNumber_List)
         {

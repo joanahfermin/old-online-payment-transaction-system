@@ -8,10 +8,6 @@ namespace SampleRPT1
 {
     internal class MISCUtil
     {
-        public const string OCCUPATIONAL_PERMIT = "OCCUPATIONAL PERMIT";
-        public const string PTR = "PTR";
-        public const string HEALTH_CERTIFICATE = "HEALTH CERTIFICATE";
-        public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, PTR, HEALTH_CERTIFICATE };
 
         //ACTIONS.
         public const string VERIFY_PAYMENT = "VERIFY PAYMENT";
@@ -41,20 +37,57 @@ namespace SampleRPT1
 
         //COLUMN NAMES OF THE OCCUPATIONAL PERMIT
         public static List<string> MISC_OCCPERMIT_COLUMN_NAMES = new List<string> 
-        { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "Mode of Payment", "OPA Tracking Number"};
+        { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment",};
+
+        //PROPERTY NAMES OF THE OCCUPATIONAL PERMIT
+        public static List<string> MISC_OCCPERMIT_PROPERTY_NAMES = new List<string>
+        { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment",};
+
+
+        //COLUMN NAMES OF PTR
+        public static List<string> MISC_PTR_COLUMN_NAMES = new List<string>
+        { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."};
+
+        //PROPERTY NAMES OF PTR
+        public static List<string> MISC_PTR_PROPERTY_NAMES = new List<string>
+        { "MiscID", "MiscType", "TaxpayersName", "Profession", "LastORDate", "LastORNo", "PRC_IBP_No",};
+
+
+        //COLUMN NAMES OF HEALTH CERT
+        public static List<string> MISC_HEALTHCERT_COLUMN_NAMES = new List<string>
+        { "MiscID", "Misc Type", "Taxpayer's Name"};
+
+        //PROPERTY NAMES OF HEALTH CERT
+        public static List<string> MISC_HEALTHCERT_PROPERTY_NAMES = new List<string>
+        { "MiscID", "MiscType", "TaxpayersName"};
+
+        //COLUMN NAMES OF TAX CLEARANCE
+        public static List<string> MISC_TAXCLEARANCE_COLUMN_NAMES = new List<string>
+        { "MiscID", "Misc Type", "Taxpayer's Name"};
+
+        //PROPERTY NAMES OF TAX CLEARANCE
+        public static List<string> MISC_TAXCLEARANCE_PROPERTY_NAMES = new List<string>
+        { "MiscID", "MiscType", "TaxpayersName"};
+
 
         public static List<string> MISC_COMMON_PROPERTY_NAMES = new List<string>
         { "AmountToBePaid", "TransferredAmount", "ExcessShort", "PaymentDate", "Status", "RequestingParty", "Remarks", "VerifiedBy", 
             "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "TransmittedBy", "TransmittedDate", "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate" };
 
-        //COLUMN NAMES OF THE OCCUPATIONAL PERMIT
-        public static List<string> MISC_OCCPERMIT_PROPERTY_NAMES = new List<string>
-        { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "ModeOfPayment", "OPATrackingNum"};
 
         static MISCUtil()
         {
             MISC_OCCPERMIT_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
             MISC_OCCPERMIT_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+
+            MISC_PTR_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
+            MISC_PTR_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+
+            MISC_HEALTHCERT_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
+            MISC_HEALTHCERT_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+
+            MISC_TAXCLEARANCE_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
+            MISC_TAXCLEARANCE_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
         }
     }
 }

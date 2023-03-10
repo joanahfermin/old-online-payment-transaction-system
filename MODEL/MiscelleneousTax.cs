@@ -41,5 +41,12 @@ namespace SampleRPT1
         public DateTime? LastUpdateDate { get; set; }
 
         public int DeletedRecord { get; set; } = 0;
+
+
+        public string Profession { get; set; }
+        public string LastORDate { get; set; }
+        public string LastORNo { get; set; }
+        public string PRC_IBP_No { get; set; }
+
     }
 }

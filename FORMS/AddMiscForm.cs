@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SampleRPT1.MODEL;
+using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +15,215 @@ namespace SampleRPT1.FORMS
 {
     public partial class AddMiscForm : Form
     {
+        private RPTUser loginUser = SecurityService.getLoginUser();
+        MiscelleneousTax misc;
+
         private List<Label> dynamicLabelList = new List<Label>();
         private List<TextBox> dynamicTextboxList = new List<TextBox>();
 
-        private string[] PTR_DYNAMIC_PROPERTY_LABELS = { "Profession:", "Last O.R Date:", "Last O.R No.:", "Prc/ibp No.:", "Requesting No.:" };
-        private string[] PTR_DYNAMIC_PROPERTY_NAMES = { "SubjectTaught", "School" }; // property sa Person class
+        Dictionary<string, string[]> dynamicPropertyLabelMapping = new Dictionary<string, string[]>();
+        Dictionary<string, string[]> dynamicPropertyNameMapping = new Dictionary<string, string[]>();
+
+        private int CONTROL_HEIGHT_INCREMENT = 42;
+        private int CONTROL_START_Y = 345;
+
+        private int LABEL_START_X = 40;
+        private int TEXTBOX_START_X = 152;
 
         public AddMiscForm()
         {
             InitializeComponent();
+            InitializeMiscType();
+            InitializeDynamicMapping();
+            InitializeBank();
+            cboMiscType.SelectedIndex = 0;
+            cboStatus.Text = "FOR PAYMENT VERIFICATION";
+            btnUpdate.Enabled = false;
+        }
+
+        public AddMiscForm(long miscId)
+        {
+            misc = MISCDatabase.Get(miscId);
+
+            InitializeComponent();
+            InitializeBank();
+            InitializeMiscType();
+            InitializeRetrieveMisc();
+        }
+
+        public void InitializeBank()
+        {
+            List<RPTBank> bankList = RPTBankDatabase.SelectAllBank();
+
+            foreach (RPTBank bank in bankList)
+            {
+                cboBankUsed.Items.Add(bank.BankName);
+            }
+        }
+
+        public void InitializeMiscType()
+        {
+            foreach (string miscType in Misc_Type.ALL_MISC_TYPE)
+            {
+                cboMiscType.Items.Add(miscType);
+            }
+        }
+
+        public void InitializeRetrieveMisc()
+        {
+            
+        }
+
+        private void CheckUncheckDateOfPayment()
+        {
+            if (textTotalTransferredAmount.Text != "0.00")
+            {
+                dtDateOfPayment.Format = DateTimePickerFormat.Custom;
+                dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
+
+                dtDateOfPayment.Checked = true;
+                dtDateOfPayment.Enabled = true;
+                cboBankUsed.Enabled = true;
+                //checkBankUsedRetain.Enabled = true;
+            }
+            else if (textTotalTransferredAmount.Text == "0.00")
+            {
+                cboBankUsed.SelectedIndex = 0;
+                dtDateOfPayment.Format = DateTimePickerFormat.Custom;
+                dtDateOfPayment.CustomFormat = " ";
+                dtDateOfPayment.Checked = false;
+                dtDateOfPayment.Enabled = false;
+                cboBankUsed.Enabled = false;
+                //checkBankUsedRetain.Enabled = false;
+            }
+        }
+
+        private void InitializeDynamicMapping()
+        {
+            //initialize label
+            dynamicPropertyLabelMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "O.P Number:", "OPA Tracking No.:", "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.PTR, new string[] { "Profession:", "Last O.R Date:", "Last O.R No.:", "PRC/IBP No.:", "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.SIGNBOARD, new string[] { "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.CONTRACTORS_TAX, new string[] { "Requesting Party:", "Remarks:" });
+
+            //initialize property
+            dynamicPropertyNameMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.PTR, new string[] { "Profession", "LastORDate", "LastORNo", "PRC_IBP_No", "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.SIGNBOARD, new string[] { "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.CONTRACTORS_TAX, new string[] { "RequestingParty", "Remarks" });
+        }
+
+
+        private void cboMiscType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RemoveAllDynamicControls();
+            string miscType = cboMiscType.Text;
+            string[] dynamicPropertyLabels = dynamicPropertyLabelMapping[miscType];
+            AddDynamicControls(dynamicPropertyLabels);
+        }
+
+        private void RemoveAllDynamicControls()
+        {
+            foreach (Label label in dynamicLabelList)
+            {
+                panel1.Controls.Remove(label);
+            }
+            foreach (TextBox textBox in dynamicTextboxList)
+            {
+                panel1.Controls.Remove(textBox);
+            }
+            dynamicLabelList.Clear();
+            dynamicTextboxList.Clear();
+        }
+
+        private void AddDynamicControls(string[] dynamicPropertyLabels)
+        {
+            int y = CONTROL_START_Y; // saan ilalagay sa screen vertically
+
+            // for every property, gagawa ka ng pares na label and textbox
+            foreach (string propertyLabel in dynamicPropertyLabels)
+            {
+                // Create the label on the left side
+                Label label = new Label();
+                label.Top = y;
+                label.Left = LABEL_START_X;
+                label.Text = propertyLabel;
+                label.Width = 100;
+                dynamicLabelList.Add(label);
+                panel1.Controls.Add(label);
+
+                // textbox sa kanan
+                TextBox textBox = new TextBox();
+                textBox.Top = y;
+                textBox.BorderStyle = BorderStyle.FixedSingle;
+                textBox.Left = TEXTBOX_START_X;
+                textBox.Width = 260;
+                textBox.Height = 28;
+                dynamicTextboxList.Add(textBox);
+                panel1.Controls.Add(textBox);
+
+                // need sa baba yung susunot na label/textbox
+                y = y + CONTROL_HEIGHT_INCREMENT;
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            MiscelleneousTax misc = new MiscelleneousTax();
+            misc.MiscType = cboMiscType.Text;
+
+            misc.TaxpayersName = textTPName.Text.Trim();
+            misc.AmountToBePaid = Convert.ToDecimal(textAmountToBePaid.Text);
+            misc.TransferredAmount = Convert.ToDecimal(textTotalTransferredAmount.Text);
+            misc.PaymentDate = dtDateOfPayment.Value.Date;
+            misc.Status = cboStatus.Text;
+            misc.ModeOfPayment = cboBankUsed.Text;
+
+            string misc_type = cboMiscType.Text;
+
+            string[] dynamicPropertyNames = dynamicPropertyNameMapping[misc_type];
+            CopyDynamicProperties(misc, dynamicPropertyNames);
+
+            MISCDatabase.CreateMisc(misc);
+            MISCDatabase.InsertMisc(misc);
+            MessageBox.Show("Record successfully saved.");
+            this.Close();
+
+            MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
+            Close();
+        }
+
+        private void CopyDynamicProperties(MiscelleneousTax misc, string[] dynamicPropertyNames)
+        {
+            for (int i = 0; i < dynamicPropertyNames.Length; i++)
+            {
+                string propertyName = dynamicPropertyNames[i];
+                string value = dynamicTextboxList[i].Text;
+                misc.GetType().GetProperty(propertyName).SetValue(misc, value);
+            }
         }
 
         private void AddMiscForm_Load(object sender, EventArgs e)
         {
+            CheckUncheckDateOfPayment();
+        }
 
+        private void textTotalTransferredAmount_TextChanged(object sender, EventArgs e)
+        {
+            CheckUncheckDateOfPayment();
+        }
+
+        private void textTotalTransferredAmount_Leave(object sender, EventArgs e)
+        {
+            double TotalTransferredAmount;
+            double.TryParse(textTotalTransferredAmount.Text, out TotalTransferredAmount);
+            textTotalTransferredAmount.Text = TotalTransferredAmount.ToString("N2");
+
+            CheckUncheckDateOfPayment();
         }
     }
 }

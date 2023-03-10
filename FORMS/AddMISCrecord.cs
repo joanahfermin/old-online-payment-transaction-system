@@ -63,7 +63,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeMiscType()
         {
-            foreach (string miscType in MISCUtil.ALL_MISC_TYPE)
+            foreach (string miscType in Misc_Type.ALL_MISC_TYPE)
             {
                 cboMiscType.Items.Add(miscType);
             }

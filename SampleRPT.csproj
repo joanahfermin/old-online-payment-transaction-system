@@ -426,6 +426,7 @@
     <Compile Include="DATABASE\RPTDatabase.cs" />
     <Compile Include="UTILITIES\LocationCodeUtil.cs" />
     <Compile Include="UTILITIES\MISCUtil.cs" />
+    <Compile Include="UTILITIES\Misc_Type.cs" />
     <Compile Include="UTILITIES\RPTAction.cs" />
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />

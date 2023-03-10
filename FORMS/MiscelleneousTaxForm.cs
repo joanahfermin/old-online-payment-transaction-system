@@ -2,6 +2,7 @@
 using SampleRPT1.FORMS;
 using SampleRPT1.MODEL;
 using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,6 +64,7 @@ namespace SampleRPT1
             lastSearchAction = SEARCH_BY_DATE_STATUS;
 
             List<MiscelleneousTax> miscList;
+            string Misc_Type = cboMiscType.Text;
 
             // If date range is checked, search by date range and status. Otherwise, just search by status.
             if (dtDate.Checked)
@@ -72,7 +74,7 @@ namespace SampleRPT1
             else
             {
                 string Status = cboStatus.Text;
-                miscList = MISCDatabase.SelectByStatus(Status);
+                miscList = MISCDatabase.SelectByStatus(Misc_Type, Status);
             }
 
             PopulateLVMISC(miscList);
@@ -86,7 +88,7 @@ namespace SampleRPT1
         {
             cboMiscType.Items.Clear();
 
-            foreach (string misc in MISCUtil.ALL_MISC_TYPE)
+            foreach (string misc in Misc_Type.ALL_MISC_TYPE)
             {
                 cboMiscType.Items.Add(misc);
             }
@@ -114,7 +116,7 @@ namespace SampleRPT1
 
         public void RefreshOccuPermit()
         {
-            cboMiscType.Text = MISCUtil.OCCUPATIONAL_PERMIT;
+            cboMiscType.Text = Misc_Type.OCCUPATIONAL_PERMIT;
             RefreshLV();
         }
 
@@ -124,10 +126,33 @@ namespace SampleRPT1
             List<MiscelleneousTax> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
 
             PopulateLVMISC(miscRecordList);
+        }
 
-            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        public void SearchPTR_Record()
+        {
+            string miscRecord = textSearch.Text;
 
+            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_PTR_Record(miscRecord);
+
+            PopulateLVMISC(miscRecordList);
+        }
+
+        public void SearchTaxClearance_Record()
+        {
+            string miscRecord = textSearch.Text;
+
+            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_TaxClearance_Record(miscRecord);
+
+            PopulateLVMISC(miscRecordList);
+        }
+
+        public void SearchHealthCert_Record()
+        {
+            string miscRecord = textSearch.Text;
+
+            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_HealthCert_Record(miscRecord);
+
+            PopulateLVMISC(miscRecordList);
         }
 
         public void Show()
@@ -138,13 +163,31 @@ namespace SampleRPT1
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            AddMISCrecord addMISCrecord = new AddMISCrecord();
-            addMISCrecord.ShowDialog();
+            //AddMISCrecord addMISCrecord = new AddMISCrecord();
+            //addMISCrecord.ShowDialog();
+
+            AddMiscForm addMiscForm = new AddMiscForm();
+            addMiscForm.ShowDialog();
         }
 
         private void PopulateLVMISC(List<MiscelleneousTax> MiscList)
         {
-            ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
+            if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
+            {
+                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
+            }
+            else if (cboMiscType.Text == Misc_Type.PTR)
+            {
+                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_PTR_PROPERTY_NAMES);
+            }
+            else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
+            {
+                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_HEALTHCERT_PROPERTY_NAMES);
+            }
+            else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
+            {
+                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_TAXCLEARANCE_PROPERTY_NAMES);
+            }
 
             for (int i = 0; i < MiscList.Count; i++)
             {
@@ -179,7 +222,7 @@ namespace SampleRPT1
         {
             MISCinfoLV.Columns.Clear();
 
-            if (cboMiscType.Text == MISCUtil.OCCUPATIONAL_PERMIT)
+            if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
             {
                 foreach (string item in MISCUtil.MISC_OCCPERMIT_COLUMN_NAMES)
                 {
@@ -187,6 +230,34 @@ namespace SampleRPT1
                 }
                 RefreshLV();
             }
+
+            else if (cboMiscType.Text == Misc_Type.PTR)
+            {
+                foreach (string item in MISCUtil.MISC_PTR_COLUMN_NAMES)
+                {
+                    MISCinfoLV.Columns.Add(item);
+                }
+                RefreshLV();
+            }
+
+            else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
+            {
+                foreach (string item in MISCUtil.MISC_HEALTHCERT_COLUMN_NAMES)
+                {
+                    MISCinfoLV.Columns.Add(item);
+                }
+                RefreshLV();
+            }
+
+            else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
+            {
+                foreach (string item in MISCUtil.MISC_TAXCLEARANCE_COLUMN_NAMES)
+                {
+                    MISCinfoLV.Columns.Add(item);
+                }
+                RefreshLV();
+            }
+
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
@@ -249,7 +320,23 @@ namespace SampleRPT1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SearchOccuPermitRecord();
+                if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
+                {
+                    SearchOccuPermitRecord();
+                }
+                else if (cboMiscType.Text == Misc_Type.PTR)
+                {
+                    SearchPTR_Record();
+                }
+                else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
+                {
+                    SearchTaxClearance_Record();
+                }
+                else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
+                {
+                    SearchHealthCert_Record();
+                }
+
                 HighlightRecord();
 
                 if (MISCinfoLV.SelectedItems.Count > 0)
@@ -473,6 +560,7 @@ namespace SampleRPT1
         {
             List<MiscelleneousTax> miscList = new List<MiscelleneousTax>();
 
+            string Misc_Type = cboMiscType.Text;
             string Status = cboStatus.Text;
             DateTime DateFrom = dtDate.Value;
             DateTime DateTo = dtDateTo.Value;
@@ -482,24 +570,24 @@ namespace SampleRPT1
             if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
             {
                 List<string> BankList = getBankList();
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateFrom, DateTo, Status, BankList);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
             else if (Status == MISCUtil.FOR_PAYMENT_VALIDATION && Action == MISCUtil.VALIDATE_PAYMENT)
             {
                 List<string> BankList = getBankList();
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateFrom, DateTo, Status, BankList);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
             else if (Status == MISCUtil.FOR_TRANSMITTAL)
             {
                 List<string> BankList = getBankList();
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndForTransmittal(DateFrom, DateTo, Status);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndForTransmittal(DateFrom, DateTo, Misc_Type, Status);
             }
 
             else if (Status == MISCUtil.TRANSMITTED)
             {
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndTransmitted(DateFrom, DateTo, Status);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndTransmitted(DateFrom, DateTo, Misc_Type, Status);
             }
 
             return miscList;

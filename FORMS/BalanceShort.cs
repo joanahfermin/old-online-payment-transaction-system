@@ -156,7 +156,7 @@ namespace SampleRPT1.FORMS
                         rpt.ExcessShortAmount = rpt.ExcessShortAmount + TotalAmountTransferredUser;
                         rpt.TotalAmountTransferred = rpt.TotalAmountTransferred + TotalAmountTransferredUser;
                         rpt.Bank = cboBankUsed.Text;
-                        rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " + 
+                        rpt.RPTremarks = rpt.RPTremarks + " Added payment of " + TotalAmountTransferredUser + " on " +
                             dtDateOfPayment.Value.Date.ToShortDateString();
 
                         if (rpt.ExcessShortAmount >= 0)
@@ -176,7 +176,7 @@ namespace SampleRPT1.FORMS
                     decimal balance = rpt.AmountToPay - rpt.AmountTransferred;
                     if (balance > 0 && remainingMoney > 0) // may kulang na bayad at may pera pa tayo
                     {
-                        if (remainingMoney >= balance ) // kasya pa pera natin
+                        if (remainingMoney >= balance) // kasya pa pera natin
                         {
                             // bayaran mo na yung balance
                             rpt.AmountTransferred = rpt.AmountTransferred + balance;
@@ -254,6 +254,19 @@ namespace SampleRPT1.FORMS
         private void BalanceShort_Load(object sender, EventArgs e)
         {
             rdNone.Select();
+
+            cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+
+        private void cboBankUsed_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            cboBankUsed.DroppedDown = false;
+        }
+
+        private void cboBankUsed_KeyDown(object sender, KeyEventArgs e)
+        {
+            EventHelperUtil.EnterKeyDown(sender, e, this);
         }
     }
 }

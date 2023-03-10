@@ -137,6 +137,8 @@
             this.cboBankUsed.Name = "cboBankUsed";
             this.cboBankUsed.Size = new System.Drawing.Size(201, 21);
             this.cboBankUsed.TabIndex = 24;
+            this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
+            this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
             // 
             // labelBank
             // 

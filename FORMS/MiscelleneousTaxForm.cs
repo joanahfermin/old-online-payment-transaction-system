@@ -62,7 +62,7 @@ namespace SampleRPT1
         {
             lastSearchAction = SEARCH_BY_DATE_STATUS;
 
-            List<MiscelleneousOccuPermit> miscList;
+            List<MiscelleneousTax> miscList;
 
             // If date range is checked, search by date range and status. Otherwise, just search by status.
             if (dtDate.Checked)
@@ -121,7 +121,7 @@ namespace SampleRPT1
         public void SearchOccuPermitRecord()
         {
             string miscRecord = textSearch.Text;
-            List<MiscelleneousOccuPermit> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
+            List<MiscelleneousTax> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
 
             PopulateLVMISC(miscRecordList);
 
@@ -142,13 +142,13 @@ namespace SampleRPT1
             addMISCrecord.ShowDialog();
         }
 
-        private void PopulateLVMISC(List<MiscelleneousOccuPermit> MiscList)
+        private void PopulateLVMISC(List<MiscelleneousTax> MiscList)
         {
-            ListViewUtil.copyFromListToListview<MiscelleneousOccuPermit>(MiscList, MISCinfoLV, MISCUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
+            ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
 
             for (int i = 0; i < MiscList.Count; i++)
             {
-                MiscelleneousOccuPermit misc = MiscList[i];
+                MiscelleneousTax misc = MiscList[i];
                 ListViewItem topItem = MISCinfoLV.Items[i];
 
                 if (misc.ExcessShort < 0)
@@ -223,7 +223,7 @@ namespace SampleRPT1
             //string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
             //long miscID = Convert.ToInt64(MiscIDString);
 
-            MiscelleneousOccuPermit RetrieveMisc = mainFormListViewHelper.getSelectedMisc();
+            MiscelleneousTax RetrieveMisc = mainFormListViewHelper.getSelectedMisc();
 
             if (RetrieveMisc.Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
             {
@@ -264,12 +264,12 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
 
                 bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
                 bool AllProcessed = true;
 
-                foreach (MiscelleneousOccuPermit misc in SelectedMISCList)
+                foreach (MiscelleneousTax misc in SelectedMISCList)
                 {
                     misc.VerifiedBy = loginUser.DisplayName;
                     misc.VerifiedDate = DateTime.Now;
@@ -300,7 +300,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
 
                 foreach (var misc in SelectedMISCList)
                 {
@@ -320,7 +320,7 @@ namespace SampleRPT1
         {
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                List<MiscelleneousOccuPermit> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
 
                 foreach (var misc in SelectedMISCList)
                 {
@@ -346,7 +346,7 @@ namespace SampleRPT1
                     var Confirmation = MessageBox.Show("Are you sure you want to delete record?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (Confirmation == DialogResult.Yes)
                     {
-                        MiscelleneousOccuPermit Misc_Record = mainFormListViewHelper.getSelectedMisc();
+                        MiscelleneousTax Misc_Record = mainFormListViewHelper.getSelectedMisc();
                         MISCDatabase.Delete(Misc_Record);
                     }
                 }
@@ -375,7 +375,7 @@ namespace SampleRPT1
         {
             if (mainFormListViewHelper.haveSelectedRow())
             {
-                MiscelleneousOccuPermit misc = mainFormListViewHelper.getSelectedMisc();
+                MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
                 string Status = misc.Status;
 
                 if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
@@ -445,7 +445,7 @@ namespace SampleRPT1
 
         private void btnAddGcashPaymaya_Click(object sender, EventArgs e)
         {
-            AddGcashPaymayaOccuPermitForm addGcashPaymayaOccuPermit = new AddGcashPaymayaOccuPermitForm();
+            AddGcashPaymayaMISC addGcashPaymayaOccuPermit = new AddGcashPaymayaMISC();
             addGcashPaymayaOccuPermit.ShowDialog();
         }
 
@@ -469,9 +469,9 @@ namespace SampleRPT1
             return BankList;
         }
 
-        private List<MiscelleneousOccuPermit> SearchByDateRangeAndStatus()
+        private List<MiscelleneousTax> SearchByDateRangeAndStatus()
         {
-            List<MiscelleneousOccuPermit> miscList = new List<MiscelleneousOccuPermit>();
+            List<MiscelleneousTax> miscList = new List<MiscelleneousTax>();
 
             string Status = cboStatus.Text;
             DateTime DateFrom = dtDate.Value;

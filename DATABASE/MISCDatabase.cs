@@ -14,62 +14,62 @@ namespace SampleRPT1
 {
     internal class MISCDatabase
     {
-        public static MiscelleneousOccuPermit Get(long MiscID)
+        public static MiscelleneousTax Get(long MiscID)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Get<MiscelleneousOccuPermit>(MiscID);
+                return conn.Get<MiscelleneousTax>(MiscID);
             }
         }
 
-        public static void InsertMisc(MiscelleneousOccuPermit modelInstance)
+        public static void InsertMisc(MiscelleneousTax modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                conn.Insert<MiscelleneousOccuPermit>(modelInstance);
+                conn.Insert<MiscelleneousTax>(modelInstance);
             }
         }
 
         /// <summary>
         /// Updates entire row in the database. 
         /// </summary>
-        public static bool UpdateMisc(MiscelleneousOccuPermit modelInstance)
+        public static bool UpdateMisc(MiscelleneousTax modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+                bool result = conn.Update<MiscelleneousTax>(modelInstance);
                 return result;
             }
         }
 
         //DISPLAY RECORDS BASED ON MISC TYPE COMBOBOX.
-        public static List<MiscelleneousOccuPermit> SelectLatest(string miscType)
+        public static List<MiscelleneousTax> SelectLatest(string miscType)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE MiscType = @miscType order by MiscID asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new { MiscType = miscType }).ToList();
+                return conn.Query<MiscelleneousTax>(query, new { MiscType = miscType }).ToList();
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SearchOccuPermitRecord(string occuPermitRecord)
+        public static List<MiscelleneousTax> SearchOccuPermitRecord(string occuPermitRecord)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @occuPermitRecord OR OPATrackingNum LIKE @occuPermitRecord order by MiscID asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new { occuPermitRecord = "%" + occuPermitRecord + "%", OPATrackingNum = "%" + occuPermitRecord + "%", }).ToList();
+                return conn.Query<MiscelleneousTax>(query, new { occuPermitRecord = "%" + occuPermitRecord + "%", OPATrackingNum = "%" + occuPermitRecord + "%", }).ToList();
             }
         }
 
-        public static MiscelleneousOccuPermit SelectByOPAtrackingAndOPNum(string OPA_Tracking, string OP_Num)
+        public static MiscelleneousTax SelectByOPAtrackingAndOPNum(string OPA_Tracking, string OP_Num)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<MiscelleneousOccuPermit>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
+                return conn.QuerySingleOrDefault<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
             }
         }
 
-        private static void AfterInsertOrUpdateOrDelete(SqlConnection conn, MiscelleneousOccuPermit misc, String action)
+        private static void AfterInsertOrUpdateOrDelete(SqlConnection conn, MiscelleneousTax misc, String action)
         {
             //Create audit object.
             MiscOccuPermit_Audit audit = new MiscOccuPermit_Audit();
@@ -87,10 +87,10 @@ namespace SampleRPT1
         /// <summary>
         /// copy the entire row from Jo_RPT to Jo_RPT_Audit.
         /// </summary>
-        private static void copyRptToAudit(MiscelleneousOccuPermit misc, MiscOccuPermit_Audit audit)
+        private static void copyRptToAudit(MiscelleneousTax misc, MiscOccuPermit_Audit audit)
         {
             //kukunin pa lang yung lahat ng property from RealPropertyTax at RealPropertyTaxAudit.
-            var miscProperties = typeof(MiscelleneousOccuPermit).GetProperties();
+            var miscProperties = typeof(MiscelleneousTax).GetProperties();
             var auditProperties = typeof(MiscOccuPermit_Audit).GetProperties();
 
             foreach (var miscProperty in miscProperties)
@@ -107,7 +107,7 @@ namespace SampleRPT1
             }
         }
 
-        public static long Insert(MiscelleneousOccuPermit modelInstance)
+        public static long Insert(MiscelleneousTax modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
@@ -118,7 +118,7 @@ namespace SampleRPT1
                 modelInstance.LastUpdateDate = DateTime.Now;
 
                 //Insert record in Jo_RPT.
-                long result = conn.Insert<MiscelleneousOccuPermit>(modelInstance);
+                long result = conn.Insert<MiscelleneousTax>(modelInstance);
 
                 //Insert record in Jo_RPT_Audit.
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
@@ -130,14 +130,14 @@ namespace SampleRPT1
         /// <summary>
         /// Updates entire row in the database. 
         /// </summary>
-        public static bool Update(MiscelleneousOccuPermit modelInstance)
+        public static bool Update(MiscelleneousTax modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
 
-                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+                bool result = conn.Update<MiscelleneousTax>(modelInstance);
 
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "UPDATE");
                 return result;
@@ -147,7 +147,7 @@ namespace SampleRPT1
         /// <summary>
         /// Tagging of deleted record in the database.
         /// </summary>
-        public static bool Delete(MiscelleneousOccuPermit modelInstance)
+        public static bool Delete(MiscelleneousTax modelInstance)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
@@ -155,7 +155,7 @@ namespace SampleRPT1
                 modelInstance.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 modelInstance.LastUpdateDate = DateTime.Now;
 
-                bool result = conn.Update<MiscelleneousOccuPermit>(modelInstance);
+                bool result = conn.Update<MiscelleneousTax>(modelInstance);
 
                 AfterInsertOrUpdateOrDelete(conn, modelInstance, "DELETE");
 
@@ -164,14 +164,14 @@ namespace SampleRPT1
         }
 
 
-        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(PaymentDate as DATE) >= CAST(@PaymentDateFrom as DATE) " +
                     "AND CAST(PaymentDate as DATE) <= CAST(@PaymentDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY PaymentDate asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new
+                return conn.Query<MiscelleneousTax>(query, new
                 {
                     PaymentDateFrom = paymentDateFrom,
                     PaymentDateTo = paymentDateTo,
@@ -181,14 +181,14 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime verifiedDateFrom, DateTime verifiedDateTo, string Status, List<string> BankList)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateTime verifiedDateFrom, DateTime verifiedDateTo, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(VerifiedDate as DATE) >= CAST(@VerifiedDateFrom as DATE) " +
                     "AND CAST(VerifiedDate as DATE) <= CAST(@VerifiedDateTo as DATE) AND Status = @Status AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY VerifiedDate asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new
+                return conn.Query<MiscelleneousTax>(query, new
                 {
                     VerifiedDateFrom = verifiedDateFrom,
                     VerifiedDateTo = verifiedDateTo,
@@ -198,14 +198,14 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(ValidatedDate as DATE) >= CAST(@ValidatedDateFrom as DATE) " +
                     "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                 "ORDER BY ValidatedDate asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new
+                return conn.Query<MiscelleneousTax>(query, new
                 {
                     ValidatedDateFrom = validatedDateFrom,
                     ValidatedDateTo = validatedDateTo,
@@ -214,14 +214,14 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(TransmittedDate as DATE) >= CAST(@TransmittedDateFrom as DATE) " +
                     "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
                 "ORDER BY TransmittedDate asc";
-                return conn.Query<MiscelleneousOccuPermit>(query, new
+                return conn.Query<MiscelleneousTax>(query, new
                 {
                     TransmittedDateFrom = transmittedDateFrom,
                     TransmittedDateTo = transmittedDateTo,
@@ -230,12 +230,12 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousOccuPermit> SelectByStatus(string Status)
+        public static List<MiscelleneousTax> SelectByStatus(string Status)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status and DeletedRecord != 1 ORDER BY EncodedDate ASC";
-                return conn.Query<MiscelleneousOccuPermit>(query, new { Status = Status }).ToList();
+                return conn.Query<MiscelleneousTax>(query, new { Status = Status }).ToList();
             }
         }
 
@@ -257,12 +257,12 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                MiscelleneousOccuPermit misc = Get(audit.MiscID);
+                MiscelleneousTax misc = Get(audit.MiscID);
                 copyAuditToMisc(audit, misc);
 
                 misc.LastUpdateBy = SecurityService.getLoginUser().DisplayName;
                 misc.LastUpdateDate = DateTime.Now;
-                conn.Update<MiscelleneousOccuPermit>(misc);
+                conn.Update<MiscelleneousTax>(misc);
                 AfterInsertOrUpdateOrDelete(conn, misc, "REVERT");
             }
         }
@@ -270,9 +270,9 @@ namespace SampleRPT1
         /// <summary>
         /// copy the entire row from Jo_RPT_Audit to Jo_RPT.
         /// </summary>
-        private static void copyAuditToMisc(MiscOccuPermit_Audit audit, MiscelleneousOccuPermit misc)
+        private static void copyAuditToMisc(MiscOccuPermit_Audit audit, MiscelleneousTax misc)
         {
-            var miscProperties = typeof(MiscelleneousOccuPermit).GetProperties();
+            var miscProperties = typeof(MiscelleneousTax).GetProperties();
             var auditProperties = typeof(MiscOccuPermit_Audit).GetProperties();
             foreach (var miscProperty in miscProperties)
             {
@@ -287,12 +287,20 @@ namespace SampleRPT1
             }
         }
 
-        public static string SelectBy_TaxpayerName(string OPNumber)
+        //public static string SelectBy_TaxpayerName(string OPNumber)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
+        //    {
+        //        return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [TaxpayerLName] FROM MiscDetailsBillingSTAGE where BillNumber = @OPNumber", new { OPNumber = OPNumber });
+
+        //    }
+        //}
+
+        public static List<Misc_OccuPermit_TagName> SelectBy_TaxpayerName_Bulk(List<string> OPNumber_List)
         {
             using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
             {
-                //return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [BillNumber] FROM [TaxpayerLName] where BillNumber = @OPNumber order by billdate desc", new { OPNumber = OPNumber });
-                return conn.QuerySingleOrDefault<string>($"SELECT TOP (1) [TaxpayerLName] FROM MiscDetailsBillingSTAGE where BillNumber = @OPNumber", new { OPNumber = OPNumber });
+                return conn.Query<Misc_OccuPermit_TagName>($"SELECT * FROM MiscDetailsBillingSTAGE where BillNumber in @OPNumber_List", new { OPNumber_List = OPNumber_List }).ToList();
 
             }
         }

@@ -1,4 +1,5 @@
-﻿using SampleRPT1.Service;
+﻿using SampleRPT1.MODEL;
+using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,12 @@ using System.Windows.Forms;
 
 namespace SampleRPT1.FORMS
 {
-    public partial class AddGcashPaymayaOccuPermitForm : Form
+    public partial class AddGcashPaymayaMISC : Form
     {
         private RPTUser loginUser = SecurityService.getLoginUser();
+        string Misc_Type = null;
 
-        public AddGcashPaymayaOccuPermitForm()
+        public AddGcashPaymayaMISC()
         {
             InitializeComponent();
             WindowState = FormWindowState.Maximized;
@@ -82,13 +84,14 @@ namespace SampleRPT1.FORMS
                         //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
                         string misc = item.SubItems[2].Text;
 
-                        if (isOPnumberFormat(misc))
+                        //if (isOPnumberFormat_OccuPermit(misc) || isOPnumberFormat_Ovr_TTMD(misc) || isOPnumberFormat_Ovr_DPOS(misc) ||
+                        //    isOPnumberFormat_Market_MDAD(misc) || isOPnumberFormat_Liquor_LLRB(misc))
                         {
                             MISCGcashPaymayaLV.Items.Add(item);
                         }
                     }
+                    Retrieve_Name();
 
-                    btnRetrieveName_Click(sender, e);
                 }
                 PopulateExistingColumn();
 
@@ -119,11 +122,43 @@ namespace SampleRPT1.FORMS
             }
         }
 
-        //M-2023-02-02-BPLO-A176-000665 SAMPLE FORMAT OF O.P NUMBER OF OCCU PERMIT.
-        private bool isOPnumberFormat(string misc)
+        //M-2023-02-02-BPLO-A176-000665 SAMPLE FORMAT OF O.P NUMBER OF OCCU PERMIT BPLO.
+        private bool isOPnumberFormat_OccuPermit(string misc)
         {
             //format of misc number.
             Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[B][P][L][O]-[A-Z,0-9]{4}-[0-9]{6}$");
+            return re.IsMatch(misc.Trim());
+        }
+
+        //M-2023-03-03-TTMD-A176-000745 SAMPLE FORMAT OF O.P NUMBER OF OVR TTMD.
+        private bool isOPnumberFormat_Ovr_TTMD(string misc)
+        {
+            //format of misc number.
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[T][T][M][D]-[A-Z,0-9]{4}-[0-9]{6}$");
+            return re.IsMatch(misc.Trim());
+        }
+
+        //M-2023-03-03-DPOS-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF OVR DPOS.
+        private bool isOPnumberFormat_Ovr_DPOS(string misc)
+        {
+            //format of misc number.
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[D][P][O][S]-[A-Z,0-9]{4}-[0-9]{6}$");
+            return re.IsMatch(misc.Trim());
+        }
+
+        //M-2023-03-03-MDAD-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF MARKET MDAD.
+        private bool isOPnumberFormat_Market_MDAD(string misc)
+        {
+            //format of misc number.
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[M][D][A][D]-[A-Z,0-9]{4}-[0-9]{6}$");
+            return re.IsMatch(misc.Trim());
+        }
+
+        //M-2023-03-03-LLRB-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF LIQUOR.
+        private bool isOPnumberFormat_Liquor_LLRB(string misc)
+        {
+            //format of misc number.
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[L][L][R][B]-[A-Z,0-9]{4}-[0-9]{6}$");
             return re.IsMatch(misc.Trim());
         }
 
@@ -139,7 +174,7 @@ namespace SampleRPT1.FORMS
                 string OPAtrackingNum = item.SubItems[1].Text;
                 string OPaymentNum = item.SubItems[2].Text;
 
-                MiscelleneousOccuPermit misc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPaymentNum);
+                MiscelleneousTax misc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPaymentNum);
 
                 //if selected record is existing in the database with same Tax Dec and same Year/quarter.
                 if (misc != null)
@@ -239,9 +274,9 @@ namespace SampleRPT1.FORMS
                     decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
                     string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
 
-                    MiscelleneousOccuPermit retrieveMisc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPnumber);
+                    MiscelleneousTax retrieveMisc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPnumber);
 
-                    MiscelleneousOccuPermit misc = new MiscelleneousOccuPermit();
+                    MiscelleneousTax misc = new MiscelleneousTax();
 
                     misc.OPATrackingNum = OPAtrackingNum;
                     misc.OrderOfPaymentNum = OPnumber;
@@ -262,7 +297,28 @@ namespace SampleRPT1.FORMS
                         misc.Remarks = DuplicateRecordRemarks;
                     }
 
-                    misc.MiscType = MISCUtil.OCCUPATIONAL_PERMIT;
+                    if (OPnumber.Contains("BPLO"))
+                    {
+                        misc.MiscType = MISCUtil.MISCTYPE_OCCUPATIONAL_PERMIT;
+                    }
+
+                    if (OPnumber.Contains("DPOS") || (OPnumber.Contains("TTMD")))
+                    {
+                        misc.MiscType = MISCUtil.MISCTYPE_OVR;
+                    }
+
+                    if (OPnumber.Contains("MDAD"))
+                    {
+                        misc.MiscType = MISCUtil.MISCTYPE_MARKET;
+                    }
+                    
+                    if (OPnumber.Contains("LLRB"))
+                    {
+                        misc.MiscType = MISCUtil.MISCTYPE_LIQUOR;
+                    }
+
+                    //misc.MiscType = MISCUtil.MISCTYPE_OCCUPATIONAL_PERMIT;
+                    //misc.MiscType = Misc_Type;
 
                     MISCDatabase.Insert(misc);
                 }
@@ -274,12 +330,37 @@ namespace SampleRPT1.FORMS
             }
         }
 
-        private void btnRetrieveName_Click(object sender, EventArgs e)
+        private void Retrieve_Name()
         {
+            List<string> OPNumber_list = new List<string>();
+
             foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
             {
-                string TP_Name = MISCDatabase.SelectBy_TaxpayerName(item.SubItems[2].Text);
-                item.SubItems[3].Text = TP_Name.ToUpper();
+                OPNumber_list.Add(item.SubItems[2].Text);
+            }
+
+            List<Misc_OccuPermit_TagName> TagNames = MISCDatabase.SelectBy_TaxpayerName_Bulk(OPNumber_list);
+
+            foreach (ListViewItem item in MISCGcashPaymayaLV.Items)
+            {
+                string TP_Name = null;
+
+                foreach (Misc_OccuPermit_TagName tag in TagNames)
+                {
+                    if (item.SubItems[2].Text == tag.BillNumber)
+                    {
+                        TP_Name = tag.TaxpayerLName;
+                    }
+                }
+
+                if (TP_Name != null)
+                {
+                    item.SubItems[3].Text = TP_Name.ToUpper();
+                }
+                else
+                {
+                    continue;
+                }
             }
         }
 

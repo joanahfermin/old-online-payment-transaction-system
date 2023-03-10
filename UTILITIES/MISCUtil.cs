@@ -21,13 +21,18 @@ namespace SampleRPT1
 
         public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, DELETED_RECORD };
 
-
         //OCCUPATIONAL PERMIT STATUS.
         public const string FOR_PAYMENT_VERIFICATION = "FOR PAYMENT VERIFICATION";
         public const string FOR_PAYMENT_VALIDATION = "FOR PAYMENT VALIDATION";
         public const string FOR_TRANSMITTAL = "FOR TRANSMITTAL";
         public const string TRANSMITTED = "TRANSMITTED";
         public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, TRANSMITTED };
+
+        public const string MISCTYPE_OCCUPATIONAL_PERMIT = "OCCUPATIONAL PERMIT";
+        public const string MISCTYPE_OVR = "OVR";
+        public const string MISCTYPE_MARKET = "MARKET";
+        public const string MISCTYPE_LIQUOR = "LIQUOR";
+
 
         //SIMILAR COLUMNS IN MISCELLENEOUS
         public static List<string> MISC_COMMON_COLUMN_NAMES = new List<string>

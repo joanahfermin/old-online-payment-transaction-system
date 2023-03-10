@@ -224,17 +224,22 @@
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
     <Compile Include="DATABASE\MISCDatabase.cs" />
-    <Compile Include="DATABASE\Misc_OccuPermit_TagNameDB.cs" />
     <Compile Include="DATABASE\ReportDatabase.cs" />
     <Compile Include="DATABASE\RPTAttachPictureDatabase.cs" />
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
     <Compile Include="DATABASE\SystemSettingDatabase.cs" />
     <Compile Include="DATABASE\TagReceiptDatabase.cs" />
-    <Compile Include="FORMS\AddGcashPaymayaOccuPermitForm.cs">
+    <Compile Include="FORMS\AddGcashPaymayaMISC.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\AddGcashPaymayaOccuPermitForm.Designer.cs">
-      <DependentUpon>AddGcashPaymayaOccuPermitForm.cs</DependentUpon>
+    <Compile Include="FORMS\AddGcashPaymayaMISC.Designer.cs">
+      <DependentUpon>AddGcashPaymayaMISC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\AddMiscForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\AddMiscForm.Designer.cs">
+      <DependentUpon>AddMiscForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\AddMISCrecord.cs">
       <SubType>Form</SubType>
@@ -248,11 +253,11 @@
     <Compile Include="FORMS\AddMultipleOnePaymentForm.Designer.cs">
       <DependentUpon>AddMultipleOnePaymentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\AddRecordGCASHPAYMAYAForm.cs">
+    <Compile Include="FORMS\AddGcashPaymayaRPT.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\AddRecordGCASHPAYMAYAForm.Designer.cs">
-      <DependentUpon>AddRecordGCASHPAYMAYAForm.cs</DependentUpon>
+    <Compile Include="FORMS\AddGcashPaymayaRPT.Designer.cs">
+      <DependentUpon>AddGcashPaymayaRPT.cs</DependentUpon>
     </Compile>
     <Compile Include="DATABASE\RPTUserDatabase.cs" />
     <Compile Include="FORMS\AddRPTForm.cs">
@@ -348,7 +353,7 @@
     <Compile Include="FORMS\MiscelleneousTaxForm.Designer.cs">
       <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MODEL\MiscelleneousOccuPermit.cs" />
+    <Compile Include="MODEL\MiscelleneousTax.cs" />
     <Compile Include="MODEL\MiscOccuPermit_Audit.cs" />
     <Compile Include="MODEL\Misc_OccuPermit_TagName.cs" />
     <Compile Include="MODEL\RealPropertyTaxAudit.cs" />
@@ -425,8 +430,11 @@
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />
     <Compile Include="UTILITIES\Validations.cs" />
-    <EmbeddedResource Include="FORMS\AddGcashPaymayaOccuPermitForm.resx">
-      <DependentUpon>AddGcashPaymayaOccuPermitForm.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\AddGcashPaymayaMISC.resx">
+      <DependentUpon>AddGcashPaymayaMISC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\AddMiscForm.resx">
+      <DependentUpon>AddMiscForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\AddMISCrecord.resx">
       <DependentUpon>AddMISCrecord.cs</DependentUpon>
@@ -434,8 +442,8 @@
     <EmbeddedResource Include="FORMS\AddMultipleOnePaymentForm.resx">
       <DependentUpon>AddMultipleOnePaymentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\AddRecordGCASHPAYMAYAForm.resx">
-      <DependentUpon>AddRecordGCASHPAYMAYAForm.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\AddGcashPaymayaRPT.resx">
+      <DependentUpon>AddGcashPaymayaRPT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\AddRPTForm.resx">
       <DependentUpon>AddRPTForm.cs</DependentUpon>

@@ -9,7 +9,7 @@ namespace SampleRPT1
 {
     [Table("Jo_MISC")]
 
-    internal class MiscelleneousOccuPermit
+    internal class MiscelleneousTax
     {
         [Key]
         public long MiscID { get; set; }

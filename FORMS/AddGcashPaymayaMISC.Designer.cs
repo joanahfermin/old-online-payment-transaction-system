@@ -1,6 +1,6 @@
 ﻿namespace SampleRPT1.FORMS
 {
-    partial class AddGcashPaymayaOccuPermitForm
+    partial class AddGcashPaymayaMISC
     {
         /// <summary>
         /// Required designer variable.
@@ -47,7 +47,6 @@
             this.paymentdate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateindb = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.duplicateinlist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnRetrieveName = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -194,27 +193,15 @@
             this.duplicateinlist.Text = "Duplicate in Gcash/Paymaya";
             this.duplicateinlist.Width = 150;
             // 
-            // btnRetrieveName
-            // 
-            this.btnRetrieveName.Location = new System.Drawing.Point(377, 12);
-            this.btnRetrieveName.Name = "btnRetrieveName";
-            this.btnRetrieveName.Size = new System.Drawing.Size(93, 23);
-            this.btnRetrieveName.TabIndex = 35;
-            this.btnRetrieveName.Text = "Retrieve Name";
-            this.btnRetrieveName.UseVisualStyleBackColor = true;
-            this.btnRetrieveName.Visible = false;
-            this.btnRetrieveName.Click += new System.EventHandler(this.btnRetrieveName_Click);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // AddGcashPaymayaOccuPermitForm
+            // AddGcashPaymayaMISC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 988);
-            this.Controls.Add(this.btnRetrieveName);
             this.Controls.Add(this.textTotalAmount);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textNumRec);
@@ -224,7 +211,7 @@
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.MISCGcashPaymayaLV);
-            this.Name = "AddGcashPaymayaOccuPermitForm";
+            this.Name = "AddGcashPaymayaMISC";
             this.Text = "AddGcashPaymayaOccuPermit";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
@@ -251,7 +238,6 @@
         private System.Windows.Forms.ColumnHeader paymentdate;
         private System.Windows.Forms.ColumnHeader duplicateindb;
         private System.Windows.Forms.ColumnHeader duplicateinlist;
-        private System.Windows.Forms.Button btnRetrieveName;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

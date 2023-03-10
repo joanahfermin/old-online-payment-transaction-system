@@ -33,12 +33,12 @@ namespace SampleRPT1.FORMS
         /// <summary>
         /// Retrieve from the database all the selected items in the list view, but with the same Status as ExpectedStatus.
         /// </summary>
-        public List<MiscelleneousOccuPermit> GetSelectedMISCByStatus(string ExpectedStatus)
+        public List<MiscelleneousTax> GetSelectedMISCByStatus(string ExpectedStatus)
         {
-            List<MiscelleneousOccuPermit> SelectedMISCByStatus = new List<MiscelleneousOccuPermit>();
-            List<MiscelleneousOccuPermit> SelectedMISCList = GetSelectedMISCList();
+            List<MiscelleneousTax> SelectedMISCByStatus = new List<MiscelleneousTax>();
+            List<MiscelleneousTax> SelectedMISCList = GetSelectedMISCList();
 
-            foreach (MiscelleneousOccuPermit misc in SelectedMISCList)
+            foreach (MiscelleneousTax misc in SelectedMISCList)
             {
                 if (misc.Status == ExpectedStatus)
                 {
@@ -48,13 +48,13 @@ namespace SampleRPT1.FORMS
             return SelectedMISCByStatus;
         }
 
-        public List<MiscelleneousOccuPermit> GetSelectedMISCList()
+        public List<MiscelleneousTax> GetSelectedMISCList()
         {
-            List<MiscelleneousOccuPermit> SelectedMISCByStatus = new List<MiscelleneousOccuPermit>();
+            List<MiscelleneousTax> SelectedMISCByStatus = new List<MiscelleneousTax>();
             List<long> MiscIDList = getSelectedMiscIDList();
             foreach (long MiscID in MiscIDList)
             {
-                MiscelleneousOccuPermit misc = MISCDatabase.Get(MiscID);
+                MiscelleneousTax misc = MISCDatabase.Get(MiscID);
                 SelectedMISCByStatus.Add(misc);
             }
             return SelectedMISCByStatus;
@@ -72,9 +72,9 @@ namespace SampleRPT1.FORMS
             return MiscIDList;
         }
 
-        public MiscelleneousOccuPermit getSelectedMisc()
+        public MiscelleneousTax getSelectedMisc()
         {
-            MiscelleneousOccuPermit misc = null;
+            MiscelleneousTax misc = null;
 
             if (haveSelectedRow())
             {
@@ -90,8 +90,8 @@ namespace SampleRPT1.FORMS
         public bool CheckSameStatus(string ExpectedStatus)
         {
             bool SameStatus = true;
-            List<MiscelleneousOccuPermit> SelectedMISCList = GetSelectedMISCList();
-            foreach (MiscelleneousOccuPermit misc in SelectedMISCList)
+            List<MiscelleneousTax> SelectedMISCList = GetSelectedMISCList();
+            foreach (MiscelleneousTax misc in SelectedMISCList)
             {
                 if (misc.Status != ExpectedStatus)
                 {

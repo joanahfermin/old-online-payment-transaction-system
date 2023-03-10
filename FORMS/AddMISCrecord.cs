@@ -16,7 +16,7 @@ namespace SampleRPT1.FORMS
     public partial class AddMISCrecord : Form
     {
         private RPTUser loginUser = SecurityService.getLoginUser();
-        MiscelleneousOccuPermit misc;
+        MiscelleneousTax misc;
 
         public AddMISCrecord()
         {
@@ -24,11 +24,10 @@ namespace SampleRPT1.FORMS
             InitializeBank();
             InitializeMiscType();
             cboBankUsed.SelectedIndex = 0;
+            cboMiscType.SelectedIndex = 0;
             cboStatus.Text = "FOR PAYMENT VERIFICATION";
             cboStatus.Enabled = false;
             btnUpdate.Enabled = false;
-
-            
         }
 
         public AddMISCrecord(long miscId)
@@ -138,7 +137,7 @@ namespace SampleRPT1.FORMS
 
             decimal ComputeExcessShort;
 
-            MiscelleneousOccuPermit misc = new MiscelleneousOccuPermit();
+            MiscelleneousTax misc = new MiscelleneousTax();
             misc.MiscType = cboMiscType.Text;
 
             misc.TaxpayersName = textTPName.Text;

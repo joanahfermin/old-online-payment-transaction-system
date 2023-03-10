@@ -9,6 +9,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using SampleRPT1.MODEL;
 using SampleRPT1.Service;
+using SampleRPT1.UTILITIES;
 
 namespace SampleRPT1
 {
@@ -54,39 +55,26 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousTax> SearchOccuPermitRecord(string occuPermitRecord)
+        public static List<MiscelleneousTax> Search(string MiscType, string SearchString)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @occuPermitRecord OR OPATrackingNum LIKE @occuPermitRecord order by MiscID asc";
-                return conn.Query<MiscelleneousTax>(query, new { occuPermitRecord = "%" + occuPermitRecord + "%", OPATrackingNum = "%" + occuPermitRecord + "%", }).ToList();
-            }
-        }
+                string query = null;
+                if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT)
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString order by MiscID asc";
+                }
+                else if (MiscType == Misc_Type.PTR)
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE PRC_IBP_No LIKE @SearchString OR TaxpayersName LIKE @SearchString order by MiscID asc";
+                }
+                // default
+                else // if (MiscType == Misc_Type.TAX_CLEARANCE || MiscType == Misc_Type.HEALTH_CERTIFICATE)
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @SearchString order by MiscID asc";
 
-        public static List<MiscelleneousTax> Search_PTR_Record(string search)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                String query = $"SELECT * FROM Jo_MISC WHERE PRC_IBP_No LIKE @search OR TaxpayersName LIKE @search order by MiscID asc";
-                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
-            }
-        }
-
-        public static List<MiscelleneousTax> Search_HealthCert_Record(string search)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                String query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @search order by MiscID asc";
-                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
-            }
-        }
-
-        public static List<MiscelleneousTax> Search_TaxClearance_Record(string search)
-        {
-            using (SqlConnection conn = DbUtils.getConnection())
-            {
-                String query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @search order by MiscID asc";
-                return conn.Query<MiscelleneousTax>(query, new { search = "%" + search + "%" }).ToList();
+                }
+                return conn.Query<MiscelleneousTax>(query, new { SearchString = "%" + SearchString + "%"}).ToList();
             }
         }
 

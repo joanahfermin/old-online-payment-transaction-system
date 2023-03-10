@@ -120,41 +120,6 @@ namespace SampleRPT1
             RefreshLV();
         }
 
-        public void SearchOccuPermitRecord()
-        {
-            string miscRecord = textSearch.Text;
-            List<MiscelleneousTax> miscRecordList = MISCDatabase.SearchOccuPermitRecord(miscRecord);
-
-            PopulateLVMISC(miscRecordList);
-        }
-
-        public void SearchPTR_Record()
-        {
-            string miscRecord = textSearch.Text;
-
-            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_PTR_Record(miscRecord);
-
-            PopulateLVMISC(miscRecordList);
-        }
-
-        public void SearchTaxClearance_Record()
-        {
-            string miscRecord = textSearch.Text;
-
-            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_TaxClearance_Record(miscRecord);
-
-            PopulateLVMISC(miscRecordList);
-        }
-
-        public void SearchHealthCert_Record()
-        {
-            string miscRecord = textSearch.Text;
-
-            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search_HealthCert_Record(miscRecord);
-
-            PopulateLVMISC(miscRecordList);
-        }
-
         public void Show()
         {
             base.Show();
@@ -172,22 +137,9 @@ namespace SampleRPT1
 
         private void PopulateLVMISC(List<MiscelleneousTax> MiscList)
         {
-            if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
-            {
-                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_OCCPERMIT_PROPERTY_NAMES);
-            }
-            else if (cboMiscType.Text == Misc_Type.PTR)
-            {
-                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_PTR_PROPERTY_NAMES);
-            }
-            else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
-            {
-                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_HEALTHCERT_PROPERTY_NAMES);
-            }
-            else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
-            {
-                ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, MISCUtil.MISC_TAXCLEARANCE_PROPERTY_NAMES);
-            }
+            string MiscType = cboMiscType.Text;
+            List<string> PropertyNames = MISCUtil.LIST_VIEW_PROPERTY_NAMES_MAPPING[MiscType];
+            ListViewUtil.copyFromListToListview<MiscelleneousTax>(MiscList, MISCinfoLV, PropertyNames);
 
             for (int i = 0; i < MiscList.Count; i++)
             {
@@ -222,47 +174,16 @@ namespace SampleRPT1
         {
             MISCinfoLV.Columns.Clear();
 
-            if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
+            string MiscType = cboMiscType.Text;
+            List<string> ColumnNames = MISCUtil.LIST_VIEW_COLUMN_NAMES_MAPPING[MiscType];
+            foreach (string item in ColumnNames)
             {
-                foreach (string item in MISCUtil.MISC_OCCPERMIT_COLUMN_NAMES)
-                {
-                    MISCinfoLV.Columns.Add(item);
-                }
-                RefreshLV();
+                MISCinfoLV.Columns.Add(item);
             }
-
-            else if (cboMiscType.Text == Misc_Type.PTR)
-            {
-                foreach (string item in MISCUtil.MISC_PTR_COLUMN_NAMES)
-                {
-                    MISCinfoLV.Columns.Add(item);
-                }
-                RefreshLV();
-            }
-
-            else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
-            {
-                foreach (string item in MISCUtil.MISC_HEALTHCERT_COLUMN_NAMES)
-                {
-                    MISCinfoLV.Columns.Add(item);
-                }
-                RefreshLV();
-            }
-
-            else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
-            {
-                foreach (string item in MISCUtil.MISC_TAXCLEARANCE_COLUMN_NAMES)
-                {
-                    MISCinfoLV.Columns.Add(item);
-                }
-                RefreshLV();
-            }
+            RefreshLV();
 
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-            //AutoResizeLV_Column(MISCinfoLV, -2);
-            //AutoResizeLV_ColumnContent(MISCinfoLV, -2);
         }
 
         static void AutoResizeLV_Column(ListView MISCinfoLV, int width)
@@ -320,22 +241,10 @@ namespace SampleRPT1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (cboMiscType.Text == Misc_Type.OCCUPATIONAL_PERMIT)
-                {
-                    SearchOccuPermitRecord();
-                }
-                else if (cboMiscType.Text == Misc_Type.PTR)
-                {
-                    SearchPTR_Record();
-                }
-                else if (cboMiscType.Text == Misc_Type.TAX_CLEARANCE)
-                {
-                    SearchTaxClearance_Record();
-                }
-                else if (cboMiscType.Text == Misc_Type.HEALTH_CERTIFICATE)
-                {
-                    SearchHealthCert_Record();
-                }
+                string MiscType = cboMiscType.Text;
+                string SearchString = textSearch.Text;
+                List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
+                PopulateLVMISC(miscRecordList);
 
                 HighlightRecord();
 

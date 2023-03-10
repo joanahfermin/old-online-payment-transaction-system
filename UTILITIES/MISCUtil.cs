@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleRPT1.UTILITIES;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,59 +36,45 @@ namespace SampleRPT1
         { "Amount To Pay", "Transferred Amount", "ExcessShort", "Date of Payment", "Status", "Requesting Party", "Remarks", "Verified By", 
             "Verified Date", "LBP Date", "Validated By", "Validated Date", "Reference Number", "Transmitted By", "Transmitted Date", "Encoded By", "Encoded Date", "Released By", "Released Date" };
 
-        //COLUMN NAMES OF THE OCCUPATIONAL PERMIT
-        public static List<string> MISC_OCCPERMIT_COLUMN_NAMES = new List<string> 
-        { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment",};
-
-        //PROPERTY NAMES OF THE OCCUPATIONAL PERMIT
-        public static List<string> MISC_OCCPERMIT_PROPERTY_NAMES = new List<string>
-        { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment",};
-
-
-        //COLUMN NAMES OF PTR
-        public static List<string> MISC_PTR_COLUMN_NAMES = new List<string>
-        { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."};
-
-        //PROPERTY NAMES OF PTR
-        public static List<string> MISC_PTR_PROPERTY_NAMES = new List<string>
-        { "MiscID", "MiscType", "TaxpayersName", "Profession", "LastORDate", "LastORNo", "PRC_IBP_No",};
-
-
-        //COLUMN NAMES OF HEALTH CERT
-        public static List<string> MISC_HEALTHCERT_COLUMN_NAMES = new List<string>
-        { "MiscID", "Misc Type", "Taxpayer's Name"};
-
-        //PROPERTY NAMES OF HEALTH CERT
-        public static List<string> MISC_HEALTHCERT_PROPERTY_NAMES = new List<string>
-        { "MiscID", "MiscType", "TaxpayersName"};
-
-        //COLUMN NAMES OF TAX CLEARANCE
-        public static List<string> MISC_TAXCLEARANCE_COLUMN_NAMES = new List<string>
-        { "MiscID", "Misc Type", "Taxpayer's Name"};
-
-        //PROPERTY NAMES OF TAX CLEARANCE
-        public static List<string> MISC_TAXCLEARANCE_PROPERTY_NAMES = new List<string>
-        { "MiscID", "MiscType", "TaxpayersName"};
-
-
         public static List<string> MISC_COMMON_PROPERTY_NAMES = new List<string>
         { "AmountToBePaid", "TransferredAmount", "ExcessShort", "PaymentDate", "Status", "RequestingParty", "Remarks", "VerifiedBy", 
             "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "TransmittedBy", "TransmittedDate", "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate" };
 
+        public static Dictionary<string, List<string>> LIST_VIEW_COLUMN_NAMES_MAPPING = new Dictionary<string, List<string>>();
+
+        public static Dictionary<string, List<string>> LIST_VIEW_PROPERTY_NAMES_MAPPING = new Dictionary<string, List<string>>();
 
         static MISCUtil()
         {
-            MISC_OCCPERMIT_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
-            MISC_OCCPERMIT_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.OCCUPATIONAL_PERMIT, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.OCCUPATIONAL_PERMIT, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
-            MISC_PTR_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
-            MISC_PTR_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName", "Profession", "LastORDate", "LastORNo", "PRC_IBP_No"});
 
-            MISC_HEALTHCERT_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
-            MISC_HEALTHCERT_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name"});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName"});
 
-            MISC_TAXCLEARANCE_COLUMN_NAMES.AddRange(MISC_COMMON_COLUMN_NAMES);
-            MISC_TAXCLEARANCE_PROPERTY_NAMES.AddRange(MISC_COMMON_PROPERTY_NAMES);
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name"});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName"});
+
+            foreach (List<string> columnNames in LIST_VIEW_COLUMN_NAMES_MAPPING.Values)
+            {
+                columnNames.AddRange(MISC_COMMON_COLUMN_NAMES);
+            }
+
+            foreach (List<string> propertyNames in LIST_VIEW_PROPERTY_NAMES_MAPPING.Values)
+            {
+                propertyNames.AddRange(MISC_COMMON_PROPERTY_NAMES);
+            }
         }
     }
 }

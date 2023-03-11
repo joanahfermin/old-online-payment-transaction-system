@@ -18,8 +18,8 @@ namespace SampleRPT1.MODEL
 
     internal class ReportCollection_OccuPermit
     {
+        public string TaxpayersName { get; set; }
         public string OrderOfPaymentNum { get; set; }
-        public string OPATrackingNum { get; set; }
         public decimal AmountToBePaid { get; set; }
         public decimal TransferredAmount { get; set; }
         public decimal ExcessShort { get; set; }

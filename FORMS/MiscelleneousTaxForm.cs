@@ -651,9 +651,57 @@ namespace SampleRPT1
         }
         //END: MOUSE DRAG DOWN SELECTS RECORDS IN LISTVIEW
 
+        private static decimal totalAmount2Pay = 0;
+        private static decimal totalAmountTrans = 0;
+
         private void MISCinfoLV_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            ChangeAction();
+            int index = e.ItemIndex;
+
+            textRecSelected.Text = MISCinfoLV.SelectedItems.Count.ToString();
+
+            if (MISCinfoLV.SelectedItems.Count == 0)
+            {
+                totalAmount2Pay = 0;
+                totalAmountTrans = 0;
+            }
+
+            if (MISCinfoLV.SelectedItems.Count == 1)
+            {
+                string MiscIDString = MISCinfoLV.Items[index].Text;
+                long MiscID = Convert.ToInt64(MiscIDString);
+
+                MiscelleneousTax misc = MISCDatabase.Get(MiscID);
+                totalAmount2Pay = misc.AmountToBePaid;
+                totalAmountTrans = misc.TransferredAmount;
+
+                ChangeAction();
+            }
+
+            if (MISCinfoLV.SelectedItems.Count > 1)
+            {
+                string MiscIDString = MISCinfoLV.Items[index].Text;
+                long MiscID = Convert.ToInt64(MiscIDString);
+
+                MiscelleneousTax misc = MISCDatabase.Get(MiscID);
+                totalAmount2Pay += misc.AmountToBePaid;
+                totalAmountTrans += misc.TransferredAmount;
+
+            }
+            textTotalAmount2Pay.Text = totalAmount2Pay.ToString();
+            textTotalAmountTransferred.Text = totalAmountTrans.ToString();
+        }
+
+        private void textTotalAmount2Pay_TextChanged(object sender, EventArgs e)
+        {
+            decimal ConvertedTotalAmountToPay = decimal.Parse(textTotalAmount2Pay.Text, System.Globalization.NumberStyles.Currency);
+            textTotalAmount2Pay.Text = ConvertedTotalAmountToPay.ToString("N2");
+        }
+
+        private void textTotalAmountTransferred_TextChanged(object sender, EventArgs e)
+        {
+            decimal ConvertedTotalAmountTransferred = decimal.Parse(textTotalAmountTransferred.Text, System.Globalization.NumberStyles.Currency);
+            textTotalAmountTransferred.Text = ConvertedTotalAmountTransferred.ToString("N2");
         }
     }
 }

@@ -333,6 +333,7 @@
             this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmountTransferred.TabIndex = 60;
             this.textTotalAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalAmountTransferred.TextChanged += new System.EventHandler(this.textTotalAmountTransferred_TextChanged);
             // 
             // label10
             // 
@@ -352,6 +353,7 @@
             this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
             this.textTotalAmount2Pay.TabIndex = 61;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTotalAmount2Pay.TextChanged += new System.EventHandler(this.textTotalAmount2Pay_TextChanged);
             // 
             // MiscelleneousTaxForm
             // 

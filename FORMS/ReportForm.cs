@@ -21,7 +21,7 @@ namespace SampleRPT1.FORMS
         private static string USER_ACTIVITY = "USER ACTIVITY";
         private static string USER_RPT = "RPT";
         private static string USER_BUS = "BUSINESS";
-        private static string USER_MISC_OCCPERMIT = "MISCELLANEOUS FEES: OCCUPATIONAL PERMIT";
+        private static string USER_MISC_OCCPERMIT = "MISCELLANEOUS";
 
         private static string[] REPORT_USER_ACTIVITY = { USER_ACTIVITY, USER_RPT, USER_BUS, USER_MISC_OCCPERMIT };
 
@@ -42,8 +42,8 @@ namespace SampleRPT1.FORMS
 
         private static object[] REPORT_MISC_COLUMN_NAMES = {
             new { Name="", Width=50},
+            new { Name="Taxpayer's Name", Width=200},
             new { Name="OP Number", Width=200},
-            new { Name="OPA Tracking Number", Width=200},
             new { Name="AmountToBePaid", Width=200},
             new { Name="TransferredAmount", Width=200},
             new { Name="Excess/Short", Width=100},
@@ -86,7 +86,7 @@ namespace SampleRPT1.FORMS
 
             else if (cboReportName.Text == USER_MISC_OCCPERMIT)
             {
-                ShowReport_Misc_OccuPermit();
+                ShowReport_Misc();
             }
         }
 
@@ -136,7 +136,7 @@ namespace SampleRPT1.FORMS
             //ShowExcelReport(RPTList);
         }
 
-        private void ShowReport_Misc_OccuPermit()
+        private void ShowReport_Misc()
         {
             DateTime DateFrom = dtDate.Value;
             DateTime DateTo = dtDateTo.Value;
@@ -152,7 +152,7 @@ namespace SampleRPT1.FORMS
             }
             List<ReportCollection_OccuPermit> MiscList_OccuPermit = ReportDatabase.Select_Collector_MISC(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview_With_Row_Number<ReportCollection_OccuPermit>(MiscList_OccuPermit, LVreport, new List<string>
-            { "OrderOfPaymentNum", "OPATrackingNum", "AmountToBePaid", "TransferredAmount", "ExcessShort", "Remarks"});
+            { "TaxpayersName", "OrderOfPaymentNum", "AmountToBePaid", "TransferredAmount", "ExcessShort", "Remarks"});
         }
 
         private void dtDate_ValueChanged(object sender, EventArgs e)
@@ -244,7 +244,7 @@ namespace SampleRPT1.FORMS
             Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workBook.Sheets[1];
             worksheet.Name = "WorkSheet";
 
-            worksheet.Cells[1, 2] = "MISCELLENEOUS TAX: OCCUPATIONAL PERMIT";
+            worksheet.Cells[1, 2] = "MISCELLENEOUS TAX";
             worksheet.Cells[2, 2] = "TOTAL COLLECTION";
             worksheet.Cells[2, 3] = "TOTAL BILLING";
             worksheet.Cells[2, 4] = "EXCESS/SHORT";
@@ -254,7 +254,7 @@ namespace SampleRPT1.FORMS
             //worksheet.Cells[4, 2] = "with shttc";
             //worksheet.Cells[5, 2] = textShttc.Text;
 
-            worksheet.Cells[6, 2] = "OPA TRACKING NUMBER";
+            worksheet.Cells[6, 2] = "TAXPAYERS NAME";
             worksheet.Cells[6, 3] = "AMOUNT TO BE PAID";
             worksheet.Cells[6, 4] = "TRANSFERRED AMOUNT";
             worksheet.Cells[6, 5] = "EXCESS/SHORT";
@@ -273,7 +273,7 @@ namespace SampleRPT1.FORMS
             foreach (ReportCollection_OccuPermit item in miscList)
             {
                 worksheet.Cells[row, 1] = counter.ToString();
-                worksheet.Cells[row, 2] = item.OPATrackingNum.ToString();
+                worksheet.Cells[row, 2] = item.TaxpayersName.ToString();
                 worksheet.Cells[row, 3] = item.AmountToBePaid.ToString();
                 worksheet.Cells[row, 3].NumberFormat = "#,##0.00"; //THOUSAND SEPARATOR OF AMOUNT.
                 worksheet.Cells[row, 4] = item.TransferredAmount.ToString();

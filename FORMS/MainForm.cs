@@ -680,26 +680,11 @@ namespace SampleRPT1
                 totalAmount2Pay = rpt.AmountToPay;
                 totalAmountTrans = rpt.TotalAmountTransferred;
 
-                //string Status = rpt.Status;
-
-                //if (Status == RPTStatus.FOR_ASSESSMENT)
-                //{
-                //    LabelNumBills.Visible = true;
-                //    textNumOfBills.Visible = true;
-                //}
-                //else
-                //{
-                //    LabelNumBills.Visible = false;
-                //    textNumOfBills.Visible = false;
-                //}
-
                 ChangeAction();
 
                 ShowPicture();
 
                 ShowRepsInfo();
-
-                //Task.Delay(1000).ContinueWith(t => SelectAll());
             }
 
             if (RPTInfoLV.SelectedItems.Count > 1)

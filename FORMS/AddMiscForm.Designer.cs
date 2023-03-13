@@ -28,26 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cboStatus = new System.Windows.Forms.ComboBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.cboMiscType = new System.Windows.Forms.ComboBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
+            this.cboBankUsed = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboBankUsed = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dtDateOfPayment = new System.Windows.Forms.DateTimePicker();
-            this.btnSave = new System.Windows.Forms.Button();
             this.textTPName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label11
@@ -101,6 +104,7 @@
             this.btnUpdate.TabIndex = 24;
             this.btnUpdate.Text = "Update Record";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // label7
             // 
@@ -120,6 +124,16 @@
             this.cboMiscType.TabIndex = 22;
             this.cboMiscType.SelectedIndexChanged += new System.EventHandler(this.cboMiscType_SelectedIndexChanged);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(143, 592);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(114, 23);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.Text = "Save Record";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -128,6 +142,47 @@
             this.label14.Size = new System.Drawing.Size(106, 13);
             this.label14.TabIndex = 21;
             this.label14.Text = "Transferred Amount: ";
+            // 
+            // cboBankUsed
+            // 
+            this.cboBankUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboBankUsed.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.cboBankUsed.FormattingEnabled = true;
+            this.cboBankUsed.Items.AddRange(new object[] {
+            "Please select a bank..."});
+            this.cboBankUsed.Location = new System.Drawing.Point(152, 301);
+            this.cboBankUsed.Name = "cboBankUsed";
+            this.cboBankUsed.Size = new System.Drawing.Size(170, 21);
+            this.cboBankUsed.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(41, 301);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Bank Used: ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(41, 256);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Date of Payment: ";
+            // 
+            // dtDateOfPayment
+            // 
+            this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
+            this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 256);
+            this.dtDateOfPayment.Name = "dtDateOfPayment";
+            this.dtDateOfPayment.ShowCheckBox = true;
+            this.dtDateOfPayment.Size = new System.Drawing.Size(170, 23);
+            this.dtDateOfPayment.TabIndex = 6;
             // 
             // textTotalTransferredAmount
             // 
@@ -162,18 +217,6 @@
             this.label1.TabIndex = 19;
             this.label1.Text = "Amount To Be Paid: ";
             // 
-            // cboBankUsed
-            // 
-            this.cboBankUsed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboBankUsed.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.cboBankUsed.FormattingEnabled = true;
-            this.cboBankUsed.Items.AddRange(new object[] {
-            "Please select a bank..."});
-            this.cboBankUsed.Location = new System.Drawing.Point(152, 301);
-            this.cboBankUsed.Name = "cboBankUsed";
-            this.cboBankUsed.Size = new System.Drawing.Size(170, 21);
-            this.cboBankUsed.TabIndex = 7;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -182,36 +225,6 @@
             this.label12.Size = new System.Drawing.Size(41, 13);
             this.label12.TabIndex = 5;
             this.label12.Text = "label11";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(41, 256);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Date of Payment: ";
-            // 
-            // dtDateOfPayment
-            // 
-            this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
-            this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 256);
-            this.dtDateOfPayment.Name = "dtDateOfPayment";
-            this.dtDateOfPayment.ShowCheckBox = true;
-            this.dtDateOfPayment.Size = new System.Drawing.Size(170, 23);
-            this.dtDateOfPayment.TabIndex = 6;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(143, 592);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(114, 23);
-            this.btnSave.TabIndex = 11;
-            this.btnSave.Text = "Save Record";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // textTPName
             // 
@@ -231,15 +244,6 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Taxpayer\'s Name: ";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 301);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Bank Used: ";
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -248,6 +252,10 @@
             this.label15.Size = new System.Drawing.Size(43, 13);
             this.label15.TabIndex = 1;
             this.label15.Text = "Status: ";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // AddMiscForm
             // 
@@ -261,6 +269,7 @@
             this.Load += new System.EventHandler(this.AddMiscForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,5 +296,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

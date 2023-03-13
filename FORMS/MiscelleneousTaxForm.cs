@@ -33,8 +33,14 @@ namespace SampleRPT1
             InitializeAction();
             InitializePaymentChannel();
 
-            cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
-            cboAction.Text = MISCUtil.VERIFY_PAYMENT;
+            cboStatus.Text = MISCUtil.FOR_ASSESSMENT;
+            cboAction.Text = MISCUtil.ASSESS_RECORD;
+
+            //if (loginUser.isVerifier)
+            //{
+            //    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+            //    cboAction.Text = MISCUtil.VERIFY_PAYMENT;
+            //}
 
             INSTANCE = this;
             MdiParent = parentForm;
@@ -80,7 +86,7 @@ namespace SampleRPT1
             PopulateLVMISC(miscList);
 
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
 
@@ -183,7 +189,7 @@ namespace SampleRPT1
             RefreshLV();
 
             MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            //MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         static void AutoResizeLV_Column(ListView MISCinfoLV, int width)
@@ -206,8 +212,12 @@ namespace SampleRPT1
         {
             long RetrieveMiscID = mainFormListViewHelper.getSelectedMiscID();
 
-            AddMISCrecord addMISCrecord = new AddMISCrecord(RetrieveMiscID);
-            addMISCrecord.ShowDialog();
+            AddMiscForm addMiscForm = new AddMiscForm(RetrieveMiscID);
+            addMiscForm.ShowDialog();
+
+
+            //AddMISCrecord addMISCrecord = new AddMISCrecord(RetrieveMiscID);
+            //addMISCrecord.ShowDialog();
         }
 
         private void MISCinfoLV_DoubleClick(object sender, EventArgs e)
@@ -217,7 +227,7 @@ namespace SampleRPT1
 
             MiscelleneousTax RetrieveMisc = mainFormListViewHelper.getSelectedMisc();
 
-            if (RetrieveMisc.Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
+            if (RetrieveMisc.Status == MISCUtil.FOR_PAYMENT_VERIFICATION || RetrieveMisc.Status == MISCUtil.FOR_ASSESSMENT)
             {
                 CallUpdateForm();
             }
@@ -243,6 +253,9 @@ namespace SampleRPT1
             {
                 string MiscType = cboMiscType.Text;
                 string SearchString = textSearch.Text;
+
+
+
                 List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
                 PopulateLVMISC(miscRecordList);
 
@@ -475,8 +488,14 @@ namespace SampleRPT1
             DateTime DateTo = dtDateTo.Value;
             string Action = cboAction.Text;
 
+            if (Status == MISCUtil.FOR_ASSESSMENT && Action == MISCUtil.ASSESS_RECORD)
+            {
+                List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForAssessment(DateFrom, DateTo, Misc_Type, Status, BankList);
+            }
+
             // filter by verification of payment and payment channel.
-            if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
+            else if(Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
             {
                 List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateFrom, DateTo, Misc_Type, Status, BankList);

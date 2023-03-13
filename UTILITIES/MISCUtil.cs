@@ -11,6 +11,7 @@ namespace SampleRPT1
     {
 
         //ACTIONS.
+        public const string ASSESS_RECORD = "ASSESS RECORD";
         public const string VERIFY_PAYMENT = "VERIFY PAYMENT";
         public const string VALIDATE_PAYMENT = "VALIDATE PAYMENT";
         public const string TRANSMIT = "TRANSMIT";
@@ -19,11 +20,12 @@ namespace SampleRPT1
         public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, DELETED_RECORD };
 
         //OCCUPATIONAL PERMIT STATUS.
+        public const string FOR_ASSESSMENT = "FOR ASSESSMENT";
         public const string FOR_PAYMENT_VERIFICATION = "FOR PAYMENT VERIFICATION";
         public const string FOR_PAYMENT_VALIDATION = "FOR PAYMENT VALIDATION";
         public const string FOR_TRANSMITTAL = "FOR TRANSMITTAL";
         public const string TRANSMITTED = "TRANSMITTED";
-        public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, TRANSMITTED };
+        public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_ASSESSMENT, FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, TRANSMITTED };
 
         public const string MISCTYPE_OCCUPATIONAL_PERMIT = "OCCUPATIONAL PERMIT";
         public const string MISCTYPE_OVR = "OVR";
@@ -49,6 +51,11 @@ namespace SampleRPT1
             LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.OCCUPATIONAL_PERMIT, new List<string>
                 { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
             LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.OCCUPATIONAL_PERMIT, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
+
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.OVR, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment", "PRC/IBP No."});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.OVR, new List<string>
                 { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
             LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>

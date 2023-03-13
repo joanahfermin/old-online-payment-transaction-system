@@ -84,8 +84,8 @@ namespace SampleRPT1.FORMS
                         //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
                         string misc = item.SubItems[2].Text;
 
-                        //if (isOPnumberFormat_OccuPermit(misc) || isOPnumberFormat_Ovr_TTMD(misc) || isOPnumberFormat_Ovr_DPOS(misc) ||
-                        //    isOPnumberFormat_Market_MDAD(misc) || isOPnumberFormat_Liquor_LLRB(misc))
+                        if (isOPnumberFormat_OccuPermit(misc) || isOPnumberFormat_Ovr_TTMD(misc) || isOPnumberFormat_Ovr_DPOS(misc) ||
+                            isOPnumberFormat_Market_MDAD(misc) || isOPnumberFormat_Liquor_LLRB(misc))
                         {
                             MISCGcashPaymayaLV.Items.Add(item);
                         }
@@ -284,7 +284,7 @@ namespace SampleRPT1.FORMS
                     misc.AmountToBePaid = AmountDue;
                     misc.TransferredAmount = AmountDue;
                     misc.ModeOfPayment = ServiceProvider;
-                    misc.Status = RPTStatus.PAYMENT_VERIFICATION;
+                    misc.Status = RPTStatus.FOR_ASSESSMENT;
                     misc.PaymentDate = Convert.ToDateTime(TransactionDate);
                     //misc.RequestingParty = RequestingParty;
 

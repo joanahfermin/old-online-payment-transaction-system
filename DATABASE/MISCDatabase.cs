@@ -64,6 +64,10 @@ namespace SampleRPT1
                 {
                     query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString order by MiscID asc";
                 }
+                else if (MiscType == Misc_Type.OVR)
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString order by MiscID asc";
+                }
                 else if (MiscType == Misc_Type.PTR)
                 {
                     query = $"SELECT * FROM Jo_MISC WHERE PRC_IBP_No LIKE @SearchString OR TaxpayersName LIKE @SearchString order by MiscID asc";
@@ -180,6 +184,23 @@ namespace SampleRPT1
             }
         }
 
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForAssessment(DateTime encodedDateFrom, DateTime encodedDateTo, string MiscType, string Status, List<string> BankList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(EncodedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(EncodedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                "ORDER BY EncodedDate asc";
+                return conn.Query<MiscelleneousTax>(query, new
+                {
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
+                    Status = Status,
+                    MiscType = MiscType,
+                    BankList = BankList
+                }).ToList();
+            }
+        }
 
         public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateTime paymentDateFrom, DateTime paymentDateTo, string MiscType, string Status, List<string> BankList)
         {

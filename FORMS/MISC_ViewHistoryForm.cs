@@ -35,23 +35,33 @@ namespace SampleRPT1.FORMS
         public void setMiscID(long MiscID)
         {
             this.miscID = MiscID;
+            MiscelleneousTax misc = MISCDatabase.Get(MiscID);
             auditList = MISCDatabase.SelectAudits(MiscID);
 
-            if (auditList != null)
+            List<string> ColumnNames = MISCUtil.LIST_VIEW_COLUMN_NAMES_MAPPING[misc.MiscType];
+            foreach (string item in ColumnNames)
             {
-                foreach (string item in MISCUtil.MISC_OCCPERMIT_COLUMN_NAMES)
-                {
-                    MISCinfoLV.Columns.Add(item);
-                }
-                //AutoResizeLV_Column(MISCinfoLV, -2);
-                //AutoResizeLV_ColumnContent(MISCinfoLV, -2);
+                MISCinfoLV.Columns.Add(item);
             }
 
-            ListViewUtil.copyFromListToListview<MiscOccuPermit_Audit>(auditList, MISCinfoLV, new List<string>
-            { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "ModeOfPayment", "OPATrackingNum", "AmountToBePaid",
-                "TransferredAmount", "ExcessShort", "PaymentDate", "Status",
-                 "RequestingParty", "Remarks", "VerifiedBy", "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "TransmittedBy", "TransmittedDate",
-                 "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate"});
+            List<string> PropertyNames = MISCUtil.LIST_VIEW_PROPERTY_NAMES_MAPPING[misc.MiscType];
+            ListViewUtil.copyFromListToListview<MiscOccuPermit_Audit>(auditList, MISCinfoLV, PropertyNames);
+
+            //if (auditList != null)
+            //{
+            //    foreach (string item in MISCUtil.MISC_OCCPERMIT_COLUMN_NAMES)
+            //    {
+            //        MISCinfoLV.Columns.Add(item);
+            //    }
+            //    //AutoResizeLV_Column(MISCinfoLV, -2);
+            //    //AutoResizeLV_ColumnContent(MISCinfoLV, -2);
+            //}
+
+            //ListViewUtil.copyFromListToListview<MiscOccuPermit_Audit>(auditList, MISCinfoLV, new List<string>
+            //{ "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "ModeOfPayment", "OPATrackingNum", "AmountToBePaid",
+            //    "TransferredAmount", "ExcessShort", "PaymentDate", "Status",
+            //     "RequestingParty", "Remarks", "VerifiedBy", "VerifiedDate", "LBPDate", "ValidatedBy", "ValidatedDate", "RefNum", "TransmittedBy", "TransmittedDate",
+            //     "EncodedBy", "EncodedDate", "ReleasedBy", "ReleasedDate"});
 
             //foreach (MiscOccuPermit_Audit audit in auditList)
             //{

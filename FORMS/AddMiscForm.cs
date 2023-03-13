@@ -37,7 +37,7 @@ namespace SampleRPT1.FORMS
             InitializeDynamicMapping();
             InitializeBank();
             cboMiscType.SelectedIndex = 0;
-            cboStatus.Text = "FOR PAYMENT VERIFICATION";
+            cboStatus.Text = "FOR ASSESSMENT";
             btnUpdate.Enabled = false;
         }
 
@@ -45,6 +45,7 @@ namespace SampleRPT1.FORMS
         {
             misc = MISCDatabase.Get(miscId);
 
+            InitializeDynamicMapping();
             InitializeComponent();
             InitializeBank();
             InitializeMiscType();
@@ -69,9 +70,34 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        public void InitializeStatus()
+        {
+            foreach (string status in MISCUtil.ALL_OCCU_PERMIT_STATUS)
+            {
+                cboStatus.Items.Add(status);
+            }
+        }
+
         public void InitializeRetrieveMisc()
         {
-            
+            InitializeStatus();
+
+            btnSave.Enabled = false;
+
+            cboMiscType.Text = misc.MiscType;
+            cboMiscType.Enabled = false;
+
+            string misc_type = cboMiscType.Text;
+
+            textTPName.Text = misc.TaxpayersName;
+            cboStatus.Text = misc.Status;
+            textAmountToBePaid.Text = Convert.ToDecimal(misc.AmountToBePaid).ToString();
+            textTotalTransferredAmount.Text = Convert.ToDecimal(misc.TransferredAmount).ToString();
+            dtDateOfPayment.Value = misc.PaymentDate.Value;
+            cboBankUsed.Text = misc.ModeOfPayment;
+
+            string[] dynamicPropertyNames = dynamicPropertyNameMapping[misc_type];
+            PasteDynamicProperties(misc, dynamicPropertyNames);
         }
 
         private void CheckUncheckDateOfPayment()
@@ -207,6 +233,20 @@ namespace SampleRPT1.FORMS
             }
         }
 
+        private void PasteDynamicProperties(MiscelleneousTax misc, string[] dynamicPropertyNames)
+        {
+            for (int i = 0; i < dynamicPropertyNames.Length; i++)
+            {
+                string propertyName = dynamicPropertyNames[i];
+                Object value = misc.GetType().GetProperty(propertyName).GetValue(misc, null);
+
+                if (value != null)
+                {
+                    dynamicTextboxList[i].Text = value.ToString();
+                }
+            }
+        }
+
         private void AddMiscForm_Load(object sender, EventArgs e)
         {
             CheckUncheckDateOfPayment();
@@ -224,6 +264,54 @@ namespace SampleRPT1.FORMS
             textTotalTransferredAmount.Text = TotalTransferredAmount.ToString("N2");
 
             CheckUncheckDateOfPayment();
+        }
+
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, cboMiscType, "Misc type");
+
+            //Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            //Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
+
+            if (Convert.ToDecimal(textTotalTransferredAmount.Text) != 0)
+            {
+                Validations.ValidateRequiredBank(errorProvider1, cboBankUsed, "Bank");
+            }
+        }
+
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
+            misc.MiscType = cboMiscType.Text;
+
+            misc.TaxpayersName = textTPName.Text.Trim();
+            misc.AmountToBePaid = Convert.ToDecimal(textAmountToBePaid.Text);
+            misc.TransferredAmount = Convert.ToDecimal(textTotalTransferredAmount.Text);
+            misc.PaymentDate = dtDateOfPayment.Value.Date;
+            misc.Status = cboStatus.Text;
+            misc.ModeOfPayment = cboBankUsed.Text;
+
+            string misc_type = cboMiscType.Text;
+
+            string[] dynamicPropertyNames = dynamicPropertyNameMapping[misc_type];
+            CopyDynamicProperties(misc, dynamicPropertyNames);
+
+            MISCDatabase.UpdateMisc(misc);
+            MessageBox.Show("Record successfully saved.");
+            this.Close();
+
+            MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
+            Close();
         }
     }
 }

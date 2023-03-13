@@ -117,8 +117,8 @@ namespace SampleRPT1.FORMS
             errorProvider1.Clear();
 
             Validations.ValidateRequired(errorProvider1, cboMiscType, "Misc type");
-            Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
-            Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
+            //Validations.ValidateRequired(errorProvider1, textRequestingParty, "Requesting Party");
+            //Validations.ValidateEmailAddressFormat(errorProvider1, textRequestingParty, "Requesting Party");
 
             if (Convert.ToDecimal(textTotalTransferredAmount.Text) != 0)
             {

@@ -62,11 +62,15 @@ namespace SampleRPT1
                 string query = null;
                 if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT)
                 {
-                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString order by MiscID asc";
+                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString " +
+                        $" UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString) " +
+                        $" order by MiscID asc";
                 }
                 else if (MiscType == Misc_Type.OVR)
                 {
-                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString order by MiscID asc";
+                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString " +
+                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) " +
+                        $" order by MiscID asc";
                 }
                 else if (MiscType == Misc_Type.PTR)
                 {

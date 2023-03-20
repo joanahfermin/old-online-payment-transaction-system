@@ -550,5 +550,10 @@ namespace SampleRPT1.FORMS
                 HighlightRecord();
             }
         }
+
+        private void textRecSelected_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

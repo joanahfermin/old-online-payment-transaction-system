@@ -62,14 +62,14 @@ namespace SampleRPT1
                 string query = null;
                 if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT)
                 {
-                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString " +
-                        $" UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString) " +
+                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType" +
+                        $" UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType " +
                         $" order by MiscID asc";
                 }
                 else if (MiscType == Misc_Type.OVR)
                 {
-                    query = $"SELECT * FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString " +
-                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) " +
+                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType" +
+                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType " +
                         $" order by MiscID asc";
                 }
                 else if (MiscType == Misc_Type.PTR)
@@ -82,15 +82,31 @@ namespace SampleRPT1
                     query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @SearchString order by MiscID asc";
 
                 }
-                return conn.Query<MiscelleneousTax>(query, new { SearchString = "%" + SearchString + "%"}).ToList();
+                return conn.Query<MiscelleneousTax>(query, new { SearchString = "%" + SearchString + "%", MiscType = MiscType}).ToList();
             }
         }
 
-        public static MiscelleneousTax SelectByOPAtrackingAndOPNum(string OPA_Tracking, string OP_Num)
+        public static List<MiscelleneousTax> SelectBy_OPAtracking_OPNum_TransactionDate(string OPA_Tracking, string OP_Num, string Transaction_Date)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.QuerySingleOrDefault<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num });
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking and OrderOfPaymentNum = @OP_Num and PaymentDate = @Transaction_Date", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num, Transaction_Date = Transaction_Date }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> SelectBy_OPAtracking_OPNum(string OPA_Tracking, string OP_Num)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> SelectBy_OPNum(string OP_Num)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OrderOfPaymentNum = @OP_Num", new { OP_Num = OP_Num }).ToList();
             }
         }
 
@@ -280,7 +296,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status AND MiscType = @MiscType and DeletedRecord != 1 ORDER BY EncodedDate desc";
+                String query = $"SELECT * FROM Jo_MISC WHERE Status = @Status AND MiscType = @MiscType and DeletedRecord != 1 ORDER BY EncodedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new { Status = Status, MiscType = MiscType }).ToList();
             }
         }
@@ -333,17 +349,28 @@ namespace SampleRPT1
             }
         }
 
-        public static void CreateMisc(MiscelleneousTax misc)
-        {
-            allmisc.Add(misc);
-        }
-
         public static List<Misc_OccuPermit_TagName> SelectBy_TaxpayerName_Bulk(List<string> OPNumber_List)
         {
             using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
             {
                 return conn.Query<Misc_OccuPermit_TagName>($"SELECT * FROM MiscDetailsBillingSTAGE where BillNumber in @OPNumber_List", new { OPNumber_List = OPNumber_List }).ToList();
 
+            }
+        }
+
+        public static List<MiscelleneousTax> SelectBy_OPNumber(string OPnumber)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OrderOfPaymentNum = @OPnumber and DeletedRecord != 1 and DuplicateRecord = 0", new { OPnumber = OPnumber }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> SelectBy_OPNumber_MiscID(string OPnumber, long MiscID)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OrderOfPaymentNum = @OPnumber and DeletedRecord != 1 and DuplicateRecord = 0 and MiscID <> @MiscID", new { OPnumber = OPnumber, MiscID = MiscID }).ToList();
             }
         }
     }

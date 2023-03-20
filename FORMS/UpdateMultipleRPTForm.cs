@@ -1,4 +1,5 @@
-﻿using SampleRPT1.MODEL;
+﻿using SampleRPT1.FORMS;
+using SampleRPT1.MODEL;
 using SampleRPT1.UTILITIES;
 using System;
 using System.Collections.Generic;
@@ -211,6 +212,16 @@ namespace SampleRPT1
                 rpt.PaymentDate = dtDateOfPayment.Value.Date;
 
                 rpt.RequestingParty = textRequestingParty.Text.Trim();
+
+                //upon saving, system shall notify the user if there's an existing record/s in the db.
+                List<RealPropertyTax> Detect_Existing_Record = RPTDatabase.Update_SelectBy_TaxDec_Year_Quarter(rpt.TaxDec, rpt.YearQuarter, rpt.Quarter, rpt.RptID);
+
+                if (Detect_Existing_Record.Count > 0)
+                {
+                    RPTDuplicateRecordForm rptduplicateForm = new RPTDuplicateRecordForm(Detect_Existing_Record);
+                    rptduplicateForm.Show();
+                    return;
+                }
 
                 RPTDatabase.Update(rpt);
 

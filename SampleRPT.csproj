@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>90</ApplicationRevision>
+    <ApplicationRevision>110</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -316,6 +316,12 @@
     <Compile Include="FORMS\RPTDuplicateRecordForm.Designer.cs">
       <DependentUpon>RPTDuplicateRecordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FORMS\MISCDuplicateRecordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\MISCDuplicateRecordForm.Designer.cs">
+      <DependentUpon>MISCDuplicateRecordForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\SendEmailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +466,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\MISCDuplicateRecordForm.resx">
+      <DependentUpon>MISCDuplicateRecordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\MiscelleneousTaxForm.resx">
       <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>

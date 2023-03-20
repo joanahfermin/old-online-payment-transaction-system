@@ -11,6 +11,7 @@ namespace SampleRPT1.MODEL
         //These are all objects of the table Jo_RPT_Users.
 
         public string MachNo { get; set; }
+
         public decimal ORAmount { get; set; }
         public string TaxYear { get; set; }
         public string Quarter { get; set; }

@@ -128,6 +128,7 @@ namespace SampleRPT1.FORMS
         {
             //initialize label
             dynamicPropertyLabelMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "O.P Number:", "OPA Tracking No.:", "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.OVR, new string[] { "O.P Number:", "OPA Tracking No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.PTR, new string[] { "Profession:", "Last O.R Date:", "Last O.R No.:", "PRC/IBP No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "Requesting Party:", "Remarks:" });
@@ -136,6 +137,7 @@ namespace SampleRPT1.FORMS
 
             //initialize property
             dynamicPropertyNameMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.OVR, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.PTR, new string[] { "Profession", "LastORDate", "LastORNo", "PRC_IBP_No", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "RequestingParty", "Remarks" });
@@ -208,18 +210,29 @@ namespace SampleRPT1.FORMS
             misc.PaymentDate = dtDateOfPayment.Value.Date;
             misc.Status = cboStatus.Text;
             misc.ModeOfPayment = cboBankUsed.Text;
+            misc.EncodedBy = loginUser.DisplayName;
+            misc.EncodedDate = DateTime.Now;
 
             string misc_type = cboMiscType.Text;
 
             string[] dynamicPropertyNames = dynamicPropertyNameMapping[misc_type];
             CopyDynamicProperties(misc, dynamicPropertyNames);
 
-            MISCDatabase.CreateMisc(misc);
+            //detects if there's existing record in db
+            List<MiscelleneousTax> Duplicate_Record = MISCDatabase.SelectBy_OPNumber(misc.OrderOfPaymentNum);
+
+            if (Duplicate_Record.Count > 0)
+            {
+                MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(Duplicate_Record);
+                miscDuplicateForm.ShowDialog();
+                return;
+            }
+
             MISCDatabase.InsertMisc(misc);
             MessageBox.Show("Record successfully saved.");
             this.Close();
 
-            MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
+            MiscelleneousTaxForm.INSTANCE.RefreshLV_FromGcashPaymaya(misc.OrderOfPaymentNum);
             Close();
         }
 
@@ -305,6 +318,22 @@ namespace SampleRPT1.FORMS
 
             string[] dynamicPropertyNames = dynamicPropertyNameMapping[misc_type];
             CopyDynamicProperties(misc, dynamicPropertyNames);
+
+            //detects if there's existing record in db
+            List<MiscelleneousTax> Duplicate_Record = MISCDatabase.SelectBy_OPNumber_MiscID(misc.OrderOfPaymentNum, misc.MiscID);
+
+            if (Duplicate_Record.Count > 0)
+            {
+                foreach (var item in Duplicate_Record)
+                {
+                    if (!Duplicate_Record.Contains(item))
+                    {
+                        MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(Duplicate_Record);
+                        miscDuplicateForm.ShowDialog();
+                        return;
+                    }
+                }
+            }
 
             MISCDatabase.UpdateMisc(misc);
             MessageBox.Show("Record successfully saved.");

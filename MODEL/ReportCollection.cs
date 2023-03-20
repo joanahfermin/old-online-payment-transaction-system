@@ -20,8 +20,8 @@ namespace SampleRPT1.MODEL
     {
         public string TaxpayersName { get; set; }
         public string OrderOfPaymentNum { get; set; }
-        public decimal AmountToBePaid { get; set; }
-        public decimal TransferredAmount { get; set; }
+        public decimal Billing { get; set; }
+        public decimal Collection { get; set; }
         public decimal ExcessShort { get; set; }
         public string Remarks { get; set; }
     }

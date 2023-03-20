@@ -44,8 +44,8 @@ namespace SampleRPT1.FORMS
             new { Name="", Width=50},
             new { Name="Taxpayer's Name", Width=200},
             new { Name="OP Number", Width=200},
-            new { Name="AmountToBePaid", Width=200},
-            new { Name="TransferredAmount", Width=200},
+            new { Name="Amount To Be Paid", Width=200},
+            new { Name="Transferred Amount", Width=200},
             new { Name="Excess/Short", Width=100},
             new { Name="Remarks", Width=250}};
 
@@ -152,7 +152,7 @@ namespace SampleRPT1.FORMS
             }
             List<ReportCollection_OccuPermit> MiscList_OccuPermit = ReportDatabase.Select_Collector_MISC(DateFrom, DateTo);
             ListViewUtil.copyFromListToListview_With_Row_Number<ReportCollection_OccuPermit>(MiscList_OccuPermit, LVreport, new List<string>
-            { "TaxpayersName", "OrderOfPaymentNum", "AmountToBePaid", "TransferredAmount", "ExcessShort", "Remarks"});
+            { "TaxpayersName", "OrderOfPaymentNum", "Billing", "Collection", "ExcessShort", "Remarks"});
         }
 
         private void dtDate_ValueChanged(object sender, EventArgs e)
@@ -245,12 +245,12 @@ namespace SampleRPT1.FORMS
             worksheet.Name = "WorkSheet";
 
             worksheet.Cells[1, 2] = "MISCELLENEOUS TAX";
-            worksheet.Cells[2, 2] = "TOTAL COLLECTION";
-            worksheet.Cells[2, 3] = "TOTAL BILLING";
-            worksheet.Cells[2, 4] = "EXCESS/SHORT";
+            worksheet.Cells[2, 3] = "TOTAL COLLECTION";
+            worksheet.Cells[2, 4] = "TOTAL BILLING";
+            worksheet.Cells[2, 5] = "EXCESS/SHORT";
 
 
-            worksheet.Cells[3, 5] = SecurityService.getLoginUser().FullName;
+            worksheet.Cells[3, 6] = SecurityService.getLoginUser().FullName;
             //worksheet.Cells[4, 2] = "with shttc";
             //worksheet.Cells[5, 2] = textShttc.Text;
 
@@ -258,10 +258,10 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[6, 3] = "AMOUNT TO BE PAID";
             worksheet.Cells[6, 4] = "TRANSFERRED AMOUNT";
             worksheet.Cells[6, 5] = "EXCESS/SHORT";
-            worksheet.Cells[6, 6] = "RPT REMARKS";
+            worksheet.Cells[6, 6] = "MISC REMARKS";
 
-            worksheet.Cells[4, 5] = "POS-" + SecurityService.getLoginUser().MachNo;
-            worksheet.Cells[5, 5] = DateTime.Now.ToString();
+            worksheet.Cells[4, 6] = "POS-" + SecurityService.getLoginUser().MachNo_Misc;
+            worksheet.Cells[5, 6] = DateTime.Now.ToString();
 
             int row = 7;
             int counter = 1;
@@ -274,15 +274,15 @@ namespace SampleRPT1.FORMS
             {
                 worksheet.Cells[row, 1] = counter.ToString();
                 worksheet.Cells[row, 2] = item.TaxpayersName.ToString();
-                worksheet.Cells[row, 3] = item.AmountToBePaid.ToString();
+                worksheet.Cells[row, 3] = item.Billing.ToString();
                 worksheet.Cells[row, 3].NumberFormat = "#,##0.00"; //THOUSAND SEPARATOR OF AMOUNT.
-                worksheet.Cells[row, 4] = item.TransferredAmount.ToString();
+                worksheet.Cells[row, 4] = item.Collection.ToString();
                 worksheet.Cells[row, 4].NumberFormat = "#,##0.00"; //THOUSAND SEPARATOR OF AMOUNT.
                 worksheet.Cells[row, 5] = item.ExcessShort.ToString();
                 worksheet.Cells[row, 6] = item.Remarks;
 
-                TotalAmountTobePaid += item.AmountToBePaid;
-                TotalTransferredAmount += item.TransferredAmount;
+                TotalAmountTobePaid += item.Billing;
+                TotalTransferredAmount += item.Collection;
                 totalExcessShort += item.ExcessShort;
 
                 row++;
@@ -291,9 +291,9 @@ namespace SampleRPT1.FORMS
             //decimal shttc = 0;
             //decimal.TryParse(textShttc.Text, out shttc);
 
-            worksheet.Cells[3, 2] = $"=sum(C7:C{row - 1})";
-            worksheet.Cells[3, 3] = $"=sum(D7:D{row - 1})";
-            worksheet.Cells[3, 4] = $"=sum(E7:E{row - 1})";
+            worksheet.Cells[3, 3] = $"=sum(C7:C{row - 1})";
+            worksheet.Cells[3, 4] = $"=sum(D7:D{row - 1})";
+            worksheet.Cells[3, 5] = $"=sum(E7:E{row - 1})";
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "Collections.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();

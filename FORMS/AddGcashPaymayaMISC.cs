@@ -167,17 +167,19 @@ namespace SampleRPT1.FORMS
             List<string> ProcessedList = new List<string>();
 
             bool duplicateDetected = false;
+            bool doublePaymentDetected = false;
 
             for (int i = 0; i < MISCGcashPaymayaLV.Items.Count; i++)
             {
                 ListViewItem item = MISCGcashPaymayaLV.Items[i];
                 string OPAtrackingNum = item.SubItems[1].Text;
                 string OPaymentNum = item.SubItems[2].Text;
+                string TransactionDate = item.SubItems[6].Text;
 
-                MiscelleneousTax misc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPaymentNum);
+                List<MiscelleneousTax> misc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPaymentNum);
 
-                //if selected record is existing in the database with same Tax Dec and same Year/quarter.
-                if (misc != null)
+                //if selected record is existing in the database with same OPAtrackingNum or OPaymentNum.
+                if (misc.Count > 0)
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightBlue;
@@ -188,25 +190,33 @@ namespace SampleRPT1.FORMS
                     item.SubItems.Add("NO");
                 }
 
-                string OPAtrackingAndOPNum = OPAtrackingNum + OPaymentNum;
+                string OPAtrackingAndOPNum_TransactionDate = OPAtrackingNum + OPaymentNum + TransactionDate;
 
-                //if selected record has duplicate in the form's listview with same Tax Dec and same Year/quarter.
-                if (ProcessedList.Contains(OPAtrackingAndOPNum))
+                //if selected record has duplicate in the form's listview with same OPAtrackingNum and OPaymentNum and TransactionDate.
+                if (ProcessedList.Contains(OPAtrackingAndOPNum_TransactionDate))
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightCoral;
-                    duplicateDetected = true;
+                    doublePaymentDetected = true;
                 }
                 else
                 {
                     item.SubItems.Add("NO");
                 }
-                ProcessedList.Add(OPAtrackingAndOPNum);
+                ProcessedList.Add(OPAtrackingAndOPNum_TransactionDate);
             }
 
             if (duplicateDetected)
             {
                 MessageBox.Show("There is a DUPLICATE RECORD detected!");
+            }
+            if (doublePaymentDetected)
+            {
+                MessageBox.Show("There is a DOUBLE PAYMENT detected!");
+            }
+            if (MISCGcashPaymayaLV.Items.Count == 0)
+            {
+                MessageBox.Show("Incorrect copy of data.");
             }
         }
 
@@ -258,6 +268,7 @@ namespace SampleRPT1.FORMS
             }
 
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
+            string DoublePaymentRemarks = "DOUBLE PAYMENT";
 
             string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
@@ -274,7 +285,17 @@ namespace SampleRPT1.FORMS
                     decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
                     string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
 
-                    MiscelleneousTax retrieveMisc = MISCDatabase.SelectByOPAtrackingAndOPNum(OPAtrackingNum, OPnumber);
+                    List<MiscelleneousTax> retrieveMisc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPnumber);
+                    List<MiscelleneousTax> retrieveMisc_DoublePayment = MISCDatabase.SelectBy_OPAtracking_OPNum_TransactionDate(OPAtrackingNum, OPnumber, TransactionDate);
+
+                    List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPNum(OPnumber);
+
+                    if (retrieveMisc_Existing_OPNumber.Count > 0)
+                    {
+                        MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
+                        miscDuplicateForm.ShowDialog();
+                        return;
+                    }
 
                     MiscelleneousTax misc = new MiscelleneousTax();
 
@@ -292,9 +313,14 @@ namespace SampleRPT1.FORMS
                     misc.EncodedDate = DateTime.Now;
                     misc.RefNum = refNo;
 
-                    if (retrieveMisc != null)
+                    if (retrieveMisc.Count > 0)
                     {
                         misc.Remarks = DuplicateRecordRemarks;
+                    }
+
+                    if (retrieveMisc_DoublePayment.Count > 0)
+                    {
+                        misc.Remarks = DoublePaymentRemarks;
                     }
 
                     if (OPnumber.Contains("BPLO"))
@@ -317,16 +343,16 @@ namespace SampleRPT1.FORMS
                         misc.MiscType = MISCUtil.MISCTYPE_LIQUOR;
                     }
 
-                    //misc.MiscType = MISCUtil.MISCTYPE_OCCUPATIONAL_PERMIT;
-                    //misc.MiscType = Misc_Type;
-
                     MISCDatabase.Insert(misc);
                 }
+
+                string OPNumber_Search = MISCGcashPaymayaLV.Items[0].SubItems[2].Text;
 
                 MISCGcashPaymayaLV.Items.Clear();
                 MessageBox.Show("All records have been successfully saved.");
 
-                MiscelleneousTaxForm.INSTANCE.RefreshOccuPermit();
+                this.Close();
+                MiscelleneousTaxForm.INSTANCE.RefreshLV_FromGcashPaymaya(OPNumber_Search);
             }
         }
 

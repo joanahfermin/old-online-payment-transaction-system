@@ -125,7 +125,9 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.textRecSelected);
             this.panel1.Controls.Add(this.textLocCode);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.textTDN);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(20, 17);
@@ -173,16 +175,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(428, 10);
+            this.label4.Location = new System.Drawing.Point(1144, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 13);
             this.label4.TabIndex = 35;
             this.label4.Text = "Search by Date And Status";
+            this.label4.Visible = false;
             // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnAdvancePickUp);
             this.panel2.Controls.Add(this.dtDate);
             this.panel2.Controls.Add(this.cboStatus);
             this.panel2.Controls.Add(this.dtDateTo);
@@ -190,14 +192,15 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.label13);
-            this.panel2.Location = new System.Drawing.Point(418, 17);
+            this.panel2.Location = new System.Drawing.Point(1134, 17);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 36;
+            this.panel2.Visible = false;
             // 
             // btnAdvancePickUp
             // 
-            this.btnAdvancePickUp.Location = new System.Drawing.Point(383, 41);
+            this.btnAdvancePickUp.Location = new System.Drawing.Point(946, 64);
             this.btnAdvancePickUp.Name = "btnAdvancePickUp";
             this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
             this.btnAdvancePickUp.TabIndex = 48;
@@ -215,6 +218,7 @@
             this.dtDate.Size = new System.Drawing.Size(95, 20);
             this.dtDate.TabIndex = 2;
             this.dtDate.Value = new System.DateTime(2022, 8, 23, 0, 0, 0, 0);
+            this.dtDate.Visible = false;
             this.dtDate.ValueChanged += new System.EventHandler(this.dtDate_ValueChanged);
             // 
             // cboStatus
@@ -224,6 +228,7 @@
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(231, 21);
             this.cboStatus.TabIndex = 4;
+            this.cboStatus.Visible = false;
             this.cboStatus.SelectedIndexChanged += new System.EventHandler(this.cboStatus_SelectedIndexChanged);
             // 
             // dtDateTo
@@ -235,6 +240,7 @@
             this.dtDateTo.Size = new System.Drawing.Size(95, 20);
             this.dtDateTo.TabIndex = 3;
             this.dtDateTo.Value = new System.DateTime(2022, 8, 23, 0, 0, 0, 0);
+            this.dtDateTo.Visible = false;
             // 
             // btnSearchDateStatus
             // 
@@ -244,6 +250,7 @@
             this.btnSearchDateStatus.TabIndex = 5;
             this.btnSearchDateStatus.Text = "Search";
             this.btnSearchDateStatus.UseVisualStyleBackColor = true;
+            this.btnSearchDateStatus.Visible = false;
             this.btnSearchDateStatus.Click += new System.EventHandler(this.btnSearchDateStatus_Click);
             // 
             // label2
@@ -254,6 +261,7 @@
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 44;
             this.label2.Text = "From: ";
+            this.label2.Visible = false;
             // 
             // label14
             // 
@@ -263,6 +271,7 @@
             this.label14.Size = new System.Drawing.Size(80, 13);
             this.label14.TabIndex = 44;
             this.label14.Text = "Filter By Status:";
+            this.label14.Visible = false;
             // 
             // label13
             // 
@@ -272,10 +281,11 @@
             this.label13.Size = new System.Drawing.Size(26, 13);
             this.label13.TabIndex = 47;
             this.label13.Text = "To: ";
+            this.label13.Visible = false;
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1804, 66);
+            this.btnExecute.Location = new System.Drawing.Point(1021, 28);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 9;
@@ -286,7 +296,7 @@
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(1720, 30);
+            this.cboAction.Location = new System.Drawing.Point(845, 29);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(159, 21);
             this.cboAction.TabIndex = 38;
@@ -294,7 +304,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1671, 37);
+            this.label15.Location = new System.Drawing.Point(796, 36);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(43, 13);
             this.label15.TabIndex = 37;
@@ -324,9 +334,9 @@
             this.RPTInfoLV.FullRowSelect = true;
             this.RPTInfoLV.GridLines = true;
             this.RPTInfoLV.HideSelection = false;
-            this.RPTInfoLV.Location = new System.Drawing.Point(18, 119);
+            this.RPTInfoLV.Location = new System.Drawing.Point(18, 108);
             this.RPTInfoLV.Name = "RPTInfoLV";
-            this.RPTInfoLV.Size = new System.Drawing.Size(1875, 416);
+            this.RPTInfoLV.Size = new System.Drawing.Size(1875, 427);
             this.RPTInfoLV.TabIndex = 40;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
@@ -545,7 +555,7 @@
             // textRepName
             // 
             this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRepName.Location = new System.Drawing.Point(1196, 27);
+            this.textRepName.Location = new System.Drawing.Point(541, 30);
             this.textRepName.Name = "textRepName";
             this.textRepName.Size = new System.Drawing.Size(223, 20);
             this.textRepName.TabIndex = 6;
@@ -553,7 +563,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1062, 34);
+            this.label5.Location = new System.Drawing.Point(407, 37);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(128, 13);
             this.label5.TabIndex = 37;
@@ -562,7 +572,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1100, 71);
+            this.label6.Location = new System.Drawing.Point(445, 74);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 37;
@@ -571,7 +581,7 @@
             // textRepContactNum
             // 
             this.textRepContactNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRepContactNum.Location = new System.Drawing.Point(1196, 64);
+            this.textRepContactNum.Location = new System.Drawing.Point(541, 67);
             this.textRepContactNum.Name = "textRepContactNum";
             this.textRepContactNum.Size = new System.Drawing.Size(223, 20);
             this.textRepContactNum.TabIndex = 7;
@@ -581,7 +591,7 @@
             this.checkAutLetter.AutoSize = true;
             this.checkAutLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkAutLetter.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.checkAutLetter.Location = new System.Drawing.Point(1440, 67);
+            this.checkAutLetter.Location = new System.Drawing.Point(785, 70);
             this.checkAutLetter.Name = "checkAutLetter";
             this.checkAutLetter.Size = new System.Drawing.Size(137, 17);
             this.checkAutLetter.TabIndex = 8;
@@ -683,16 +693,17 @@
             // 
             this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(121, 96);
+            this.textRecSelected.Location = new System.Drawing.Point(295, 44);
             this.textRecSelected.Name = "textRecSelected";
             this.textRecSelected.Size = new System.Drawing.Size(63, 20);
             this.textRecSelected.TabIndex = 61;
             this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textRecSelected.TextChanged += new System.EventHandler(this.textRecSelected_TextChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 103);
+            this.label8.Location = new System.Drawing.Point(191, 51);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 60;
@@ -703,8 +714,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 948);
-            this.Controls.Add(this.textRecSelected);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.btnAdvancePickUp);
             this.Controls.Add(this.TabPicture);
             this.Controls.Add(this.checkAutLetter);
             this.Controls.Add(this.textRepContactNum);

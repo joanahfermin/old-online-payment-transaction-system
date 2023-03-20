@@ -60,20 +60,53 @@ namespace SampleRPT1.DATABASE
             }
         }
 
+       
         public static List<ReportCollection_OccuPermit> Select_Collector_MISC(DateTime _DateFrom, DateTime _DateTo)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 string UserName = SecurityService.getLoginUser().DisplayName;
                 return conn.Query<ReportCollection_OccuPermit>(
-                " SELECT TaxpayersName, OrderOfPaymentNum, AmountToBePaid, TransferredAmount, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%', Remarks, '' )" +
-                " as Remarks  FROM Jo_MISC " +
-                " where DeletedRecord = 0 and MiscType = 'OCCUPATIONAL PERMIT' or MiscType = 'OVR' or MiscType = 'LIQUOR' or MiscType = 'PTR' or MiscType = 'HEALTH CERTIFICATE' or MiscType = 'TAX CLEARANCE' " +
-                " and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
-                " order by ValidatedDate, EncodedDate ",
 
-                new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName }).ToList();
+                "SELECT TaxPayersName, OrderOfPaymentNum, Billing, Collection, ExcessShort, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%' or Remarks like '%MANUAL%', Remarks, '' ) as Remarks " +
+                "FROM ( " +
+                " SELECT TaxPayersName, OrderOfPaymentNum, AmountToBePaid as Billing, TransferredAmount as Collection, 0 as ExcessShort, Remarks, ValidatedDate, MiscID, EncodedDate " +
+                " FROM Jo_MISC r " +
+                " WHERE ModeOfPayment in @OnlinePaymentChannels " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                " UNION " +
+
+                " SELECT TaxPayersName, OrderOfPaymentNum, AmountToBePaid as Billing, TransferredAmount as Collection, ExcessShort as ExcessShort, Remarks, (select min(ValidatedDate) from Jo_MISC r2 where r2.RefNum = r.RefNum ) as ValidatedDate, MiscID, EncodedDate " +
+                " FROM Jo_MISC r " +
+                " WHERE ModeOfPayment not in @OnlinePaymentChannels and RefNum is not null " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                " UNION " +
+
+                " SELECT TaxPayersName, OrderOfPaymentNum, AmountToBePaid as Billing, TransferredAmount as Collection, ExcessShort as ExcessShort, Remarks, ValidatedDate, MiscID, EncodedDate " +
+                " FROM Jo_MISC r " +
+                " WHERE ModeOfPayment not in @OnlinePaymentChannels and RefNum is null " +
+                " and DeletedRecord = 0 and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+                ") AS ReportView " +
+                "order by ValidatedDate, EncodedDate ",
+
+                new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName, OnlinePaymentChannels = RPTGcashPaymaya.E_PAYMENT_CHANNEL }).ToList();
             }
         }
+
+        //public static List<ReportCollection_OccuPermit> Select_Collector_MISC(DateTime _DateFrom, DateTime _DateTo)
+        //{
+        //    using (SqlConnection conn = DbUtils.getConnection())
+        //    {
+        //        string UserName = SecurityService.getLoginUser().DisplayName;
+        //        return conn.Query<ReportCollection_OccuPermit>(
+        //        " SELECT TaxpayersName, OrderOfPaymentNum, AmountToBePaid, TransferredAmount, iif(Remarks like '%SHORT%' or Remarks like '%CASH%' or Remarks like '%MC%' or Remarks like '%EXCESS%', Remarks, '' )" +
+        //        " as Remarks  FROM Jo_MISC " +
+        //        " where DeletedRecord = 0 and MiscType = 'OCCUPATIONAL PERMIT' or MiscType = 'OVR' or MiscType = 'LIQUOR' or MiscType = 'PTR' or MiscType = 'HEALTH CERTIFICATE' or MiscType = 'TAX CLEARANCE' " +
+        //        " and CAST(ValidatedDate AS Date)>= CAST(@FromDate AS Date) and CAST(ValidatedDate AS Date) <= CAST(@ToDate AS Date) and ValidatedBy=@UserName " +
+        //        " order by ValidatedDate, EncodedDate ",
+
+        //        new { FromDate = _DateFrom, ToDate = _DateTo, UserName = UserName }).ToList();
+        //    }
+        //}
     }
 }

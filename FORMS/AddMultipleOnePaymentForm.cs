@@ -261,6 +261,16 @@ namespace SampleRPT1
                 rpt.RefNum = refNo;
                 rpt.RPTremarks = Remarks;
 
+                //detects if there's existing record in db
+                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, YearQuarter, Quarter);
+
+                if (Duplicate_Record.Count > 0)
+                {
+                    RPTDuplicateRecordForm rptDuplicateForm = new RPTDuplicateRecordForm(Duplicate_Record);
+                    rptDuplicateForm.ShowDialog();
+                    return;
+                }
+
                 RPTDatabase.Insert(rpt);
 
                 FirstRecord = false;

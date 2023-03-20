@@ -64,7 +64,6 @@ namespace SampleRPT1
             return mainFormListViewHelper.getSelectedMiscID();
         }
 
-
         public void RefreshLV()
         {
             lastSearchAction = SEARCH_BY_DATE_STATUS;
@@ -169,8 +168,9 @@ namespace SampleRPT1
 
             foreach (ListViewItem item in MISCinfoLV.Items)
             {
-                if (item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[5].Text.Contains(miscRecord))
+                if (item.SubItems[2].Text.Contains(miscRecord) ||  item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[4].Text.Contains(miscRecord))
                 {
+                    item.Selected = true;
                     MISCinfoLV.Focus();
                 }
             }
@@ -247,25 +247,66 @@ namespace SampleRPT1
             }
         }
 
+        public void RefreshLV_FromGcashPaymaya(string SearchString)
+        {
+            string MiscType = cboMiscType.Text;
+            textSearch.Text = SearchString;
+
+            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
+            PopulateLVMISC(miscRecordList);
+
+            HighlightRecord();
+
+            if (MISCinfoLV.SelectedItems.Count > 0)
+            {
+                int index = MISCinfoLV.SelectedItems[0].Index;
+                MISCinfoLV.EnsureVisible(index);
+            }
+            MISCinfoLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+        }
+
         private void textSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string MiscType = cboMiscType.Text;
-                string SearchString = textSearch.Text;
+                RefreshLV_FromGcashPaymaya(textSearch.Text);
+            }
+        }
 
+        private void AssessRecord()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_ASSESSMENT);
 
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_ASSESSMENT);
+                bool AllProcessed = true;
 
-                List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
-                PopulateLVMISC(miscRecordList);
-
-                HighlightRecord();
-
-                if (MISCinfoLV.SelectedItems.Count > 0)
+                foreach (MiscelleneousTax misc in SelectedMISCList)
                 {
-                    int index = MISCinfoLV.SelectedItems[0].Index;
-                    MISCinfoLV.EnsureVisible(index);
+                    //misc. = loginUser.DisplayName;
+                    //misc.VerifiedDate = DateTime.Now;
+                    misc.Status = MISCUtil.FOR_PAYMENT_VERIFICATION;
+
+                    if (misc.TransferredAmount >= misc.AmountToBePaid)
+                    {
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
                 }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+                }
+                MessageBox.Show("Record/s successfully assessed.");
+                cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+                RefreshLV();
             }
         }
 
@@ -387,7 +428,12 @@ namespace SampleRPT1
                 MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
                 string Status = misc.Status;
 
-                if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
+                if (Status == MISCUtil.FOR_ASSESSMENT)
+                {
+                    SetAction(MISCUtil.ASSESS_RECORD);
+                }
+
+                else if(Status == MISCUtil.FOR_PAYMENT_VERIFICATION)
                 {
                     SetAction(MISCUtil.VERIFY_PAYMENT);
                 }
@@ -397,7 +443,7 @@ namespace SampleRPT1
                     SetAction(MISCUtil.VALIDATE_PAYMENT);
                 }
 
-                else if(Status == MISCUtil.FOR_TRANSMITTAL)
+                else if (Status == MISCUtil.FOR_TRANSMITTAL)
                 {
                     SetAction(MISCUtil.TRANSMIT);
                 }
@@ -407,7 +453,12 @@ namespace SampleRPT1
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            if (cboAction.Text == MISCUtil.VERIFY_PAYMENT)
+            if (cboAction.Text == MISCUtil.ASSESS_RECORD)
+            {
+                AssessRecord();
+            }
+
+            else if(cboAction.Text == MISCUtil.VERIFY_PAYMENT)
             {
                 VerifyPayment();
             }
@@ -488,20 +539,20 @@ namespace SampleRPT1
             DateTime DateTo = dtDateTo.Value;
             string Action = cboAction.Text;
 
-            if (Status == MISCUtil.FOR_ASSESSMENT && Action == MISCUtil.ASSESS_RECORD)
+            if (Status == MISCUtil.FOR_ASSESSMENT /*&& Action == MISCUtil.ASSESS_RECORD*/)
             {
                 List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForAssessment(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
             // filter by verification of payment and payment channel.
-            else if(Status == MISCUtil.FOR_PAYMENT_VERIFICATION && Action == MISCUtil.VERIFY_PAYMENT)
+            else if (Status == MISCUtil.FOR_PAYMENT_VERIFICATION /*&& Action == MISCUtil.VERIFY_PAYMENT*/)
             {
                 List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForVerification(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
-            else if (Status == MISCUtil.FOR_PAYMENT_VALIDATION && Action == MISCUtil.VALIDATE_PAYMENT)
+            else if (Status == MISCUtil.FOR_PAYMENT_VALIDATION /*&& Action == MISCUtil.VALIDATE_PAYMENT*/)
             {
                 List<string> BankList = getBankList();
                 miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelForValidation(DateFrom, DateTo, Misc_Type, Status, BankList);
@@ -596,7 +647,8 @@ namespace SampleRPT1
 
             if (MISCinfoLV.SelectedItems.Count == 1)
             {
-                string MiscIDString = MISCinfoLV.Items[index].Text;
+                //string MiscIDString = MISCinfoLV.Items[index].Text;
+                string MiscIDString = MISCinfoLV.SelectedItems[0].Text;
                 long MiscID = Convert.ToInt64(MiscIDString);
 
                 MiscelleneousTax misc = MISCDatabase.Get(MiscID);
@@ -612,8 +664,16 @@ namespace SampleRPT1
                 long MiscID = Convert.ToInt64(MiscIDString);
 
                 MiscelleneousTax misc = MISCDatabase.Get(MiscID);
-                totalAmount2Pay += misc.AmountToBePaid;
-                totalAmountTrans += misc.TransferredAmount;
+                if (e.IsSelected)
+                {
+                    totalAmount2Pay += misc.AmountToBePaid;
+                    totalAmountTrans += misc.TransferredAmount;
+                }
+                else
+                {
+                    totalAmount2Pay -= misc.AmountToBePaid;
+                    totalAmountTrans -= misc.TransferredAmount;
+                }
 
             }
             textTotalAmount2Pay.Text = totalAmount2Pay.ToString();
@@ -630,6 +690,16 @@ namespace SampleRPT1
         {
             decimal ConvertedTotalAmountTransferred = decimal.Parse(textTotalAmountTransferred.Text, System.Globalization.NumberStyles.Currency);
             textTotalAmountTransferred.Text = ConvertedTotalAmountTransferred.ToString("N2");
+        }
+
+        private void MISCinfoLV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mainFormListViewHelper.haveSelectedRow())
+            {
+                MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
+
+                Clipboard.SetText(misc.OPATrackingNum);
+            }
         }
     }
 }

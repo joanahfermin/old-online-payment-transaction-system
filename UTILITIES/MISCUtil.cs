@@ -17,7 +17,7 @@ namespace SampleRPT1
         public const string TRANSMIT = "TRANSMIT";
         public const string DELETED_RECORD = "DELETE";
 
-        public static string[] ALL_ACTIONS = { VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, DELETED_RECORD };
+        public static string[] ALL_ACTIONS = { ASSESS_RECORD, VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, DELETED_RECORD };
 
         //OCCUPATIONAL PERMIT STATUS.
         public const string FOR_ASSESSMENT = "FOR ASSESSMENT";
@@ -54,7 +54,7 @@ namespace SampleRPT1
                 { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
             LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.OVR, new List<string>
-                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment", "PRC/IBP No."});
+                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
             LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.OVR, new List<string>
                 { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 

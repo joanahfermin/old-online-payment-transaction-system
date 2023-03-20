@@ -536,7 +536,7 @@ namespace SampleRPT1
 
         private void Change_isDuplicateRecord()
         {
-            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS"))
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS" || loginUser.DisplayName == "JOANAH"))
             {
                 if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -673,7 +673,9 @@ namespace SampleRPT1
 
             if (RPTInfoLV.SelectedItems.Count == 1)
             {
-                string RptIDString = RPTInfoLV.Items[index].Text;
+                //string RptIDString = RPTInfoLV.Items[index].Text;
+                string RptIDString = RPTInfoLV.SelectedItems[0].Text;
+
                 long RptID = Convert.ToInt64(RptIDString);
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
@@ -693,8 +695,17 @@ namespace SampleRPT1
                 long RptID = Convert.ToInt64(RptIDString);
 
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
-                totalAmount2Pay += rpt.AmountToPay;
-                totalAmountTrans += rpt.TotalAmountTransferred;
+
+                if (e.IsSelected)
+                {
+                    totalAmount2Pay += rpt.AmountToPay;
+                    totalAmountTrans += rpt.TotalAmountTransferred;
+                }
+                else
+                {
+                    totalAmount2Pay -= rpt.AmountToPay;
+                    totalAmountTrans -= rpt.TotalAmountTransferred;
+                }
 
                 textRepName.Text = "***";
                 textContactNum.Text = "***";
@@ -1599,6 +1610,10 @@ namespace SampleRPT1
                     RPTInfoLV.EnsureVisible(index);
 
                     VerAndValLV.EnsureVisible(index);
+                }
+                else
+                {
+                    MessageBox.Show("No records found.");
                 }
             }
         }

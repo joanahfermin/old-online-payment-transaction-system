@@ -9,7 +9,7 @@ namespace SampleRPT1
 {
     [Table("Jo_MISC")]
 
-    internal class MiscelleneousTax
+    public class MiscelleneousTax
     {
         [Key]
         public long MiscID { get; set; }
@@ -42,6 +42,7 @@ namespace SampleRPT1
 
         public int DeletedRecord { get; set; } = 0;
 
+        public int DuplicateRecord { get; set; } = 0;
 
         public string Profession { get; set; }
         public string LastORDate { get; set; }

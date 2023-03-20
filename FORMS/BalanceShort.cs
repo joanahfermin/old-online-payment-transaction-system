@@ -208,8 +208,6 @@ namespace SampleRPT1.FORMS
             this.Close();
         }
 
-
-
         // TEXTFIELDS BEHAVIOR FROM THIS POINT TO END USING KEYPRESS AND CLICK OF TAB OR CLICK IN THE MOUSE.
         /// <summary>
         /// Numeric value and one decimal point only.

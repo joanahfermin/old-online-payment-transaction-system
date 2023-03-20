@@ -671,5 +671,13 @@ namespace SampleRPT1
                 return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter }).ToList();
             }
         }
+
+        public static List<RealPropertyTax> Update_SelectBy_TaxDec_Year_Quarter(string TaxDec, string Year, string Quarter, long rptID)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where rptID <> @rptID and TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0 and DuplicateRecord <> 1", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter, rptID = rptID }).ToList();
+            }
+        }
     }
 }

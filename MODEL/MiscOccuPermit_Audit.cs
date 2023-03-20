@@ -43,6 +43,7 @@ namespace SampleRPT1.MODEL
         public DateTime? LastUpdateDate { get; set; }
 
         public int DeletedRecord { get; set; } = 0;
+        public int DuplicateRecord { get; set; } = 0;
 
         public string Profession { get; set; }
         public string LastORDate { get; set; }

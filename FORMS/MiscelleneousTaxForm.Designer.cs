@@ -83,6 +83,7 @@
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
             this.MISCinfoLV.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.MISCinfoLV_ItemSelectionChanged);
+            this.MISCinfoLV.SelectedIndexChanged += new System.EventHandler(this.MISCinfoLV_SelectedIndexChanged);
             this.MISCinfoLV.DoubleClick += new System.EventHandler(this.MISCinfoLV_DoubleClick);
             this.MISCinfoLV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MISCinfoLV_KeyDown);
             this.MISCinfoLV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MISCinfoLV_MouseDown);

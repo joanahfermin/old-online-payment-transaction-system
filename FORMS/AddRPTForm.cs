@@ -130,6 +130,7 @@ namespace SampleRPT1
                 rpt.RefNum = refNo;
             }
 
+            //detects if there's existing record in db
             List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TdNumber, RPTyear, RPTquarter);
 
             if (Duplicate_Record.Count > 0)

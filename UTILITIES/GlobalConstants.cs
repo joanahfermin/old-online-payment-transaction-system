@@ -38,6 +38,5 @@ namespace SampleRPT1
 
         public static string AUTHORIZE_EDIT_DATA;
 
-
     }
 }

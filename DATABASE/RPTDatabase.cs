@@ -672,6 +672,14 @@ namespace SampleRPT1
             }
         }
 
+        public static List<RealPropertyTax> SelectBy_TaxDec_Year_Quarter_BSelection(string TaxDec, string Year, string Quarter, string B_Selection)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0 and BillingSelection = @B_Selection", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter, B_Selection = B_Selection }).ToList();
+            }
+        }
+
         public static List<RealPropertyTax> Update_SelectBy_TaxDec_Year_Quarter(string TaxDec, string Year, string Quarter, long rptID)
         {
             using (SqlConnection conn = DbUtils.getConnection())

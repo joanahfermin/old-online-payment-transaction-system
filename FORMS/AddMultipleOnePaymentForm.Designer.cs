@@ -36,6 +36,8 @@
             this.Amount2Pay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BillingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.remarks = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textTDN = new System.Windows.Forms.TextBox();
             this.textYearQuarter = new System.Windows.Forms.TextBox();
@@ -56,6 +58,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
+            this.cboPaymentType = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.textRemarks = new System.Windows.Forms.TextBox();
@@ -69,7 +76,7 @@
             this.textTotalAmountToPay = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -77,22 +84,27 @@
             // 
             // lvMultipleRecord
             // 
+            this.lvMultipleRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lvMultipleRecord.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.taxDec,
             this.taxpayername,
             this.Amount2Pay,
             this.YearQuarter,
             this.qtr,
+            this.paymentType,
+            this.BillingSelection,
             this.remarks});
             this.lvMultipleRecord.FullRowSelect = true;
             this.lvMultipleRecord.GridLines = true;
             this.lvMultipleRecord.HideSelection = false;
             this.lvMultipleRecord.Location = new System.Drawing.Point(515, 44);
             this.lvMultipleRecord.Name = "lvMultipleRecord";
-            this.lvMultipleRecord.Size = new System.Drawing.Size(975, 516);
+            this.lvMultipleRecord.Size = new System.Drawing.Size(1095, 558);
             this.lvMultipleRecord.TabIndex = 0;
             this.lvMultipleRecord.UseCompatibleStateImageBehavior = false;
             this.lvMultipleRecord.View = System.Windows.Forms.View.Details;
+            this.lvMultipleRecord.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvMultipleRecord_ItemSelectionChanged);
             this.lvMultipleRecord.SelectedIndexChanged += new System.EventHandler(this.lvMultipleRecord_SelectedIndexChanged);
             this.lvMultipleRecord.DoubleClick += new System.EventHandler(this.lvMultipleRecord_DoubleClick);
             // 
@@ -121,6 +133,14 @@
             // 
             this.qtr.Text = "Quarter";
             this.qtr.Width = 80;
+            // 
+            // paymentType
+            // 
+            this.paymentType.Text = "P. Type";
+            // 
+            // BillingSelection
+            // 
+            this.BillingSelection.Text = "B. Selection";
             // 
             // remarks
             // 
@@ -155,10 +175,10 @@
             // textAmount2Pay
             // 
             this.textAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textAmount2Pay.Location = new System.Drawing.Point(145, 130);
+            this.textAmount2Pay.Location = new System.Drawing.Point(146, 173);
             this.textAmount2Pay.Name = "textAmount2Pay";
             this.textAmount2Pay.Size = new System.Drawing.Size(126, 20);
-            this.textAmount2Pay.TabIndex = 6;
+            this.textAmount2Pay.TabIndex = 7;
             this.textAmount2Pay.Text = "0.00";
             this.textAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textAmount2Pay.Click += new System.EventHandler(this.textAmount2Pay_Click);
@@ -182,7 +202,7 @@
             this.textTotalAmountDeposited.Location = new System.Drawing.Point(144, 135);
             this.textTotalAmountDeposited.Name = "textTotalAmountDeposited";
             this.textTotalAmountDeposited.Size = new System.Drawing.Size(126, 20);
-            this.textTotalAmountDeposited.TabIndex = 11;
+            this.textTotalAmountDeposited.TabIndex = 14;
             this.textTotalAmountDeposited.Text = "0.00";
             this.textTotalAmountDeposited.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmountDeposited.Click += new System.EventHandler(this.textTotalAmountDeposited_Click);
@@ -205,17 +225,17 @@
             this.btnSave.Location = new System.Drawing.Point(144, 207);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(127, 23);
-            this.btnSave.TabIndex = 12;
+            this.btnSave.TabIndex = 15;
             this.btnSave.Text = "Save to Main List";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(145, 201);
+            this.btnAdd.Location = new System.Drawing.Point(146, 244);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(126, 23);
-            this.btnAdd.TabIndex = 7;
+            this.btnAdd.Size = new System.Drawing.Size(84, 23);
+            this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Add To List";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -236,7 +256,7 @@
             this.dtDateOfPayment.Location = new System.Drawing.Point(144, 55);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.Size = new System.Drawing.Size(97, 20);
-            this.dtDateOfPayment.TabIndex = 9;
+            this.dtDateOfPayment.TabIndex = 12;
             this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
             // label7
@@ -263,7 +283,7 @@
             this.textRequestingParty.Location = new System.Drawing.Point(144, 94);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
-            this.textRequestingParty.TabIndex = 10;
+            this.textRequestingParty.TabIndex = 13;
             this.textRequestingParty.Click += new System.EventHandler(this.textRequestingParty_Click);
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
             this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
@@ -291,7 +311,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(49, 137);
+            this.label15.Location = new System.Drawing.Point(50, 180);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(86, 13);
             this.label15.TabIndex = 18;
@@ -314,6 +334,11 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboBillingSelection);
+            this.panel1.Controls.Add(this.cboPaymentType);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.cboQuarter);
             this.panel1.Controls.Add(this.textRemarks);
@@ -327,13 +352,64 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 44);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(487, 243);
+            this.panel1.Size = new System.Drawing.Size(487, 287);
             this.panel1.TabIndex = 43;
+            // 
+            // cboBillingSelection
+            // 
+            this.cboBillingSelection.FormattingEnabled = true;
+            this.cboBillingSelection.Location = new System.Drawing.Point(323, 133);
+            this.cboBillingSelection.Name = "cboBillingSelection";
+            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
+            this.cboBillingSelection.TabIndex = 6;
+            // 
+            // cboPaymentType
+            // 
+            this.cboPaymentType.FormattingEnabled = true;
+            this.cboPaymentType.Location = new System.Drawing.Point(145, 133);
+            this.cboPaymentType.Name = "cboPaymentType";
+            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
+            this.cboPaymentType.Sorted = true;
+            this.cboPaymentType.TabIndex = 5;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(230, 133);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 13);
+            this.label11.TabIndex = 204;
+            this.label11.Text = "Billing Selection: ";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(58, 133);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 13);
+            this.label14.TabIndex = 205;
+            this.label14.Text = "Payment Type: ";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnUpdate.Location = new System.Drawing.Point(259, 244);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(140, 23);
+            this.btnUpdate.TabIndex = 10;
+            this.btnUpdate.Text = "Save Updated Record";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(78, 175);
+            this.label10.Location = new System.Drawing.Point(79, 218);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 203;
@@ -346,16 +422,16 @@
             this.cboQuarter.Location = new System.Drawing.Point(308, 92);
             this.cboQuarter.Name = "cboQuarter";
             this.cboQuarter.Size = new System.Drawing.Size(90, 21);
-            this.cboQuarter.TabIndex = 20;
+            this.cboQuarter.TabIndex = 4;
             // 
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(145, 168);
+            this.textRemarks.Location = new System.Drawing.Point(146, 211);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 20);
-            this.textRemarks.TabIndex = 202;
+            this.textRemarks.TabIndex = 8;
             // 
             // label5
             // 
@@ -372,7 +448,7 @@
             this.checkTaxNameRetain.Location = new System.Drawing.Point(414, 56);
             this.checkTaxNameRetain.Name = "checkTaxNameRetain";
             this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 9;
+            this.checkTaxNameRetain.TabIndex = 11;
             this.checkTaxNameRetain.Text = "Retain";
             this.checkTaxNameRetain.UseVisualStyleBackColor = true;
             this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
@@ -383,7 +459,7 @@
             this.checkTaxDecRetain.Location = new System.Drawing.Point(414, 19);
             this.checkTaxDecRetain.Name = "checkTaxDecRetain";
             this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxDecRetain.TabIndex = 8;
+            this.checkTaxDecRetain.TabIndex = 10;
             this.checkTaxDecRetain.Text = "Retain";
             this.checkTaxDecRetain.UseVisualStyleBackColor = true;
             this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
@@ -409,7 +485,7 @@
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.textRequestingParty);
             this.panel2.Controls.Add(this.label9);
-            this.panel2.Location = new System.Drawing.Point(12, 309);
+            this.panel2.Location = new System.Drawing.Point(13, 351);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(487, 251);
             this.panel2.TabIndex = 44;
@@ -430,7 +506,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 303);
+            this.label3.Location = new System.Drawing.Point(23, 345);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 23;
@@ -465,7 +541,7 @@
             this.btnDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDelete.Location = new System.Drawing.Point(1421, 9);
+            this.btnDelete.Location = new System.Drawing.Point(1541, 14);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(69, 23);
             this.btnDelete.TabIndex = 201;
@@ -473,31 +549,25 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // btnUpdate
+            // label16
             // 
-            this.btnUpdate.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.btnUpdate.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.btnUpdate.FlatAppearance.BorderSize = 0;
-            this.btnUpdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.RoyalBlue;
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnUpdate.Location = new System.Drawing.Point(831, 10);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(101, 23);
-            this.btnUpdate.TabIndex = 202;
-            this.btnUpdate.Text = "Update/Save";
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(879, 19);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(230, 13);
+            this.label16.TabIndex = 23;
+            this.label16.Text = "*Double-click to update record/s in the listview.";
             // 
             // AddMultipleOnePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1507, 576);
-            this.Controls.Add(this.btnUpdate);
+            this.ClientSize = new System.Drawing.Size(1626, 616);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
@@ -562,5 +632,12 @@
         private System.Windows.Forms.TextBox textRemarks;
         private System.Windows.Forms.ColumnHeader remarks;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ColumnHeader paymentType;
+        private System.Windows.Forms.ColumnHeader BillingSelection;
+        private System.Windows.Forms.ComboBox cboBillingSelection;
+        private System.Windows.Forms.ComboBox cboPaymentType;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label16;
     }
 }

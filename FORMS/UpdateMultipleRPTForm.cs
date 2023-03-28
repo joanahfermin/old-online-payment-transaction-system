@@ -35,11 +35,34 @@ namespace SampleRPT1
 
             ComputeAllPayment();
             InitializeQuarter();
+            InitializePaymentType();
+            InitializeBillingSelection();
 
             cboBankUsed.Text = rptList[0].Bank;
             dtDateOfPayment.Value = rptList[0].PaymentDate.Value;
             textRequestingParty.Text = rptList[0].RequestingParty;
+            cboPaymentType.Text = rptList[0].PaymentType;
+            cboBillingSelection.Text = rptList[0].BillingSelection;
             textTotalTransferredAmount.Text = rptList[0].TotalAmountTransferred.ToString("N2");
+            textRemarks.Text = rptList[0].RPTremarks;
+        }
+
+        public void InitializePaymentType()
+        {
+            foreach (string type in RPTPaymentTypeUtil.ALL_PAYMENT_TYPE)
+            {
+                cboPaymentType.Items.Add(type);
+            }
+            cboPaymentType.SelectedIndex = 3;
+        }
+
+        public void InitializeBillingSelection()
+        {
+            foreach (string type in RPTBillingSelection.ALL_BILLING_SELECTION)
+            {
+                cboBillingSelection.Items.Add(type);
+            }
+            cboBillingSelection.SelectedIndex = 0;
         }
 
         public void InitializeBank()
@@ -64,7 +87,7 @@ namespace SampleRPT1
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, labelTotalAmountDep, new List<string>
-            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "TotalAmountTransferred", "YearQuarter", "Quarter", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
+            { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "TotalAmountTransferred", "YearQuarter", "Quarter", "PaymentType", "BillingSelection", "Bank", "PaymentDate", "RequestingParty", "RPTremarks",});
         }
 
         private void ComputeAllPayment()
@@ -94,7 +117,9 @@ namespace SampleRPT1
                 textAmountToBePay.Text = selectedRecord.SubItems[3].Text;
                 textYearQuarter.Text = selectedRecord.SubItems[5].Text;
                 cboQuarter.Text = selectedRecord.SubItems[6].Text;
-                textRemarks.Text = selectedRecord.SubItems[10].Text;
+                cboPaymentType.Text = selectedRecord.SubItems[7].Text;
+                cboBillingSelection.Text = selectedRecord.SubItems[8].Text;
+                textRemarks.Text = selectedRecord.SubItems[12].Text;
 
                 if (labelTotalAmountDep.SelectedItems[0].Index > 0)
                 {
@@ -160,6 +185,8 @@ namespace SampleRPT1
                 string Amount2Pay = item.SubItems[3].Text;
                 string YearQuarter = item.SubItems[5].Text;
                 string Quarter = item.SubItems[6].Text;
+                string P_Type = item.SubItems[7].Text;
+                string B_Selection = item.SubItems[8].Text;
                 string Remarks = item.SubItems[10].Text;
 
                 RealPropertyTax rpt = RPTDatabase.Get(RPTid);
@@ -169,6 +196,8 @@ namespace SampleRPT1
                 rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
                 rpt.YearQuarter = YearQuarter;
                 rpt.Quarter = Quarter;
+                rpt.PaymentType = P_Type;
+                rpt.BillingSelection = B_Selection;
                 rpt.RPTremarks = Remarks;
 
                 //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
@@ -392,7 +421,9 @@ namespace SampleRPT1
                 selectedRecord.SubItems[3].Text = textAmountToBePay.Text;
                 selectedRecord.SubItems[5].Text = textYearQuarter.Text;
                 selectedRecord.SubItems[6].Text = cboQuarter.Text;
-                selectedRecord.SubItems[10].Text = textRemarks.Text;
+                selectedRecord.SubItems[7].Text = cboPaymentType.Text;
+                selectedRecord.SubItems[8].Text = cboBillingSelection.Text;
+                selectedRecord.SubItems[12].Text = textRemarks.Text;
 
                 MessageBox.Show("Record successfully updated.");
             }

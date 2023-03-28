@@ -27,7 +27,7 @@ namespace SampleRPT1.FORMS
             // populate top list view
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, RPTInfoLV, new List<string>
             { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-                "Bank", "YearQuarter", "Quarter", "Status",
+                "Bank", "YearQuarter", "Quarter", "PaymentType", "BillingSelection", "Status",
             "EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
 
             // populate bottom list view

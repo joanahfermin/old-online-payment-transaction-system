@@ -289,6 +289,7 @@ namespace SampleRPT1.FORMS
 
                         SentTo = SentTo + rpt.RequestingParty + " ";
                         RefreshMainListviewStatusORPickup();
+                        rpt.LocCode = textLocCode.Text;
                     }   
                 }
                 else

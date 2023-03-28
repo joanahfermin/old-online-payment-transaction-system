@@ -258,12 +258,12 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string MiscType, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelAndForTransmittal(DateTime validatedDateFrom, DateTime validatedDateTo, string MiscType, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(ValidatedDate as DATE) >= CAST(@ValidatedDateFrom as DATE) " +
-                    "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND DeletedRecord != 1 " +
+                    "AND CAST(ValidatedDate as DATE) <= CAST(@ValidatedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY ValidatedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
@@ -271,16 +271,17 @@ namespace SampleRPT1
                     ValidatedDateTo = validatedDateTo,
                     Status = Status,
                     MiscType = MiscType,
+                    BankList = BankList
                 }).ToList();
             }
         }
 
-        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string MiscType, string Status)
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelAndTransmitted(DateTime transmittedDateFrom, DateTime transmittedDateTo, string MiscType, string Status, List<string> BankList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 String query = $"SELECT * FROM Jo_MISC WHERE CAST(TransmittedDate as DATE) >= CAST(@TransmittedDateFrom as DATE) " +
-                    "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND DeletedRecord != 1 " +
+                    "AND CAST(TransmittedDate as DATE) <= CAST(@TransmittedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
                 "ORDER BY TransmittedDate asc";
                 return conn.Query<MiscelleneousTax>(query, new
                 {
@@ -288,6 +289,25 @@ namespace SampleRPT1
                     TransmittedDateTo = transmittedDateTo,
                     Status = Status,
                     MiscType = MiscType,
+                    BankList = BankList
+                }).ToList();
+            }
+        }
+
+        public static List<MiscelleneousTax> SelectByDateFromToAndStatusAndPaymentChannelAndReleased(DateTime transmittedDateFrom, DateTime transmittedDateTo, string MiscType, string Status, List<string> BankList)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                String query = $"SELECT * FROM Jo_MISC WHERE CAST(ReleasedDate as DATE) >= CAST(@ReleasedDateFrom as DATE) " +
+                    "AND CAST(ReleasedDate as DATE) <= CAST(@ReleasedDateTo as DATE) AND Status = @Status AND MiscType = @MiscType AND ModeOfPayment in @BankList AND DeletedRecord != 1 " +
+                "ORDER BY ReleasedDate asc";
+                return conn.Query<MiscelleneousTax>(query, new
+                {
+                    ReleasedDateFrom = transmittedDateFrom,
+                    ReleasedDateTo = transmittedDateTo,
+                    Status = Status,
+                    MiscType = MiscType,
+                    BankList = BankList
                 }).ToList();
             }
         }

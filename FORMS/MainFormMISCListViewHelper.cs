@@ -86,7 +86,6 @@ namespace SampleRPT1.FORMS
             return misc;
         }
 
-
         public bool CheckSameStatus(string ExpectedStatus)
         {
             bool SameStatus = true;
@@ -115,5 +114,7 @@ namespace SampleRPT1.FORMS
                 return false;
             }
         }
+
+
     }
 }

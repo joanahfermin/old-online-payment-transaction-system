@@ -239,8 +239,10 @@ namespace SampleRPT1
                     string TaxDec = item.SubItems[1].Text;
                     string Year = item.SubItems[2].Text;
                     string Quarter = "1-4";
+                    //string Payment_Type = "CURR";
+                    string BillingSelection = "CLASS 1";
 
-                    List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, Year, Quarter);
+                    List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter_BSelection(TaxDec, Year, Quarter, BillingSelection);
 
                     if (Duplicate_Record.Count > 0)
                     {
@@ -273,6 +275,8 @@ namespace SampleRPT1
                     rpt.Bank = ServiceProvider;
                     rpt.YearQuarter = Year;
                     rpt.Quarter = "1-4";
+                    rpt.PaymentType = "CURR";
+                    rpt.BillingSelection = "CLASS 1";
                     rpt.RPTremarks = Remarks;
 
                     ////TO DO
@@ -360,9 +364,12 @@ namespace SampleRPT1
 
             String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
             String folder = FileUtils.GetDownloadFolderPath();
+            //MessageBox.Show(folder);
             String fullpath = folder + "\\" + filename;
 
             worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
+            //worksheet.SaveAs(fullpath, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
+
             workBook.Close(false, Type.Missing, Type.Missing);
             app.Quit();
 
@@ -392,7 +399,6 @@ namespace SampleRPT1
             }
 
             textTotalAmount.Text = totalAmount.ToString("N2");
-
         }
     }
 } 

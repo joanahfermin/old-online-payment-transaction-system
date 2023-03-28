@@ -62,6 +62,10 @@
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cboPaymentType = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -164,7 +168,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(68, 209);
+            this.label7.Location = new System.Drawing.Point(72, 203);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 1;
@@ -201,10 +205,10 @@
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRequestingParty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRequestingParty.Location = new System.Drawing.Point(153, 316);
+            this.textRequestingParty.Location = new System.Drawing.Point(153, 359);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 23);
-            this.textRequestingParty.TabIndex = 9;
+            this.textRequestingParty.TabIndex = 11;
             this.textRequestingParty.Click += new System.EventHandler(this.textRequestingParty_Click);
             this.textRequestingParty.Enter += new System.EventHandler(this.textRequestingParty_Enter);
             this.textRequestingParty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRequestingParty_KeyDown);
@@ -212,7 +216,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(100, 285);
+            this.label8.Location = new System.Drawing.Point(100, 328);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 1;
@@ -221,7 +225,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(48, 323);
+            this.label9.Location = new System.Drawing.Point(48, 366);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 1;
@@ -231,11 +235,11 @@
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemarks.Location = new System.Drawing.Point(153, 354);
+            this.textRemarks.Location = new System.Drawing.Point(153, 397);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 105);
-            this.textRemarks.TabIndex = 10;
+            this.textRemarks.TabIndex = 12;
             this.textRemarks.Click += new System.EventHandler(this.textRemarks_Click);
             this.textRemarks.Enter += new System.EventHandler(this.textRemarks_Enter);
             this.textRemarks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRemarks_KeyDown);
@@ -243,7 +247,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(87, 361);
+            this.label10.Location = new System.Drawing.Point(87, 404);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 1;
@@ -260,10 +264,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(152, 478);
+            this.btnSave.Location = new System.Drawing.Point(152, 521);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(253, 23);
-            this.btnSave.TabIndex = 11;
+            this.btnSave.TabIndex = 13;
             this.btnSave.Text = "Save Record";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -273,10 +277,10 @@
             this.textStatForAssessment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textStatForAssessment.Enabled = false;
             this.textStatForAssessment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textStatForAssessment.Location = new System.Drawing.Point(153, 282);
+            this.textStatForAssessment.Location = new System.Drawing.Point(153, 325);
             this.textStatForAssessment.Name = "textStatForAssessment";
-            this.textStatForAssessment.Size = new System.Drawing.Size(253, 23);
-            this.textStatForAssessment.TabIndex = 8;
+            this.textStatForAssessment.Size = new System.Drawing.Size(133, 23);
+            this.textStatForAssessment.TabIndex = 110;
             this.textStatForAssessment.Text = "FOR ASSESSMENT";
             this.textStatForAssessment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textStatForAssessment_KeyDown);
             // 
@@ -286,7 +290,7 @@
             this.checkTaxDecRetain.Location = new System.Drawing.Point(426, 21);
             this.checkTaxDecRetain.Name = "checkTaxDecRetain";
             this.checkTaxDecRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxDecRetain.TabIndex = 13;
+            this.checkTaxDecRetain.TabIndex = 15;
             this.checkTaxDecRetain.Text = "Retain";
             this.checkTaxDecRetain.UseVisualStyleBackColor = true;
             this.checkTaxDecRetain.CheckedChanged += new System.EventHandler(this.checkTaxDecRetain_CheckedChanged);
@@ -308,7 +312,7 @@
             this.checkTaxNameRetain.Location = new System.Drawing.Point(427, 57);
             this.checkTaxNameRetain.Name = "checkTaxNameRetain";
             this.checkTaxNameRetain.Size = new System.Drawing.Size(57, 17);
-            this.checkTaxNameRetain.TabIndex = 14;
+            this.checkTaxNameRetain.TabIndex = 16;
             this.checkTaxNameRetain.Text = "Retain";
             this.checkTaxNameRetain.UseVisualStyleBackColor = true;
             this.checkTaxNameRetain.CheckedChanged += new System.EventHandler(this.checkTaxNameRetain_CheckedChanged);
@@ -316,20 +320,20 @@
             // checkRequestingParty
             // 
             this.checkRequestingParty.AutoSize = true;
-            this.checkRequestingParty.Location = new System.Drawing.Point(427, 318);
+            this.checkRequestingParty.Location = new System.Drawing.Point(427, 361);
             this.checkRequestingParty.Name = "checkRequestingParty";
             this.checkRequestingParty.Size = new System.Drawing.Size(57, 17);
-            this.checkRequestingParty.TabIndex = 16;
+            this.checkRequestingParty.TabIndex = 17;
             this.checkRequestingParty.Text = "Retain";
             this.checkRequestingParty.UseVisualStyleBackColor = true;
             this.checkRequestingParty.CheckedChanged += new System.EventHandler(this.checkRequestingParty_CheckedChanged);
             // 
             // btnAddClearAll
             // 
-            this.btnAddClearAll.Location = new System.Drawing.Point(152, 507);
+            this.btnAddClearAll.Location = new System.Drawing.Point(152, 550);
             this.btnAddClearAll.Name = "btnAddClearAll";
             this.btnAddClearAll.Size = new System.Drawing.Size(253, 23);
-            this.btnAddClearAll.TabIndex = 12;
+            this.btnAddClearAll.TabIndex = 14;
             this.btnAddClearAll.Text = "Clear";
             this.btnAddClearAll.UseVisualStyleBackColor = true;
             this.btnAddClearAll.Click += new System.EventHandler(this.btnAddClearAll_Click);
@@ -339,17 +343,17 @@
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(153, 243);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 288);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(114, 23);
-            this.dtDateOfPayment.TabIndex = 7;
+            this.dtDateOfPayment.TabIndex = 10;
             this.dtDateOfPayment.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtDateOfPayment_KeyDown);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 249);
+            this.label2.Location = new System.Drawing.Point(49, 294);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 16;
@@ -367,7 +371,11 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboBillingSelection);
+            this.panel1.Controls.Add(this.cboPaymentType);
             this.panel1.Controls.Add(this.cboQuarter);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.cboBankUsed);
             this.panel1.Controls.Add(this.label12);
@@ -397,7 +405,7 @@
             this.panel1.Controls.Add(this.textTotalTransferredAmount);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(526, 550);
+            this.panel1.Size = new System.Drawing.Size(526, 604);
             this.panel1.TabIndex = 4;
             // 
             // cboQuarter
@@ -407,12 +415,12 @@
             this.cboQuarter.Location = new System.Drawing.Point(291, 203);
             this.cboQuarter.Name = "cboQuarter";
             this.cboQuarter.Size = new System.Drawing.Size(114, 21);
-            this.cboQuarter.TabIndex = 18;
+            this.cboQuarter.TabIndex = 7;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(238, 211);
+            this.label13.Location = new System.Drawing.Point(237, 203);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 13);
             this.label13.TabIndex = 17;
@@ -432,11 +440,46 @@
             this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
             this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(65, 248);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Payment Type: ";
+            // 
+            // cboPaymentType
+            // 
+            this.cboPaymentType.FormattingEnabled = true;
+            this.cboPaymentType.Location = new System.Drawing.Point(152, 248);
+            this.cboPaymentType.Name = "cboPaymentType";
+            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
+            this.cboPaymentType.Sorted = true;
+            this.cboPaymentType.TabIndex = 8;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(237, 248);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "Billing Selection: ";
+            // 
+            // cboBillingSelection
+            // 
+            this.cboBillingSelection.FormattingEnabled = true;
+            this.cboBillingSelection.Location = new System.Drawing.Point(330, 248);
+            this.cboBillingSelection.Name = "cboBillingSelection";
+            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
+            this.cboBillingSelection.TabIndex = 9;
+            // 
             // AddRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 574);
+            this.ClientSize = new System.Drawing.Size(552, 628);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBankUsedRetain);
@@ -484,5 +527,9 @@
         private System.Windows.Forms.ComboBox cboBankUsed;
         private System.Windows.Forms.ComboBox cboQuarter;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cboBillingSelection;
+        private System.Windows.Forms.ComboBox cboPaymentType;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
     }
 }

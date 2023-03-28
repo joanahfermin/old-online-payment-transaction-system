@@ -85,7 +85,7 @@ namespace SampleRPT1.FORMS
             btnSave.Enabled = false;
 
             cboMiscType.Text = misc.MiscType;
-            cboMiscType.Enabled = false;
+            //cboMiscType.Enabled = false;
 
             string misc_type = cboMiscType.Text;
 

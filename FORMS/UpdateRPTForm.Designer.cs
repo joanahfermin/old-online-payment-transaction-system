@@ -57,6 +57,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelAmountToBPay = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
+            this.cboPaymentType = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +76,7 @@
             // 
             // btnUpdateRecord
             // 
-            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 519);
+            this.btnUpdateRecord.Location = new System.Drawing.Point(152, 558);
             this.btnUpdateRecord.Name = "btnUpdateRecord";
             this.btnUpdateRecord.Size = new System.Drawing.Size(253, 23);
             this.btnUpdateRecord.TabIndex = 12;
@@ -92,7 +96,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(86, 377);
+            this.label10.Location = new System.Drawing.Point(86, 416);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 21;
@@ -109,7 +113,7 @@
             "FOR O.R UPLOAD",
             "FOR O.R PICK UP",
             "RELEASED"});
-            this.cbStatus.Location = new System.Drawing.Point(152, 291);
+            this.cbStatus.Location = new System.Drawing.Point(152, 330);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(253, 21);
             this.cbStatus.TabIndex = 9;
@@ -120,7 +124,7 @@
             // textRemarks
             // 
             this.textRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRemarks.Location = new System.Drawing.Point(152, 370);
+            this.textRemarks.Location = new System.Drawing.Point(152, 409);
             this.textRemarks.Multiline = true;
             this.textRemarks.Name = "textRemarks";
             this.textRemarks.Size = new System.Drawing.Size(253, 132);
@@ -132,7 +136,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 337);
+            this.label9.Location = new System.Drawing.Point(47, 376);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 20;
@@ -141,7 +145,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(99, 299);
+            this.label8.Location = new System.Drawing.Point(99, 338);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(43, 13);
             this.label8.TabIndex = 19;
@@ -150,7 +154,7 @@
             // textRequestingParty
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRequestingParty.Location = new System.Drawing.Point(152, 330);
+            this.textRequestingParty.Location = new System.Drawing.Point(152, 369);
             this.textRequestingParty.Name = "textRequestingParty";
             this.textRequestingParty.Size = new System.Drawing.Size(253, 20);
             this.textRequestingParty.TabIndex = 10;
@@ -245,6 +249,10 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboBillingSelection);
+            this.panel1.Controls.Add(this.cboPaymentType);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.textTotalTransferredAmount);
             this.panel1.Controls.Add(this.cboQuarter);
@@ -271,7 +279,7 @@
             this.panel1.Controls.Add(this.textYear);
             this.panel1.Location = new System.Drawing.Point(15, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(432, 563);
+            this.panel1.Size = new System.Drawing.Size(432, 613);
             this.panel1.TabIndex = 25;
             // 
             // label14
@@ -335,7 +343,7 @@
             // 
             this.dtDateOfPayment.CustomFormat = "MM/dd/yyyy";
             this.dtDateOfPayment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 254);
+            this.dtDateOfPayment.Location = new System.Drawing.Point(152, 293);
             this.dtDateOfPayment.Name = "dtDateOfPayment";
             this.dtDateOfPayment.ShowCheckBox = true;
             this.dtDateOfPayment.Size = new System.Drawing.Size(112, 20);
@@ -346,7 +354,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 261);
+            this.label2.Location = new System.Drawing.Point(47, 300);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 13);
             this.label2.TabIndex = 18;
@@ -366,11 +374,46 @@
             this.errorProvider1.ContainerControl = this;
             this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
+            // cboBillingSelection
+            // 
+            this.cboBillingSelection.FormattingEnabled = true;
+            this.cboBillingSelection.Location = new System.Drawing.Point(330, 256);
+            this.cboBillingSelection.Name = "cboBillingSelection";
+            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
+            this.cboBillingSelection.TabIndex = 26;
+            // 
+            // cboPaymentType
+            // 
+            this.cboPaymentType.FormattingEnabled = true;
+            this.cboPaymentType.Location = new System.Drawing.Point(152, 256);
+            this.cboPaymentType.Name = "cboPaymentType";
+            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
+            this.cboPaymentType.Sorted = true;
+            this.cboPaymentType.TabIndex = 27;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(237, 256);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 13);
+            this.label15.TabIndex = 24;
+            this.label15.Text = "Billing Selection: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(65, 256);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 13);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "Payment Type: ";
+            // 
             // UpdateRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(465, 595);
+            this.ClientSize = new System.Drawing.Size(465, 641);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Name = "UpdateRPTForm";
@@ -412,5 +455,9 @@
         private System.Windows.Forms.Label labelAmountToBPay;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textTotalTransferredAmount;
+        private System.Windows.Forms.ComboBox cboBillingSelection;
+        private System.Windows.Forms.ComboBox cboPaymentType;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label4;
     }
 }

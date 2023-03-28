@@ -42,6 +42,11 @@ namespace SampleRPT1
             //    cboAction.Text = MISCUtil.VERIFY_PAYMENT;
             //}
 
+            LabelRepName.Visible = false;
+            LabelContactNumber.Visible = false;
+            textRepName.Visible = false;
+            textContactNumber.Visible = false;
+
             INSTANCE = this;
             MdiParent = parentForm;
             ControlBox = false;
@@ -74,12 +79,27 @@ namespace SampleRPT1
             // If date range is checked, search by date range and status. Otherwise, just search by status.
             if (dtDate.Checked)
             {
-                miscList = SearchByDateRangeAndStatus();
+                miscList = SearchByDateRangeAndStatus_PaymentChannel();
             }
             else
             {
                 string Status = cboStatus.Text;
                 miscList = MISCDatabase.SelectByStatus(Misc_Type, Status);
+            }
+
+            if (cboStatus.Text == MISCUtil.FOR_TRANSMITTAL || cboStatus.Text == MISCUtil.TRANSMITTED)
+            {
+                LabelRepName.Visible = true;
+                LabelContactNumber.Visible = true;
+                textRepName.Visible = true;
+                textContactNumber.Visible = true;
+            }
+            else
+            {
+                LabelRepName.Visible = false;
+                LabelContactNumber.Visible = false;
+                textRepName.Visible = false;
+                textContactNumber.Visible = false;
             }
 
             PopulateLVMISC(miscList);
@@ -352,14 +372,31 @@ namespace SampleRPT1
             {
                 List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
 
-                foreach (var misc in SelectedMISCList)
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousTax misc in SelectedMISCList)
                 {
                     misc.ValidatedBy = loginUser.DisplayName;
                     misc.ValidatedDate = DateTime.Now;
-                    misc.Status = MISCUtil.FOR_TRANSMITTAL;
 
-                    MISCDatabase.Update(misc);
+                    if (misc.Status == MISCUtil.FOR_PAYMENT_VALIDATION)
+                    {
+                        misc.Status = MISCUtil.FOR_TRANSMITTAL;
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
                 }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    return;
+                }
+
                 MessageBox.Show("Record/s successfully validated.");
                 cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
                 RefreshLV();
@@ -368,21 +405,107 @@ namespace SampleRPT1
 
         private void TransmitPayment()
         {
+            //if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //{
+            //    List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
+
+            //    foreach (var misc in SelectedMISCList)
+            //    {
+            //        misc.TransmittedBy = loginUser.DisplayName;
+            //        misc.TransmittedDate = DateTime.Now;
+            //        misc.Status = MISCUtil.TRANSMITTED;
+
+            //        MISCDatabase.Update(misc);
+            //    }
+
+            //    MessageBox.Show("Record/s successfully transmitted.");
+            //    RefreshLV();
+            //}
+
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
 
-                foreach (var misc in SelectedMISCList)
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_TRANSMITTAL);
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousTax misc in SelectedMISCList)
                 {
                     misc.TransmittedBy = loginUser.DisplayName;
                     misc.TransmittedDate = DateTime.Now;
-                    misc.Status = MISCUtil.TRANSMITTED;
 
-                    MISCDatabase.Update(misc);
+                    if (misc.Status == MISCUtil.FOR_TRANSMITTAL)
+                    {
+                        misc.Status = MISCUtil.TRANSMITTED; 
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
+                }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    return;
                 }
 
                 MessageBox.Show("Record/s successfully transmitted.");
                 //cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
+                RefreshLV();
+            }
+        }
+
+        private void validateForm()
+        {
+            // clear muna natin lahat ng error from previous validation.
+            errorProvider1.Clear();
+
+            Validations.ValidateRequired(errorProvider1, textRepName, "Representative name");
+            Validations.ValidateRequired(errorProvider1, textContactNumber, "Contact number");
+        }
+
+        private void ReleasePayment()
+        {
+            validateForm();
+
+            if (Validations.HaveErrors(errorProvider1))
+            {
+                return;
+            }
+
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCList();
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousTax misc in SelectedMISCList)
+                {
+                    misc.ReleasedBy = loginUser.DisplayName;
+                    misc.ReleasedDate = DateTime.Now;
+
+                    if (misc.Status == MISCUtil.FOR_TRANSMITTAL || misc.Status == MISCUtil.TRANSMITTED)
+                    {
+                        misc.RepName = textRepName.Text;
+                        misc.ContactNumber = textContactNumber.Text;
+                        misc.Status = MISCUtil.RELEASED;
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
+                }
+
+                if (AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    return ;
+                }
+
+                MessageBox.Show("Record/s successfully released.");
+                cboStatus.Text = MISCUtil.RELEASED;
                 RefreshLV();
             }
         }
@@ -400,7 +523,6 @@ namespace SampleRPT1
                         MISCDatabase.Delete(Misc_Record);
                     }
                 }
-
                 else
                 {
                     MessageBox.Show("Invalid action.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -446,6 +568,12 @@ namespace SampleRPT1
                 else if (Status == MISCUtil.FOR_TRANSMITTAL)
                 {
                     SetAction(MISCUtil.TRANSMIT);
+
+                }
+                else if (Status == MISCUtil.TRANSMITTED)
+                {
+                    SetAction(MISCUtil.RELEASE);
+
                 }
             }
         }
@@ -470,6 +598,10 @@ namespace SampleRPT1
             {
                 TransmitPayment();
             }
+            else if (cboAction.Text == MISCUtil.RELEASE)
+            {
+                ReleasePayment();
+            }
             else if (cboAction.Text == MISCUtil.DELETED_RECORD)
             {
                 Delete_Record();
@@ -483,7 +615,16 @@ namespace SampleRPT1
                 //PAYMENT CHANNEL COMBOBOX AND LABEL.
                 cboPaymentChannel.Visible = true;
                 labelPaymentChannel.Visible = true;
+
                 InitializePaymentChannel();
+            }
+
+            if (cboAction.Text == MISCUtil.RELEASE)
+            {
+                LabelRepName.Visible = true;
+                textRepName.Visible = true;
+                LabelContactNumber.Visible = true;
+                textContactNumber.Visible = true;
             }
         }
 
@@ -529,7 +670,7 @@ namespace SampleRPT1
             return BankList;
         }
 
-        private List<MiscelleneousTax> SearchByDateRangeAndStatus()
+        private List<MiscelleneousTax> SearchByDateRangeAndStatus_PaymentChannel()
         {
             List<MiscelleneousTax> miscList = new List<MiscelleneousTax>();
 
@@ -561,12 +702,19 @@ namespace SampleRPT1
             else if (Status == MISCUtil.FOR_TRANSMITTAL)
             {
                 List<string> BankList = getBankList();
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndForTransmittal(DateFrom, DateTo, Misc_Type, Status);
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelAndForTransmittal(DateFrom, DateTo, Misc_Type, Status, BankList);
+            }
+
+            else if (Status == MISCUtil.RELEASED)
+            {
+                List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelAndReleased(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
             else if (Status == MISCUtil.TRANSMITTED)
             {
-                miscList = MISCDatabase.SelectByDateFromToAndStatusAndTransmitted(DateFrom, DateTo, Misc_Type, Status);
+                List<string> BankList = getBankList();
+                miscList = MISCDatabase.SelectByDateFromToAndStatusAndPaymentChannelAndTransmitted(DateFrom, DateTo, Misc_Type, Status, BankList);
             }
 
             return miscList;

@@ -41,7 +41,7 @@ namespace SampleRPT1.FORMS
 
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, RPTInfoLV, new List<string>
             { "RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-                "Bank", "YearQuarter", "Quarter", "Status",
+                "Bank", "YearQuarter", "Quarter", "PaymentType", "BillingSelection", "Status",
             "EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "RPTremarks", "SentBy", "SentDate",});
 
             ListViewUtil.copyFromListToListview<RealPropertyTaxAudit>(auditList, VerAndValLV, new List<string>

@@ -24,6 +24,8 @@ namespace SampleRPT1
             InitializeComponent();
             InitializeBank();
             InitializeQuarter();
+            InitializePaymentType();
+            InitializeBillingSelection();
         }
 
         /// <summary>
@@ -37,6 +39,24 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializePaymentType()
+        {
+            foreach (string type in RPTPaymentTypeUtil.ALL_PAYMENT_TYPE)
+            {
+                cboPaymentType.Items.Add(type);
+            }
+            cboPaymentType.SelectedIndex = 3;
+        }
+
+        public void InitializeBillingSelection()
+        {
+            foreach (string type in RPTBillingSelection.ALL_BILLING_SELECTION)
+            {
+                cboBillingSelection.Items.Add(type);
+            }
+            cboBillingSelection.SelectedIndex = 0;
         }
 
         public void InitializeQuarter()
@@ -54,6 +74,7 @@ namespace SampleRPT1
         private void AddMultipleOnePaymentForm_Load(object sender, EventArgs e)
         {
             cboBankUsed.SelectedIndex = 0;
+            btnUpdate.Enabled = false;
 
             cboBankUsed.AutoCompleteMode = AutoCompleteMode.Suggest;
             cboBankUsed.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -85,6 +106,8 @@ namespace SampleRPT1
             item.SubItems.Add(textAmount2Pay.Text.Trim());
             item.SubItems.Add(textYearQuarter.Text.Trim());
             item.SubItems.Add(cboQuarter.Text.Trim());
+            item.SubItems.Add(cboPaymentType.Text.Trim());
+            item.SubItems.Add(cboBillingSelection.Text.Trim());
             item.SubItems.Add(textRemarks.Text.Trim());
 
             lvMultipleRecord.Items.Insert(0, item);
@@ -109,6 +132,7 @@ namespace SampleRPT1
 
             textRequestingParty.Clear();
             textRemarks.Clear();
+            //lvMultipleRecord.Focus();
 
             checkTaxDecRetain_CheckedChanged(sender, e);
             checkTaxNameRetain_CheckedChanged(sender, e);
@@ -199,8 +223,9 @@ namespace SampleRPT1
                 string TaxDec = item.Text;
                 string Year = item.SubItems[3].Text;
                 string Quarter = item.SubItems[4].Text;
+                string B_Selection = item.SubItems[6].Text;
 
-                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, Year, Quarter);
+                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter_BSelection(TaxDec, Year, Quarter, B_Selection);
 
                 if (Duplicate_Record.Count > 0)
                 {
@@ -218,7 +243,9 @@ namespace SampleRPT1
                 string Amount2Pay = item.SubItems[2].Text;
                 string YearQuarter = item.SubItems[3].Text;
                 string Quarter = item.SubItems[4].Text;
-                string Remarks = item.SubItems[5].Text;
+                string P_Type = item.SubItems[5].Text;
+                string B_Selection = item.SubItems[6].Text;
+                string Remarks = item.SubItems[7].Text;
 
                 RealPropertyTax rpt = new RealPropertyTax();
 
@@ -226,6 +253,8 @@ namespace SampleRPT1
                 rpt.TaxPayerName = TaxPayerName;
                 rpt.AmountToPay = Convert.ToDecimal(Amount2Pay);
                 rpt.Quarter = Quarter;
+                rpt.PaymentType = P_Type;
+                rpt.BillingSelection = B_Selection;
 
                 //Babayarn ko total of 100, deposit ako 150... 100 - 150, 50 para sa ExcessShortAmount.
                 if (FirstRecord)
@@ -262,7 +291,7 @@ namespace SampleRPT1
                 rpt.RPTremarks = Remarks;
 
                 //detects if there's existing record in db
-                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TaxDec, YearQuarter, Quarter);
+                List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter_BSelection(TaxDec, YearQuarter, Quarter, B_Selection);
 
                 if (Duplicate_Record.Count > 0)
                 {
@@ -352,6 +381,20 @@ namespace SampleRPT1
                 decimal AmountToPay = Convert.ToDecimal(lvMultipleRecord.SelectedItems[i].SubItems[2].Text);
                 TotalAmountToPay = AmountToPay + TotalAmountToPay;
             }
+
+            //if (lvMultipleRecord.SelectedItems.Count == 0 && lvMultipleRecord.Items.Count > 0)
+            //{
+            //    textTDN.Text = string.Empty;
+            //    textTPName.Text = string.Empty;
+            //    textAmount2Pay.Text = string.Empty;
+            //    //textYearQuarter.Text = string.Empty;
+            //    cboQuarter.SelectedItem = 3;
+            //    cboPaymentType.SelectedItem = 3;
+            //    cboBillingSelection.SelectedItem = 0;
+            //    textRemarks.Text = string.Empty;
+            //}
+
+            btnUpdate.Enabled = false;
 
             textTotalAmountToPay.Text = TotalAmountToPay.ToString();
         }
@@ -532,19 +575,13 @@ namespace SampleRPT1
 
         private void textTDN_Leave(object sender, EventArgs e)
         {
-            //if (isRPTTaxDecFormat(textTDN.Text) == false)
-            //{
-            //    MessageBox.Show("Invalid input of Tax Dec. Number.");
-            //    textTDN.Focus();
-            //    textTDN.SelectAll();
-            //}
             Validations.ValidateTaxDecFormat(errorProvider1, textTDN, "Tax declation number ");
         }
 
         private bool isRPTTaxDecFormat(string taxDec)
         {
             //format of taxdec number.
-            Regex re = new Regex("^[D|E|F|G]-[0-9]{3}-[0-9]{5}$");
+            Regex re = new Regex("^[A|B|C|D|E|F|G]-[0-9]{3}-[0-9]{5}$");
             return re.IsMatch(taxDec.Trim());
         }
 
@@ -559,6 +596,9 @@ namespace SampleRPT1
                     {
                         lvMultipleRecord.Items.RemoveAt(lvMultipleRecord.SelectedIndices[i]);
                     }
+                    lvMultipleRecord.Items[0].Selected = true;
+                    textYearQuarter.Focus();
+
                 }
             }
             else
@@ -584,16 +624,23 @@ namespace SampleRPT1
                 selectedRecord.SubItems[2].Text = textAmount2Pay.Text;
                 selectedRecord.SubItems[3].Text = textYearQuarter.Text;
                 selectedRecord.SubItems[4].Text = cboQuarter.Text;
-                selectedRecord.SubItems[5].Text = textRemarks.Text;
+                selectedRecord.SubItems[5].Text = cboPaymentType.Text;
+                selectedRecord.SubItems[6].Text = cboBillingSelection.Text;
+                selectedRecord.SubItems[7].Text = textRemarks.Text;
 
                 MessageBox.Show("Record successfully updated.");
             }
+
+            ClearAll();
         }
 
         private void lvMultipleRecord_DoubleClick(object sender, EventArgs e)
         {
             if (lvMultipleRecord.SelectedItems.Count > 0)
             {
+                btnUpdate.Enabled = true;
+                btnAdd.Enabled = false;
+
                 var selectedRecord = lvMultipleRecord.SelectedItems[0];
 
                 textTDN.Text = selectedRecord.SubItems[0].Text;
@@ -601,8 +648,42 @@ namespace SampleRPT1
                 textAmount2Pay.Text = selectedRecord.SubItems[2].Text;
                 textYearQuarter.Text = selectedRecord.SubItems[3].Text;
                 cboQuarter.Text = selectedRecord.SubItems[4].Text;
-                textRemarks.Text = selectedRecord.SubItems[5].Text;
+                cboPaymentType.Text = selectedRecord.SubItems[5].Text;
+                cboBillingSelection.Text = selectedRecord.SubItems[6].Text;
+
+                textRemarks.Text = selectedRecord.SubItems[7].Text;
+
             }
+        }
+
+        private void lvMultipleRecord_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (lvMultipleRecord.SelectedItems.Count < 1)
+            {
+                btnUpdate.Enabled = false;
+                btnAdd.Enabled = true;
+
+                //textTDN.Text = string.Empty;
+                //textTPName.Text = string.Empty;
+                //textAmount2Pay.Text = string.Empty;
+                ////textYearQuarter.Text = string.Empty;
+                //cboQuarter.SelectedItem = 3;
+                //cboPaymentType.SelectedItem = 3;
+                //cboBillingSelection.SelectedItem = 0;
+                //textRemarks.Text = string.Empty;
+            }
+        }
+
+        private void ClearAll()
+        {
+            textTDN.Text = string.Empty;
+            textTPName.Text = string.Empty;
+            textAmount2Pay.Text = string.Empty;
+            textYearQuarter.Text = string.Empty;
+            cboQuarter.SelectedItem = 3;
+            cboPaymentType.SelectedItem = 3;
+            cboBillingSelection.SelectedItem = 0;
+            textRemarks.Text = string.Empty;
         }
     }
 }

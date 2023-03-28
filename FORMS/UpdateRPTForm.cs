@@ -27,6 +27,8 @@ namespace SampleRPT1
             InitializeUpdateRecord();
             InitializeQuarter();
             InitializeBank();
+            InitializePaymentType();
+            InitializeBillingSelection();
         }
 
         public void InitializeBank()
@@ -37,6 +39,24 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializePaymentType()
+        {
+            foreach (string type in RPTPaymentTypeUtil.ALL_PAYMENT_TYPE)
+            {
+                cboPaymentType.Items.Add(type);
+            }
+            //cboPaymentType.SelectedIndex = 3;
+        }
+
+        public void InitializeBillingSelection()
+        {
+            foreach (string type in RPTBillingSelection.ALL_BILLING_SELECTION)
+            {
+                cboBillingSelection.Items.Add(type);
+            }
+            //cboBillingSelection.SelectedIndex = 0;
         }
 
         public void InitializeQuarter()
@@ -76,6 +96,8 @@ namespace SampleRPT1
             }
 
             cboBankUsed.Text = rpt.Bank;
+            cboPaymentType.Text = rpt.PaymentType;
+            cboBillingSelection.Text = rpt.BillingSelection;
             textYear.Text = rpt.YearQuarter;
 
             cboQuarter.Text = rpt.Quarter;
@@ -137,6 +159,8 @@ namespace SampleRPT1
             }
 
             rpt.Bank = cboBankUsed.Text.Trim();
+            rpt.PaymentType = cboPaymentType.Text.Trim();
+            rpt.BillingSelection = cboBillingSelection.Text.Trim();
             rpt.YearQuarter = textYear.Text.Trim();
             rpt.Quarter = cboQuarter.Text;
             rpt.RequestingParty = textRequestingParty.Text;

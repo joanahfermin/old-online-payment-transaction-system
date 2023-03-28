@@ -15,8 +15,8 @@ namespace SampleRPT1.FORMS
     public partial class RPTDuplicateRecordForm : Form
     {
         public static List<string> COLUMN_NAMES = new List<string>
-        { "RPTid", "TDN", "Tax Payer Name", "Amount To Pay", "Amount Transferred", "Total Amount Deposited", "Excess Short", "Payment Channel",
-            "Year", "Quarter", "Status", "Encoded By", "Encoded Date", "Ref. Num", "Requesting Party", "Verified Date", "Payment Date", "Validated By", "Validated Date" };
+        { "RPTid", "TDN", "Taxpayername", "Amount To Pay", "Amount Transferred", "Total Amount Deposited", "Excess Short", "Payment Channel",
+            "Year", "Quarter", "P.Type ", "B. Selection", "Status", "Encoded By", "Encoded Date", "Ref. Num", "Requesting Party", "Verified Date", "Payment Date", "Validated By", "Validated Date" };
 
         public RPTDuplicateRecordForm(List<RealPropertyTax> duplicateRecordList)
         {
@@ -37,7 +37,7 @@ namespace SampleRPT1.FORMS
         {
             ListViewUtil.copyFromListToListview(duplicateRecordList, RPTDuplicateLV, new List<string>
                 {"RptID", "TaxDec", "TaxPayerName", "AmountToPay", "AmountTransferred", "TotalAmountTransferred", "ExcessShortAmount",
-                "Bank", "YearQuarter", "Quarter", "Status",
+                "Bank", "YearQuarter", "Quarter", "PaymentType", "BillingSelection", "Status",
             "EncodedBy", "EncodedDate", "RefNum", "RequestingParty", "VerifiedDate", "PaymentDate", "ValidatedBy", "ValidatedDate",});
         }
 

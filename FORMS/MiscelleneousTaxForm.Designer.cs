@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiscelleneousTaxForm));
             this.btnAddRecord = new System.Windows.Forms.Button();
             this.MISCinfoLV = new System.Windows.Forms.ListView();
             this.cboMiscType = new System.Windows.Forms.ComboBox();
@@ -57,15 +59,21 @@
             this.textTotalAmountTransferred = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textTotalAmount2Pay = new System.Windows.Forms.TextBox();
+            this.textRepName = new System.Windows.Forms.TextBox();
+            this.textContactNumber = new System.Windows.Forms.TextBox();
+            this.LabelRepName = new System.Windows.Forms.Label();
+            this.LabelContactNumber = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddRecord
             // 
-            this.btnAddRecord.Location = new System.Drawing.Point(440, 30);
+            this.btnAddRecord.Location = new System.Drawing.Point(670, 114);
             this.btnAddRecord.Name = "btnAddRecord";
-            this.btnAddRecord.Size = new System.Drawing.Size(86, 23);
+            this.btnAddRecord.Size = new System.Drawing.Size(91, 23);
             this.btnAddRecord.TabIndex = 0;
             this.btnAddRecord.Text = "Add Record";
             this.btnAddRecord.UseVisualStyleBackColor = true;
@@ -76,9 +84,9 @@
             this.MISCinfoLV.FullRowSelect = true;
             this.MISCinfoLV.GridLines = true;
             this.MISCinfoLV.HideSelection = false;
-            this.MISCinfoLV.Location = new System.Drawing.Point(12, 139);
+            this.MISCinfoLV.Location = new System.Drawing.Point(12, 147);
             this.MISCinfoLV.Name = "MISCinfoLV";
-            this.MISCinfoLV.Size = new System.Drawing.Size(1895, 835);
+            this.MISCinfoLV.Size = new System.Drawing.Size(1895, 827);
             this.MISCinfoLV.TabIndex = 1;
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;
@@ -140,17 +148,16 @@
             this.panel1.Controls.Add(this.textSearch);
             this.panel1.Controls.Add(this.cboMiscType);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.btnAddRecord);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(13, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(538, 75);
+            this.panel1.Size = new System.Drawing.Size(438, 75);
             this.panel1.TabIndex = 42;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(577, 9);
+            this.label4.Location = new System.Drawing.Point(484, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 13);
             this.label4.TabIndex = 55;
@@ -168,7 +175,7 @@
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.label13);
-            this.panel2.Location = new System.Drawing.Point(567, 16);
+            this.panel2.Location = new System.Drawing.Point(474, 16);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(760, 75);
             this.panel2.TabIndex = 54;
@@ -261,7 +268,7 @@
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(1049, 103);
+            this.btnExecute.Location = new System.Drawing.Point(581, 114);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(75, 23);
             this.btnExecute.TabIndex = 57;
@@ -272,7 +279,7 @@
             // cboAction
             // 
             this.cboAction.FormattingEnabled = true;
-            this.cboAction.Location = new System.Drawing.Point(864, 105);
+            this.cboAction.Location = new System.Drawing.Point(391, 116);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(179, 21);
             this.cboAction.TabIndex = 56;
@@ -281,7 +288,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(818, 113);
+            this.label6.Location = new System.Drawing.Point(388, 102);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 46;
@@ -289,9 +296,9 @@
             // 
             // btnAddGcashPaymaya
             // 
-            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(1176, 103);
+            this.btnAddGcashPaymaya.Location = new System.Drawing.Point(767, 113);
             this.btnAddGcashPaymaya.Name = "btnAddGcashPaymaya";
-            this.btnAddGcashPaymaya.Size = new System.Drawing.Size(134, 23);
+            this.btnAddGcashPaymaya.Size = new System.Drawing.Size(118, 24);
             this.btnAddGcashPaymaya.TabIndex = 58;
             this.btnAddGcashPaymaya.Text = "Add Gcash/Paymaya";
             this.btnAddGcashPaymaya.UseVisualStyleBackColor = true;
@@ -301,16 +308,16 @@
             // 
             this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(722, 106);
+            this.textRecSelected.Location = new System.Drawing.Point(290, 118);
             this.textRecSelected.Name = "textRecSelected";
-            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.Size = new System.Drawing.Size(49, 20);
             this.textRecSelected.TabIndex = 65;
             this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(618, 113);
+            this.label8.Location = new System.Drawing.Point(287, 103);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 63;
@@ -319,7 +326,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(308, 113);
+            this.label11.Location = new System.Drawing.Point(140, 103);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(130, 13);
             this.label11.TabIndex = 64;
@@ -329,9 +336,9 @@
             // 
             this.textTotalAmountTransferred.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmountTransferred.Enabled = false;
-            this.textTotalAmountTransferred.Location = new System.Drawing.Point(444, 106);
+            this.textTotalAmountTransferred.Location = new System.Drawing.Point(143, 117);
             this.textTotalAmountTransferred.Name = "textTotalAmountTransferred";
-            this.textTotalAmountTransferred.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmountTransferred.Size = new System.Drawing.Size(109, 20);
             this.textTotalAmountTransferred.TabIndex = 60;
             this.textTotalAmountTransferred.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmountTransferred.TextChanged += new System.EventHandler(this.textTotalAmountTransferred_TextChanged);
@@ -339,7 +346,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(17, 113);
+            this.label10.Location = new System.Drawing.Point(12, 103);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(113, 13);
             this.label10.TabIndex = 62;
@@ -349,21 +356,63 @@
             // 
             this.textTotalAmount2Pay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textTotalAmount2Pay.Enabled = false;
-            this.textTotalAmount2Pay.Location = new System.Drawing.Point(136, 106);
+            this.textTotalAmount2Pay.Location = new System.Drawing.Point(15, 117);
             this.textTotalAmount2Pay.Name = "textTotalAmount2Pay";
-            this.textTotalAmount2Pay.Size = new System.Drawing.Size(160, 20);
+            this.textTotalAmount2Pay.Size = new System.Drawing.Size(109, 20);
             this.textTotalAmount2Pay.TabIndex = 61;
             this.textTotalAmount2Pay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textTotalAmount2Pay.TextChanged += new System.EventHandler(this.textTotalAmount2Pay_TextChanged);
+            // 
+            // textRepName
+            // 
+            this.textRepName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRepName.Location = new System.Drawing.Point(900, 115);
+            this.textRepName.Name = "textRepName";
+            this.textRepName.Size = new System.Drawing.Size(202, 20);
+            this.textRepName.TabIndex = 66;
+            // 
+            // textContactNumber
+            // 
+            this.textContactNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textContactNumber.Location = new System.Drawing.Point(1125, 115);
+            this.textContactNumber.Name = "textContactNumber";
+            this.textContactNumber.Size = new System.Drawing.Size(118, 20);
+            this.textContactNumber.TabIndex = 66;
+            // 
+            // LabelRepName
+            // 
+            this.LabelRepName.AutoSize = true;
+            this.LabelRepName.Location = new System.Drawing.Point(897, 99);
+            this.LabelRepName.Name = "LabelRepName";
+            this.LabelRepName.Size = new System.Drawing.Size(116, 13);
+            this.LabelRepName.TabIndex = 46;
+            this.LabelRepName.Text = "Representative Name: ";
+            // 
+            // LabelContactNumber
+            // 
+            this.LabelContactNumber.AutoSize = true;
+            this.LabelContactNumber.Location = new System.Drawing.Point(1122, 100);
+            this.LabelContactNumber.Name = "LabelContactNumber";
+            this.LabelContactNumber.Size = new System.Drawing.Size(90, 13);
+            this.LabelContactNumber.TabIndex = 46;
+            this.LabelContactNumber.Text = "Contact Number: ";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
             // 
             // MiscelleneousTaxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1919, 1014);
+            this.Controls.Add(this.textContactNumber);
+            this.Controls.Add(this.textRepName);
             this.Controls.Add(this.textRecSelected);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label11);
+            this.Controls.Add(this.btnAddRecord);
             this.Controls.Add(this.textTotalAmountTransferred);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textTotalAmount2Pay);
@@ -373,6 +422,8 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.LabelContactNumber);
+            this.Controls.Add(this.LabelRepName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MISCinfoLV);
@@ -382,6 +433,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,5 +470,10 @@
         private System.Windows.Forms.TextBox textTotalAmount2Pay;
         private System.Windows.Forms.Label labelPaymentChannel;
         private System.Windows.Forms.ComboBox cboPaymentChannel;
+        private System.Windows.Forms.TextBox textRepName;
+        private System.Windows.Forms.TextBox textContactNumber;
+        private System.Windows.Forms.Label LabelRepName;
+        private System.Windows.Forms.Label LabelContactNumber;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

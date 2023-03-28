@@ -124,6 +124,9 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textEmailSender = new System.Windows.Forms.TextBox();
+            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.billingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -150,6 +153,8 @@
             this.bank,
             this.YearQuarter,
             this.qtr,
+            this.paymentType,
+            this.billingSelection,
             this.Status,
             this.EncodedBy,
             this.EncodedDate,
@@ -157,7 +162,8 @@
             this.reqParty,
             this.Remarks,
             this.AssSentBy,
-            this.AssSentDate});
+            this.AssSentDate,
+            this.columnHeader4});
             this.RPTInfoLV.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RPTInfoLV.FullRowSelect = true;
             this.RPTInfoLV.GridLines = true;
@@ -945,6 +951,14 @@
             this.textEmailSender.Size = new System.Drawing.Size(49, 20);
             this.textEmailSender.TabIndex = 63;
             // 
+            // paymentType
+            // 
+            this.paymentType.Text = "P. Type";
+            // 
+            // billingSelection
+            // 
+            this.billingSelection.Text = "B. Selection";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1102,6 +1116,9 @@
         private System.Windows.Forms.ComboBox cboValidatedBy;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textEmailSender;
+        private System.Windows.Forms.ColumnHeader paymentType;
+        private System.Windows.Forms.ColumnHeader billingSelection;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
 

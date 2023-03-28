@@ -24,6 +24,8 @@ namespace SampleRPT1
             InitializeComponent();
             InitializeBank();
             InitializeQuarter();
+            InitializePaymentType();
+            InitializeBillingSelection();
         }
 
         public void InitializeBank()
@@ -34,6 +36,24 @@ namespace SampleRPT1
             {
                 cboBankUsed.Items.Add(bank.BankName);
             }
+        }
+
+        public void InitializePaymentType()
+        {
+            foreach (string type in RPTPaymentTypeUtil.ALL_PAYMENT_TYPE)
+            {
+                cboPaymentType.Items.Add(type);
+            }
+            cboPaymentType.SelectedIndex = 3;
+        }
+
+        public void InitializeBillingSelection()
+        {
+            foreach (string type in RPTBillingSelection.ALL_BILLING_SELECTION)
+            {
+                cboBillingSelection.Items.Add(type);
+            }
+            cboBillingSelection.SelectedIndex = 0;
         }
 
         public void InitializeQuarter()
@@ -74,6 +94,8 @@ namespace SampleRPT1
             string TdNumber = textTaxDec.Text.Trim();
             string RPTyear = textYear.Text.Trim();
             string RPTquarter = cboQuarter.Text;
+            string RPT_Bill_Selection = cboBillingSelection.Text;
+
 
             validateForm();
 
@@ -92,6 +114,8 @@ namespace SampleRPT1
             rpt.TaxPayerName = textTPName.Text.Trim();
             rpt.AmountToPay = Convert.ToDecimal(textAmountToBePaid.Text);
             rpt.TotalAmountTransferred = Convert.ToDecimal(textTotalTransferredAmount.Text);
+            rpt.PaymentType = cboPaymentType.Text.Trim();
+            rpt.BillingSelection = cboBillingSelection.Text.Trim();
 
             if (rpt.TotalAmountTransferred >= rpt.AmountToPay)
             {
@@ -116,6 +140,9 @@ namespace SampleRPT1
             RPTquarter = cboQuarter.Text.Trim();
             rpt.Quarter = RPTquarter;
 
+            RPT_Bill_Selection = cboBillingSelection.Text.Trim();
+            rpt.BillingSelection = RPT_Bill_Selection;
+
             rpt.Status = textStatForAssessment.Text;
             rpt.RequestingParty = textRequestingParty.Text.Trim();
             rpt.RPTremarks = textRemarks.Text.Trim();
@@ -131,7 +158,7 @@ namespace SampleRPT1
             }
 
             //detects if there's existing record in db
-            List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter(TdNumber, RPTyear, RPTquarter);
+            List<RealPropertyTax> Duplicate_Record = RPTDatabase.SelectBy_TaxDec_Year_Quarter_BSelection(TdNumber, RPTyear, RPTquarter, RPT_Bill_Selection);
 
             if (Duplicate_Record.Count > 0)
             {
@@ -284,6 +311,8 @@ namespace SampleRPT1
             textYear.Text = String.Empty;
             textTPName.Text = string.Empty;
             cboBankUsed.Text = string.Empty;
+            cboPaymentType.SelectedItem = 3;
+            cboBillingSelection.SelectedItem = 0;
             textRequestingParty.Text = string.Empty;
             textRemarks.Text = string.Empty;
         }

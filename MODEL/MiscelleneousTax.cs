@@ -36,6 +36,8 @@ namespace SampleRPT1
         public string TransmittedBy { get; set; }
         public DateTime? TransmittedDate { get; set; }
         public string ReleasedBy { get; set; }
+        public string RepName { get; set; }
+        public string ContactNumber { get; set; }
         public DateTime? ReleasedDate { get; set; }
         public string LastUpdateBy { get; set; }
         public DateTime? LastUpdateDate { get; set; }

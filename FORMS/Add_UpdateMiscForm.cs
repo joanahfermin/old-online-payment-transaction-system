@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace SampleRPT1.FORMS
 {
-    public partial class AddMiscForm : Form
+    public partial class Add_UpdateMiscForm : Form
     {
         private RPTUser loginUser = SecurityService.getLoginUser();
         MiscelleneousTax misc;
@@ -30,7 +30,7 @@ namespace SampleRPT1.FORMS
         private int LABEL_START_X = 40;
         private int TEXTBOX_START_X = 152;
 
-        public AddMiscForm()
+        public Add_UpdateMiscForm()
         {
             InitializeComponent();
             InitializeMiscType();
@@ -41,7 +41,7 @@ namespace SampleRPT1.FORMS
             btnUpdate.Enabled = false;
         }
 
-        public AddMiscForm(long miscId)
+        public Add_UpdateMiscForm(long miscId)
         {
             misc = MISCDatabase.Get(miscId);
 
@@ -212,6 +212,7 @@ namespace SampleRPT1.FORMS
             misc.ModeOfPayment = cboBankUsed.Text;
             misc.EncodedBy = loginUser.DisplayName;
             misc.EncodedDate = DateTime.Now;
+            misc.ExcessShort = misc.TransferredAmount - misc.AmountToBePaid;
 
             string misc_type = cboMiscType.Text;
 
@@ -313,6 +314,7 @@ namespace SampleRPT1.FORMS
             misc.PaymentDate = dtDateOfPayment.Value.Date;
             misc.Status = cboStatus.Text;
             misc.ModeOfPayment = cboBankUsed.Text;
+            misc.ExcessShort = misc.TransferredAmount - misc.AmountToBePaid;
 
             string misc_type = cboMiscType.Text;
 

@@ -187,7 +187,7 @@ namespace SampleRPT1
                 string Quarter = item.SubItems[6].Text;
                 string P_Type = item.SubItems[7].Text;
                 string B_Selection = item.SubItems[8].Text;
-                string Remarks = item.SubItems[10].Text;
+                string Remarks = item.SubItems[12].Text;
 
                 RealPropertyTax rpt = RPTDatabase.Get(RPTid);
 

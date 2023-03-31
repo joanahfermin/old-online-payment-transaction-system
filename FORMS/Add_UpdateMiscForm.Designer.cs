@@ -1,6 +1,6 @@
 ﻿namespace SampleRPT1.FORMS
 {
-    partial class AddMiscForm
+    partial class Add_UpdateMiscForm
     {
         /// <summary>
         /// Required designer variable.

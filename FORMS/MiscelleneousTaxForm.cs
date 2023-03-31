@@ -156,7 +156,7 @@ namespace SampleRPT1
             //AddMISCrecord addMISCrecord = new AddMISCrecord();
             //addMISCrecord.ShowDialog();
 
-            AddMiscForm addMiscForm = new AddMiscForm();
+            Add_UpdateMiscForm addMiscForm = new Add_UpdateMiscForm();
             addMiscForm.ShowDialog();
         }
 
@@ -232,7 +232,7 @@ namespace SampleRPT1
         {
             long RetrieveMiscID = mainFormListViewHelper.getSelectedMiscID();
 
-            AddMiscForm addMiscForm = new AddMiscForm(RetrieveMiscID);
+            Add_UpdateMiscForm addMiscForm = new Add_UpdateMiscForm(RetrieveMiscID);
             addMiscForm.ShowDialog();
 
 

@@ -235,11 +235,11 @@
     <Compile Include="FORMS\AddGcashPaymayaMISC.Designer.cs">
       <DependentUpon>AddGcashPaymayaMISC.cs</DependentUpon>
     </Compile>
-    <Compile Include="FORMS\AddMiscForm.cs">
+    <Compile Include="FORMS\Add_UpdateMiscForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FORMS\AddMiscForm.Designer.cs">
-      <DependentUpon>AddMiscForm.cs</DependentUpon>
+    <Compile Include="FORMS\Add_UpdateMiscForm.Designer.cs">
+      <DependentUpon>Add_UpdateMiscForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\AddMISCrecord.cs">
       <SubType>Form</SubType>
@@ -442,8 +442,8 @@
     <EmbeddedResource Include="FORMS\AddGcashPaymayaMISC.resx">
       <DependentUpon>AddGcashPaymayaMISC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FORMS\AddMiscForm.resx">
-      <DependentUpon>AddMiscForm.cs</DependentUpon>
+    <EmbeddedResource Include="FORMS\Add_UpdateMiscForm.resx">
+      <DependentUpon>Add_UpdateMiscForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\AddMISCrecord.resx">
       <DependentUpon>AddMISCrecord.cs</DependentUpon>

@@ -50,7 +50,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT * FROM Jo_MISC WHERE MiscType = @miscType order by MiscID asc";
+                String query = $"SELECT * FROM Jo_MISC WHERE MiscType = @miscType and DeletedRecord != 1 order by MiscID asc";
                 return conn.Query<MiscelleneousTax>(query, new { MiscType = miscType }).ToList();
             }
         }

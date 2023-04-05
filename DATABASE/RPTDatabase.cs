@@ -556,19 +556,32 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on date range, status and uploaded date for LOVE'S FILTER: for o.r pickup status.
         /// </summary>
-        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime validatedDateFrom, DateTime validatedDateTo, string Status)
+        public static List<RealPropertyTax> SelectByDateFromToAndStatusAndUploadedDate(DateTime encodedDateFrom, DateTime encodedDateTo, string Status, List<string> BankList, string UploadedBy)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                String query = $"SELECT * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@validatedDateFrom as DATE) " +
-                    "AND CAST(ValidatedDate as DATE) <= CAST(@validatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                //String query = $"SELECT * FROM Jo_RPT WHERE CAST(ValidatedDate as DATE) >= CAST(@validatedDateFrom as DATE) " +
+                //    "AND CAST(ValidatedDate as DATE) <= CAST(@validatedDateTo as DATE) AND Status = @Status AND DeletedRecord != 1 " +
+                //    "ORDER BY ValidatedDate ASC";
+                //return conn.Query<RealPropertyTax>(query, new
+                //{
+                //    ValidatedDateFrom = validatedDateFrom,
+                //    ValidatedDateTo = validatedDateTo,
+                //    Status = Status,
+                //    //UploadedDate = UploadedDate
+                //}).ToList();
+
+                String query = $"SELECT * FROM Jo_RPT WHERE CAST(UploadedDate as DATE) >= CAST(@EncodedDateFrom as DATE) " +
+                    "AND CAST(UploadedDate as DATE) <= CAST(@EncodedDateTo as DATE) AND Status = @Status AND Bank in @BankList AND UploadedBy = @UploadedBy and DeletedRecord != 1 " +
                     "ORDER BY ValidatedDate ASC";
                 return conn.Query<RealPropertyTax>(query, new
                 {
-                    ValidatedDateFrom = validatedDateFrom,
-                    ValidatedDateTo = validatedDateTo,
+                    EncodedDateFrom = encodedDateFrom,
+                    EncodedDateTo = encodedDateTo,
                     Status = Status,
-                    //UploadedDate = UploadedDate
+                    BankList = BankList,
+                    UploadedBy = UploadedBy
+
                 }).ToList();
             }
         }

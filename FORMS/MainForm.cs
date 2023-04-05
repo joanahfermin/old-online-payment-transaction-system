@@ -272,6 +272,7 @@ namespace SampleRPT1
             string EncodedBy = cboEncodedBy.Text;
             string ValidatedBy = cboValidatedBy.Text;
 
+
             // filter by verification of payment and payment channel.
             if (Status == RPTStatus.PAYMENT_VERIFICATION/* && Action == RPTAction.VERIFY_PAYMENT*/)
             {
@@ -301,7 +302,10 @@ namespace SampleRPT1
             // filter by for or pickup and date range and uploaded date.
             else if (Status == RPTStatus.OR_PICKUP)
             {
-                rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, Status);
+                string UploadedBy = cboValidatedBy.Text;
+
+                List<string> BankList = getBankList();
+                rptList = RPTDatabase.SelectByDateFromToAndStatusAndUploadedDate(encodedDateFrom, encodedDateTo, Status, BankList, UploadedBy);
             }
 
             // filter by status and date range.
@@ -419,7 +423,7 @@ namespace SampleRPT1
         {
             RefreshListView();
 
-            if (cboStatus.Text == RPTStatus.PAYMENT_VERIFICATION || cboStatus.Text == RPTStatus.PAYMENT_VALIDATION || cboStatus.Text == RPTStatus.OR_UPLOAD)
+            if (cboStatus.Text == RPTStatus.PAYMENT_VERIFICATION || cboStatus.Text == RPTStatus.PAYMENT_VALIDATION || cboStatus.Text == RPTStatus.OR_UPLOAD || cboStatus.Text == RPTStatus.OR_PICKUP)
             {
                 InitializePaymentChannel();
                 labelPaymentChannel.Enabled = true;
@@ -434,7 +438,7 @@ namespace SampleRPT1
                 cboValidatedBy.Text = "";
             }
 
-            if (cboStatus.Text == RPTStatus.OR_UPLOAD /*&& cboPaymentChannel.Text != null*/)
+            if (cboStatus.Text == RPTStatus.OR_UPLOAD || cboStatus.Text == RPTStatus.OR_PICKUP)
             {
                 InitializeValidator();
                 labelValiBy.Enabled = true;

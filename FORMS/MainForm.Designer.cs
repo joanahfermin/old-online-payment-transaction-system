@@ -41,6 +41,8 @@
             this.bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.billingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedBy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,6 +51,7 @@
             this.Remarks = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AssSentBy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.AssSentDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.VerAndValLV = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -124,9 +127,6 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textEmailSender = new System.Windows.Forms.TextBox();
-            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.billingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -234,6 +234,14 @@
             // 
             this.qtr.Text = "Quarter";
             // 
+            // paymentType
+            // 
+            this.paymentType.Text = "P. Type";
+            // 
+            // billingSelection
+            // 
+            this.billingSelection.Text = "B. Selection";
+            // 
             // Status
             // 
             this.Status.Text = "Status";
@@ -314,7 +322,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Loc. Code";
-            this.columnHeader3.Width = 70;
+            this.columnHeader3.Width = 75;
             // 
             // columnHeader2
             // 
@@ -748,11 +756,11 @@
             // labelValiBy
             // 
             this.labelValiBy.AutoSize = true;
-            this.labelValiBy.Location = new System.Drawing.Point(677, 48);
+            this.labelValiBy.Location = new System.Drawing.Point(624, 47);
             this.labelValiBy.Name = "labelValiBy";
-            this.labelValiBy.Size = new System.Drawing.Size(72, 13);
+            this.labelValiBy.Size = new System.Drawing.Size(123, 13);
             this.labelValiBy.TabIndex = 48;
-            this.labelValiBy.Text = "Validated By: ";
+            this.labelValiBy.Text = "Validated/Uploaded By: ";
             // 
             // cboValidatedBy
             // 
@@ -950,14 +958,6 @@
             this.textEmailSender.Name = "textEmailSender";
             this.textEmailSender.Size = new System.Drawing.Size(49, 20);
             this.textEmailSender.TabIndex = 63;
-            // 
-            // paymentType
-            // 
-            this.paymentType.Text = "P. Type";
-            // 
-            // billingSelection
-            // 
-            this.billingSelection.Text = "B. Selection";
             // 
             // MainForm
             // 

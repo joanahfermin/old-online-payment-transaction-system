@@ -51,6 +51,7 @@
             this.textPassWord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textPassWord.Location = new System.Drawing.Point(145, 89);
             this.textPassWord.Name = "textPassWord";
+            this.textPassWord.PasswordChar = '•';
             this.textPassWord.Size = new System.Drawing.Size(204, 20);
             this.textPassWord.TabIndex = 2;
             this.textPassWord.Click += new System.EventHandler(this.textPassWord_Click);

@@ -162,10 +162,10 @@ namespace SampleRPT1
                 string Year = item.SubItems[2].Text;
                 string Quarter = "1-4";
 
-                RealPropertyTax rpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, Quarter);
+                List<RealPropertyTax> rpt = RPTDatabase.SelectByTaxDecAndYear_ifDuplicate(TaxDec, Year, Quarter);
 
                 //if selected record is existing in the database with same Tax Dec and same Year/quarter.
-                if (rpt != null)
+                if (rpt.Count > 0)
                 {
                     item.SubItems.Add("YES");
                     item.BackColor = Color.LightBlue;
@@ -223,9 +223,9 @@ namespace SampleRPT1
 
             if (FirstLVGcashPaymaya.Items.Count > 0)
             {
-                for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
+                foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
-                    string YearQuarter = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
+                    string YearQuarter = item.SubItems[2].Text;
 
                     if (YearQuarter.Length > 4)
                     {
@@ -334,7 +334,7 @@ namespace SampleRPT1
         {
             object Nothing = System.Reflection.Missing.Value;
             var app = new Microsoft.Office.Interop.Excel.Application();
-            app.Visible = false;
+            app.Visible = true;
             Microsoft.Office.Interop.Excel.Workbook workBook = app.Workbooks.Add(Nothing);
             Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workBook.Sheets[1];
             worksheet.Name = "WorkSheet";
@@ -362,18 +362,18 @@ namespace SampleRPT1
 
             worksheet.Cells[row, 6] = $"=sum(F5:F{row - 1})";
 
-            String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
-            String folder = FileUtils.GetDownloadFolderPath();
-            //MessageBox.Show(folder);
-            String fullpath = folder + "\\" + filename;
+            //String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
+            //String folder = FileUtils.GetDownloadFolderPath();
+            ////MessageBox.Show(folder);
+            //String fullpath = folder + "\\" + filename;
 
-            worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
-            //worksheet.SaveAs(fullpath, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
+            //worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
+            ////worksheet.SaveAs(fullpath, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8);
 
-            workBook.Close(false, Type.Missing, Type.Missing);
-            app.Quit();
+            //workBook.Close(false, Type.Missing, Type.Missing);
+            //app.Quit();
 
-            System.Diagnostics.Process.Start(fullpath);
+            //System.Diagnostics.Process.Start(fullpath);
         }
 
         private static decimal totalAmount = 0;

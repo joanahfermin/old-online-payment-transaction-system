@@ -103,6 +103,7 @@
             this.cboMiscType.Location = new System.Drawing.Point(10, 33);
             this.cboMiscType.Name = "cboMiscType";
             this.cboMiscType.Size = new System.Drawing.Size(221, 21);
+            this.cboMiscType.Sorted = true;
             this.cboMiscType.TabIndex = 2;
             this.cboMiscType.SelectedIndexChanged += new System.EventHandler(this.cboMiscType_SelectedIndexChanged);
             // 
@@ -282,6 +283,7 @@
             this.cboAction.Location = new System.Drawing.Point(391, 116);
             this.cboAction.Name = "cboAction";
             this.cboAction.Size = new System.Drawing.Size(179, 21);
+            this.cboAction.Sorted = true;
             this.cboAction.TabIndex = 56;
             this.cboAction.SelectedIndexChanged += new System.EventHandler(this.cboAction_SelectedIndexChanged);
             // 
@@ -429,6 +431,7 @@
             this.Controls.Add(this.MISCinfoLV);
             this.Name = "MiscelleneousTaxForm";
             this.Text = "MiscelleneousTax";
+            this.Load += new System.EventHandler(this.MiscelleneousTaxForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

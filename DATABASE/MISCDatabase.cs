@@ -98,7 +98,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num and DeletedRecord != 1", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num }).ToList();
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where (OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num) and DeletedRecord != 1 and DuplicateRecord = 0", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num }).ToList();
             }
         }
 
@@ -106,7 +106,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OrderOfPaymentNum = @OP_Num and DeletedRecord != 1", new { OP_Num = OP_Num }).ToList();
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where OrderOfPaymentNum = @OP_Num and DeletedRecord != 1 and DuplicateRecord = 0", new { OP_Num = OP_Num }).ToList();
             }
         }
 

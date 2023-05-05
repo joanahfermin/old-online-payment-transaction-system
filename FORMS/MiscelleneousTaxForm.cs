@@ -188,7 +188,7 @@ namespace SampleRPT1
 
             foreach (ListViewItem item in MISCinfoLV.Items)
             {
-                if (item.SubItems[2].Text.Contains(miscRecord) ||  item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[4].Text.Contains(miscRecord))
+                if (item.SubItems[2].Text.Contains(miscRecord) || item.SubItems[3].Text.Contains(miscRecord) || item.SubItems[4].Text.Contains(miscRecord))
                 {
                     item.Selected = true;
                     MISCinfoLV.Focus();
@@ -332,74 +332,90 @@ namespace SampleRPT1
 
         private void VerifyPayment()
         {
-            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (loginUser.isVerifier)
             {
-                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
-
-                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
-                bool AllProcessed = true;
-
-                foreach (MiscelleneousTax misc in SelectedMISCList)
+                if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    misc.VerifiedBy = loginUser.DisplayName;
-                    misc.VerifiedDate = DateTime.Now;
-                    misc.Status = MISCUtil.FOR_PAYMENT_VALIDATION;
 
-                    if (misc.TransferredAmount >= misc.AmountToBePaid)
+                    List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
+
+                    bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VERIFICATION);
+                    bool AllProcessed = true;
+
+                    foreach (MiscelleneousTax misc in SelectedMISCList)
                     {
-                        MISCDatabase.Update(misc);
+                        misc.VerifiedBy = loginUser.DisplayName;
+                        misc.VerifiedDate = DateTime.Now;
+                        misc.Status = MISCUtil.FOR_PAYMENT_VALIDATION;
+
+                        if (misc.TransferredAmount >= misc.AmountToBePaid)
+                        {
+                            MISCDatabase.Update(misc);
+                        }
+                        else
+                        {
+                            AllProcessed = false;
+                        }
                     }
-                    else
+
+                    if (SameStatus == false || AllProcessed == false)
                     {
-                        AllProcessed = false;
+                        MessageBox.Show("Some selected records has not been processed.");
+                        cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
                     }
+                    MessageBox.Show("Record/s successfully verified.");
+                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VALIDATION;
+                    RefreshLV();
                 }
 
-                if (SameStatus == false || AllProcessed == false)
-                {
-                    MessageBox.Show("Some selected records has not been processed.");
-                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
-                }
-                MessageBox.Show("Record/s successfully verified.");
-                cboStatus.Text = MISCUtil.FOR_PAYMENT_VALIDATION;
-                RefreshLV();
+            }
+            else
+            {
+                MessageBox.Show("You are not allowed to verify record/s.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ValidatePayment()
         {
-            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (loginUser.isValidator)
             {
-                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
-
-                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
-                bool AllProcessed = true;
-
-                foreach (MiscelleneousTax misc in SelectedMISCList)
+                if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    misc.ValidatedBy = loginUser.DisplayName;
-                    misc.ValidatedDate = DateTime.Now;
+                    List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
 
-                    if (misc.Status == MISCUtil.FOR_PAYMENT_VALIDATION)
+                    bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_PAYMENT_VALIDATION);
+                    bool AllProcessed = true;
+
+                    foreach (MiscelleneousTax misc in SelectedMISCList)
                     {
-                        misc.Status = MISCUtil.FOR_TRANSMITTAL;
-                        MISCDatabase.Update(misc);
+                        misc.ValidatedBy = loginUser.DisplayName;
+                        misc.ValidatedDate = DateTime.Now;
+
+                        if (misc.Status == MISCUtil.FOR_PAYMENT_VALIDATION)
+                        {
+                            misc.Status = MISCUtil.FOR_TRANSMITTAL;
+                            MISCDatabase.Update(misc);
+                        }
+                        else
+                        {
+                            AllProcessed = false;
+                        }
                     }
-                    else
+
+                    if (SameStatus == false || AllProcessed == false)
                     {
-                        AllProcessed = false;
+                        MessageBox.Show("Some selected records has not been processed.");
+                        return;
                     }
-                }
 
-                if (SameStatus == false || AllProcessed == false)
-                {
-                    MessageBox.Show("Some selected records has not been processed.");
-                    return;
+                    MessageBox.Show("Record/s successfully validated.");
+                    cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
+                    RefreshLV();
                 }
-
-                MessageBox.Show("Record/s successfully validated.");
-                cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
-                RefreshLV();
+            }
+            else
+            {
+                MessageBox.Show("You are not allowed to validate record/s.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -421,40 +437,47 @@ namespace SampleRPT1
             //    MessageBox.Show("Record/s successfully transmitted.");
             //    RefreshLV();
             //}
-
-            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (loginUser.DisplayName == "DAN" || loginUser.DisplayName == "BON" || loginUser.DisplayName == "JOANAH")
             {
-                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
-
-                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_TRANSMITTAL);
-                bool AllProcessed = true;
-
-                foreach (MiscelleneousTax misc in SelectedMISCList)
+                if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    misc.TransmittedBy = loginUser.DisplayName;
-                    misc.TransmittedDate = DateTime.Now;
+                    List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_TRANSMITTAL);
 
-                    if (misc.Status == MISCUtil.FOR_TRANSMITTAL)
+                    bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_TRANSMITTAL);
+                    bool AllProcessed = true;
+
+                    foreach (MiscelleneousTax misc in SelectedMISCList)
                     {
-                        misc.Status = MISCUtil.TRANSMITTED; 
-                        MISCDatabase.Update(misc);
+                        misc.TransmittedBy = loginUser.DisplayName;
+                        misc.TransmittedDate = DateTime.Now;
+
+                        if (misc.Status == MISCUtil.FOR_TRANSMITTAL)
+                        {
+                            misc.Status = MISCUtil.TRANSMITTED;
+                            MISCDatabase.Update(misc);
+                        }
+                        else
+                        {
+                            AllProcessed = false;
+                        }
                     }
-                    else
+
+                    if (SameStatus == false || AllProcessed == false)
                     {
-                        AllProcessed = false;
+                        MessageBox.Show("Some selected records has not been processed.");
+                        return;
                     }
-                }
 
-                if (SameStatus == false || AllProcessed == false)
-                {
-                    MessageBox.Show("Some selected records has not been processed.");
-                    return;
+                    MessageBox.Show("Record/s successfully transmitted.");
+                    //cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
+                    RefreshLV();
                 }
-
-                MessageBox.Show("Record/s successfully transmitted.");
-                //cboStatus.Text = MISCUtil.FOR_TRANSMITTAL;
-                RefreshLV();
             }
+            else
+            {
+                MessageBox.Show("You are not allowed to transmit record/s.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void validateForm()
@@ -535,6 +558,94 @@ namespace SampleRPT1
             }
         }
 
+        private void Change_isDuplicateRecord()
+        {
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS" || loginUser.DisplayName == "JOANAH" || loginUser.DisplayName == "EDILYL"))
+            {
+                if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
+
+                    misc.DuplicateRecord = 1;
+                    MISCDatabase.Update(misc);
+
+                    MessageBox.Show("Successfully reverted status as non-duplicate record.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You are not allowed to execute action.");
+            }
+        }
+
+        private void Hold_Record()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_ASSESSMENT);
+
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_ASSESSMENT);
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousTax misc in SelectedMISCList)
+                {
+                    misc.Status = MISCUtil.STATUS_PENDING;
+
+                    if (misc.TransferredAmount >= misc.AmountToBePaid)
+                    {
+                        MISCDatabase.Update(misc);   
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
+                }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+                }
+                MessageBox.Show("Record/s on hold.");
+                cboStatus.Text = MISCUtil.FOR_ASSESSMENT;
+                RefreshLV();
+            }
+        }
+
+        private void Done_Record()
+        {
+            if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                List<MiscelleneousTax> SelectedMISCList = mainFormListViewHelper.GetSelectedMISCByStatus(MISCUtil.FOR_ASSESSMENT);
+
+                bool SameStatus = mainFormListViewHelper.CheckSameStatus(MISCUtil.FOR_ASSESSMENT);
+                bool AllProcessed = true;
+
+                foreach (MiscelleneousTax misc in SelectedMISCList)
+                {
+                    misc.Status = MISCUtil.ACTION_DONE;
+
+                    if (misc.TransferredAmount >= misc.AmountToBePaid)
+                    {
+                        MISCDatabase.Update(misc);
+                    }
+                    else
+                    {
+                        AllProcessed = false;
+                    }
+                }
+
+                if (SameStatus == false || AllProcessed == false)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    cboStatus.Text = MISCUtil.FOR_PAYMENT_VERIFICATION;
+                }
+                MessageBox.Show("Record/s' status successfully changed.");
+                cboStatus.Text = MISCUtil.FOR_ASSESSMENT;
+                RefreshLV();
+            }
+        }
+
         private void SetAction(string NewAction)
         {
             if (cboAction.Items.Contains(NewAction))
@@ -590,26 +701,61 @@ namespace SampleRPT1
             {
                 VerifyPayment();
             }
+
             else if (cboAction.Text == MISCUtil.VALIDATE_PAYMENT)
             {
                 ValidatePayment();
             }
+
             else if (cboAction.Text == MISCUtil.TRANSMIT)
             {
                 TransmitPayment();
             }
+
             else if (cboAction.Text == MISCUtil.RELEASE)
             {
                 ReleasePayment();
             }
+
             else if (cboAction.Text == MISCUtil.DELETED_RECORD)
             {
                 Delete_Record();
+            }
+
+            else if (cboAction.Text == MISCUtil.TAG_DUPLICATE_RECORD)
+            {
+                Change_isDuplicateRecord();
+            }
+
+            else if (cboAction.Text == MISCUtil.ACTION_PENDING)
+            {
+                Hold_Record();
+            }
+
+            else if (cboAction.Text == MISCUtil.ACTION_DONE)
+            {
+                Done_Record();
             }
         }
 
         private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE") || (loginUser.DisplayName == "EDILYL"))
+            //{
+                //cboAction.Items.Clear();
+                //cboAction.Items.Add(MISCUtil.VERIFY_PAYMENT);
+                //cboAction.Items.Add(MISCUtil.TAG_DUPLICATE_RECORD);
+
+                //cboAction.Text = MISCUtil.VERIFY_PAYMENT;
+                //cboAction.Enabled = false;
+            //}
+
+            if (loginUser.isValidator && loginUser.MachNo != null)
+            {
+                cboAction.Text = MISCUtil.VALIDATE_PAYMENT;
+                cboAction.Enabled = false;
+            }
+
             if (cboAction.Text == RPTAction.VERIFY_PAYMENT && cboAction.Text == RPTAction.VALIDATE_PAYMENT)
             {
                 //PAYMENT CHANNEL COMBOBOX AND LABEL.
@@ -848,6 +994,21 @@ namespace SampleRPT1
 
                 Clipboard.SetText(misc.OPATrackingNum);
             }
+        }
+
+        private void MiscelleneousTaxForm_Load(object sender, EventArgs e)
+        {
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "EDILYL"))
+            {
+                cboAction.Items.Clear();
+                cboAction.Items.Add(MISCUtil.VERIFY_PAYMENT);
+                cboAction.Items.Add(MISCUtil.TAG_DUPLICATE_RECORD);
+                cboAction.Items.Add(MISCUtil.DELETED_RECORD);
+
+                cboAction.Text = MISCUtil.VERIFY_PAYMENT;
+                //cboAction.Enabled = false;
+            }
+
         }
     }
 }

@@ -89,7 +89,6 @@
             // 
             // cboStatus
             // 
-            this.cboStatus.Enabled = false;
             this.cboStatus.FormattingEnabled = true;
             this.cboStatus.Location = new System.Drawing.Point(152, 133);
             this.cboStatus.Name = "cboStatus";
@@ -257,14 +256,14 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // AddMiscForm
+            // Add_UpdateMiscForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 670);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
-            this.Name = "AddMiscForm";
+            this.Name = "Add_UpdateMiscForm";
             this.Text = "AddMiscForm";
             this.Load += new System.EventHandler(this.AddMiscForm_Load);
             this.panel1.ResumeLayout(false);

@@ -540,7 +540,7 @@ namespace SampleRPT1
 
         private void Change_isDuplicateRecord()
         {
-            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS" || loginUser.DisplayName == "JOANAH"))
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "ARIS" || loginUser.DisplayName == "JOANAH" || loginUser.DisplayName == "EDILYL"))
             {
                 if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -820,20 +820,14 @@ namespace SampleRPT1
 
         private void cboAction_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cboAction.Text == RPTAction.BILL_NO_POP || cboAction.Text == RPTAction.BILL_WITH_POP)
+            //if (loginUser.isVerifier)
             //{
-                //BILL QUANTITY
-                //textNumOfBills.Visible = true;
-                //LabelNumBills.Visible = true;
+            //    cboAction.Items.Clear();
+            //    cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
+            //    cboAction.Items.Add(RPTAction.CHANGE_DUPLICATE_RECORD);
 
-                //BILL REMARKS
-                //textRemarks.Visible = false;
-                //LabelRemarks.Visible = false;
-            //}
-            //else
-            //{
-            //    //textNumOfBills.Visible = false;
-            //    //LabelNumBills.Visible = false;
+            //    cboAction.Text = RPTAction.VERIFY_PAYMENT;
+            //    //cboAction.Enabled = false;
             //}
 
             if (cboAction.Text == RPTAction.VERIFY_PAYMENT)
@@ -1300,10 +1294,24 @@ namespace SampleRPT1
 
             textTDN.Select();
 
-            //if (loginUser.DisplayName == "OGIE")
-            //{
-            //    cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
-            //}
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "EDILYL" /*|| loginUser.DisplayName == "ARIS" || loginUser.DisplayName == "JOANAH"*/))
+            {
+                cboAction.Items.Clear();
+                cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
+                cboAction.Items.Add(RPTAction.CHANGE_DUPLICATE_RECORD);
+
+                cboAction.Text = RPTAction.VERIFY_PAYMENT;
+                //cboAction.Enabled = false;
+            }
+
+            else if (loginUser.isValidator && loginUser.MachNo != null)
+            {
+                cboAction.Items.Clear();
+                cboAction.Items.Add(RPTAction.VALIDATE_PAYMENT);
+
+                cboAction.Text = RPTAction.VALIDATE_PAYMENT;
+                //cboAction.Enabled = false;
+            }
 
             textFileName.Visible = false;
 

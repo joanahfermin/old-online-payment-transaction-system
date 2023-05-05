@@ -229,6 +229,17 @@ namespace SampleRPT1
         /// <summary>
         /// Returns a list of records based on taxdec and year/quarter.
         /// </summary>
+        public static List<RealPropertyTax> SelectByTaxDecAndYear_ifDuplicate(string TaxDec, string Year, string Qtr)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where (TaxDec = @TaxDec and YearQuarter = @Year and Quarter = @Qtr) and DeletedRecord != 1 and DuplicateRecord = 0", new { TaxDec = TaxDec, Year = Year, Qtr = Qtr }).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Returns a list of records based on taxdec and year/quarter.
+        /// </summary>
         public static RealPropertyTax SelectByTaxDecAndYear(string TaxDec, string Year, string Qtr)
         {
             using (SqlConnection conn = DbUtils.getConnection())
@@ -689,7 +700,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0 and BillingSelection = @B_Selection", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter, B_Selection = B_Selection }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @YearQtr and Quarter = @Quarter and DeletedRecord != 1 and DuplicateRecord = 0 and BillingSelection = @B_Selection and DuplicateRecord = 0", new { TaxDec = TaxDec, YearQtr = Year, Quarter = Quarter, B_Selection = B_Selection }).ToList();
             }
         }
 

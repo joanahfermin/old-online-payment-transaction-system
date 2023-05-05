@@ -171,7 +171,7 @@ namespace SampleRPT1.FORMS
             // textLocCode
             // 
             this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textLocCode.Location = new System.Drawing.Point(638, 16);
+            this.textLocCode.Location = new System.Drawing.Point(583, 13);
             this.textLocCode.Name = "textLocCode";
             this.textLocCode.Size = new System.Drawing.Size(100, 20);
             this.textLocCode.TabIndex = 8;
@@ -179,7 +179,7 @@ namespace SampleRPT1.FORMS
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(542, 23);
+            this.label1.Location = new System.Drawing.Point(487, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 9;
@@ -189,7 +189,7 @@ namespace SampleRPT1.FORMS
             // 
             this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(462, 16);
+            this.textRecSelected.Location = new System.Drawing.Point(406, 13);
             this.textRecSelected.Name = "textRecSelected";
             this.textRecSelected.Size = new System.Drawing.Size(63, 20);
             this.textRecSelected.TabIndex = 61;
@@ -198,7 +198,7 @@ namespace SampleRPT1.FORMS
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(358, 23);
+            this.label8.Location = new System.Drawing.Point(302, 18);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(98, 13);
             this.label8.TabIndex = 60;

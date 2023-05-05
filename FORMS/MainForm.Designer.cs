@@ -117,8 +117,6 @@
             this.labelContactNumber = new System.Windows.Forms.Label();
             this.textContactNum = new System.Windows.Forms.TextBox();
             this.checkAutLetter = new System.Windows.Forms.CheckBox();
-            this.cboValidator = new System.Windows.Forms.ComboBox();
-            this.labelValidatedBy = new System.Windows.Forms.Label();
             this.btnRotate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -127,6 +125,8 @@
             this.textRecSelected = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textEmailSender = new System.Windows.Forms.TextBox();
+            this.cboValidator = new System.Windows.Forms.ComboBox();
+            this.labelValidatedBy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.TabPicture.SuspendLayout();
             this.Assessment.SuspendLayout();
@@ -860,25 +860,6 @@
             this.checkAutLetter.Text = "with authorization letter.";
             this.checkAutLetter.UseVisualStyleBackColor = true;
             // 
-            // cboValidator
-            // 
-            this.cboValidator.FormattingEnabled = true;
-            this.cboValidator.Location = new System.Drawing.Point(1380, 225);
-            this.cboValidator.Name = "cboValidator";
-            this.cboValidator.Size = new System.Drawing.Size(202, 21);
-            this.cboValidator.TabIndex = 55;
-            this.cboValidator.SelectedIndexChanged += new System.EventHandler(this.cboValidator_SelectedIndexChanged);
-            this.cboValidator.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboValidator_KeyPress);
-            // 
-            // labelValidatedBy
-            // 
-            this.labelValidatedBy.AutoSize = true;
-            this.labelValidatedBy.Location = new System.Drawing.Point(1303, 233);
-            this.labelValidatedBy.Name = "labelValidatedBy";
-            this.labelValidatedBy.Size = new System.Drawing.Size(71, 13);
-            this.labelValidatedBy.TabIndex = 56;
-            this.labelValidatedBy.Text = "Validated by: ";
-            // 
             // btnRotate
             // 
             this.btnRotate.Location = new System.Drawing.Point(1732, 922);
@@ -958,6 +939,25 @@
             this.textEmailSender.Name = "textEmailSender";
             this.textEmailSender.Size = new System.Drawing.Size(49, 20);
             this.textEmailSender.TabIndex = 63;
+            // 
+            // cboValidator
+            // 
+            this.cboValidator.FormattingEnabled = true;
+            this.cboValidator.Location = new System.Drawing.Point(1380, 225);
+            this.cboValidator.Name = "cboValidator";
+            this.cboValidator.Size = new System.Drawing.Size(202, 21);
+            this.cboValidator.TabIndex = 55;
+            this.cboValidator.SelectedIndexChanged += new System.EventHandler(this.cboValidator_SelectedIndexChanged);
+            this.cboValidator.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboValidator_KeyPress);
+            // 
+            // labelValidatedBy
+            // 
+            this.labelValidatedBy.AutoSize = true;
+            this.labelValidatedBy.Location = new System.Drawing.Point(1303, 233);
+            this.labelValidatedBy.Name = "labelValidatedBy";
+            this.labelValidatedBy.Size = new System.Drawing.Size(71, 13);
+            this.labelValidatedBy.TabIndex = 56;
+            this.labelValidatedBy.Text = "Validated by: ";
             // 
             // MainForm
             // 
@@ -1103,8 +1103,6 @@
         private System.Windows.Forms.CheckBox checkAutLetter;
         private System.Windows.Forms.ComboBox cboEncodedBy;
         private System.Windows.Forms.Label labelEncodedBy;
-        private System.Windows.Forms.Label labelValidatedBy;
-        private System.Windows.Forms.ComboBox cboValidator;
         private System.Windows.Forms.ColumnHeader qtr;
         private System.Windows.Forms.Button btnRotate;
         private System.Windows.Forms.Label label5;
@@ -1119,6 +1117,8 @@
         private System.Windows.Forms.ColumnHeader paymentType;
         private System.Windows.Forms.ColumnHeader billingSelection;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Label labelValidatedBy;
+        private System.Windows.Forms.ComboBox cboValidator;
     }
 }
 

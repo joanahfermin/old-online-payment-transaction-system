@@ -15,8 +15,10 @@ namespace SampleRPT1.UTILITIES
         public const string TAX_CLEARANCE = "TAX CLEARANCE";
         public const string SIGNBOARD = "SIGNBOARD";
         public const string CONTRACTORS_TAX = "CONTRACTOR'S TAX";
+        public const string LIQUOR = "LIQUOR";
+        public const string MARKET = "MARKET";
 
-        public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, OVR, PTR, HEALTH_CERTIFICATE, TAX_CLEARANCE, SIGNBOARD, CONTRACTORS_TAX };
+        public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, OVR, /*PTR, HEALTH_CERTIFICATE, TAX_CLEARANCE, SIGNBOARD, CONTRACTORS_TAX,*/ LIQUOR, /*MARKET*/};
 
     }
 }

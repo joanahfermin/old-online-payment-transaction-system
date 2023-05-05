@@ -36,9 +36,9 @@ namespace SampleRPT1.FORMS
         {
             List<int> IgnoredColumnList = new List<int>();
             //IgnoredColumnList.Add(5);
-            IgnoredColumnList.Add(6);
-            IgnoredColumnList.Add(8);
+            IgnoredColumnList.Add(7);
             IgnoredColumnList.Add(9);
+            IgnoredColumnList.Add(10);
 
             //If user presses CTRL + V, papasok sya sa if condition.
             if (e.KeyData == (Keys.V | Keys.Control))
@@ -60,17 +60,22 @@ namespace SampleRPT1.FORMS
                         string[] columnArray = row.Split(new char[] { '\t' });
 
                         ListViewItem item = new ListViewItem();
-                        bool firstColumn = true;
+                        //bool firstColumn = true;
                         int ColumnIndex = 0;
+
+                        string BillerRef = null;
 
                         foreach (string column in columnArray)
                         {   //kung pang-ilang column ka na.
                             ColumnIndex++;
-                            if (firstColumn)
+
+                            if (ColumnIndex == 1)
                             {
-                                //ListViewItem item = new ListViewItem(p.firstName);
+                                BillerRef = column;
+                            }
+                            else if (ColumnIndex == 2)
+                            {
                                 item.Text = column;
-                                firstColumn = false;
                             }
                             else
                             {
@@ -80,6 +85,8 @@ namespace SampleRPT1.FORMS
                                 }
                             }
                         }
+
+                        item.SubItems[2].Text = BillerRef;
 
                         //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
                         string misc = item.SubItems[2].Text;
@@ -190,7 +197,7 @@ namespace SampleRPT1.FORMS
                     item.SubItems.Add("NO");
                 }
 
-                string OPAtrackingAndOPNum_TransactionDate = OPAtrackingNum + OPaymentNum + TransactionDate;
+                string OPAtrackingAndOPNum_TransactionDate = OPAtrackingNum + OPaymentNum;
 
                 //if selected record has duplicate in the form's listview with same OPAtrackingNum and OPaymentNum and TransactionDate.
                 if (ProcessedList.Contains(OPAtrackingAndOPNum_TransactionDate))
@@ -274,6 +281,21 @@ namespace SampleRPT1.FORMS
 
             if (MISCGcashPaymayaLV.Items.Count > 0)
             {
+                for (int i = 0; i < MISCGcashPaymayaLV.Items.Count; i++)
+                {
+                    string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
+                    string OPaymentNum = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
+
+                    List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPaymentNum);
+
+                    if (retrieveMisc_Existing_OPNumber.Count > 0)
+                    {
+                        MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
+                        miscDuplicateForm.ShowDialog();
+                        return;
+                    }
+                }
+
                 //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
                 for (int i = 0; i < MISCGcashPaymayaLV.Items.Count; i++)
                 {
@@ -288,14 +310,14 @@ namespace SampleRPT1.FORMS
                     List<MiscelleneousTax> retrieveMisc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPnumber);
                     List<MiscelleneousTax> retrieveMisc_DoublePayment = MISCDatabase.SelectBy_OPAtracking_OPNum_TransactionDate(OPAtrackingNum, OPnumber, TransactionDate);
 
-                    List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPNum(OPnumber);
-
-                    if (retrieveMisc_Existing_OPNumber.Count > 0)
-                    {
-                        MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
-                        miscDuplicateForm.ShowDialog();
-                        return;
-                    }
+                    //List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPNum(OPnumber);
+                    
+                    //if (retrieveMisc_Existing_OPNumber.Count > 0)
+                    //{
+                    //    MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
+                    //    miscDuplicateForm.ShowDialog();
+                    //    return;
+                    //}
 
                     MiscelleneousTax misc = new MiscelleneousTax();
 
@@ -307,15 +329,13 @@ namespace SampleRPT1.FORMS
                     misc.ModeOfPayment = ServiceProvider;
                     misc.Status = RPTStatus.FOR_ASSESSMENT;
                     misc.PaymentDate = Convert.ToDateTime(TransactionDate);
-                    //misc.RequestingParty = RequestingParty;
-
                     misc.EncodedBy = loginUser.DisplayName;
                     misc.EncodedDate = DateTime.Now;
                     misc.RefNum = refNo;
 
                     if (retrieveMisc.Count > 0)
                     {
-                        misc.Remarks = DuplicateRecordRemarks;
+                        misc.Remarks = DoublePaymentRemarks;
                     }
 
                     if (retrieveMisc_DoublePayment.Count > 0)
@@ -394,7 +414,7 @@ namespace SampleRPT1.FORMS
         {
             object Nothing = System.Reflection.Missing.Value;
             var app = new Microsoft.Office.Interop.Excel.Application();
-            app.Visible = false;
+            app.Visible = true;
             Microsoft.Office.Interop.Excel.Workbook workBook = app.Workbooks.Add(Nothing);
             Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workBook.Sheets[1];
             worksheet.Name = "WorkSheet";
@@ -419,15 +439,15 @@ namespace SampleRPT1.FORMS
             worksheet.Cells[row, 5] = "Net Amount:";
             worksheet.Cells[row, 6] = $"=sum(F5:F{row - 1})";
 
-            String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
-            String folder = FileUtils.GetDownloadFolderPath();
-            String fullpath = folder + "\\" + filename;
+            //String filename = DateTimeOffset.Now.ToUnixTimeMilliseconds() + "gcashpaymaya.xlsx";
+            //String folder = FileUtils.GetDownloadFolderPath();
+            //String fullpath = folder + "\\" + filename;
 
-            worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
-            workBook.Close(false, Type.Missing, Type.Missing);
-            app.Quit();
+            //worksheet.SaveAs(fullpath, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
+            //workBook.Close(false, Type.Missing, Type.Missing);
+            //app.Quit();
 
-            System.Diagnostics.Process.Start(fullpath);
+            //System.Diagnostics.Process.Start(fullpath);
         }
     }
 }

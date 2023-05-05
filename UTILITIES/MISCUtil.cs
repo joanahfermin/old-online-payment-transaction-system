@@ -17,23 +17,28 @@ namespace SampleRPT1
         public const string TRANSMIT = "TRANSMIT";
         public const string RELEASE = "RELEASE";
         public const string DELETED_RECORD = "DELETE";
+        public const string TAG_DUPLICATE_RECORD = "TAG DUPLICATE RECORD";
+        public const string ACTION_PENDING = "PENDING";
+        public const string ACTION_DONE = "DONE";
 
-        public static string[] ALL_ACTIONS = { ASSESS_RECORD, VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, RELEASE, DELETED_RECORD };
+        public static string[] ALL_ACTIONS = { ASSESS_RECORD, VERIFY_PAYMENT, VALIDATE_PAYMENT, TRANSMIT, RELEASE, DELETED_RECORD, TAG_DUPLICATE_RECORD, ACTION_PENDING, ACTION_DONE };
 
         //OCCUPATIONAL PERMIT STATUS.
+        public const string STATUS_DONE = "DONE";
         public const string FOR_ASSESSMENT = "FOR ASSESSMENT";
         public const string FOR_PAYMENT_VERIFICATION = "FOR PAYMENT VERIFICATION";
         public const string FOR_PAYMENT_VALIDATION = "FOR PAYMENT VALIDATION";
         public const string FOR_TRANSMITTAL = "FOR TRANSMITTAL";
+        public const string STATUS_PENDING = "PENDING";
         public const string RELEASED = "RELEASED";
         public const string TRANSMITTED = "TRANSMITTED";
-        public static string[] ALL_OCCU_PERMIT_STATUS = { FOR_ASSESSMENT, FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, RELEASED, TRANSMITTED };
+        public static string[] ALL_OCCU_PERMIT_STATUS = { STATUS_DONE, FOR_ASSESSMENT, FOR_PAYMENT_VERIFICATION, FOR_PAYMENT_VALIDATION, FOR_TRANSMITTAL, STATUS_PENDING, RELEASED, TRANSMITTED };
 
         public const string MISCTYPE_OCCUPATIONAL_PERMIT = "OCCUPATIONAL PERMIT";
         public const string MISCTYPE_OVR = "OVR";
         public const string MISCTYPE_MARKET = "MARKET";
         public const string MISCTYPE_LIQUOR = "LIQUOR";
-
+        //public const string CONTRACTOR_TAX = "CONTRACTOR'S TAX";
 
         //SIMILAR COLUMNS IN MISCELLENEOUS
         public static List<string> MISC_COMMON_COLUMN_NAMES = new List<string>
@@ -60,20 +65,37 @@ namespace SampleRPT1
             LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.OVR, new List<string>
                 { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
-            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
-                { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."});
-            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
-                { "MiscID", "MiscType", "TaxpayersName", "Profession", "LastORDate", "LastORNo", "PRC_IBP_No"});
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.LIQUOR, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "MP Number", "Mode of Payment"});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.LIQUOR, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
-            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
-                { "MiscID", "Misc Type", "Taxpayer's Name"});
-            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
-                { "MiscID", "MiscType", "TaxpayersName"});
+            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
+            //    { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
+            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
+            //    { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
-            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
-                { "MiscID", "Misc Type", "Taxpayer's Name"});
-            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
-                { "MiscID", "MiscType", "TaxpayersName"});
+            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
+            //    { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."});
+            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
+            //    { "MiscID", "MiscType", "TaxpayersName", "Profession", "LastORDate", "LastORNo", "PRC_IBP_No"});
+
+            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
+            //    { "MiscID", "Misc Type", "Taxpayer's Name"});
+            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.HEALTH_CERTIFICATE, new List<string>
+            //    { "MiscID", "MiscType", "TaxpayersName"});
+
+            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
+            //    { "MiscID", "Misc Type", "Taxpayer's Name"});
+            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.TAX_CLEARANCE, new List<string>
+            //    { "MiscID", "MiscType", "TaxpayersName"});
+
+            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.CONTRACTORS_TAX, new List<string>
+            //    { "MiscID", "Misc Type", "Taxpayer's Name"});
+            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.CONTRACTORS_TAX, new List<string>
+            //    { "MiscID", "MiscType", "TaxpayersName"});
+
+
 
             foreach (List<string> columnNames in LIST_VIEW_COLUMN_NAMES_MAPPING.Values)
             {

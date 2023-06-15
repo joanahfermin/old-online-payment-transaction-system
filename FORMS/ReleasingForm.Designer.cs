@@ -33,12 +33,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
+            this.textRecSelected = new System.Windows.Forms.TextBox();
             this.textLocCode = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnAdvancePickUp = new System.Windows.Forms.Button();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.cboStatus = new System.Windows.Forms.ComboBox();
             this.dtDateTo = new System.Windows.Forms.DateTimePicker();
@@ -46,6 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.btnAdvancePickUp = new System.Windows.Forms.Button();
             this.btnExecute = new System.Windows.Forms.Button();
             this.cboAction = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -100,8 +102,6 @@
             this.Camera = new System.Windows.Forms.TabPage();
             this.Receipt = new System.Windows.Forms.TabPage();
             this.pictureBoxReceipt = new System.Windows.Forms.PictureBox();
-            this.textRecSelected = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -144,6 +144,17 @@
             this.label7.TabIndex = 46;
             this.label7.Text = "Loc. Code: ";
             // 
+            // textRecSelected
+            // 
+            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textRecSelected.Enabled = false;
+            this.textRecSelected.Location = new System.Drawing.Point(295, 44);
+            this.textRecSelected.Name = "textRecSelected";
+            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
+            this.textRecSelected.TabIndex = 61;
+            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textRecSelected.TextChanged += new System.EventHandler(this.textRecSelected_TextChanged);
+            // 
             // textLocCode
             // 
             this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -152,6 +163,15 @@
             this.textLocCode.Size = new System.Drawing.Size(100, 20);
             this.textLocCode.TabIndex = 45;
             this.textLocCode.TextChanged += new System.EventHandler(this.textLocCode_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(191, 51);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 60;
+            this.label8.Text = "Records Selected: ";
             // 
             // textTDN
             // 
@@ -197,16 +217,6 @@
             this.panel2.Size = new System.Drawing.Size(635, 75);
             this.panel2.TabIndex = 36;
             this.panel2.Visible = false;
-            // 
-            // btnAdvancePickUp
-            // 
-            this.btnAdvancePickUp.Location = new System.Drawing.Point(946, 64);
-            this.btnAdvancePickUp.Name = "btnAdvancePickUp";
-            this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
-            this.btnAdvancePickUp.TabIndex = 48;
-            this.btnAdvancePickUp.Text = "Advance PickUp Code";
-            this.btnAdvancePickUp.UseVisualStyleBackColor = true;
-            this.btnAdvancePickUp.Click += new System.EventHandler(this.btnAdvancePickUp_Click);
             // 
             // dtDate
             // 
@@ -282,6 +292,16 @@
             this.label13.TabIndex = 47;
             this.label13.Text = "To: ";
             this.label13.Visible = false;
+            // 
+            // btnAdvancePickUp
+            // 
+            this.btnAdvancePickUp.Location = new System.Drawing.Point(946, 64);
+            this.btnAdvancePickUp.Name = "btnAdvancePickUp";
+            this.btnAdvancePickUp.Size = new System.Drawing.Size(150, 23);
+            this.btnAdvancePickUp.TabIndex = 48;
+            this.btnAdvancePickUp.Text = "Advance PickUp Code";
+            this.btnAdvancePickUp.UseVisualStyleBackColor = true;
+            this.btnAdvancePickUp.Click += new System.EventHandler(this.btnAdvancePickUp_Click);
             // 
             // btnExecute
             // 
@@ -688,26 +708,6 @@
             this.pictureBoxReceipt.TabIndex = 21;
             this.pictureBoxReceipt.TabStop = false;
             this.pictureBoxReceipt.Click += new System.EventHandler(this.pictureBoxReceipt_Click);
-            // 
-            // textRecSelected
-            // 
-            this.textRecSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textRecSelected.Enabled = false;
-            this.textRecSelected.Location = new System.Drawing.Point(295, 44);
-            this.textRecSelected.Name = "textRecSelected";
-            this.textRecSelected.Size = new System.Drawing.Size(63, 20);
-            this.textRecSelected.TabIndex = 61;
-            this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textRecSelected.TextChanged += new System.EventHandler(this.textRecSelected_TextChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(191, 51);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(98, 13);
-            this.label8.TabIndex = 60;
-            this.label8.Text = "Records Selected: ";
             // 
             // ReleasingForm
             // 

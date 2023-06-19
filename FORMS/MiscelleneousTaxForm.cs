@@ -993,6 +993,13 @@ namespace SampleRPT1
                 MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
 
                 Clipboard.SetText(misc.OPATrackingNum);
+
+                if (misc.MiscType == Misc_Type.MARKET)
+                {
+                    string[] market_TaxpayersName = misc.TaxpayersName.Split(' ');
+
+                    Clipboard.SetText(market_TaxpayersName[0].Trim());
+                }
             }
         }
 

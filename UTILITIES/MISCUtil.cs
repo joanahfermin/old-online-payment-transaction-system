@@ -70,10 +70,10 @@ namespace SampleRPT1
             LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.LIQUOR, new List<string>
                 { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
-            //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
-            //    { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
-            //LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
-            //    { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
+            LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
+                { "MiscID", "Misc Type", "Taxpayer's Name", "O.P Number", "OPA Tracking Number", "Mode of Payment"});
+            LIST_VIEW_PROPERTY_NAMES_MAPPING.Add(Misc_Type.MARKET, new List<string>
+                { "MiscID", "MiscType", "TaxpayersName", "OrderOfPaymentNum", "OPATrackingNum", "ModeOfPayment"});
 
             //LIST_VIEW_COLUMN_NAMES_MAPPING.Add(Misc_Type.PTR, new List<string>
             //    { "MiscID", "Misc Type", "Taxpayer's Name", "Profession", "Last O.R Date ", "Last O.R No.", "PRC/IBP No."});

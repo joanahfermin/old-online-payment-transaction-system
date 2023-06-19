@@ -18,7 +18,7 @@ namespace SampleRPT1.UTILITIES
         public const string LIQUOR = "LIQUOR";
         public const string MARKET = "MARKET";
 
-        public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, OVR, /*PTR, HEALTH_CERTIFICATE, TAX_CLEARANCE, SIGNBOARD, CONTRACTORS_TAX,*/ LIQUOR, /*MARKET*/};
+        public static string[] ALL_MISC_TYPE = { OCCUPATIONAL_PERMIT, OVR, /*PTR, HEALTH_CERTIFICATE, TAX_CLEARANCE, SIGNBOARD, CONTRACTORS_TAX,*/ LIQUOR, MARKET };
 
     }
 }

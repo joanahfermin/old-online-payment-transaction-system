@@ -90,10 +90,19 @@ namespace SampleRPT1.FORMS
 
                         //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
                         string misc = item.SubItems[2].Text;
+                        string misc_2 = item.SubItems[4].Text;
+                        string misc_market_eadd = item.SubItems[3].Text;
+
 
                         if (isOPnumberFormat_OccuPermit(misc) || isOPnumberFormat_Ovr_TTMD(misc) || isOPnumberFormat_Ovr_DPOS(misc) ||
-                            isOPnumberFormat_Market_MDAD(misc) || isOPnumberFormat_Liquor_LLRB(misc))
+                            isOPnumberFormat_Market_MDAD(misc_2) || isOPnumberFormat_Liquor_LLRB(misc))
                         {
+                            if (isOPnumberFormat_Market_MDAD(misc_2))
+                            {
+                                item.SubItems[2].Text = misc_2;
+                                item.SubItems[4].Text = misc_market_eadd;
+                            }
+
                             MISCGcashPaymayaLV.Items.Add(item);
                         }
                     }
@@ -160,6 +169,15 @@ namespace SampleRPT1.FORMS
             Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[M][D][A][D]-[A-Z,0-9]{4}-[0-9]{6}$");
             return re.IsMatch(misc.Trim());
         }
+
+        //M-2023-03-03-MDAD-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF MARKET MDAD.
+        //private bool isOPnumberFormat_Potential_Market_MDAD(string misc)
+        //{
+        //    //format of misc number.
+        //    Regex re = new Regex("^[M][D][A][D]-[0-9]{2}-[0-9]{6}$");
+        //    return re.IsMatch(misc.Trim());
+        //}
+
 
         //M-2023-03-03-LLRB-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF LIQUOR.
         private bool isOPnumberFormat_Liquor_LLRB(string misc)

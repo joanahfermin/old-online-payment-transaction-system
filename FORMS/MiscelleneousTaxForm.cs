@@ -377,7 +377,7 @@ namespace SampleRPT1
 
         private void ValidatePayment()
         {
-            if (loginUser.isValidator)
+            if (loginUser.isValidator || loginUser.DisplayName == "NIKKO")
             {
                 if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -992,14 +992,35 @@ namespace SampleRPT1
             {
                 MiscelleneousTax misc = mainFormListViewHelper.getSelectedMisc();
 
-                Clipboard.SetText(misc.OPATrackingNum);
+                //Clipboard.SetText(misc.OPATrackingNum);
+                Clipboard.SetText(misc.OrderOfPaymentNum);
+
 
                 if (misc.MiscType == Misc_Type.MARKET)
                 {
-                    string[] market_TaxpayersName = misc.TaxpayersName.Split(' ');
+                    //string[] market_TaxpayersName = misc.TaxpayersName.Split(' ');
+                    //Clipboard.SetText(market_TaxpayersName[0].Trim());
 
-                    Clipboard.SetText(market_TaxpayersName[0].Trim());
+                    if ((loginUser.DisplayName == "NIKKO" | loginUser.DisplayName == "RAYMOND") & misc.Status == MISCUtil.FOR_TRANSMITTAL)
+                    {
+                        Clipboard.SetText(misc.RequestingParty);
+                    }
+                    else
+                    {
+                        Clipboard.SetText(misc.OrderOfPaymentNum);
+                    }
                 }
+
+                //else
+                //{
+                //    Clipboard.SetText(misc.OrderOfPaymentNum);
+                //}
+
+
+                //if (loginUser.isValidator & (loginUser.DisplayName != "NIKKO" | loginUser.DisplayName != "RAYMOND"))
+                //{
+                //    Clipboard.SetText(misc.OrderOfPaymentNum);
+                //}
             }
         }
 

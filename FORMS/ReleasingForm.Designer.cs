@@ -181,6 +181,7 @@
             this.textTDN.Size = new System.Drawing.Size(276, 20);
             this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label1
@@ -693,7 +694,7 @@
             this.Receipt.Location = new System.Drawing.Point(4, 22);
             this.Receipt.Name = "Receipt";
             this.Receipt.Padding = new System.Windows.Forms.Padding(3);
-            this.Receipt.Size = new System.Drawing.Size(455, 357);
+            this.Receipt.Size = new System.Drawing.Size(449, 357);
             this.Receipt.TabIndex = 1;
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;

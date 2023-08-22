@@ -55,7 +55,7 @@ namespace SampleRPT1.FORMS
 
         public void InitializeStatus()
         {
-            cboStatus.Items.Add(RPTStatus.OR_PICKUP/*, RPTStatus.OR_UPLOAD*/);
+            //cboStatus.Items.Add(RPTStatus.OR_PICKUP/*, RPTStatus.OR_UPLOAD*/);
         }
 
         public void InitializeAction()
@@ -83,27 +83,30 @@ namespace SampleRPT1.FORMS
 
             List<RealPropertyTax> rptList;
 
-            if (dtDate.Checked)
-            {
-                dtDateTo.Enabled = true;
-                DateTime UploadedDateFrom = dtDate.Value;
-                DateTime UploadedDateTo = dtDateTo.Value;
+            //if (dtDate.Checked)
+            //{
+            //    dtDateTo.Enabled = true;
+            //    DateTime UploadedDateFrom = dtDate.Value;
+            //    DateTime UploadedDateTo = dtDateTo.Value;
 
-                rptList = RPTDatabase.SelectByDateFromToAndStatusUploadedBy(UploadedDateFrom, UploadedDateTo, Status);
-            }
-            else
-            {
+            //    rptList = RPTDatabase.SelectByDateFromToAndStatusUploadedBy(UploadedDateFrom, UploadedDateTo, Status);
+            //}
+            //else
+            //{
                 dtDateTo.Enabled = false;
                 rptList = RPTDatabase.SelectByStatus(Status);
-            }
+            //}
             PopulateListView(rptList);
-        }
+
+                //RPTInfoLV.Items.Clear();
+                //VerAndValLV.Items.Clear();
+            }
 
         private void ReleasingForm_Load(object sender, EventArgs e)
         {
             textTDN.Select();
 
-            cboStatus.SelectedIndex = 0;
+            //cboStatus.SelectedIndex = 0;
             cboAction.SelectedIndex = 0;
         }
 
@@ -210,8 +213,9 @@ namespace SampleRPT1.FORMS
             textRepName.Clear();
             textRepContactNum.Clear();
             checkAutLetter.Checked = false;
+            textTDN.Clear();
 
-            MainForm.INSTANCE.SearchReleased();
+            //MainForm.INSTANCE.SearchReleased();
             RefreshListView();
         }
 
@@ -391,6 +395,9 @@ namespace SampleRPT1.FORMS
 
         private void RPTInfoLV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //RPTInfoLV.Items.Clear();
+            //VerAndValLV.Items.Clear();
+
             for (int i = 0; i < RPTInfoLV.Items.Count; i++)
             {
                 VerAndValLV.Items[i].Selected = RPTInfoLV.Items[i].Selected;
@@ -552,6 +559,11 @@ namespace SampleRPT1.FORMS
         }
 
         private void textRecSelected_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textTDN_TextChanged(object sender, EventArgs e)
         {
 
         }

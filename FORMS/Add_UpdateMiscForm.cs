@@ -133,6 +133,7 @@ namespace SampleRPT1.FORMS
             dynamicPropertyLabelMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "O.P Number:", "OPA Tracking No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.OVR, new string[] { "O.P Number:", "OPA Tracking No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.LIQUOR, new string[] { "O.P Number:", "MP No.:", "Requesting Party:", "Remarks:" });
+            dynamicPropertyLabelMapping.Add(Misc_Type.MARKET, new string[] { "O.P Number:", "Reference No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.PTR, new string[] { "Profession:", "Last O.R Date:", "Last O.R No.:", "PRC/IBP No.:", "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "Requesting Party:", "Remarks:" });
             dynamicPropertyLabelMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "Requesting Party:", "Remarks:" });
@@ -143,6 +144,7 @@ namespace SampleRPT1.FORMS
             dynamicPropertyNameMapping.Add(Misc_Type.OCCUPATIONAL_PERMIT, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.OVR, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.LIQUOR, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
+            dynamicPropertyNameMapping.Add(Misc_Type.MARKET, new string[] { "OrderOfPaymentNum", "OPATrackingNum", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.PTR, new string[] { "Profession", "LastORDate", "LastORNo", "PRC_IBP_No", "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.HEALTH_CERTIFICATE, new string[] { "RequestingParty", "Remarks" });
             dynamicPropertyNameMapping.Add(Misc_Type.TAX_CLEARANCE, new string[] { "RequestingParty", "Remarks" });

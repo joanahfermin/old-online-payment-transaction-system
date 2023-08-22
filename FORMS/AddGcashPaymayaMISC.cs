@@ -91,16 +91,16 @@ namespace SampleRPT1.FORMS
                         //FILTERING ORDER OF PAYMENT NUMBER OCCU PERMIT.
                         string misc = item.SubItems[2].Text;
                         string misc_2 = item.SubItems[4].Text;
-                        string misc_market_eadd = item.SubItems[3].Text;
-
+                        string misc_Market_Eadd = item.SubItems[3].Text;
 
                         if (isOPnumberFormat_OccuPermit(misc) || isOPnumberFormat_Ovr_TTMD(misc) || isOPnumberFormat_Ovr_DPOS(misc) ||
-                            isOPnumberFormat_Market_MDAD(misc_2) || isOPnumberFormat_Liquor_LLRB(misc))
+                            isOPnumberFormat_Market_MDAD(misc_2) || isOPnumberFormat_Liquor_LLRB(misc) || isOPnumberFormat_Zoning_MDAD(misc))
                         {
                             if (isOPnumberFormat_Market_MDAD(misc_2))
                             {
                                 item.SubItems[2].Text = misc_2;
-                                item.SubItems[4].Text = misc_market_eadd;
+                                item.SubItems[4].Text = misc_Market_Eadd;
+                                item.SubItems[1].Text = BillerRef;
                             }
 
                             MISCGcashPaymayaLV.Items.Add(item);
@@ -170,13 +170,13 @@ namespace SampleRPT1.FORMS
             return re.IsMatch(misc.Trim());
         }
 
-        //M-2023-03-03-MDAD-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF MARKET MDAD.
-        //private bool isOPnumberFormat_Potential_Market_MDAD(string misc)
-        //{
-        //    //format of misc number.
-        //    Regex re = new Regex("^[M][D][A][D]-[0-9]{2}-[0-9]{6}$");
-        //    return re.IsMatch(misc.Trim());
-        //}
+        //M-2023-08-16-CPDO-A176-000863 SAMPLE FORMAT OF O.P NUMBER OF ZONING CPDO.
+        private bool isOPnumberFormat_Zoning_MDAD(string misc)
+        {
+            //format of misc number.
+            Regex re = new Regex("^[M]-[0-9]{4}-[0-9]{2}-[0-9]{2}-[C][P][D][O]-[A-Z,0-9]{4}-[0-9]{6}$");
+            return re.IsMatch(misc.Trim());
+        }
 
 
         //M-2023-03-03-LLRB-A176-000794 SAMPLE FORMAT OF O.P NUMBER OF LIQUOR.
@@ -303,7 +303,7 @@ namespace SampleRPT1.FORMS
                 {
                     string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
                     string OPaymentNum = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
-
+                    
                     List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPaymentNum);
 
                     if (retrieveMisc_Existing_OPNumber.Count > 0)
@@ -321,7 +321,13 @@ namespace SampleRPT1.FORMS
                     string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
                     string OPnumber = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
                     string TaxpayersName = MISCGcashPaymayaLV.Items[i].SubItems[3].Text;
-                    //string RequestingParty = MISCGcashPaymayaLV.Items[i].SubItems[4].Text;
+                    string RequestingParty = MISCGcashPaymayaLV.Items[i].SubItems[4].Text;
+
+                    if (Validations.ValidateEmailAddressFormat(RequestingParty) == false)
+                    {
+                        RequestingParty = " ";
+                    }
+
                     decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
                     string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
 
@@ -350,6 +356,7 @@ namespace SampleRPT1.FORMS
                     misc.EncodedBy = loginUser.DisplayName;
                     misc.EncodedDate = DateTime.Now;
                     misc.RefNum = refNo;
+                    misc.RequestingParty = RequestingParty;
 
                     if (retrieveMisc.Count > 0)
                     {
@@ -379,6 +386,12 @@ namespace SampleRPT1.FORMS
                     if (OPnumber.Contains("LLRB"))
                     {
                         misc.MiscType = MISCUtil.MISCTYPE_LIQUOR;
+                    }
+
+                    if (OPnumber.Contains("CPDO"))
+                    {
+                        misc.MiscType = MISCUtil.MISCTYPE_ZONING;
+                        misc.OPATrackingNum = OPnumber;
                     }
 
                     MISCDatabase.Insert(misc);
@@ -423,6 +436,7 @@ namespace SampleRPT1.FORMS
                 }
                 else
                 {
+                    item.SubItems[3].Text = GlobalVariables.NO_RETRIEVED_NAME;
                     continue;
                 }
             }

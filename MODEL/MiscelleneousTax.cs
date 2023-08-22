@@ -8,7 +8,6 @@ using Dapper.Contrib.Extensions;
 namespace SampleRPT1
 {
     [Table("Jo_MISC")]
-
     public class MiscelleneousTax
     {
         [Key]

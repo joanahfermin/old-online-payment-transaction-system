@@ -68,6 +68,21 @@ namespace SampleRPT1.UTILITIES
             }
         }
 
+        //EMAIL ADDRESS FORMAT VALIDATION
+        public static bool ValidateEmailAddressFormat(string Value)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(Value);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
         /// <summary>
         /// Validate if a given textbox is not empty
         /// </summary>

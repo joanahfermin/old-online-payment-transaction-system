@@ -28,7 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://localhost/SampleRPT1/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>151</ApplicationRevision>
+    <ApplicationRevision>169</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -221,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="DATABASE\BUSINESSDatabase.cs" />
     <Compile Include="DATABASE\EmailAccountDatabase.cs" />
     <Compile Include="DATABASE\EmailTemplateDatabase.cs" />
     <Compile Include="DATABASE\MISCDatabase.cs" />
@@ -229,6 +230,12 @@
     <Compile Include="DATABASE\RPTBankDatabase.cs" />
     <Compile Include="DATABASE\SystemSettingDatabase.cs" />
     <Compile Include="DATABASE\TagReceiptDatabase.cs" />
+    <Compile Include="FORMS\AddBusinessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\AddBusinessForm.Designer.cs">
+      <DependentUpon>AddBusinessForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FORMS\AddGcashPaymayaMISC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +284,12 @@
     </Compile>
     <Compile Include="FORMS\BalanceShort.Designer.cs">
       <DependentUpon>BalanceShort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FORMS\BusinessTaxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FORMS\BusinessTaxForm.Designer.cs">
+      <DependentUpon>BusinessTaxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FORMS\EmailTemplateForm.cs">
       <SubType>Form</SubType>
@@ -359,6 +372,7 @@
     <Compile Include="FORMS\MiscelleneousTaxForm.Designer.cs">
       <DependentUpon>MiscelleneousTaxForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MODEL\BusinessTaxObj.cs" />
     <Compile Include="MODEL\MiscelleneousTax.cs" />
     <Compile Include="MODEL\MiscOccuPermit_Audit.cs" />
     <Compile Include="MODEL\Misc_OccuPermit_TagName.cs" />
@@ -439,6 +453,9 @@
     <Compile Include="UTILITIES\RPTGcashPaymaya.cs" />
     <Compile Include="UTILITIES\RPTStatus.cs" />
     <Compile Include="UTILITIES\Validations.cs" />
+    <EmbeddedResource Include="FORMS\AddBusinessForm.resx">
+      <DependentUpon>AddBusinessForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FORMS\AddGcashPaymayaMISC.resx">
       <DependentUpon>AddGcashPaymayaMISC.cs</DependentUpon>
     </EmbeddedResource>
@@ -462,6 +479,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\BalanceShort.resx">
       <DependentUpon>BalanceShort.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FORMS\BusinessTaxForm.resx">
+      <DependentUpon>BusinessTaxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FORMS\EmailTemplateForm.resx">
       <DependentUpon>EmailTemplateForm.cs</DependentUpon>

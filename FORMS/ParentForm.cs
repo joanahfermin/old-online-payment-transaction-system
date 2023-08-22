@@ -17,6 +17,7 @@ namespace SampleRPT1
 
         private const int RPT = 1;
         private const int MISC = 2;
+        private const int BUSINESS = 3;
 
         private int current_Record = RPT;
 
@@ -193,6 +194,22 @@ namespace SampleRPT1
             ReleasingMenuItem.Visible = false;
             reorderToolStripMenuItem.Visible = false;
             //historyMenuItem.Visible = false;
+        }
+
+        private void bUSINESSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BusinessTaxForm.INSTANCE == null)
+            {
+                new BusinessTaxForm(this);
+            }
+            BusinessTaxForm.INSTANCE.Show();
+
+            MenuItemGcashPaymaya.Visible = false;
+            MenuItemExcessShort.Visible = false;
+            emailToolStripMenuItem.Visible = false;
+            ReleasingMenuItem.Visible = false;
+            reorderToolStripMenuItem.Visible = false;
+            historyMenuItem.Visible = false;
         }
     }
 }

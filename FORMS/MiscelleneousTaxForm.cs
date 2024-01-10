@@ -69,6 +69,11 @@ namespace SampleRPT1
             return mainFormListViewHelper.getSelectedMiscID();
         }
 
+        public void ChangeMiscType(string miscType)
+        {
+            cboMiscType.Text = miscType;
+        }
+
         public void RefreshLV()
         {
             lastSearchAction = SEARCH_BY_DATE_STATUS;
@@ -271,9 +276,20 @@ namespace SampleRPT1
         {
             string MiscType = cboMiscType.Text;
             textSearch.Text = SearchString;
+            string forPaymentValidationOnly = RPTStatus.PAYMENT_VALIDATION;
 
-            List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
-            PopulateLVMISC(miscRecordList);
+            if (loginUser.MachNo != null)
+            {
+                List<MiscelleneousTax> miscRecordListForPaymentValidation = MISCDatabase.SearchAllForPaymentValidationOnly(MiscType, SearchString, forPaymentValidationOnly);
+                PopulateLVMISC(miscRecordListForPaymentValidation);
+            }
+            else
+            {
+                List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
+                PopulateLVMISC(miscRecordList);
+            }
+            //List<MiscelleneousTax> miscRecordList = MISCDatabase.Search(MiscType, SearchString);
+            //PopulateLVMISC(miscRecordList);
 
             HighlightRecord();
 
@@ -291,6 +307,11 @@ namespace SampleRPT1
             if (e.KeyCode == Keys.Enter)
             {
                 RefreshLV_FromGcashPaymaya(textSearch.Text);
+
+                if (MISCinfoLV.Items.Count == 0)
+                {
+                    MessageBox.Show("No record status: 'FOR PAYMENT VALIDATION' retrieved. Either the record's status is not FOR PAYMENT VALIDATION status or no record exists.");
+                }
             }
         }
 
@@ -315,7 +336,7 @@ namespace SampleRPT1
                     }
                     else
                     {
-                        AllProcessed = false;
+                        //AllProcessed = false;
                     }
                 }
 
@@ -1010,23 +1031,24 @@ namespace SampleRPT1
                         Clipboard.SetText(misc.OrderOfPaymentNum);
                     }
                 }
-
-                //else
-                //{
-                //    Clipboard.SetText(misc.OrderOfPaymentNum);
-                //}
-
-
-                //if (loginUser.isValidator & (loginUser.DisplayName != "NIKKO" | loginUser.DisplayName != "RAYMOND"))
-                //{
-                //    Clipboard.SetText(misc.OrderOfPaymentNum);
-                //}
+                if (misc.MiscType == Misc_Type.LIQUOR)
+                {
+                    if (loginUser.isValidator)
+                    {
+                        Clipboard.SetText(misc.OrderOfPaymentNum);
+                    }
+                    else
+                    {
+                        //copy MP NUMBER under OPATRACKINGNUMBER column.
+                        Clipboard.SetText(misc.OPATrackingNum);
+                    }
+                }
             }
         }
 
         private void MiscelleneousTaxForm_Load(object sender, EventArgs e)
         {
-            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" || loginUser.DisplayName == "EDILYL"))
+            if (loginUser.isVerifier && (loginUser.DisplayName == "OGIE" /*|| loginUser.DisplayName == "EDILYL"*/))
             {
                 cboAction.Items.Clear();
                 cboAction.Items.Add(MISCUtil.VERIFY_PAYMENT);
@@ -1037,6 +1059,11 @@ namespace SampleRPT1
                 //cboAction.Enabled = false;
             }
 
+            if (loginUser.isValidator && (loginUser.MachNo != null))
+            {
+                cboStatus.Text = MISCUtil.FOR_PAYMENT_VALIDATION;
+                cboStatus.Enabled = false;
+            }
         }
     }
 }

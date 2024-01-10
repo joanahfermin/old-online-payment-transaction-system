@@ -32,12 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReleasingForm));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.textRecSelected = new System.Windows.Forms.TextBox();
-            this.textLocCode = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textLocCode = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
@@ -124,9 +124,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.textRecSelected);
-            this.panel1.Controls.Add(this.textLocCode);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.textTDN);
             this.panel1.Controls.Add(this.label1);
@@ -134,15 +132,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(380, 75);
             this.panel1.TabIndex = 34;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 51);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 13);
-            this.label7.TabIndex = 46;
-            this.label7.Text = "Loc. Code: ";
             // 
             // textRecSelected
             // 
@@ -154,15 +143,6 @@
             this.textRecSelected.TabIndex = 61;
             this.textRecSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textRecSelected.TextChanged += new System.EventHandler(this.textRecSelected_TextChanged);
-            // 
-            // textLocCode
-            // 
-            this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textLocCode.Location = new System.Drawing.Point(82, 44);
-            this.textLocCode.Name = "textLocCode";
-            this.textLocCode.Size = new System.Drawing.Size(100, 20);
-            this.textLocCode.TabIndex = 45;
-            this.textLocCode.TextChanged += new System.EventHandler(this.textLocCode_TextChanged);
             // 
             // label8
             // 
@@ -181,7 +161,6 @@
             this.textTDN.Size = new System.Drawing.Size(276, 20);
             this.textTDN.TabIndex = 1;
             this.textTDN.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.textTDN.TextChanged += new System.EventHandler(this.textTDN_TextChanged);
             this.textTDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTDN_KeyDown);
             // 
             // label1
@@ -192,6 +171,24 @@
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 44;
             this.label1.Text = "Enter TDN: ";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(43, 134);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "Loc. Code: ";
+            // 
+            // textLocCode
+            // 
+            this.textLocCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textLocCode.Location = new System.Drawing.Point(116, 127);
+            this.textLocCode.Name = "textLocCode";
+            this.textLocCode.Size = new System.Drawing.Size(100, 20);
+            this.textLocCode.TabIndex = 45;
+            this.textLocCode.TextChanged += new System.EventHandler(this.textLocCode_TextChanged);
             // 
             // label4
             // 
@@ -357,7 +354,7 @@
             this.RPTInfoLV.HideSelection = false;
             this.RPTInfoLV.Location = new System.Drawing.Point(18, 108);
             this.RPTInfoLV.Name = "RPTInfoLV";
-            this.RPTInfoLV.Size = new System.Drawing.Size(1875, 427);
+            this.RPTInfoLV.Size = new System.Drawing.Size(1865, 427);
             this.RPTInfoLV.TabIndex = 40;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
@@ -479,7 +476,7 @@
             this.VerAndValLV.Location = new System.Drawing.Point(18, 549);
             this.VerAndValLV.Name = "VerAndValLV";
             this.VerAndValLV.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.VerAndValLV.Size = new System.Drawing.Size(1404, 383);
+            this.VerAndValLV.Size = new System.Drawing.Size(1406, 379);
             this.VerAndValLV.TabIndex = 41;
             this.VerAndValLV.UseCompatibleStateImageBehavior = false;
             this.VerAndValLV.View = System.Windows.Forms.View.Details;
@@ -694,7 +691,7 @@
             this.Receipt.Location = new System.Drawing.Point(4, 22);
             this.Receipt.Name = "Receipt";
             this.Receipt.Padding = new System.Windows.Forms.Padding(3);
-            this.Receipt.Size = new System.Drawing.Size(449, 357);
+            this.Receipt.Size = new System.Drawing.Size(455, 357);
             this.Receipt.TabIndex = 1;
             this.Receipt.Text = "Receipt";
             this.Receipt.UseVisualStyleBackColor = true;
@@ -731,6 +728,8 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.textLocCode);
+            this.Controls.Add(this.label7);
             this.Name = "ReleasingForm";
             this.Text = "ReleasingForm";
             this.Deactivate += new System.EventHandler(this.ReleasingForm_Deactivate);

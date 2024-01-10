@@ -292,6 +292,7 @@ namespace SampleRPT1.FORMS
                 return;
             }
 
+            string miscType = "";
             string DuplicateRecordRemarks = "DUPLICATE RECORD";
             string DoublePaymentRemarks = "DOUBLE PAYMENT";
 
@@ -329,7 +330,9 @@ namespace SampleRPT1.FORMS
                     }
 
                     decimal AmountDue = Convert.ToDecimal(MISCGcashPaymayaLV.Items[i].SubItems[5].Text);
-                    string TransactionDate = MISCGcashPaymayaLV.Items[i].SubItems[6].Text;
+
+                    DateTimeOffset TransactionDateConverted = DateTimeOffset.Parse(MISCGcashPaymayaLV.Items[i].SubItems[6].Text);
+                    string TransactionDate = TransactionDateConverted.ToString("G");
 
                     List<MiscelleneousTax> retrieveMisc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPnumber);
                     List<MiscelleneousTax> retrieveMisc_DoublePayment = MISCDatabase.SelectBy_OPAtracking_OPNum_TransactionDate(OPAtrackingNum, OPnumber, TransactionDate);
@@ -394,6 +397,7 @@ namespace SampleRPT1.FORMS
                         misc.OPATrackingNum = OPnumber;
                     }
 
+                    miscType = misc.MiscType;
                     MISCDatabase.Insert(misc);
                 }
 
@@ -403,6 +407,7 @@ namespace SampleRPT1.FORMS
                 MessageBox.Show("All records have been successfully saved.");
 
                 this.Close();
+                MiscelleneousTaxForm.INSTANCE.ChangeMiscType(miscType);
                 MiscelleneousTaxForm.INSTANCE.RefreshLV_FromGcashPaymaya(OPNumber_Search);
             }
         }

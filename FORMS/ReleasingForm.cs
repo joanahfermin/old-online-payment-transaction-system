@@ -62,6 +62,7 @@ namespace SampleRPT1.FORMS
         {
             cboAction.Items.Add(RPTAction.RELEASE_OR);
         }
+
         private void PopulateListView(List<RealPropertyTax> rptList)
         {
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, RPTInfoLV, new List<string>
@@ -72,6 +73,29 @@ namespace SampleRPT1.FORMS
             ListViewUtil.copyFromListToListview<RealPropertyTax>(rptList, VerAndValLV, new List<string>
             { "RptID", "LocCode", "TaxDec", "BilledBy", "BillCount", "BilledDate", "VerifiedBy", "PaymentDate", "VerifiedDate", "ValidatedBy", "ValidatedDate",
                "UploadedBy", "UploadedDate", "ReleasedBy", "ReleasedDate", "VerRemarks", "ValRemarks", "ReleasedRemarks"});
+
+            string requestingParty = null;
+            int count = 0;
+
+            foreach (ListViewItem item in RPTInfoLV.Items)
+            {
+                item.BackColor = Color.LightYellow;
+
+                if (requestingParty == null)
+                {
+                    requestingParty = item.SubItems[13].Text;
+                }
+                else if (requestingParty != item.SubItems[13].Text)
+                {
+                    count++;
+                    requestingParty = item.SubItems[13].Text;
+                }
+
+                if (count % 2 == 1)
+                {
+                    item.BackColor = Color.LightBlue;
+                }
+            }
         }
 
         /// <summary>
@@ -552,18 +576,12 @@ namespace SampleRPT1.FORMS
                 //List<RealPropertyTax> rptList = RPTDatabase.SelectBySameGroupReleasing(taxdec, StatusList);
                 List<RealPropertyTax> rptList = RPTDatabase.SelectBySameEmailAddressReleasing(taxdec, StatusList);
 
-
                 PopulateListView(rptList);
                 HighlightRecord();
             }
         }
 
         private void textRecSelected_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textTDN_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -86,7 +86,7 @@
             this.MISCinfoLV.HideSelection = false;
             this.MISCinfoLV.Location = new System.Drawing.Point(12, 147);
             this.MISCinfoLV.Name = "MISCinfoLV";
-            this.MISCinfoLV.Size = new System.Drawing.Size(1895, 827);
+            this.MISCinfoLV.Size = new System.Drawing.Size(1895, 855);
             this.MISCinfoLV.TabIndex = 1;
             this.MISCinfoLV.UseCompatibleStateImageBehavior = false;
             this.MISCinfoLV.View = System.Windows.Forms.View.Details;

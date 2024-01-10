@@ -170,7 +170,7 @@
             this.RPTInfoLV.HideSelection = false;
             this.RPTInfoLV.Location = new System.Drawing.Point(18, 136);
             this.RPTInfoLV.Name = "RPTInfoLV";
-            this.RPTInfoLV.Size = new System.Drawing.Size(1875, 416);
+            this.RPTInfoLV.Size = new System.Drawing.Size(1866, 416);
             this.RPTInfoLV.TabIndex = 0;
             this.RPTInfoLV.UseCompatibleStateImageBehavior = false;
             this.RPTInfoLV.View = System.Windows.Forms.View.Details;
@@ -309,7 +309,7 @@
             this.VerAndValLV.Location = new System.Drawing.Point(18, 563);
             this.VerAndValLV.Name = "VerAndValLV";
             this.VerAndValLV.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.VerAndValLV.Size = new System.Drawing.Size(1404, 383);
+            this.VerAndValLV.Size = new System.Drawing.Size(1404, 381);
             this.VerAndValLV.TabIndex = 1;
             this.VerAndValLV.UseCompatibleStateImageBehavior = false;
             this.VerAndValLV.View = System.Windows.Forms.View.Details;

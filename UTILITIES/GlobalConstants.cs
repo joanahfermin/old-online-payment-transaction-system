@@ -16,7 +16,7 @@ namespace SampleRPT1
 
         public static string DATABASE_CONNECTION_STRING_TO_MISCREPORT = ConfigurationManager.AppSettings["ConnectionStringToMiscServer"];
 
-        public static string DATABASE_CONNECTION_STRING_TO_MISCREPORT_OCCUPERMIT_NAME = ConfigurationManager.AppSettings["ConnectionStringToMiscServer1"];
+        public static string DATABASE_CONNECTION_STRING_TO_DETAILS_BILLING = ConfigurationManager.AppSettings["ConnectionStringToMiscServerMiscDetailsBillingStage"];
 
 
 

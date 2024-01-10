@@ -55,35 +55,63 @@ namespace SampleRPT1
             }
         }
 
+        public static List<MiscelleneousTax> SearchAllForPaymentValidationOnly(string MiscType, string SearchString, string Status)
+        {
+            using (SqlConnection conn = DbUtils.getConnection())
+            {
+                string query = null;
+                if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT || MiscType == Misc_Type.OVR || MiscType == Misc_Type.MARKET || MiscType == Misc_Type.ZONING || MiscType == Misc_Type.LIQUOR)
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and Status = @Status and DeletedRecord != 1" +
+                        $" UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and Status = @Status and DeletedRecord != 1 " +
+                        $" order by MiscID asc";
+                }
+                else
+                {
+                    query = $"SELECT * FROM Jo_MISC WHERE TaxpayersName LIKE @SearchString and DeletedRecord != 1 order by MiscID asc";
+
+                }
+                return conn.Query<MiscelleneousTax>(query, new { SearchString = "%" + SearchString + "%", MiscType = MiscType, Status = Status }).ToList();
+            }
+        }
+
+
         public static List<MiscelleneousTax> Search(string MiscType, string SearchString)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 string query = null;
-                if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT)
+                if (MiscType == Misc_Type.OCCUPATIONAL_PERMIT || MiscType == Misc_Type.OVR || MiscType == Misc_Type.MARKET || MiscType == Misc_Type.ZONING || MiscType == Misc_Type.LIQUOR)
                 {
                     query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
                         $" UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1 " +
                         $" order by MiscID asc";
                 }
-                else if (MiscType == Misc_Type.OVR)
-                {
-                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $" order by MiscID asc";
-                }
-                else if (MiscType == Misc_Type.MARKET)
-                {
-                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $" order by MiscID asc";
-                }
-                else if (MiscType == Misc_Type.ZONING)
-                {
-                    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR TaxpayersName LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
-                        $" order by MiscID asc";
-                }
+                //else if (MiscType == Misc_Type.OVR)
+                //{
+                //    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $" order by MiscID asc";
+                //}
+                //else if (MiscType == Misc_Type.MARKET)
+                //{
+                //    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $" order by MiscID asc";
+                //}
+                //else if (MiscType == Misc_Type.ZONING)
+                //{
+                //    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $" order by MiscID asc";
+                //}
+                //else if (MiscType == Misc_Type.LIQUOR)
+                //{
+                //    query = $"SELECT * FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $"  UNION SELECT * FROM Jo_MISC where RefNum in  (SELECT RefNum FROM Jo_MISC WHERE (OrderOfPaymentNum LIKE @SearchString OR OPATrackingNum LIKE @SearchString OR TaxpayersName LIKE @SearchString) and MiscType = @MiscType) and MiscType = @MiscType and DeletedRecord != 1" +
+                //        $" order by MiscID asc";
+                //}
+
                 // default
                 else // if (MiscType == Misc_Type.TAX_CLEARANCE || MiscType == Misc_Type.HEALTH_CERTIFICATE)
                 {
@@ -379,7 +407,7 @@ namespace SampleRPT1
 
         public static List<Misc_OccuPermit_TagName> SelectBy_TaxpayerName_Bulk(List<string> OPNumber_List)
         {
-            using (SqlConnection conn = DbUtils.getConnectionToMISCReportV_OccuPerm_Name())
+            using (SqlConnection conn = DbUtils.getConnectionToMISCBillingDetailsBillingSTAGE())
             {
                 return conn.Query<Misc_OccuPermit_TagName>($"SELECT * FROM MiscDetailsBillingSTAGE where BillNumber in @OPNumber_List", new { OPNumber_List = OPNumber_List }).ToList();
 

@@ -1299,6 +1299,7 @@ namespace SampleRPT1
                 cboAction.Items.Clear();
                 cboAction.Items.Add(RPTAction.VERIFY_PAYMENT);
                 cboAction.Items.Add(RPTAction.CHANGE_DUPLICATE_RECORD);
+                cboAction.Items.Add(RPTAction.DELETE_RECORD);
 
                 cboAction.Text = RPTAction.VERIFY_PAYMENT;
                 //cboAction.Enabled = false;

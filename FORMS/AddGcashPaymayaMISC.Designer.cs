@@ -142,7 +142,7 @@
             this.MISCGcashPaymayaLV.HideSelection = false;
             this.MISCGcashPaymayaLV.Location = new System.Drawing.Point(12, 48);
             this.MISCGcashPaymayaLV.Name = "MISCGcashPaymayaLV";
-            this.MISCGcashPaymayaLV.Size = new System.Drawing.Size(1898, 923);
+            this.MISCGcashPaymayaLV.Size = new System.Drawing.Size(1896, 928);
             this.MISCGcashPaymayaLV.TabIndex = 25;
             this.MISCGcashPaymayaLV.UseCompatibleStateImageBehavior = false;
             this.MISCGcashPaymayaLV.View = System.Windows.Forms.View.Details;

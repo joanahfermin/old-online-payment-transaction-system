@@ -220,14 +220,19 @@ namespace SampleRPT1
         {
             string DuplicateRecordRemarks = Remarks + DUPLICATE_RECORD;
             string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            string objQuarter = null;
 
             if (FirstLVGcashPaymaya.Items.Count > 0)
             {
                 foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
                     string YearQuarter = item.SubItems[2].Text;
+                    int spaceIndex = YearQuarter.IndexOf(' ');
 
-                    if (YearQuarter.Length > 4)
+                    string quarter = YearQuarter.Substring(spaceIndex + 1);
+                    objQuarter = quarter;
+
+                    if (YearQuarter.Length > 8)
                     {
                         MessageBox.Show("Year must be in correct format.");
                         return;
@@ -238,7 +243,8 @@ namespace SampleRPT1
                 {
                     string TaxDec = item.SubItems[1].Text;
                     string Year = item.SubItems[2].Text;
-                    string Quarter = "1-4";
+                    //string Quarter = "1-4";
+                    string Quarter = objQuarter;
                     //string Payment_Type = "CURR";
                     string BillingSelection = "CLASS 1";
 
@@ -274,7 +280,8 @@ namespace SampleRPT1
                     rpt.AmountTransferred = AmountDue;
                     rpt.Bank = ServiceProvider;
                     rpt.YearQuarter = Year;
-                    rpt.Quarter = "1-4";
+                    //rpt.Quarter = "1-4";
+                    rpt.Quarter = objQuarter;
                     rpt.PaymentType = "CURR";
                     rpt.BillingSelection = "CLASS 1";
                     rpt.RPTremarks = Remarks;

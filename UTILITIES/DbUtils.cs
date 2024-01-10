@@ -29,9 +29,9 @@ namespace SampleRPT1
             return cnn;
         }
 
-        public static SqlConnection getConnectionToMISCReportV_OccuPerm_Name()
+        public static SqlConnection getConnectionToMISCBillingDetailsBillingSTAGE()
         {
-            SqlConnection cnn = new SqlConnection(GlobalConstants.DATABASE_CONNECTION_STRING_TO_MISCREPORT_OCCUPERMIT_NAME);
+            SqlConnection cnn = new SqlConnection(GlobalConstants.DATABASE_CONNECTION_STRING_TO_DETAILS_BILLING);
             cnn.Open();
             return cnn;
         }

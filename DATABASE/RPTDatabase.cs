@@ -313,8 +313,7 @@ namespace SampleRPT1
             using (SqlConnection conn = DbUtils.getConnection())
             {
                 return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where TaxDec like @TaxDec and DeletedRecord != 1 and Status in @Status UNION SELECT * FROM Jo_RPT where RequestingParty in (select RequestingParty FROM Jo_RPT where TaxDec like @TaxDec) and DeletedRecord != 1 and Status in @Status " +
-                    $"order by ValidatedDate desc", new { TaxDec = "%" + TaxDec + "%", Status = StatusList }).ToList();
-           
+                    $"order by RequestingParty, ValidatedDate desc", new { TaxDec = "%" + TaxDec + "%", Status = StatusList }).ToList();
             }
         }
 

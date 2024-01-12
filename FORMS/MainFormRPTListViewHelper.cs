@@ -185,7 +185,7 @@ namespace SampleRPT1.FORMS
                 RealPropertyTax rpt = RPTDatabase.Get(RptID);
                 SelectedRPTByStatus.Add(rpt);
             }
-            return SelectedRPTByStatus;
+            return RPTDatabase.SelectByListRptID(RptIDList);
         }
 
         /// <summary>

@@ -523,5 +523,10 @@ namespace SampleRPT1
         {
             textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
         }
+
+        private void textTaxDec_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }

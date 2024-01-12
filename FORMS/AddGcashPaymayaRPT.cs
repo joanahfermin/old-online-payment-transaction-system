@@ -1,4 +1,5 @@
-﻿using SampleRPT1.FORMS;
+﻿using Microsoft.Data.SqlClient;
+using SampleRPT1.FORMS;
 using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
 using System;
@@ -220,19 +221,14 @@ namespace SampleRPT1
         {
             string DuplicateRecordRemarks = Remarks + DUPLICATE_RECORD;
             string refNo = "R" + DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            string objQuarter = null;
 
             if (FirstLVGcashPaymaya.Items.Count > 0)
             {
                 foreach (ListViewItem item in FirstLVGcashPaymaya.Items)
                 {
                     string YearQuarter = item.SubItems[2].Text;
-                    int spaceIndex = YearQuarter.IndexOf(' ');
 
-                    string quarter = YearQuarter.Substring(spaceIndex + 1);
-                    objQuarter = quarter;
-
-                    if (YearQuarter.Length > 8)
+                    if (YearQuarter.Length > 4)
                     {
                         MessageBox.Show("Year must be in correct format.");
                         return;
@@ -243,8 +239,7 @@ namespace SampleRPT1
                 {
                     string TaxDec = item.SubItems[1].Text;
                     string Year = item.SubItems[2].Text;
-                    //string Quarter = "1-4";
-                    string Quarter = objQuarter;
+                    string Quarter = "1-4";
                     //string Payment_Type = "CURR";
                     string BillingSelection = "CLASS 1";
 
@@ -258,59 +253,83 @@ namespace SampleRPT1
                     }
                 }
 
-                //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
-                for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
+                using (SqlConnection conn = DbUtils.getConnection())
                 {
-                    string ServiceProvider = FirstLVGcashPaymaya.Items[i].Text;
-                    string TaxDec = FirstLVGcashPaymaya.Items[i].SubItems[1].Text;
-                    string Year = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
-                    string TaxpayersName = FirstLVGcashPaymaya.Items[i].SubItems[3].Text;
-                    string RequestingParty = FirstLVGcashPaymaya.Items[i].SubItems[4].Text;
-                    decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.Items[i].SubItems[5].Text);
-                    string TransactionDate = FirstLVGcashPaymaya.Items[i].SubItems[6].Text;
-                    Remarks = FirstLVGcashPaymaya.Items[i].SubItems[7].Text;
-
-                    RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, "1-4");
-
-                    RealPropertyTax rpt = new RealPropertyTax();
-
-                    rpt.TaxDec = TaxDec;
-                    rpt.TaxPayerName = TaxpayersName;
-                    rpt.AmountToPay = AmountDue;
-                    rpt.AmountTransferred = AmountDue;
-                    rpt.Bank = ServiceProvider;
-                    rpt.YearQuarter = Year;
-                    //rpt.Quarter = "1-4";
-                    rpt.Quarter = objQuarter;
-                    rpt.PaymentType = "CURR";
-                    rpt.BillingSelection = "CLASS 1";
-                    rpt.RPTremarks = Remarks;
-
-                    ////TO DO
-                    //rpt.Quarter = "1-4";
-                    rpt.BillCount = "1";
-                    rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
-                    rpt.RequestingParty = RequestingParty;
-
-                    rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
-
-                    rpt.EncodedBy = loginUser.DisplayName;
-                    rpt.EncodedDate = DateTime.Now;
-
-                    rpt.RequestingParty = RequestingParty;
-                    rpt.BilledBy = loginUser.DisplayName;
-                    rpt.BilledDate = DateTime.Now;
-                    rpt.RefNum = refNo;
-
-                    if (RetrievedRpt != null)
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        rpt.YearQuarter = Year + " (" + DateTime.Now.ToString("yyyy") + ")";
-                        rpt.RPTremarks = Remarks + " " + DuplicateRecordRemarks;
+                        try
+                        {
+                            for (int i = 0; i < FirstLVGcashPaymaya.Items.Count; i++)
+                            {
+                                //string quarter = "1-4";
+
+                                string ServiceProvider = FirstLVGcashPaymaya.Items[i].Text;
+                                string TaxDec = FirstLVGcashPaymaya.Items[i].SubItems[1].Text;
+                                string Year = FirstLVGcashPaymaya.Items[i].SubItems[2].Text;
+                                string TaxpayersName = FirstLVGcashPaymaya.Items[i].SubItems[3].Text;
+                                string RequestingParty = FirstLVGcashPaymaya.Items[i].SubItems[4].Text;
+                                decimal AmountDue = Convert.ToDecimal(FirstLVGcashPaymaya.Items[i].SubItems[5].Text);
+                                string TransactionDate = FirstLVGcashPaymaya.Items[i].SubItems[6].Text;
+                                Remarks = FirstLVGcashPaymaya.Items[i].SubItems[7].Text;
+
+                                //if (Year.Length > 4)
+                                //{
+                                //    quarter = Year.Substring(4);
+                                //    Year = Year.Substring(0, 4);
+                                //}
+
+                                RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, "1-4");
+
+                                RealPropertyTax rpt = new RealPropertyTax();
+
+                                rpt.TaxDec = TaxDec;
+                                rpt.TaxPayerName = TaxpayersName;
+                                rpt.AmountToPay = AmountDue;
+                                rpt.AmountTransferred = AmountDue;
+                                rpt.Bank = ServiceProvider;
+                                rpt.YearQuarter = Year;
+                                rpt.Quarter = "1-4";
+                                rpt.PaymentType = "CURR";
+                                rpt.BillingSelection = "CLASS 1";
+                                rpt.RPTremarks = Remarks;
+
+                                ////TO DO
+                                //rpt.Quarter = "1-4";
+                                rpt.BillCount = "1";
+                                rpt.Status = RPTStatus.PAYMENT_VERIFICATION;
+                                rpt.RequestingParty = RequestingParty;
+
+                                rpt.PaymentDate = Convert.ToDateTime(TransactionDate);
+
+                                rpt.EncodedBy = loginUser.DisplayName;
+                                rpt.EncodedDate = DateTime.Now;
+
+                                rpt.RequestingParty = RequestingParty;
+                                rpt.BilledBy = loginUser.DisplayName;
+                                rpt.BilledDate = DateTime.Now;
+                                rpt.RefNum = refNo;
+
+                                if (RetrievedRpt != null)
+                                {
+                                    rpt.YearQuarter = Year + " (" + DateTime.Now.ToString("yyyy") + ")";
+                                    rpt.RPTremarks = Remarks + " " + DuplicateRecordRemarks;
+                                }
+
+                                RPTDatabase.Insert(conn, rpt);
+
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            // Handle exception
+                        }
                     }
-
-                    RPTDatabase.Insert(rpt);
-
                 }
+
+                //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
 
                 FirstLVGcashPaymaya.Items.Clear();
                 MessageBox.Show("All records have been successfully saved.");

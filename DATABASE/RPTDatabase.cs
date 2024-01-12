@@ -328,11 +328,11 @@ namespace SampleRPT1
             }
         }
 
-        public static List<RealPropertyTax> SelectByRefNumAndORUpload(string RefNum)
+        public static List<RealPropertyTax> SelectByListRptID(List<long> rptIdList)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<RealPropertyTax>($"SELECT TOP {GlobalConstants.LISTVIEW_MAX_ROWS} * FROM Jo_RPT where RefNum= @RefNum and Status= @Status and DeletedRecord != 1 order by RptID ASC", new { RefNum = RefNum, Status = RPTStatus.OR_UPLOAD }).ToList();
+                return conn.Query<RealPropertyTax>($"SELECT * FROM Jo_RPT where RptID in @rptIdList and DeletedRecord != 1 order by RptID ASC", new { rptIdList = rptIdList }).ToList();
             }
         }
 
@@ -408,6 +408,28 @@ namespace SampleRPT1
                 return result;
             }
         }
+
+        public static long Insert(SqlConnection conn, RealPropertyTax modelInstance)
+        {
+                RPTUser loginUser = SecurityService.getLoginUser();
+                //Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
+                modelInstance.CreatedBy = loginUser.DisplayName;
+                modelInstance.CreatedDate = DateTime.Now;
+                modelInstance.LastUpdateBy = loginUser.DisplayName;
+                modelInstance.LastUpdateDate = DateTime.Now;
+
+                //lilinisin yung bank.
+                //BeforeInsertOrUpdate(modelInstance);
+
+                //Insert record in Jo_RPT.
+                long result = conn.Insert<RealPropertyTax>(modelInstance);
+
+                //Insert record in Jo_RPT_Audit.
+                //AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");
+
+                return result;
+        }
+
 
         /// <summary>
         /// Setting please select a bank to a null when inserting or updating record.

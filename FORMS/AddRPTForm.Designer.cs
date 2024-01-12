@@ -59,13 +59,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
+            this.cboPaymentType = new System.Windows.Forms.ComboBox();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.cboBankUsed = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.cboPaymentType = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -199,6 +199,7 @@
             this.textTaxDec.TextChanged += new System.EventHandler(this.textTaxDec_TextChanged);
             this.textTaxDec.Enter += new System.EventHandler(this.textTaxDec_Enter);
             this.textTaxDec.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textTaxDec_KeyDown);
+            this.textTaxDec.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textTaxDec_KeyPress);
             this.textTaxDec.Leave += new System.EventHandler(this.textTaxDec_Leave);
             // 
             // textRequestingParty
@@ -408,6 +409,23 @@
             this.panel1.Size = new System.Drawing.Size(526, 604);
             this.panel1.TabIndex = 4;
             // 
+            // cboBillingSelection
+            // 
+            this.cboBillingSelection.FormattingEnabled = true;
+            this.cboBillingSelection.Location = new System.Drawing.Point(330, 248);
+            this.cboBillingSelection.Name = "cboBillingSelection";
+            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
+            this.cboBillingSelection.TabIndex = 9;
+            // 
+            // cboPaymentType
+            // 
+            this.cboPaymentType.FormattingEnabled = true;
+            this.cboPaymentType.Location = new System.Drawing.Point(152, 248);
+            this.cboPaymentType.Name = "cboPaymentType";
+            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
+            this.cboPaymentType.Sorted = true;
+            this.cboPaymentType.TabIndex = 8;
+            // 
             // cboQuarter
             // 
             this.cboQuarter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -416,6 +434,24 @@
             this.cboQuarter.Name = "cboQuarter";
             this.cboQuarter.Size = new System.Drawing.Size(114, 21);
             this.cboQuarter.TabIndex = 7;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(237, 248);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(87, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "Billing Selection: ";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(65, 248);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Payment Type: ";
             // 
             // label13
             // 
@@ -439,41 +475,6 @@
             this.cboBankUsed.TabIndex = 5;
             this.cboBankUsed.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBankUsed_KeyDown);
             this.cboBankUsed.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboBankUsed_KeyPress);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(65, 248);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(81, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "Payment Type: ";
-            // 
-            // cboPaymentType
-            // 
-            this.cboPaymentType.FormattingEnabled = true;
-            this.cboPaymentType.Location = new System.Drawing.Point(152, 248);
-            this.cboPaymentType.Name = "cboPaymentType";
-            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
-            this.cboPaymentType.Sorted = true;
-            this.cboPaymentType.TabIndex = 8;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(237, 248);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(87, 13);
-            this.label15.TabIndex = 17;
-            this.label15.Text = "Billing Selection: ";
-            // 
-            // cboBillingSelection
-            // 
-            this.cboBillingSelection.FormattingEnabled = true;
-            this.cboBillingSelection.Location = new System.Drawing.Point(330, 248);
-            this.cboBillingSelection.Name = "cboBillingSelection";
-            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
-            this.cboBillingSelection.TabIndex = 9;
             // 
             // AddRPTForm
             // 

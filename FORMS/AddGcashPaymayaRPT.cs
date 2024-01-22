@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
 using SampleRPT1.FORMS;
 using SampleRPT1.Service;
 using SampleRPT1.UTILITIES;
@@ -278,7 +279,9 @@ namespace SampleRPT1
                                 //    Year = Year.Substring(0, 4);
                                 //}
 
-                                RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, "1-4");
+                                //RealPropertyTax RetrievedRpt = RPTDatabase.SelectByTaxDecAndYear(TaxDec, Year, "1-4");
+                                RealPropertyTax RetrievedRpt = conn.QuerySingleOrDefault<RealPropertyTax>($"SELECT * FROM Jo_RPT where TaxDec = @TaxDec and YearQuarter = @Year and Quarter = @Qtr and DeletedRecord != 1 and DuplicateRecord = 0", new { TaxDec = TaxDec, Year = Year, Qtr = "1-4" }, transaction);
+
 
                                 RealPropertyTax rpt = new RealPropertyTax();
 
@@ -314,15 +317,13 @@ namespace SampleRPT1
                                     rpt.YearQuarter = Year + " (" + DateTime.Now.ToString("yyyy") + ")";
                                     rpt.RPTremarks = Remarks + " " + DuplicateRecordRemarks;
                                 }
-
-                                RPTDatabase.Insert(conn, rpt);
-
+                                RPTDatabase.Insert(conn, transaction, rpt);
                             }
-
                             transaction.Commit();
                         }
                         catch (Exception ex)
                         {
+                            MessageBox.Show(ex.ToString());
                             transaction.Rollback();
                             // Handle exception
                         }

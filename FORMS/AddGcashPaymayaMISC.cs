@@ -201,7 +201,7 @@ namespace SampleRPT1.FORMS
                 string OPaymentNum = item.SubItems[2].Text;
                 string TransactionDate = item.SubItems[6].Text;
 
-                List<MiscelleneousTax> misc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPaymentNum);
+                List<MiscelleneousTax> misc = MISCDatabase.SelectBy_OPAtracking_OPNum(/*OPAtrackingNum, */OPaymentNum);
 
                 //if selected record is existing in the database with same OPAtrackingNum or OPaymentNum.
                 if (misc.Count > 0)
@@ -305,14 +305,14 @@ namespace SampleRPT1.FORMS
                     string OPAtrackingNum = MISCGcashPaymayaLV.Items[i].SubItems[1].Text;
                     string OPaymentNum = MISCGcashPaymayaLV.Items[i].SubItems[2].Text;
                     
-                    List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPaymentNum);
+                    List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPAtracking_OPNum(/*OPAtrackingNum, */OPaymentNum);
 
-                    if (retrieveMisc_Existing_OPNumber.Count > 0)
-                    {
-                        MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
-                        miscDuplicateForm.ShowDialog();
-                        return;
-                    }
+                    //if (retrieveMisc_Existing_OPNumber.Count > 0)
+                    //{
+                    //    MISCDuplicateRecordForm miscDuplicateForm = new MISCDuplicateRecordForm(retrieveMisc_Existing_OPNumber);
+                    //    miscDuplicateForm.ShowDialog();
+                    //    return;
+                    //}
                 }
 
                 //Isa-isa nilalagay sa variable ang mga values from listview, then from variables to objects.
@@ -334,7 +334,7 @@ namespace SampleRPT1.FORMS
                     DateTimeOffset TransactionDateConverted = DateTimeOffset.Parse(MISCGcashPaymayaLV.Items[i].SubItems[6].Text);
                     string TransactionDate = TransactionDateConverted.ToString("G");
 
-                    List<MiscelleneousTax> retrieveMisc = MISCDatabase.SelectBy_OPAtracking_OPNum(OPAtrackingNum, OPnumber);
+                    List<MiscelleneousTax> retrieveMisc = MISCDatabase.SelectBy_OPAtracking_OPNum(/*OPAtrackingNum, */OPnumber);
                     List<MiscelleneousTax> retrieveMisc_DoublePayment = MISCDatabase.SelectBy_OPAtracking_OPNum_TransactionDate(OPAtrackingNum, OPnumber, TransactionDate);
 
                     //List<MiscelleneousTax> retrieveMisc_Existing_OPNumber = MISCDatabase.SelectBy_OPNum(OPnumber);
@@ -361,10 +361,10 @@ namespace SampleRPT1.FORMS
                     misc.RefNum = refNo;
                     misc.RequestingParty = RequestingParty;
 
-                    if (retrieveMisc.Count > 0)
-                    {
-                        misc.Remarks = DoublePaymentRemarks;
-                    }
+                    //if (retrieveMisc.Count > 0)
+                    //{
+                    //    misc.Remarks = DoublePaymentRemarks;
+                    //}
 
                     if (retrieveMisc_DoublePayment.Count > 0)
                     {

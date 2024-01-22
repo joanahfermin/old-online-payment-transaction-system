@@ -409,7 +409,7 @@ namespace SampleRPT1
             }
         }
 
-        public static long Insert(SqlConnection conn, RealPropertyTax modelInstance)
+        public static long Insert(SqlConnection conn, SqlTransaction tx, RealPropertyTax modelInstance)
         {
                 RPTUser loginUser = SecurityService.getLoginUser();
                 //Kada galaw sa record, populate yung last 4 columns sa Jo_RPT table.
@@ -422,7 +422,7 @@ namespace SampleRPT1
                 //BeforeInsertOrUpdate(modelInstance);
 
                 //Insert record in Jo_RPT.
-                long result = conn.Insert<RealPropertyTax>(modelInstance);
+                long result = conn.Insert<RealPropertyTax>(modelInstance, tx);
 
                 //Insert record in Jo_RPT_Audit.
                 //AfterInsertOrUpdateOrDelete(conn, modelInstance, "INSERT");

@@ -999,40 +999,45 @@ namespace SampleRPT1
             if (MessageBox.Show("Are your sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 //List<RealPropertyTax> SelectedRPTList = mainFormListViewHelper.GetSelectedRPTByStatus(RPTStatus.PAYMENT_VERIFICATION);
-
-                //bool SameStatus = mainFormListViewHelper.CheckSameStatus(RPTStatus.PAYMENT_VERIFICATION);
-                bool AllProcessed = true;
+                int countNotProcessed = 0;
 
                 List<long> rptidList = mainFormListViewHelper.getSelectedRptIDList();
+
+                using (SqlConnection conn = DbUtils.getConnection())
+                {
+                    countNotProcessed = conn.ExecuteScalar<int>($"SELECT count(Status) FROM Jo_RPT rpt WHERE (Status <> 'FOR PAYMENT VERIFICATION' OR AmountTransferred = 0) and DeletedRecord != 1 and RptID in @rptIDList",
+                        new { rptIDList = rptidList });
+                }
+
                 using (SqlConnection conn = DbUtils.getConnection())
                 {
                     conn.Execute("update Jo_RPT set Status = @status, VerifiedBy = @verifiedBy, VerifiedDate = @verifiedDate where RptID in @rptIDList and AmountTransferred > 0 and Status = @existingStatus", 
                         new {status = RPTStatus.PAYMENT_VALIDATION, verifiedBy = loginUser.DisplayName, verifiedDate = DateTime.Now, rptIDList = rptidList, existingStatus = RPTStatus.PAYMENT_VERIFICATION});
                 }
 
-                    //foreach (var rpt in SelectedRPTList)
-                    //{
-                    //    rpt.VerifiedBy = loginUser.DisplayName;
-                    //    rpt.VerifiedDate = DateTime.Now;
-                    //    rpt.Status = RPTStatus.PAYMENT_VALIDATION;
-                    //    //rpt.VerRemarks = textRemarks.Text;
-
-                    //    if (rpt.AmountTransferred > 0)
-                    //    {
-                    //        RPTDatabase.Update(rpt);
-                    //        cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
-                    //    }
-                    //    else
-                    //    {
-                    //        AllProcessed = false;
-                    //    }
-                    //}
-
-                //    if (SameStatus == false || AllProcessed == false)
+                //foreach (var rpt in SelectedRPTList)
                 //{
-                //    MessageBox.Show("Some selected records has not been processed.");
-                //    cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
+                //    rpt.VerifiedBy = loginUser.DisplayName;
+                //    rpt.VerifiedDate = DateTime.Now;
+                //    rpt.Status = RPTStatus.PAYMENT_VALIDATION;
+                //    //rpt.VerRemarks = textRemarks.Text;
+
+                //    if (rpt.AmountTransferred > 0)
+                //    {
+                //        RPTDatabase.Update(rpt);
+                //        cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
+                //    }
+                //    else
+                //    {
+                //        AllProcessed = false;
+                //    }
                 //}
+
+                if (countNotProcessed > 0)
+                {
+                    MessageBox.Show("Some selected records has not been processed.");
+                    cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
+                }
 
                 cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
                 //RefreshListView();

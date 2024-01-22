@@ -130,11 +130,11 @@ namespace SampleRPT1
             }
         }
 
-        public static List<MiscelleneousTax> SelectBy_OPAtracking_OPNum(string OPA_Tracking, string OP_Num)
+        public static List<MiscelleneousTax> SelectBy_OPAtracking_OPNum(/*string OPA_Tracking, */string OP_Num)
         {
             using (SqlConnection conn = DbUtils.getConnection())
             {
-                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where (OPATrackingNum = @OPA_Tracking or OrderOfPaymentNum = @OP_Num) and DeletedRecord != 1 and DuplicateRecord = 0", new { OPA_Tracking = OPA_Tracking, OP_Num = OP_Num }).ToList();
+                return conn.Query<MiscelleneousTax>($"SELECT * FROM Jo_MISC where (/*OPATrackingNum = @OPA_Tracking or*/ OrderOfPaymentNum = @OP_Num) and DeletedRecord != 1 and DuplicateRecord = 0", new { /*OPA_Tracking = OPA_Tracking, */OP_Num = OP_Num }).ToList();
             }
         }
 

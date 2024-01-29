@@ -455,6 +455,7 @@ namespace SampleRPT1
         private bool textTDNJustEntered = false;
         private void textTDN_Enter(object sender, EventArgs e)
         {
+
             textTDN.SelectAll();
             textTDNJustEntered = true;
         }
@@ -535,6 +536,10 @@ namespace SampleRPT1
 
         private void textTDN_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+            }
             EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
@@ -575,7 +580,8 @@ namespace SampleRPT1
 
         private void textTDN_Leave(object sender, EventArgs e)
         {
-            Validations.ValidateTaxDecFormat(errorProvider1, textTDN, "Tax declation number ");
+            textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+
         }
 
         private bool isRPTTaxDecFormat(string taxDec)
@@ -610,7 +616,7 @@ namespace SampleRPT1
 
         private void textTDN_TextChanged(object sender, EventArgs e)
         {
-            textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
+            //textTPName.Text = RPTDatabase.SelectByPropertyName(textTDN.Text);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)

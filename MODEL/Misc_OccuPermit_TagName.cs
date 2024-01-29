@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SampleRPT1.MODEL
 {
-    [Table("MiscDetailsBillingSTAGE")]
+    [Table("V_MiscMasterBilling")]
 
     internal class Misc_OccuPermit_TagName
     {

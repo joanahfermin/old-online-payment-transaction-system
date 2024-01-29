@@ -434,12 +434,11 @@ namespace SampleRPT1.FORMS
                         TP_Name = tag.TaxpayerLName;
                     }
                 }
-
                 if (TP_Name != null)
                 {
                     item.SubItems[3].Text = TP_Name.ToUpper();
                 }
-                else
+                else if(item.SubItems[3].Text == null)
                 {
                     item.SubItems[3].Text = GlobalVariables.NO_RETRIEVED_NAME;
                     continue;

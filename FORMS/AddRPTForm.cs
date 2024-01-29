@@ -453,6 +453,10 @@ namespace SampleRPT1
 
         private void textTaxDec_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
+            }
             EventHelperUtil.EnterKeyDown(sender, e, this);
         }
 
@@ -510,18 +514,15 @@ namespace SampleRPT1
 
         private void textTaxDec_Leave(object sender, EventArgs e)
         {
-            //if (isRPTTaxDecFormat(textTaxDec.Text) == false)
-            //{
-            //    MessageBox.Show("Invalid input of Tax Dec. Number.");
-            //    textTaxDec.Focus();
-            //    textTaxDec.SelectAll();
-            //}
+
+            textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
+
             Validations.ValidateTaxDecFormat(errorProvider1, textTaxDec, "Tax declation number ");
         }
 
         private void textTaxDec_TextChanged(object sender, EventArgs e)
         {
-            textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
+            //textTPName.Text = RPTDatabase.SelectByPropertyName(textTaxDec.Text);
         }
 
         private void textTaxDec_KeyPress(object sender, KeyPressEventArgs e)

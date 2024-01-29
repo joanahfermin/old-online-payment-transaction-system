@@ -1039,8 +1039,9 @@ namespace SampleRPT1
                     cboStatus.Text = RPTStatus.PAYMENT_VERIFICATION;
                 }
 
+                MessageBox.Show("Successfully verified payment/s.");
                 cboStatus.Text = RPTStatus.PAYMENT_VALIDATION;
-                //RefreshListView();
+                RefreshListView();
             }
             //textRemarks.Visible = false;
         }

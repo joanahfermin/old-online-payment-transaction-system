@@ -409,7 +409,7 @@ namespace SampleRPT1
         {
             using (SqlConnection conn = DbUtils.getConnectionToMISCBillingDetailsBillingSTAGE())
             {
-                return conn.Query<Misc_OccuPermit_TagName>($"SELECT * FROM MiscDetailsBillingSTAGE where BillNumber in @OPNumber_List", new { OPNumber_List = OPNumber_List }).ToList();
+                return conn.Query<Misc_OccuPermit_TagName>($"SELECT * FROM V_MiscMasterBilling where BillNumber in @OPNumber_List and TaxpayerLName is not null", new { OPNumber_List = OPNumber_List }).ToList();
 
             }
         }

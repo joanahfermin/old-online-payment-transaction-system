@@ -199,7 +199,7 @@
             this.Controls.Add(this.textYearQuarter);
             this.Controls.Add(this.textTDN);
             this.Name = "AllocateExcessForm";
-            this.Text = "AllocateExcessForm";
+            this.Text = "Online Payment Transaction System - Allocate Excess Form";
             this.Load += new System.EventHandler(this.AllocateExcessForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);

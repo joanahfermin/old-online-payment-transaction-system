@@ -578,7 +578,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "AddMultipleOnePaymentForm";
-            this.Text = "AddMultipleOnePaymentForm";
+            this.Text = "Online Payment Transaction System - Add Multiple One Payment Form";
             this.Load += new System.EventHandler(this.AddMultipleOnePaymentForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);

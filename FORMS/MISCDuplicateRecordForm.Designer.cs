@@ -62,7 +62,7 @@
             this.Controls.Add(this.pictureBoxReceipt);
             this.Controls.Add(this.MiscDuplicateLV);
             this.Name = "MISCDuplicateRecordForm";
-            this.Text = "MISCDuplicateRecordForm";
+            this.Text = "Online Payment Transaction System - Misc Duplicate Record Form";
             this.Load += new System.EventHandler(this.MISCDuplicateRecordForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.ResumeLayout(false);

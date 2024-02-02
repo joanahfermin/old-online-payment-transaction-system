@@ -38,6 +38,8 @@
             this.totalAmountTrans = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BillingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.paymentChannel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.paymentDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.email = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,6 +60,10 @@
             this.textYearQuarter = new System.Windows.Forms.TextBox();
             this.textTDN = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
+            this.cboPaymentType = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textRemarks = new System.Windows.Forms.TextBox();
@@ -72,12 +78,6 @@
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.cboBillingSelection = new System.Windows.Forms.ComboBox();
-            this.cboPaymentType = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.BillingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -144,6 +144,14 @@
             // 
             this.qtr.Text = "Quarter";
             this.qtr.Width = 80;
+            // 
+            // paymentType
+            // 
+            this.paymentType.Text = "P. Type";
+            // 
+            // BillingSelection
+            // 
+            this.BillingSelection.Text = "B. Selection";
             // 
             // paymentChannel
             // 
@@ -338,6 +346,41 @@
             this.panel1.Size = new System.Drawing.Size(425, 292);
             this.panel1.TabIndex = 209;
             // 
+            // cboBillingSelection
+            // 
+            this.cboBillingSelection.FormattingEnabled = true;
+            this.cboBillingSelection.Location = new System.Drawing.Point(317, 132);
+            this.cboBillingSelection.Name = "cboBillingSelection";
+            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
+            this.cboBillingSelection.TabIndex = 220;
+            // 
+            // cboPaymentType
+            // 
+            this.cboPaymentType.FormattingEnabled = true;
+            this.cboPaymentType.Location = new System.Drawing.Point(139, 132);
+            this.cboPaymentType.Name = "cboPaymentType";
+            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
+            this.cboPaymentType.Sorted = true;
+            this.cboPaymentType.TabIndex = 221;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(224, 132);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 13);
+            this.label11.TabIndex = 218;
+            this.label11.Text = "Billing Selection: ";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(52, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.TabIndex = 219;
+            this.label5.Text = "Payment Type: ";
+            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(139, 253);
@@ -485,49 +528,6 @@
             this.panel2.Size = new System.Drawing.Size(426, 265);
             this.panel2.TabIndex = 220;
             // 
-            // cboBillingSelection
-            // 
-            this.cboBillingSelection.FormattingEnabled = true;
-            this.cboBillingSelection.Location = new System.Drawing.Point(317, 132);
-            this.cboBillingSelection.Name = "cboBillingSelection";
-            this.cboBillingSelection.Size = new System.Drawing.Size(76, 21);
-            this.cboBillingSelection.TabIndex = 220;
-            // 
-            // cboPaymentType
-            // 
-            this.cboPaymentType.FormattingEnabled = true;
-            this.cboPaymentType.Location = new System.Drawing.Point(139, 132);
-            this.cboPaymentType.Name = "cboPaymentType";
-            this.cboPaymentType.Size = new System.Drawing.Size(69, 21);
-            this.cboPaymentType.Sorted = true;
-            this.cboPaymentType.TabIndex = 221;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(224, 132);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(87, 13);
-            this.label11.TabIndex = 218;
-            this.label11.Text = "Billing Selection: ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(52, 132);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 13);
-            this.label5.TabIndex = 219;
-            this.label5.Text = "Payment Type: ";
-            // 
-            // paymentType
-            // 
-            this.paymentType.Text = "P. Type";
-            // 
-            // BillingSelection
-            // 
-            this.BillingSelection.Text = "B. Selection";
-            // 
             // UpdateMultipleRPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -542,7 +542,7 @@
             this.Controls.Add(this.textTotalAmountToPay);
             this.Controls.Add(this.label8);
             this.Name = "UpdateMultipleRPTForm";
-            this.Text = "UpdateMultipleRPTForm";
+            this.Text = "Online Payment Transaction System - Update Multiple Rpt Form";
             this.Load += new System.EventHandler(this.UpdateMultipleRPTForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

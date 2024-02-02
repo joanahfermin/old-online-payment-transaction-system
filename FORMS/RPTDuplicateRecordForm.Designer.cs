@@ -62,7 +62,7 @@
             this.Controls.Add(this.pictureBoxReceipt);
             this.Controls.Add(this.RPTDuplicateLV);
             this.Name = "RPTDuplicateRecordForm";
-            this.Text = "RPTDuplicateRecordForm";
+            this.Text = "Online Payment Transaction System - Rpt Duplicate Record Form";
             this.Load += new System.EventHandler(this.RPTDuplicateRecordForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxReceipt)).EndInit();
             this.ResumeLayout(false);

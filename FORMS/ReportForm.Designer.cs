@@ -213,7 +213,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cboReportName);
             this.Name = "ReportForm";
-            this.Text = "ReportForm";
+            this.Text = "Online Payment Transaction System - Report Form";
             this.ResumeLayout(false);
             this.PerformLayout();
 

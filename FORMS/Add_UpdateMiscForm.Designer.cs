@@ -264,7 +264,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Name = "Add_UpdateMiscForm";
-            this.Text = "AddMiscForm";
+            this.Text = "Online Payment Transaction System - Add/Update Misc Form";
             this.Load += new System.EventHandler(this.AddMiscForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

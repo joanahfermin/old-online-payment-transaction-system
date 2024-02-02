@@ -40,6 +40,8 @@ namespace SampleRPT1.FORMS
             this.bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.YearQuarter = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.qtr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.billingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedBy = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EncodedDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -79,8 +81,6 @@ namespace SampleRPT1.FORMS
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtLastUpdateDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.paymentType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.billingSelection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,6 +170,14 @@ namespace SampleRPT1.FORMS
             // qtr
             // 
             this.qtr.Text = "Quarter";
+            // 
+            // paymentType
+            // 
+            this.paymentType.Text = "P. Type";
+            // 
+            // billingSelection
+            // 
+            this.billingSelection.Text = "B. Selection";
             // 
             // Status
             // 
@@ -435,14 +443,6 @@ namespace SampleRPT1.FORMS
             this.label7.TabIndex = 47;
             this.label7.Text = "Record History Information";
             // 
-            // paymentType
-            // 
-            this.paymentType.Text = "P. Type";
-            // 
-            // billingSelection
-            // 
-            this.billingSelection.Text = "B. Selection";
-            // 
             // RPT_ViewHistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -455,7 +455,7 @@ namespace SampleRPT1.FORMS
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RPT_ViewHistoryForm";
-            this.Text = "ViewHistoryForm";
+            this.Text = "Online Payment Transaction System - View History Rpt Form";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

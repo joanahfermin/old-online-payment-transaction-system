@@ -430,7 +430,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MISCinfoLV);
             this.Name = "MiscelleneousTaxForm";
-            this.Text = "MiscelleneousTax";
+            this.Text = "Online Payment Transaction System - MiscelleneousTax Form";
             this.Load += new System.EventHandler(this.MiscelleneousTaxForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

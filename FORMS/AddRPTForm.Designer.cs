@@ -485,7 +485,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBankUsedRetain);
             this.Name = "AddRPTForm";
-            this.Text = "AddRPTForm";
+            this.Text = "Online Payment Transaction System - Add RPT Form";
             this.Load += new System.EventHandler(this.AddRPTForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.panel1.ResumeLayout(false);

@@ -30,6 +30,7 @@
         {
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboBusType = new System.Windows.Forms.ComboBox();
             this.cboQuarter = new System.Windows.Forms.ComboBox();
             this.cboPaymentType = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -40,30 +41,29 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textRemarks = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.tbContactNumber = new System.Windows.Forms.TextBox();
             this.textRequestingParty = new System.Windows.Forms.TextBox();
+            this.tbBillNumber = new System.Windows.Forms.TextBox();
+            this.tbBusinessName = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbTaxpayersName = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.textMP_Num = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.tbMisc_Fees = new System.Windows.Forms.TextBox();
             this.textAmountToBePaid = new System.Windows.Forms.TextBox();
             this.textYear = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textTotalTransferredAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.cboBusType = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tbTaxpayersName = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.tbBusinessName = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.tbBillNumber = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.tbMisc_Fees = new System.Windows.Forms.TextBox();
-            this.tbContactNumber = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,6 +117,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(467, 792);
             this.panel1.TabIndex = 16;
+            // 
+            // cboBusType
+            // 
+            this.cboBusType.FormattingEnabled = true;
+            this.cboBusType.Location = new System.Drawing.Point(153, 17);
+            this.cboBusType.Name = "cboBusType";
+            this.cboBusType.Size = new System.Drawing.Size(252, 21);
+            this.cboBusType.TabIndex = 1;
             // 
             // cboQuarter
             // 
@@ -217,6 +225,15 @@
             this.textRemarks.Size = new System.Drawing.Size(253, 105);
             this.textRemarks.TabIndex = 16;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(52, 571);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Contact Number: ";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -235,6 +252,15 @@
             this.label8.TabIndex = 1;
             this.label8.Text = "Status: ";
             // 
+            // tbContactNumber
+            // 
+            this.tbContactNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbContactNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbContactNumber.Location = new System.Drawing.Point(152, 571);
+            this.tbContactNumber.Name = "tbContactNumber";
+            this.tbContactNumber.Size = new System.Drawing.Size(253, 23);
+            this.tbContactNumber.TabIndex = 15;
+            // 
             // textRequestingParty
             // 
             this.textRequestingParty.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -244,6 +270,51 @@
             this.textRequestingParty.Size = new System.Drawing.Size(253, 23);
             this.textRequestingParty.TabIndex = 14;
             // 
+            // tbBillNumber
+            // 
+            this.tbBillNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbBillNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbBillNumber.Location = new System.Drawing.Point(152, 181);
+            this.tbBillNumber.Name = "tbBillNumber";
+            this.tbBillNumber.Size = new System.Drawing.Size(253, 23);
+            this.tbBillNumber.TabIndex = 5;
+            // 
+            // tbBusinessName
+            // 
+            this.tbBusinessName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbBusinessName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbBusinessName.Location = new System.Drawing.Point(152, 137);
+            this.tbBusinessName.Name = "tbBusinessName";
+            this.tbBusinessName.Size = new System.Drawing.Size(253, 23);
+            this.tbBusinessName.TabIndex = 4;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(80, 181);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(66, 13);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Bill Number: ";
+            // 
+            // tbTaxpayersName
+            // 
+            this.tbTaxpayersName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbTaxpayersName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTaxpayersName.Location = new System.Drawing.Point(152, 94);
+            this.tbTaxpayersName.Name = "tbTaxpayersName";
+            this.tbTaxpayersName.Size = new System.Drawing.Size(253, 23);
+            this.tbTaxpayersName.TabIndex = 3;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(61, 137);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Business Name: ";
+            // 
             // textMP_Num
             // 
             this.textMP_Num.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -252,6 +323,15 @@
             this.textMP_Num.Name = "textMP_Num";
             this.textMP_Num.Size = new System.Drawing.Size(253, 23);
             this.textMP_Num.TabIndex = 2;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(49, 94);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(95, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Taxpayer\'s Name: ";
             // 
             // label7
             // 
@@ -280,6 +360,17 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Bank Used: ";
             // 
+            // tbMisc_Fees
+            // 
+            this.tbMisc_Fees.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbMisc_Fees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMisc_Fees.Location = new System.Drawing.Point(152, 271);
+            this.tbMisc_Fees.Name = "tbMisc_Fees";
+            this.tbMisc_Fees.Size = new System.Drawing.Size(134, 23);
+            this.tbMisc_Fees.TabIndex = 7;
+            this.tbMisc_Fees.Text = "0.00";
+            this.tbMisc_Fees.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // textAmountToBePaid
             // 
             this.textAmountToBePaid.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -299,6 +390,15 @@
             this.textYear.Name = "textYear";
             this.textYear.Size = new System.Drawing.Size(68, 23);
             this.textYear.TabIndex = 9;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(77, 271);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Misc. Fees:  ";
             // 
             // label5
             // 
@@ -338,106 +438,6 @@
             this.label11.TabIndex = 17;
             this.label11.Text = "Add New Record";
             // 
-            // cboBusType
-            // 
-            this.cboBusType.FormattingEnabled = true;
-            this.cboBusType.Location = new System.Drawing.Point(153, 17);
-            this.cboBusType.Name = "cboBusType";
-            this.cboBusType.Size = new System.Drawing.Size(252, 21);
-            this.cboBusType.TabIndex = 1;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(49, 94);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(95, 13);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "Taxpayer\'s Name: ";
-            // 
-            // tbTaxpayersName
-            // 
-            this.tbTaxpayersName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbTaxpayersName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTaxpayersName.Location = new System.Drawing.Point(152, 94);
-            this.tbTaxpayersName.Name = "tbTaxpayersName";
-            this.tbTaxpayersName.Size = new System.Drawing.Size(253, 23);
-            this.tbTaxpayersName.TabIndex = 3;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(61, 137);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(86, 13);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "Business Name: ";
-            // 
-            // tbBusinessName
-            // 
-            this.tbBusinessName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbBusinessName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBusinessName.Location = new System.Drawing.Point(152, 137);
-            this.tbBusinessName.Name = "tbBusinessName";
-            this.tbBusinessName.Size = new System.Drawing.Size(253, 23);
-            this.tbBusinessName.TabIndex = 4;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(80, 181);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(66, 13);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "Bill Number: ";
-            // 
-            // tbBillNumber
-            // 
-            this.tbBillNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbBillNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbBillNumber.Location = new System.Drawing.Point(152, 181);
-            this.tbBillNumber.Name = "tbBillNumber";
-            this.tbBillNumber.Size = new System.Drawing.Size(253, 23);
-            this.tbBillNumber.TabIndex = 5;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(77, 271);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 13);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "Misc. Fees:  ";
-            // 
-            // tbMisc_Fees
-            // 
-            this.tbMisc_Fees.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbMisc_Fees.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbMisc_Fees.Location = new System.Drawing.Point(152, 271);
-            this.tbMisc_Fees.Name = "tbMisc_Fees";
-            this.tbMisc_Fees.Size = new System.Drawing.Size(134, 23);
-            this.tbMisc_Fees.TabIndex = 7;
-            this.tbMisc_Fees.Text = "0.00";
-            this.tbMisc_Fees.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // tbContactNumber
-            // 
-            this.tbContactNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbContactNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbContactNumber.Location = new System.Drawing.Point(152, 571);
-            this.tbContactNumber.Name = "tbContactNumber";
-            this.tbContactNumber.Size = new System.Drawing.Size(253, 23);
-            this.tbContactNumber.TabIndex = 15;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(52, 571);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(90, 13);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "Contact Number: ";
-            // 
             // AddBusinessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,7 +446,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Name = "AddBusinessForm";
-            this.Text = "AddBusinessForm";
+            this.Text = "Online Payment Transaction System - Add Business Record";
             this.Load += new System.EventHandler(this.AddBusinessForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

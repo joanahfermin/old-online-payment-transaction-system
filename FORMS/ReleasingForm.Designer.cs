@@ -731,7 +731,7 @@
             this.Controls.Add(this.textLocCode);
             this.Controls.Add(this.label7);
             this.Name = "ReleasingForm";
-            this.Text = "ReleasingForm";
+            this.Text = "Online Payment Transaction System - Releasing Form";
             this.Deactivate += new System.EventHandler(this.ReleasingForm_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReleasingForm_FormClosing);
             this.Load += new System.EventHandler(this.ReleasingForm_Load);

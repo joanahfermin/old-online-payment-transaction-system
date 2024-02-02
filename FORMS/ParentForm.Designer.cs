@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.MenuItemRPT = new System.Windows.Forms.ToolStripMenuItem();
             this.MiscMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bUSINESSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemGcashPaymaya = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemExcessShort = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemAllocateExcess = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +44,6 @@
             this.historyMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReportMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bUSINESSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,9 +80,16 @@
             // MiscMenuItem
             // 
             this.MiscMenuItem.Name = "MiscMenuItem";
-            this.MiscMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MiscMenuItem.Size = new System.Drawing.Size(125, 22);
             this.MiscMenuItem.Text = "MISC";
             this.MiscMenuItem.Click += new System.EventHandler(this.mISCToolStripMenuItem_Click);
+            // 
+            // bUSINESSToolStripMenuItem
+            // 
+            this.bUSINESSToolStripMenuItem.Name = "bUSINESSToolStripMenuItem";
+            this.bUSINESSToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.bUSINESSToolStripMenuItem.Text = "BUSINESS";
+            this.bUSINESSToolStripMenuItem.Click += new System.EventHandler(this.bUSINESSToolStripMenuItem_Click);
             // 
             // MenuItemGcashPaymaya
             // 
@@ -173,13 +180,6 @@
             this.reorderToolStripMenuItem.Text = "Reorder";
             this.reorderToolStripMenuItem.Click += new System.EventHandler(this.reorderToolStripMenuItem_Click);
             // 
-            // bUSINESSToolStripMenuItem
-            // 
-            this.bUSINESSToolStripMenuItem.Name = "bUSINESSToolStripMenuItem";
-            this.bUSINESSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.bUSINESSToolStripMenuItem.Text = "BUSINESS";
-            this.bUSINESSToolStripMenuItem.Click += new System.EventHandler(this.bUSINESSToolStripMenuItem_Click);
-            // 
             // ParentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,7 +189,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ParentForm";
-            this.Text = "ParentForm";
+            this.Text = "Online Payment Transaction System - Lobby Form";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ParentForm_FormClosed);
             this.Load += new System.EventHandler(this.ParentForm_Load);
             this.menuStrip1.ResumeLayout(false);

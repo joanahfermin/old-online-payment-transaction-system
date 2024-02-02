@@ -97,7 +97,7 @@
             this.Controls.Add(this.textPassWord);
             this.Controls.Add(this.textUserName);
             this.Name = "RPTUserLoginForm";
-            this.Text = "RPTUserLoginForm";
+            this.Text = "Online Payment Transaction System - Login Form";
             this.ResumeLayout(false);
             this.PerformLayout();
 

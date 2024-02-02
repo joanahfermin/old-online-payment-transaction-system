@@ -221,7 +221,7 @@ namespace SampleRPT1.FORMS
             this.Controls.Add(this.lvReview);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReviewEmailForm";
-            this.Text = "ReviewEmailForm";
+            this.Text = "Online Payment Transaction System - Review Email Form";
             this.Load += new System.EventHandler(this.ReviewEmailForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbAttachedPicture)).EndInit();
             this.ResumeLayout(false);

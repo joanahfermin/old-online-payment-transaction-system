@@ -262,7 +262,7 @@
             this.Controls.Add(this.textRefNum);
             this.Controls.Add(this.textTotalAmountDeposited);
             this.Name = "BalanceShort";
-            this.Text = "BalanceShort";
+            this.Text = "Online Payment Transaction System - Balance Short";
             this.Load += new System.EventHandler(this.BalanceShort_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);

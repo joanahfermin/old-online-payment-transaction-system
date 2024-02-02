@@ -164,7 +164,7 @@
             this.Controls.Add(this.textSubject);
             this.Controls.Add(this.cboTemplates);
             this.Name = "SendEmailForm";
-            this.Text = "SendEmailForm";
+            this.Text = "Online Payment Transaction System - Send Email Form";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -272,7 +272,7 @@
             this.Controls.Add(this.textBillQuantity);
             this.Controls.Add(this.FirstLVGcashPaymaya);
             this.Name = "AddRecordGCASHPAYMAYAForm";
-            this.Text = "AddRecordGCASHPAYMAYAForm";
+            this.Text = "Online Payment Transaction System - Add EPayment Rpt Form";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

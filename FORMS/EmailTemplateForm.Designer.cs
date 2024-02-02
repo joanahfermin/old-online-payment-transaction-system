@@ -219,7 +219,7 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.LVEmail);
             this.Name = "EmailTemplateForm";
-            this.Text = "EmailTemplate";
+            this.Text = "Online Payment Transaction System - Email Template";
             this.ResumeLayout(false);
             this.PerformLayout();
 

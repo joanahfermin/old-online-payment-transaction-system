@@ -212,7 +212,7 @@
             this.Controls.Add(this.btnSaveAll);
             this.Controls.Add(this.MISCGcashPaymayaLV);
             this.Name = "AddGcashPaymayaMISC";
-            this.Text = "AddGcashPaymayaOccuPermit";
+            this.Text = "Online Payment Transaction System - Add EPayment Misc Form";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

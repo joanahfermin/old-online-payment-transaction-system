@@ -144,13 +144,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1925, 941);
+            this.ClientSize = new System.Drawing.Size(1924, 941);
             this.Controls.Add(this.MISCinfoLV);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.panel1);
             this.Name = "MISC_ViewHistoryForm";
-            this.Text = "MISC_ViewHistoryForm";
+            this.Text = "Online Payment Transaction System - Misc View History Form";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

@@ -378,7 +378,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.panel1);
             this.Name = "AddMISCrecord";
-            this.Text = "AddMISCrecord";
+            this.Text = "Online Payment Transaction System - Add MISC Record For,";
             this.Load += new System.EventHandler(this.AddMISCrecord_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

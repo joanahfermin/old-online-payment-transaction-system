@@ -392,7 +392,7 @@
             this.Controls.Add(this.textTotalAmount2Pay);
             this.Controls.Add(this.panel1);
             this.Name = "BusinessTaxForm";
-            this.Text = "BusinessTaxForm";
+            this.Text = "Online Payment Transaction System - BusinessTax Form";
             this.Load += new System.EventHandler(this.BusinessTaxForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
